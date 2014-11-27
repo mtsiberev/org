@@ -71,7 +71,7 @@ namespace Organizations
             //Random rand = new Random( (DateTime.Now.Ticks) );
             Random rand = new Random((DateTime.Now.Millisecond));
             Age = rand.Next(18, 60);
-            Thread.Sleep(10);
+            Thread.Sleep(10);//приходится делать задержку, иначе значения повторяются
         }
     }
 
@@ -129,6 +129,7 @@ namespace Organizations
                 }
             }
         }
+                
 
     }
 
@@ -144,13 +145,15 @@ namespace Organizations
             firstline.AddDep("dep2");
             firstline.AddDep("dep3");
 
+            //добавляем сотрудников. на данным момент уникальность сотрудников не проверяется.  
             Department pp = firstline.deps.Find(x => x.Name.Contains("dep1"));
             pp.AddEmp("Petrov");
             pp.AddEmp("Petrov");
             pp.AddEmp("Petrov");
 
-            pp = firstline.deps.Find(x => x.Name.Contains("dep1"));
+            //pp = firstline.deps.Find(x => x.Name.Contains("dep1"));
             pp.AddEmp("Pirogov");
+
 
             pp = firstline.deps.Find(x => x.Name.Contains("dep2"));
             pp.AddEmp("Sidorov");
