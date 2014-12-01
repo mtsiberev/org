@@ -1,0 +1,7 @@
+C:\Users\MTsiberev\documents\visual studio 2012\Projects\Organizations\FindByAgeTest\obj\Debug\FindByAgeTest.csprojResolveAssemblyReference.cache
+C:\Users\MTsiberev\documents\visual studio 2012\Projects\Organizations\FindByAgeTest\bin\Debug\FindByAgeTest.dll
+C:\Users\MTsiberev\documents\visual studio 2012\Projects\Organizations\FindByAgeTest\bin\Debug\FindByAgeTest.pdb
+C:\Users\MTsiberev\documents\visual studio 2012\Projects\Organizations\FindByAgeTest\bin\Debug\Organizations.exe
+C:\Users\MTsiberev\documents\visual studio 2012\Projects\Organizations\FindByAgeTest\bin\Debug\Organizations.pdb
+C:\Users\MTsiberev\documents\visual studio 2012\Projects\Organizations\FindByAgeTest\obj\Debug\FindByAgeTest.dll
+C:\Users\MTsiberev\documents\visual studio 2012\Projects\Organizations\FindByAgeTest\obj\Debug\FindByAgeTest.pdb
