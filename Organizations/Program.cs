@@ -62,7 +62,7 @@ namespace OrganizationsNS
         {
             return Name.GetHashCode() + Age.GetHashCode();//пока не используется        
         }
-        public static int cur_id { get; set; }
+        //public static int cur_id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
         //static Random rand = new Random((DateTime.Now.Millisecond));//решение проблемы одинаковых случайных чисел
@@ -135,7 +135,7 @@ namespace OrganizationsNS
                         result.Add(emp_var);
                     };
                 }
-            }
+            }            
             return result;
         }
 

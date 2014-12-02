@@ -3,3 +3,4 @@ c:\users\mtsiberev\documents\visual studio 2012\Projects\Organizations\Organizat
 c:\users\mtsiberev\documents\visual studio 2012\Projects\Organizations\Organizations\bin\Debug\Organizations.pdb
 c:\users\mtsiberev\documents\visual studio 2012\Projects\Organizations\Organizations\obj\Debug\Organizations.exe
 c:\users\mtsiberev\documents\visual studio 2012\Projects\Organizations\Organizations\obj\Debug\Organizations.pdb
+C:\Users\MTsiberev\documents\visual studio 2012\Projects\Organizations\Organizations\obj\Debug\Organizations.csprojResolveAssemblyReference.cache
