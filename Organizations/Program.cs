@@ -11,120 +11,74 @@ namespace OrganizationsNS
 {
     public class Organization
     {
+        public int Id { get; private set; }
         public string Name { get; set; }
         public List<Department> departments;
-
-        public int GetOrganizationId()
+        public Organization(int id)
         {
-            return Name.GetHashCode();     
-        }        
-
-        public Organization()
-        {
+            Id = id;
             departments = new List<Department>();
         }
 
-        public void AddDepartment(Department dep)
+        public void AddDepartment(string name)
         {
-            this.departments.Add(new Department(this.departments.Count) { Name = dep.Name });
+            this.departments.Add(new Department(this.departments.Count) { Name = name });
         }
     }
 
     public class Department
     {
-        int Id;//выдается организацией
-        public int GetDepartmentId()
-        {
-            return Id;       
-        }
+        public Department(int id) { Id = id; employees = new List<Employee>(); }
+        public int Id { get; private set; }
 
         public string Name { get; set; }
         public List<Employee> employees;
-        public void AddEmployee(Employee emp)
+
+        public void AddEmployee(string name, int age, string city, string street)
         {
-            this.employees.Add(new Employee(this.employees.Count) { Name = emp.Name, Age = emp.Age });
+            this.employees.Add(new Employee(this.employees.Count) { Name = name, Age = age, City = city, Street = street });
         }
-        public Department(int id) { Id = id; employees = new List<Employee>(); }
-        public Department() { }
     }
 
     public class Employee : Person
     {
-        int Id;//выдается отделом
-        public int GetEmployeeID()
-        {
-            return Id;
-        }
-        public Employee(int id)
+        public int Id { get; private set; }
+
+        public Employee(int id)//Id выдается отделом
         {
             Id = id;
         }
-        //Id сотрудника и Id персоны задаются по разному, т.к. разные сотрудники могут быть представлены одной персоной
-        //если персона работает в нескольких отделах, например 
-        public Employee() { }
     }
 
     public class Person
     {
-        //public int person_id;
+        // public Person(){}               
         public int GetPersonId()
         {
-            return Name.GetHashCode() + Age.GetHashCode();//пока не используется        
+            return Name.GetHashCode() + Age.GetHashCode();
         }
-        //public static int cur_id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
         //static Random rand = new Random((DateTime.Now.Millisecond));//решение проблемы одинаковых случайных чисел
-
-        public Person()
-        {
-            //Addr = new Address();          
-        }
-    }
-
-    public class Address
-    {
-        public string Country { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
-        public string Building { get; set; }
-        public int Apartment { get; set; }
     }
 
-    class CreditCard
-    {
-        public int Id { get; set; }
-        public int Balance { get; set; }
-        protected static int cur_id { get; set; }
-
-        public CreditCard()
-        {
-            this.Id = ++cur_id;
-            Balance = 0;
-        }
-
-        public CreditCard(int balance)
-        {
-            this.Id = ++cur_id;
-            this.Balance = balance;
-        }
-    }
-    
     public class Reports
     {
         public static void ShowAll(Organization org)
         {
-            Console.WriteLine("Organization name: {0}  Id: {1}", org.Name, org.GetOrganizationId() );
+            Console.WriteLine("Organization name: {0}  Id: {1}", org.Name, org.Id);
             foreach (var dep_var in org.departments)
             {
-                Console.WriteLine("Departament: Id: {0}  Name: {1}", dep_var.GetDepartmentId(), dep_var.Name);
+                Console.WriteLine("Departament: Id: {0}  Name: {1}", dep_var.Id, dep_var.Name);
                 foreach (var emp_var in dep_var.employees)
                 {
                     Console.WriteLine("\tEmployee: Emp Id {0} Name: {1} Age {2} PersonId {3}",
-                        emp_var.GetPersonId(),
+                        emp_var.Id,
                         emp_var.Name,
                         emp_var.Age,
-                        emp_var.GetPersonId() );
+                        emp_var.GetPersonId());
                 }
                 Console.WriteLine("\r\n");
             }
@@ -142,7 +96,7 @@ namespace OrganizationsNS
                         result.Add(emp_var);
                     };
                 }
-            }            
+            }
             return result;
         }
 
@@ -199,6 +153,34 @@ namespace OrganizationsNS
             return deps_with_oldman.ToList();
         }
 
+
+        public static List<Department> FindDepartmentWithOldestPerson2(Organization org)//более рациональная версия
+        {
+            Employee standard = new Employee(-1) { Age = 0, Name = "", Street = "", City = "" };
+            List<Department> departaments = new List<Department>();//искомые отделы
+            //departaments.Add(new Department(-1));
+
+            foreach (var dep_var in org.departments)
+            {
+                foreach (var emp_var in dep_var.employees)
+                {
+                    if (emp_var.Age > standard.Age)
+                    {
+                        standard = emp_var;
+                        if (departaments.Count != 0) departaments.Clear();
+                        departaments.Add(dep_var);
+                        continue;
+                    }
+                    if (emp_var.Age == standard.Age)
+                    {
+                        departaments.Add(dep_var);
+                    }
+                }
+            }
+            //departaments.Distinct();
+            return departaments;
+        }
+
         public static List<Employee> FindEmployeeWithSubstring(Organization org, string sub)
         {
             var empls_with_name =
@@ -219,15 +201,14 @@ namespace OrganizationsNS
                 foreach (var emp_var in dep_var.employees)
                 {
                     if (
-                        (findEmpl.GetPersonId() == emp_var.GetPersonId() ) &&
-                        (dep_var.GetDepartmentId() != dep.GetDepartmentId() )
+                        (findEmpl.GetPersonId() == emp_var.GetPersonId()) &&
+                        (dep_var.Id != dep.Id)
                         )
                         return true;
                 }
             }
             return false;
         }
-
         public static List<Employee> FindEmployeesWorkingInSeveralDepartments(Organization org)
         {
             var empls_with_name =
@@ -237,6 +218,13 @@ namespace OrganizationsNS
                 select emp;
             return empls_with_name.ToList();
         }
+
+        //FindAllEmployeesLivingOnTheSameStreet/city etc.
+        public static void FindAllEmployeesLivingOnTheSameStreet()
+        {
+
+        }
+
     }
 
     class Program
@@ -245,91 +233,90 @@ namespace OrganizationsNS
         {
             List<Organization> organizations = new List<Organization>();
 
-            Organization firstline = new Organization() { Name = "FirstLine" };
-            organizations.Add(firstline);
-
-            Organization secondline = new Organization() { Name = "SecondLine" };
-            organizations.Add(secondline);
-
-            Organization thirdline = new Organization() { Name = "ThirdLine" };
-            organizations.Add(thirdline);
-
-            Organization fourthline = new Organization() { Name = "FourthLine" };
-            organizations.Add(fourthline);
+            for (int i = 0; i < 4; i++)
+            {
+                organizations.Add(new Organization(i) { Name = (i.ToString() + "Line") });
+            }
 
             //добавим пустых отделов
-            firstline.AddDepartment(new Department() { Name = "IT department" });
-            firstline.AddDepartment(new Department() { Name = "HR department" });
-            firstline.AddDepartment(new Department() { Name = "R&D department" });
-            firstline.AddDepartment(new Department() { Name = "sales department" });
+            organizations[0].AddDepartment("IT department");
+            organizations[0].AddDepartment("HR department");
+            organizations[0].AddDepartment("R&D department");
+            organizations[0].AddDepartment("sales department");
 
-            secondline.AddDepartment(new Department() { Name = "IT department" });
-            secondline.AddDepartment(new Department() { Name = "HR department" });
-            secondline.AddDepartment(new Department() { Name = "sales department" });
+            organizations[1].AddDepartment("IT department");
+            organizations[1].AddDepartment("HR department");
+            organizations[1].AddDepartment("sales department");
 
-            thirdline.AddDepartment(new Department() { Name = "HR department" });
-            thirdline.AddDepartment(new Department() { Name = "R&D department" });
-            thirdline.AddDepartment(new Department() { Name = "sales department" });
+            organizations[2].AddDepartment("HR department");
+            organizations[2].AddDepartment("R&D department");
+            organizations[2].AddDepartment("sales department");
 
-            fourthline.AddDepartment(new Department() { Name = "IT department" });
-            fourthline.AddDepartment(new Department() { Name = "HR department" });
-            fourthline.AddDepartment(new Department() { Name = "R&D department" });
+            organizations[3].AddDepartment("IT department");
+            organizations[3].AddDepartment("HR department");
+            organizations[3].AddDepartment("R&D department");
 
             //добавляем сотрудников.  
-            Department pDep = firstline.departments.Find(x => x.Name.Contains("IT department"));
- 
-            pDep.AddEmployee(new Employee() { Name = "Petrov", Age = 20 });
-            pDep.AddEmployee(new Employee() { Name = "Pirogov", Age = 21 });
-            pDep.AddEmployee(new Employee() { Name = "Pavlov", Age = 22 });
-            pDep.AddEmployee(new Employee() { Name = "Kotov", Age = 23 });
+            Department pDep = organizations[0].departments.Find(x => x.Name.Contains("IT department"));
 
-            pDep = firstline.departments.Find(x => x.Name.Contains("HR department"));
-            pDep.AddEmployee(new Employee() { Name = "Dolinin", Age = 25 });
-            pDep.AddEmployee(new Employee() { Name = "Laptev", Age = 26 });
+            pDep.AddEmployee("Petrov", 20, "NN", "larina");
+            pDep.AddEmployee("Pirogov", 21, "M", "repina");
+            pDep.AddEmployee("Kotov", 23, "SPB", "pushkina");
 
-            pDep = firstline.departments.Find(x => x.Name.Contains("R&D department"));
-            pDep.AddEmployee(new Employee() { Name = "Petrikov", Age = 31 });
-            pDep.AddEmployee(new Employee() { Name = "Larin", Age = 32 });
-            pDep.AddEmployee(new Employee() { Name = "Mihailov", Age = 33 });
+            pDep = organizations[0].departments.Find(x => x.Name.Contains("HR department"));
+            pDep.AddEmployee("Dolinin", 57, "SPB", "lenina"); //oldman
+            pDep.AddEmployee("Laptev", 26, "M", "chekhova");
 
-            pDep = firstline.departments.Find(x => x.Name.Contains("sales department"));
-            pDep.AddEmployee(new Employee() { Name = "Tolchin", Age = 34 });
-            pDep.AddEmployee(new Employee() { Name = "Parinov", Age = 35 });
+            pDep = organizations[0].departments.Find(x => x.Name.Contains("R&D department"));
+            pDep.AddEmployee("Petrikov", 31, "NN", "larina");
+            pDep.AddEmployee("Mihailov", 33, "NN", "larina");
+
+            pDep = organizations[0].departments.Find(x => x.Name.Contains("sales department"));
+            pDep.AddEmployee("Tolchin", 34, "NN", "larina");
+            pDep.AddEmployee("Dolinin", 57, "SPB", "lenina"); //oldman
+            pDep.AddEmployee("Parinov", 35, "SPB", "pushkina");
             /////////////////////second organization
-            pDep = secondline.departments.Find(x => x.Name.Contains("IT department"));
-            pDep.AddEmployee(new Employee() { Name = "Anotin", Age = 45 });
-            pDep.AddEmployee(new Employee() { Name = "Sergeev", Age = 46 });
-            pDep.AddEmployee(new Employee() { Name = "Demidov", Age = 24 });
+            pDep = organizations[1].departments.Find(x => x.Name.Contains("IT department"));
+            pDep.AddEmployee("Anotin", 45, "SPB", "pushkina");
+            pDep.AddEmployee("Demidov", 24, "M", "chekhova");
 
-            pDep = secondline.departments.Find(x => x.Name.Contains("HR department"));
-            pDep.AddEmployee(new Employee() { Name = "Okarin", Age = 47 });
+            pDep = organizations[1].departments.Find(x => x.Name.Contains("HR department"));
+            pDep.AddEmployee("Okarin", 47, "SPB", "pushkina");
 
-            pDep = secondline.departments.Find(x => x.Name.Contains("sales department"));
-            pDep.AddEmployee(new Employee() { Name = "Chehov", Age = 48 });
+            pDep = organizations[1].departments.Find(x => x.Name.Contains("sales department"));
+            pDep.AddEmployee("Chehov", 48, "M", "pechkina");
             //////////////////////third organization
-            pDep = thirdline.departments.Find(x => x.Name.Contains("HR department"));
-            pDep.AddEmployee(new Employee() { Name = "Teplov", Age = 51 });
-            pDep.AddEmployee(new Employee() { Name = "Remezov", Age = 52 });
-            pDep.AddEmployee(new Employee() { Name = "Alexeev", Age = 53 });
+            pDep = organizations[2].departments.Find(x => x.Name.Contains("HR department"));
+            pDep.AddEmployee("Teplov", 51, "NN", "larina");
+            pDep.AddEmployee("Remezov", 52, "SPB", "pushkina");
+            pDep.AddEmployee("Alexeev", 53, "SPB", "pechkina");
 
-            pDep = thirdline.departments.Find(x => x.Name.Contains("R&D department"));
-            pDep.AddEmployee(new Employee() { Name = "Aleshin", Age = 54 });
-            pDep.AddEmployee(new Employee() { Name = "Belkin", Age = 55 });
+            pDep = organizations[2].departments.Find(x => x.Name.Contains("R&D department"));
+            pDep.AddEmployee("Aleshin", 54, "NN", "larina");
+            pDep.AddEmployee("Belkin", 55, "M", "stalina");
 
-            pDep = thirdline.departments.Find(x => x.Name.Contains("sales department"));
-            pDep.AddEmployee(new Employee() { Name = "Selin", Age = 32 });
+            pDep = organizations[2].departments.Find(x => x.Name.Contains("sales department"));
+            pDep.AddEmployee("Selin", 32, "M", "bunina");
             //////////////////////fourth organization
-            pDep = fourthline.departments.Find(x => x.Name.Contains("IT department"));
-            pDep.AddEmployee(new Employee() { Name = "Weller", Age = 55 });
+            pDep = organizations[3].departments.Find(x => x.Name.Contains("IT department"));
+            pDep.AddEmployee("Weller", 55, "NN", "larina");
 
-            pDep = fourthline.departments.Find(x => x.Name.Contains("HR department"));
-            pDep.AddEmployee(new Employee() { Name = "Burov", Age = 37 });
-            pDep.AddEmployee(new Employee() { Name = "Baganov", Age = 45 });
+            pDep = organizations[3].departments.Find(x => x.Name.Contains("HR department"));
+            pDep.AddEmployee("Burov", 37, "NN", "engelsa");
+            pDep.AddEmployee("Baganov", 45, "NN", "lermontova");
 
-            pDep = fourthline.departments.Find(x => x.Name.Contains("R&D department"));
-            pDep.AddEmployee(new Employee() { Name = "Agarin", Age = 29 });
-            pDep.AddEmployee(new Employee() { Name = "Brasov", Age = 50 });             
+            pDep = organizations[3].departments.Find(x => x.Name.Contains("R&D department"));
+            pDep.AddEmployee("Agarin", 29, "NN", "tolstoga");
+            pDep.AddEmployee("Brasov", 50, "SPB", "gorkoga");
+
+
+            Reports.FindDepartmentWithOldestPerson2(organizations[0]);
+
+
+
 
         }
     }
 }
+
+
