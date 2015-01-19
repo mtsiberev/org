@@ -11,14 +11,16 @@ namespace OrganizationsNS
 {
     public class Organization
     {
-        public static int cur_id;
-        public int Id { get; set; }
         public string Name { get; set; }
         public List<Department> departments;
 
+        public int GetOrganizationId()
+        {
+            return Name.GetHashCode();     
+        }        
+
         public Organization()
         {
-            Id = cur_id++;//не самое удачное решение
             departments = new List<Department>();
         }
 
@@ -30,7 +32,12 @@ namespace OrganizationsNS
 
     public class Department
     {
-        public int Id { get; set; }
+        int Id;//выдается организацией
+        public int GetDepartmentId()
+        {
+            return Id;       
+        }
+
         public string Name { get; set; }
         public List<Employee> employees;
         public void AddEmployee(Employee emp)
@@ -43,15 +50,17 @@ namespace OrganizationsNS
 
     public class Employee : Person
     {
-        public int Id { get; set; }
+        int Id;//выдается отделом
+        public int GetEmployeeID()
+        {
+            return Id;
+        }
         public Employee(int id)
         {
             Id = id;
-            //person_id = cur_id++;
-        }//
-        //присвоение id персоне,происходит только при создании
-        //реальной сущности (которая добавляется в список), чтобы id присваивались по порядку и не тратились на временные 
-        //объекты, создаваемые для инициализации реальных
+        }
+        //Id сотрудника и Id персоны задаются по разному, т.к. разные сотрудники могут быть представлены одной персоной
+        //если персона работает в нескольких отделах, например 
         public Employee() { }
     }
 
@@ -69,7 +78,6 @@ namespace OrganizationsNS
 
         public Person()
         {
-            //person_id = cur_id++;
             //Addr = new Address();          
         }
     }
@@ -101,20 +109,19 @@ namespace OrganizationsNS
             this.Balance = balance;
         }
     }
-
-
+    
     public class Reports
     {
         public static void ShowAll(Organization org)
         {
-            Console.WriteLine("Organization name: {0}  Id: {1}", org.Name, org.Id);
+            Console.WriteLine("Organization name: {0}  Id: {1}", org.Name, org.GetOrganizationId() );
             foreach (var dep_var in org.departments)
             {
-                Console.WriteLine("Departament: Id: {0}  Name: {1}", dep_var.Id, dep_var.Name);
+                Console.WriteLine("Departament: Id: {0}  Name: {1}", dep_var.GetDepartmentId(), dep_var.Name);
                 foreach (var emp_var in dep_var.employees)
                 {
                     Console.WriteLine("\tEmployee: Emp Id {0} Name: {1} Age {2} PersonId {3}",
-                        emp_var.Id,
+                        emp_var.GetPersonId(),
                         emp_var.Name,
                         emp_var.Age,
                         emp_var.GetPersonId() );
@@ -150,6 +157,7 @@ namespace OrganizationsNS
             return emps_by_range.ToList();
         }
 
+        //поиск организации, в которой в отделе, имя которого передается вторым аргументов числится количество сотрудников, больше указанного
         public static List<Organization> FindOrganizationsByNameWithPersonNumber(List<Organization> orgs, string depName, int numberPerson)
         {
             List<Organization> resultOrg = new List<Organization>();
@@ -203,6 +211,7 @@ namespace OrganizationsNS
         }
 
         //вспомогательный метод. сообщает содержится ли сотрудник в отделе, отличном от передаваемого в аргументе
+        //позволяет проверить числится ли сотрудник в более чем одном отделе
         static bool IsContainedInSeveralDepartaments(Organization org, Employee findEmpl, Department dep)
         {
             foreach (var dep_var in org.departments)
@@ -211,7 +220,7 @@ namespace OrganizationsNS
                 {
                     if (
                         (findEmpl.GetPersonId() == emp_var.GetPersonId() ) &&
-                        (dep_var.Id != dep.Id)
+                        (dep_var.GetDepartmentId() != dep.GetDepartmentId() )
                         )
                         return true;
                 }
@@ -268,6 +277,7 @@ namespace OrganizationsNS
 
             //добавляем сотрудников.  
             Department pDep = firstline.departments.Find(x => x.Name.Contains("IT department"));
+ 
             pDep.AddEmployee(new Employee() { Name = "Petrov", Age = 20 });
             pDep.AddEmployee(new Employee() { Name = "Pirogov", Age = 21 });
             pDep.AddEmployee(new Employee() { Name = "Pavlov", Age = 22 });
@@ -318,40 +328,7 @@ namespace OrganizationsNS
 
             pDep = fourthline.departments.Find(x => x.Name.Contains("R&D department"));
             pDep.AddEmployee(new Employee() { Name = "Agarin", Age = 29 });
-            pDep.AddEmployee(new Employee() { Name = "Brasov", Age = 50 });
-
-
-            //Reports.ShowAll(firstline);
-
-            /*
-            foreach (var v in Reports.FindDepartmentWithOldestPerson(fourthline))
-            {
-             Console.WriteLine("Employee with searching age. Dep Id {0} Name: {1}",
-             v.Id,
-             v.Name);
-            }
-            */
-
-            //Reports.ShowAll(firstline);
-            //Reports.ShowAll(secondline);
-            //Reports.FindOrganizationsByNameWithPerson(organizations, "IT", 5);
-
-            //foreach (var org in Reports.FindOrganizationsByNameWithPersonNumber(organizations, "IT", 2))
-            // Reports.ShowAll(org);
-
-            //Reports.ShowAll(firstline);
-            //Reports.FindEmpsByAge(firstline, 21, 45);
-
-            //foreach (var emp in Reports.FindEmpsByAgeLinQ(firstline, 22, 35))
-            /*
-            foreach(var emp in Reports.FindEmployeeWithSubstring(firstline, "Pa"))
-            {
-                Console.WriteLine("Employee with searching age. Emp Id {0} Age: {1} Name {2}",
-                emp.Id,
-                emp.Age,
-                emp.Name);
-            }
-             * */
+            pDep.AddEmployee(new Employee() { Name = "Brasov", Age = 50 });             
 
         }
     }
