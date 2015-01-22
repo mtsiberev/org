@@ -40,12 +40,25 @@ namespace UnitTestProject3
         {
             return (dep1.Id == dep2.Id);
         }
-
+        
         public int GetHashCode(Department dep)
         {
             return dep.GetHashCode();//заглушка
         }
+
     }
+
+
+    /*
+    public class CompareInstance : IEqualityComparer<in T>
+    { 
+    
+    }
+    */
+
+
+
+
      
 
     [TestClass]

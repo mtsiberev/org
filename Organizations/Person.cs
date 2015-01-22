@@ -14,6 +14,14 @@ namespace OrganizationsNS
         {
             return Name.GetHashCode() + Age.GetHashCode();
         }
+
+        /*
+        public int Id 
+        {
+            get { return GetPersonId(); }
+        }
+        */
+
         public string Name { get; set; }
         public int Age { get; set; }
         //static Random rand = new Random((DateTime.Now.Millisecond));//решение проблемы одинаковых случайных чисел
