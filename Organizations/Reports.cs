@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 namespace OrganizationsNS
 {
 
-
     public class Reports
     {
-
 
         public static void ShowAll(Organization org)
         {
