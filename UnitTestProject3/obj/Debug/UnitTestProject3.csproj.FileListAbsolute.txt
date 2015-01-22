@@ -5,3 +5,10 @@ C:\Users\MTsiberev\documents\visual studio 2012\Projects\Organizations\UnitTestP
 C:\Users\MTsiberev\documents\visual studio 2012\Projects\Organizations\UnitTestProject3\bin\Debug\Organizations.pdb
 C:\Users\MTsiberev\documents\visual studio 2012\Projects\Organizations\UnitTestProject3\obj\Debug\UnitTestProject3.dll
 C:\Users\MTsiberev\documents\visual studio 2012\Projects\Organizations\UnitTestProject3\obj\Debug\UnitTestProject3.pdb
+C:\repository\org\UnitTestProject3\bin\Debug\UnitTestProject3.dll
+C:\repository\org\UnitTestProject3\bin\Debug\UnitTestProject3.pdb
+C:\repository\org\UnitTestProject3\bin\Debug\Organizations.exe
+C:\repository\org\UnitTestProject3\bin\Debug\Organizations.pdb
+C:\repository\org\UnitTestProject3\obj\Debug\UnitTestProject3.csprojResolveAssemblyReference.cache
+C:\repository\org\UnitTestProject3\obj\Debug\UnitTestProject3.dll
+C:\repository\org\UnitTestProject3\obj\Debug\UnitTestProject3.pdb

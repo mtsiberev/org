@@ -16,12 +16,6 @@ namespace OrganizationsNS
             Id = id;
             departments = new List<Department>();
         }
-        /*
-        public void AddDepartment(string name)
-        {
-            this.departments.Add(new Department(this.departments.Count) { Name = name });
-        }
-        */
 
         public int GetNewDepartamentId()
         {

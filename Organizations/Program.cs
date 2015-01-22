@@ -22,22 +22,22 @@ namespace OrganizationsNS
             }
 
             //добавим пустых отделов
-            organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ){Name = "IT department"});
-            organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartamentId()) { Name = "HR department" });
-            organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartamentId()) { Name = "R&D department" });
-            organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartamentId()) { Name = "sales department" });
+            organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "IT department"} );
+            organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "HR department" } );
+            organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "R&D department" } );
+            organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "sales department" } );
 
-            organizations[1].AddDepartment(new Department(organizations[0].GetNewDepartamentId()) { Name = "IT department" });
-            organizations[1].AddDepartment(new Department(organizations[0].GetNewDepartamentId()) { Name = "HR department" });
-            organizations[1].AddDepartment(new Department(organizations[0].GetNewDepartamentId()) { Name = "sales department" });
+            organizations[1].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "IT department" } );
+            organizations[1].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "HR department" } );
+            organizations[1].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "sales department" } );
 
-            organizations[2].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ){ Name = "HR department"});
-            organizations[2].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ){ Name = "R&D department"});
-            organizations[2].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ){ Name = "sales department"});
+            organizations[2].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "HR department"} );
+            organizations[2].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "R&D department"} );
+            organizations[2].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "sales department"} );
 
-            organizations[3].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ){ Name = "IT department"});
-            organizations[3].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ){ Name = "HR department"});
-            organizations[3].AddDepartment(new Department(organizations[0].GetNewDepartamentId()) { Name = "R&D department" });
+            organizations[3].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "IT department"} );
+            organizations[3].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "HR department"} );
+            organizations[3].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "R&D department" } );
 
             //добавляем сотрудников.  
             Department pDep = organizations[0].departments.Find(x => x.Name.Contains("IT department"));
@@ -94,10 +94,23 @@ namespace OrganizationsNS
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { Name = "Brasov", Age = 50, address = new Address() { City = "SPB", Street = "gorkoga" } });
 
 
-            Reports.FindDepartmentWithOldestPerson2(organizations[0]);
+         //   Reports.FindDepartmentWithOldestPerson2(organizations[0]);
+            Reports.ShowAll(organizations[0]);
 
 
 
+            Department pDepNew = organizations[0].departments[0];
+                
+            pDepNew.AddEmployee( new Employee(pDep.GetNewEmployeeId() ) { Name = "Agarin", Age = 2, address = new Address() { City = "N1", Street = "tolstoga" } } );
+            pDepNew.AddEmployee( new Employee(pDep.GetNewEmployeeId() ) { Name = "QAgarin", Age = 249, address = new Address() { City = "N2", Street = "tolstoga" } } );
+            pDepNew.AddEmployee( new Employee(pDep.GetNewEmployeeId() ) { Name = "EAgarin", Age = 269, address = new Address() { City = "N3", Street = "tolstoga" } });
+            pDepNew.AddEmployee( new Employee(pDep.GetNewEmployeeId() ) { Name = "ZAAgarin", Age = 729, address = new Address() { City = "N2", Street = "tolstoga" } });
+            pDepNew.AddEmployee( new Employee(pDep.GetNewEmployeeId() ) { Name = "RAgarin", Age = 299, address = new Address() { City = "N3", Street = "tolstoga" } });
+            pDepNew.AddEmployee( new Employee(pDep.GetNewEmployeeId() ) { Name = "HAgarin", Age = 249, address = new Address() { City = "N1", Street = "tolstoga" } });
+            pDepNew.AddEmployee(new Employee(pDep.GetNewEmployeeId() )  { Name = "LHAgarin", Age = 3249, address = new Address() { City = "N1", Street = "tolstoga" } });
+
+            Reports.FindAllEmployeesLivingOnTheSameStreet(pDepNew.employees);
+            
 
         }
     }

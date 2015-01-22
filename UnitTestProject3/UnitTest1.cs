@@ -47,16 +47,7 @@ namespace UnitTestProject3
         }
 
     }
-
-
-    /*
-    public class CompareInstance : IEqualityComparer<in T>
-    { 
     
-    }
-    */
-
-
 
 
      
@@ -143,16 +134,12 @@ namespace UnitTestProject3
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Kotov", Age = 23 });
 
             actual_employees = Reports.FindEmpsByAge(firstline, 21, 23);
-
-            //pDep.employees.Find(x => x.Name == "Pavlov")
-
-
+            
             expected_employees.Add(  pDep.employees.Find(x => x.Name == "Pavlov")   );//
             expected_employees.Add(  pDep.employees.Find(x => x.Name ==  "Pavlinov") );//
             expected_employees.Add(  pDep.employees.Find(x => x.Name == "Kozlov") );//
             expected_employees.Add(pDep.employees.Find(x => x.Name == "Pikul") ); ;//
                                     
-//            bool result = TestingOfReportsMethods.CompareListOfEmployees(actual, expected);
             bool result = TestingOfReportsMethods.CompareListOfObjects(actual_employees, expected_employees, empls_comparator);
             Assert.AreEqual(true, result, "Not equal");
         }
@@ -181,7 +168,7 @@ namespace UnitTestProject3
             expected_organizations.Add(pDep.employees.Find(x => x.Name == "Kozlov"));
             expected_organizations.Add(pDep.employees.Find(x => x.Name == "Pikul"));
 
-            //bool result = TestingOfReportsMethods.CompareListOfEmployees(actual, expected);
+
             bool result = TestingOfReportsMethods.CompareListOfObjects(actual_organizations, expected_organizations, empls_comparator);
             Assert.AreEqual(true, result, "Not equal");
         }
@@ -246,7 +233,6 @@ namespace UnitTestProject3
 
             actual_organizations = Reports.FindOrganizationsByNameWithPersonNumber(organizations, "IT", 2);
             
-            //bool result = TestingOfReportsMethods.CompareListOfOrganizations(actual_organizations, expected_organizations);
             bool result = TestingOfReportsMethods.CompareListOfObjects(actual_organizations, expected_organizations, orgs_comparator);
             Assert.AreEqual(true, result, "Not equal");
         }

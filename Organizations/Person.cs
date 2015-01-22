@@ -8,19 +8,11 @@ namespace OrganizationsNS
 {
 
     public class Person
-    {
-        // public Person(){}               
+    {           
         public int GetPersonId()
         {
             return Name.GetHashCode() + Age.GetHashCode();
         }
-
-        /*
-        public int Id 
-        {
-            get { return GetPersonId(); }
-        }
-        */
 
         public string Name { get; set; }
         public int Age { get; set; }

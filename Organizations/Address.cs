@@ -8,9 +8,7 @@ namespace OrganizationsNS
 {
     public class Address
     {
-        //Address() { }
-        public string City; //{ get; set; }
-        public string Street; //{ get; set; }  
-        //Address() { }
+        public string City { get; set; }
+        public string Street { get; set; }  
     }
 }
