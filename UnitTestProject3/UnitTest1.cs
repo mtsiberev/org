@@ -25,7 +25,7 @@ namespace UnitTestProject3
     {
         public bool Equals(Organization org1, Organization org2)
         {
-            return (org1.GetOrganizationId() == org2.GetOrganizationId() );
+            return (org1.Id == org2.Id );
         }
 
         public int GetHashCode(Organization org1)
@@ -38,7 +38,7 @@ namespace UnitTestProject3
     {
         public bool Equals(Department dep1, Department dep2)
         {
-            return (dep1.GetDepartmentId() == dep2.GetDepartmentId());
+            return (dep1.Id == dep2.Id);
         }
 
         public int GetHashCode(Department dep)
@@ -118,23 +118,26 @@ namespace UnitTestProject3
             List<Employee> actual_employees = new List<Employee>();
             List<Employee> expected_employees = new List<Employee>();            
 
-            Organization firstline = new Organization() { Name = "FirstLine" };
-            firstline.AddDepartment(new Department() { Name = "IT department" });
+            Organization firstline = new Organization(0) { Name = "FirstLine" };
+            firstline.AddDepartment( new Department(firstline.GetNewDepartamentId() ) { Name = "IT department" });
             Department pDep = firstline.departments.Find(x => x.Name.Contains("IT department"));
-            pDep.AddEmployee(new Employee() { Name = "Petrov", Age = 20 });
-            pDep.AddEmployee(new Employee() { Name = "Pirogov", Age = 21 });
-            pDep.AddEmployee(new Employee() { Name = "Pavlov", Age = 22 });//+
-            pDep.AddEmployee(new Employee() { Name = "Pavlinov", Age = 22 });//+
-            pDep.AddEmployee(new Employee() { Name = "Kozlov", Age = 22 });//+
-            pDep.AddEmployee(new Employee() { Name = "Pikul", Age = 22 });//+
-            pDep.AddEmployee(new Employee() { Name = "Kotov", Age = 23 });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Petrov", Age = 20 });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Pirogov", Age = 21 });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Pavlov", Age = 22 });//+
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Pavlinov", Age = 22 });//+
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Kozlov", Age = 22 });//+
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Pikul", Age = 22 });//+
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Kotov", Age = 23 });
 
             actual_employees = Reports.FindEmpsByAge(firstline, 21, 23);
 
-            expected_employees.Add(new Employee() { Name = "Pavlov", Age = 22 });//
-            expected_employees.Add(new Employee() { Name = "Pavlinov", Age = 22 });//
-            expected_employees.Add(new Employee() { Name = "Kozlov", Age = 22 });//
-            expected_employees.Add(new Employee() { Name = "Pikul", Age = 22 });//
+            //pDep.employees.Find(x => x.Name == "Pavlov")
+
+
+            expected_employees.Add(  pDep.employees.Find(x => x.Name == "Pavlov")   );//
+            expected_employees.Add(  pDep.employees.Find(x => x.Name ==  "Pavlinov") );//
+            expected_employees.Add(  pDep.employees.Find(x => x.Name == "Kozlov") );//
+            expected_employees.Add(pDep.employees.Find(x => x.Name == "Pikul") ); ;//
                                     
 //            bool result = TestingOfReportsMethods.CompareListOfEmployees(actual, expected);
             bool result = TestingOfReportsMethods.CompareListOfObjects(actual_employees, expected_employees, empls_comparator);
@@ -147,23 +150,23 @@ namespace UnitTestProject3
             List<Employee> actual_organizations = new List<Employee>();
             List<Employee> expected_organizations = new List<Employee>();
 
-            Organization firstline = new Organization() { Name = "FirstLine" };
-            firstline.AddDepartment(new Department() { Name = "IT department" });
+            Organization firstline = new Organization(0) { Name = "FirstLine" };
+            firstline.AddDepartment(new Department(firstline.GetNewDepartamentId() ) { Name = "IT department" });
             Department pDep = firstline.departments.Find(x => x.Name.Contains("IT department"));
-            pDep.AddEmployee(new Employee() { Name = "Petrov", Age = 20 });
-            pDep.AddEmployee(new Employee() { Name = "Pirogov", Age = 21 });
-            pDep.AddEmployee(new Employee() { Name = "Pavlov", Age = 22 });//+
-            pDep.AddEmployee(new Employee() { Name = "Pavlinov", Age = 22 });//+
-            pDep.AddEmployee(new Employee() { Name = "Kozlov", Age = 22 });//+
-            pDep.AddEmployee(new Employee() { Name = "Pikul", Age = 22 });//+
-            pDep.AddEmployee(new Employee() { Name = "Kotov", Age = 23 });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Petrov", Age = 20 });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Pirogov", Age = 21 });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Pavlov", Age = 22 });//+
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Pavlinov", Age = 22 });//+
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Kozlov", Age = 22 });//+
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Pikul", Age = 22 });//+
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Kotov", Age = 23 });
 
             actual_organizations = Reports.FindEmpsByAgeLinQ(firstline, 21, 23);
 
-            expected_organizations.Add(new Employee() { Name = "Pavlov", Age = 22 });
-            expected_organizations.Add(new Employee() { Name = "Pavlinov", Age = 22 });
-            expected_organizations.Add(new Employee() { Name = "Kozlov", Age = 22 });
-            expected_organizations.Add(new Employee() { Name = "Pikul", Age = 22 });
+            expected_organizations.Add( pDep.employees.Find(x => x.Name == "Pavlov") );
+            expected_organizations.Add(pDep.employees.Find(x => x.Name == "Pavlinov"));
+            expected_organizations.Add(pDep.employees.Find(x => x.Name == "Kozlov"));
+            expected_organizations.Add(pDep.employees.Find(x => x.Name == "Pikul"));
 
             //bool result = TestingOfReportsMethods.CompareListOfEmployees(actual, expected);
             bool result = TestingOfReportsMethods.CompareListOfObjects(actual_organizations, expected_organizations, empls_comparator);
@@ -178,9 +181,9 @@ namespace UnitTestProject3
             List<Organization> expected_organizations = new List<Organization>();
                         
             //исходный набор организаций
-            Organization firstline = new Organization() { Name = "FirstLine" };
-            Organization secondline = new Organization() { Name = "SecondLine" };
-            Organization thirdline = new Organization() { Name = "ThirdLine" };
+            Organization firstline = new Organization(0) { Name = "FirstLine" };
+            Organization secondline = new Organization(1) { Name = "SecondLine" };
+            Organization thirdline = new Organization(2) { Name = "ThirdLine" };
             
             organizations.Add(firstline);
             organizations.Add(secondline);
@@ -191,42 +194,42 @@ namespace UnitTestProject3
             expected_organizations.Add(thirdline);
             
             //добавим пустых отделов
-            firstline.AddDepartment(new Department() { Name = "IT department" });
-            firstline.AddDepartment(new Department() { Name = "HR department" });
+            firstline.AddDepartment(new Department(firstline.GetNewDepartamentId() ) { Name = "IT department" });
+            firstline.AddDepartment(new Department(firstline.GetNewDepartamentId() ) { Name = "HR department" });
 
-            secondline.AddDepartment(new Department() { Name = "IT department" });
-            secondline.AddDepartment(new Department() { Name = "sales department" });
+            secondline.AddDepartment(new Department(firstline.GetNewDepartamentId() ) { Name = "IT department" });
+            secondline.AddDepartment(new Department(firstline.GetNewDepartamentId() ) { Name = "sales department" });
 
-            thirdline.AddDepartment(new Department() { Name = "IT department" });
-            thirdline.AddDepartment(new Department() { Name = "R&D department" });
+            thirdline.AddDepartment(new Department(firstline.GetNewDepartamentId() ) { Name = "IT department" });
+            thirdline.AddDepartment(new Department(firstline.GetNewDepartamentId() ) { Name = "R&D department" });
 
             //добавляем сотрудников.  
             Department pDep = firstline.departments.Find(x => x.Name.Contains("IT department"));
-            pDep.AddEmployee(new Employee() { Name = "Pirogov", Age = 21 });//+
-            pDep.AddEmployee(new Employee() { Name = "Pavlov", Age = 22 });//+
-            pDep.AddEmployee(new Employee() { Name = "Kotov", Age = 23 });//+
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Pirogov", Age = 21 });//+
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Pavlov", Age = 22 });//+
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Kotov", Age = 23 });//+
 
             pDep = firstline.departments.Find(x => x.Name.Contains("HR department"));
-            pDep.AddEmployee(new Employee() { Name = "Dolinin", Age = 25 });
-            pDep.AddEmployee(new Employee() { Name = "Laptev", Age = 26 });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Dolinin", Age = 25 });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Laptev", Age = 26 });
 
             /////////////////////second organization
             pDep = secondline.departments.Find(x => x.Name.Contains("IT department"));
-            pDep.AddEmployee(new Employee() { Name = "Anotin", Age = 45 });
-            pDep.AddEmployee(new Employee() { Name = "Sergeev", Age = 46 });      
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Anotin", Age = 45 });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Sergeev", Age = 46 });      
 
             pDep = secondline.departments.Find(x => x.Name.Contains("sales department"));
-            pDep.AddEmployee(new Employee() { Name = "Chehov", Age = 48 });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Chehov", Age = 48 });
             //////////////////////third organization
             pDep = thirdline.departments.Find(x => x.Name.Contains("IT department"));
-            pDep.AddEmployee(new Employee() { Name = "Teplov", Age = 51 });//+
-            pDep.AddEmployee(new Employee() { Name = "Remezov", Age = 52 });//+
-            pDep.AddEmployee(new Employee() { Name = "Alexeev", Age = 53 });//+
-            pDep.AddEmployee(new Employee() { Name = "Burov", Age = 37 });//+
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Teplov", Age = 51 });//+
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Remezov", Age = 52 });//+
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Alexeev", Age = 53 });//+
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Burov", Age = 37 });//+
 
             pDep = thirdline.departments.Find(x => x.Name.Contains("R&D department"));
-            pDep.AddEmployee(new Employee() { Name = "Aleshin", Age = 54 });
-            pDep.AddEmployee(new Employee() { Name = "Belkin", Age = 55 });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Aleshin", Age = 54 });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Belkin", Age = 55 });
 
             actual_organizations = Reports.FindOrganizationsByNameWithPersonNumber(organizations, "IT", 2);
             
@@ -238,31 +241,31 @@ namespace UnitTestProject3
         [TestMethod]
         public void TestingOfFindDepartmentWithOldestPerson()
         {
-            Organization firstline = new Organization() { Name = "FirstLine" };
+            Organization firstline = new Organization(0) { Name = "FirstLine" };
 
-            firstline.AddDepartment(new Department() { Name = "IT department" });
-            firstline.AddDepartment(new Department() { Name = "HR department" });
-            firstline.AddDepartment(new Department() { Name = "R&D department" });
-            firstline.AddDepartment(new Department() { Name = "sales department" });
+            firstline.AddDepartment(new Department(firstline.GetNewDepartamentId() ) { Name = "IT department" });
+            firstline.AddDepartment(new Department(firstline.GetNewDepartamentId() ) { Name = "HR department" });
+            firstline.AddDepartment(new Department(firstline.GetNewDepartamentId() ) { Name = "R&D department" });
+            firstline.AddDepartment(new Department(firstline.GetNewDepartamentId() ) { Name = "sales department" });
 
             Department pDep = firstline.departments.Find(x => x.Name.Contains("IT department"));
 
-            pDep.AddEmployee(new Employee() { Name = "Petrov", Age = 20 });
-            pDep.AddEmployee(new Employee() { Name = "Kotov", Age = 33 });
-            pDep.AddEmployee(new Employee() { Name = "Larin", Age = 50 });//+
+            pDep.AddEmployee(new Employee(firstline.GetNewDepartamentId() ) { Name = "Petrov", Age = 20 });
+            pDep.AddEmployee(new Employee(firstline.GetNewDepartamentId() ) { Name = "Kotov", Age = 33 });
+            pDep.AddEmployee(new Employee(firstline.GetNewDepartamentId() ) { Name = "Larin", Age = 50 });//+
 
             pDep = firstline.departments.Find(x => x.Name.Contains("HR department"));
-            pDep.AddEmployee(new Employee() { Name = "Dolinin", Age = 25 });
-            pDep.AddEmployee(new Employee() { Name = "Laptev", Age = 29 });
+            pDep.AddEmployee(new Employee(firstline.GetNewDepartamentId() ) { Name = "Dolinin", Age = 25 });
+            pDep.AddEmployee(new Employee(firstline.GetNewDepartamentId() ) { Name = "Laptev", Age = 29 });
 
             pDep = firstline.departments.Find(x => x.Name.Contains("R&D department"));
-            pDep.AddEmployee(new Employee() { Name = "Petrikov", Age = 31 });
-            pDep.AddEmployee(new Employee() { Name = "Larin", Age = 50 });//+
-            pDep.AddEmployee(new Employee() { Name = "Mihailov", Age = 33 });
+            pDep.AddEmployee(new Employee(firstline.GetNewDepartamentId() ) { Name = "Petrikov", Age = 31 });
+            pDep.AddEmployee(new Employee(firstline.GetNewDepartamentId() ) { Name = "Larin", Age = 50 });//+
+            pDep.AddEmployee(new Employee(firstline.GetNewDepartamentId() ) { Name = "Mihailov", Age = 33 });
 
             pDep = firstline.departments.Find(x => x.Name.Contains("sales department"));
-            pDep.AddEmployee(new Employee() { Name = "Tolchin", Age = 34 });
-            pDep.AddEmployee(new Employee() { Name = "Parinov", Age = 35 });
+            pDep.AddEmployee(new Employee(firstline.GetNewDepartamentId() ) { Name = "Tolchin", Age = 34 });
+            pDep.AddEmployee(new Employee(firstline.GetNewDepartamentId() ) { Name = "Parinov", Age = 35 });
             
             List<Department> actual_departments = new List<Department>();
             actual_departments = Reports.FindDepartmentWithOldestPerson(firstline);
@@ -278,21 +281,21 @@ namespace UnitTestProject3
         [TestMethod]
         public void TestingOfFindEmployeeWithSubstring()
         {
-            Organization firstline = new Organization() { Name = "FirstLine" };
-            firstline.AddDepartment(new Department() { Name = "IT department" });
+            Organization firstline = new Organization(0) { Name = "FirstLine" };
+            firstline.AddDepartment(new Department(firstline.GetNewDepartamentId() ) { Name = "IT department" });
             Department pDep = firstline.departments.Find(x => x.Name.Contains("IT department"));
-            pDep.AddEmployee(new Employee() { Name = "Petrov", Age = 20 });//
-            pDep.AddEmployee(new Employee() { Name = "Kotov", Age = 33 });
-            pDep.AddEmployee(new Employee() { Name = "Petarin", Age = 50 });//
-            pDep.AddEmployee(new Employee() { Name = "Petotov", Age = 33 });//
-            pDep.AddEmployee(new Employee() { Name = "Larin", Age = 50 });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Petrov", Age = 20 });//
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Kotov", Age = 33 });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Petarin", Age = 50 });//
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Petotov", Age = 33 });//
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Larin", Age = 50 });
 
             List<Employee> actual_employees = Reports.FindEmployeeWithSubstring(firstline, "Pet");
 
             List<Employee> expected_employees = new List<Employee>();
-            expected_employees.Add(new Employee() { Name = "Petrov", Age = 20 });//
-            expected_employees.Add(new Employee() { Name = "Petarin", Age = 50 });
-            expected_employees.Add(new Employee() { Name = "Petotov", Age = 33 });//
+            expected_employees.Add( pDep.employees.Find(x => x.Name == "Petrov") );//
+            expected_employees.Add( pDep.employees.Find(x => x.Name == "Petarin") );
+            expected_employees.Add( pDep.employees.Find(x => x.Name == "Petotov") );//
 
             bool result = TestingOfReportsMethods.CompareListOfObjects(actual_employees, expected_employees, empls_comparator);
             Assert.AreEqual(true, result, "Not equal");
@@ -301,36 +304,36 @@ namespace UnitTestProject3
       [TestMethod]
         public void TestingOfFindEmployeesWorkingInSeveralDepartments()
       {
-          Organization firstline = new Organization() { Name = "FirstLine" };
-          firstline.AddDepartment(new Department() { Name = "IT department" });
-          firstline.AddDepartment(new Department() { Name = "HR department" });
-          firstline.AddDepartment(new Department() { Name = "R&D department" });
-          firstline.AddDepartment(new Department() { Name = "sales department" });
+          Organization firstline = new Organization(0) { Name = "FirstLine" };
+          firstline.AddDepartment(new Department(firstline.GetNewDepartamentId() ) { Name = "IT department" });
+          firstline.AddDepartment(new Department(firstline.GetNewDepartamentId() ) { Name = "HR department" });
+          firstline.AddDepartment(new Department(firstline.GetNewDepartamentId() ) { Name = "R&D department" });
+          firstline.AddDepartment(new Department(firstline.GetNewDepartamentId() ) { Name = "sales department" });
           
           Department pDep = firstline.departments.Find(x => x.Name.Contains("IT department"));
 
-          pDep.AddEmployee(new Employee() { Name = "Petrov", Age = 20 });
-          pDep.AddEmployee(new Employee() { Name = "Kotov", Age = 33 });
+          pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Petrov", Age = 20 });
+          pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Kotov", Age = 33 });
       
           pDep = firstline.departments.Find(x => x.Name.Contains("HR department"));
-          pDep.AddEmployee(new Employee() { Name = "Dolinin", Age = 25 });
-          pDep.AddEmployee(new Employee() { Name = "Laptev", Age = 29 });
-          pDep.AddEmployee(new Employee() { Name = "Parinov", Age = 35 });//+
+          pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Dolinin", Age = 25 });
+          pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Laptev", Age = 29 });
+          pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Parinov", Age = 35 });//+
 
           pDep = firstline.departments.Find(x => x.Name.Contains("R&D department"));
-          pDep.AddEmployee(new Employee() { Name = "Petrikov", Age = 31 });
-          pDep.AddEmployee(new Employee() { Name = "Larin", Age = 50 });
-          pDep.AddEmployee(new Employee() { Name = "Mihailov", Age = 33 });
+          pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Petrikov", Age = 31 });
+          pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Larin", Age = 50 });
+          pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Mihailov", Age = 33 });
 
           pDep = firstline.departments.Find(x => x.Name.Contains("sales department"));
-          pDep.AddEmployee(new Employee() { Name = "Tolchin", Age = 34 });
-          pDep.AddEmployee(new Employee() { Name = "Parinov", Age = 35 });//+
+          pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { Name = "Tolchin", Age = 34 });
+          pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { Name = "Parinov", Age = 35 });//+
 
           List<Employee> actual_employees = new List<Employee>();
           List<Employee> expected_employees = new List<Employee>();
           actual_employees = Reports.FindEmployeesWorkingInSeveralDepartments(firstline);
 
-          expected_employees.Add(new Employee() { Name = "Parinov", Age = 35 });
+          expected_employees.Add( pDep.employees.Find(x => x.Name == "Parinov") );
           bool result =  TestingOfReportsMethods.CompareListOfObjects(actual_employees, expected_employees, empls_comparator);
           Assert.AreEqual(true, result, "Not equal");
       }
