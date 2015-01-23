@@ -9,22 +9,23 @@ namespace OrganizationsNS
     public class Organization
     {
         public int Id { get; private set; }
-        public string Name { get; set; }
-        public List<Department> departments;
         public Organization(int id)
         {
             Id = id;
             departments = new List<Department>();
         }
-
-        public int GetNewDepartamentId()
+        
+        public string Name { get; set; }
+        public List<Department> departments;
+        
+        public int GetNewDepartmentId()
         {
             return this.departments.Count;
         }
 
-        public void AddDepartment(Department departament)
+        public void AddDepartment(Department department)
         {
-            this.departments.Add(departament);
+            this.departments.Add(department);
         }
 
     }

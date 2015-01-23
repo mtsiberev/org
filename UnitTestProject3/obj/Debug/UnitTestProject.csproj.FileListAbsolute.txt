@@ -1,0 +1,7 @@
+C:\repository\org\UnitTestProject3\bin\Debug\UnitTestProject3.dll
+C:\repository\org\UnitTestProject3\bin\Debug\UnitTestProject3.pdb
+C:\repository\org\UnitTestProject3\bin\Debug\Organizations.exe
+C:\repository\org\UnitTestProject3\bin\Debug\Organizations.pdb
+C:\repository\org\UnitTestProject3\obj\Debug\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\repository\org\UnitTestProject3\obj\Debug\UnitTestProject3.dll
+C:\repository\org\UnitTestProject3\obj\Debug\UnitTestProject3.pdb

@@ -8,7 +8,6 @@ namespace OrganizationsNS
 {
     public class Department
     {
-
         public Department(int id) { Id = id; employees = new List<Employee>(); }
         public int Id { get; private set; }
 

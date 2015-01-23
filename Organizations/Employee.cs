@@ -9,10 +9,6 @@ namespace OrganizationsNS
     public class Employee : Person
     {
         public int Id { get; private set; }
-
-        public Employee(int id)//Id выдается отделом
-        {
-            Id = id;
-        }
+        public Employee(int id) { Id = id; }
     }
 }

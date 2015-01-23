@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Threading;
-//using System.Security.Cryptography;
 
 namespace OrganizationsNS
 {
@@ -21,25 +20,24 @@ namespace OrganizationsNS
                 organizations.Add(new Organization(i) { Name = (i.ToString() + "Line") });
             }
 
-            //добавим пустых отделов
-            organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "IT department"} );
-            organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "HR department" } );
-            organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "R&D department" } );
-            organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "sales department" } );
+    
+            organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartmentId() ) { Name = "IT department"} );
+            organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartmentId() ) { Name = "HR department" } );
+            organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartmentId() ) { Name = "R&D department" } );
+            organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartmentId() ) { Name = "sales department" } );
 
-            organizations[1].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "IT department" } );
-            organizations[1].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "HR department" } );
-            organizations[1].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "sales department" } );
+            organizations[1].AddDepartment(new Department(organizations[0].GetNewDepartmentId() ) { Name = "IT department" } );
+            organizations[1].AddDepartment(new Department(organizations[0].GetNewDepartmentId() ) { Name = "HR department" } );
+            organizations[1].AddDepartment(new Department(organizations[0].GetNewDepartmentId() ) { Name = "sales department" } );
 
-            organizations[2].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "HR department"} );
-            organizations[2].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "R&D department"} );
-            organizations[2].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "sales department"} );
+            organizations[2].AddDepartment(new Department(organizations[0].GetNewDepartmentId() ) { Name = "HR department"} );
+            organizations[2].AddDepartment(new Department(organizations[0].GetNewDepartmentId() ) { Name = "R&D department"} );
+            organizations[2].AddDepartment(new Department(organizations[0].GetNewDepartmentId() ) { Name = "sales department"} );
 
-            organizations[3].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "IT department"} );
-            organizations[3].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "HR department"} );
-            organizations[3].AddDepartment(new Department(organizations[0].GetNewDepartamentId() ) { Name = "R&D department" } );
+            organizations[3].AddDepartment(new Department(organizations[0].GetNewDepartmentId() ) { Name = "IT department"} );
+            organizations[3].AddDepartment(new Department(organizations[0].GetNewDepartmentId() ) { Name = "HR department"} );
+            organizations[3].AddDepartment(new Department(organizations[0].GetNewDepartmentId() ) { Name = "R&D department" } );
 
-            //добавляем сотрудников.  
             Department pDep = organizations[0].departments.Find(x => x.Name.Contains("IT department"));
 
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) { Name = "Petrov", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
@@ -93,12 +91,8 @@ namespace OrganizationsNS
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId() ) {Name = "Agarin", Age = 29,address = new Address() { City = "NN", Street = "tolstoga"}} );
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { Name = "Brasov", Age = 50, address = new Address() { City = "SPB", Street = "gorkoga" } });
 
-
-         //   Reports.FindDepartmentWithOldestPerson2(organizations[0]);
-            Reports.ShowAll(organizations[0]);
-
-
-
+           // Reports.ShowAll(organizations[0]);
+            
             Department pDepNew = organizations[0].departments[0];
                 
             pDepNew.AddEmployee( new Employee(pDep.GetNewEmployeeId() ) { Name = "Agarin", Age = 2, address = new Address() { City = "N1", Street = "tolstoga" } } );

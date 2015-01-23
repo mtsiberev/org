@@ -8,108 +8,68 @@ namespace OrganizationsNS
 {
     public class Reports
     {
-        public static void ShowAll(Organization org)
-        {
-            Console.WriteLine("Organization name: {0}   Id: {1}", org.Name, org.Id);
-            foreach (var dep_var in org.departments)
-            {
-                Console.WriteLine("Departament: Id: {0}   Name: {1}", dep_var.Id, dep_var.Name);
-                foreach (var emp_var in dep_var.employees)
-                {
-                    Console.WriteLine("\tEmployee Id: {0}  Name: {1}  Age {2}  PersonId {3}",
-                        emp_var.Id,
-                        emp_var.Name,
-                        emp_var.Age,
-                        emp_var.GetPersonId());
-                }
-                Console.WriteLine("\r\n");
-            }
-        }
-
-        public static List<Employee> FindEmpsByAge(Organization org, int min, int max)//old version
+        public static List<Employee> FindEmployeesByAge(Organization organization, int minAge, int maxAge)
         {
             List<Employee> result = new List<Employee>();
-            foreach (var dep_var in org.departments)
+            foreach (var department in organization.departments)
             {
-                foreach (var emp_var in dep_var.employees)
+                foreach (var employee in department.employees)
                 {
-                    if ((emp_var.Age > min) && (emp_var.Age < max))
+                    if ((employee.Age > minAge) && (employee.Age < maxAge))
                     {
-                        result.Add(emp_var);
+                        result.Add(employee);
                     };
                 }
             }
             return result;
         }
 
-        public static List<Employee> FindEmpsByAgeLinQ(Organization org, int min, int max)
+        public static List<Employee> FindEmployeesByAgeLinQ(Organization organization, int minAge, int maxAge)
         {
-            var emps_by_range =
-                from dep in org.departments
-                from emp in dep.employees
-                where emp.Age > min
-                where emp.Age < max
-                select emp;
-            return emps_by_range.ToList();
+            var resultEmployees =
+                from department in organization.departments
+                from employee in department.employees
+                where employee.Age > minAge
+                where employee.Age < maxAge
+                select employee;
+            return resultEmployees.ToList();
         }
 
-        //поиск организации, в которой в отделе, имя которого передается вторым аргументов числится количество сотрудников, больше указанного
-        public static List<Organization> FindOrganizationsByNameWithPersonNumber(List<Organization> orgs, string depName, int numberPerson)
+
+        public static List<Organization> FindOrganizationsByNameOfDepartmentWithPersonNumber(List<Organization> organizations, string departmentName, int numberOfPerson)
         {
-            List<Organization> resultOrg = new List<Organization>();
-            foreach (var org in orgs)
+            List<Organization> resultOrganizations = new List<Organization>();
+            foreach (var organization in organizations)
             {
-                foreach (var dep in org.departments)
+                foreach (var department in organization.departments)
                 {
                     if (
-                        (dep.Name.Contains(depName)) &&
-                        (dep.employees.Count() > numberPerson)
+                        (department.Name.Contains(departmentName)) &&
+                        (department.employees.Count() > numberOfPerson)
                         )
                     {
-                        resultOrg.Add(org);
-                        break; //если организация подходит, то переходим сразу к следующей организации в листе
+                        resultOrganizations.Add(organization);
+                        break;
                     }
                 }
             }
-            return resultOrg;
+            return resultOrganizations;
         }
 
-        public static List<Department> FindDepartmentWithOldestPerson(Organization org)
-        {
-            List<Department> result = new List<Department>();
-            //поиск самых старых в каждом отделе
-            var old_emps =
-                from dep in org.departments
-                from emp in dep.employees
-                where emp.Age == dep.employees.Max(x => x.Age)
-                select emp;
-
-            Employee oldest = old_emps.ToList().Find(x => x.Age == old_emps.ToList().Max(y => y.Age)); //o_O   самый старый из всех отделов
-
-            //найдем по Id персоны отделы, в которых числится самый старый сотрудник
-            var deps_with_oldman =
-              from dep in org.departments
-              from emp in dep.employees
-              where emp.GetPersonId() == oldest.GetPersonId()
-              select dep;
-            return deps_with_oldman.ToList();
-        }
-
-
-        public static Department FindDepartmentWithOldestPerson2(Organization org)//более рациональная версия
+        public static Department FindDepartmentWithOldestPerson(Organization organization)
         {
             int maximumAge = 0;
-            List<Department> departaments = new List<Department>();//искомые отделы
+            List<Department> departaments = new List<Department>();
             Department departamentWithOldestEmployee = new Department(-1);
 
-            foreach (var dep_var in org.departments)
+            foreach (var department in organization.departments)
             {
-                foreach (var emp_var in dep_var.employees)
+                foreach (var employee in department.employees)
                 {
-                    if (emp_var.Age > maximumAge)
+                    if (employee.Age > maximumAge)
                     {
-                        maximumAge = emp_var.Age;
-                        departamentWithOldestEmployee = dep_var;
+                        maximumAge = employee.Age;
+                        departamentWithOldestEmployee = department;
                         continue;
                     }
                 }
@@ -117,27 +77,27 @@ namespace OrganizationsNS
             return departamentWithOldestEmployee;
         }
 
-        public static List<Employee> FindEmployeeWithSubstring(Organization org, string sub)
+        public static List<Employee> FindEmployeesWithSubstring(Organization organization, string subString)
         {
-            var empls_with_name =
-                from dep in org.departments
-                from emp in dep.employees
-                where emp.Name.StartsWith(sub)
-                select emp;
-            return empls_with_name.ToList();
+            var resultEmployees =
+                from department in organization.departments
+                from employee in department.employees
+                where employee.Name.StartsWith(subString)
+                select employee;
+            return resultEmployees.ToList();
         }
 
         //вспомогательный метод. сообщает содержится ли сотрудник в отделе, отличном от передаваемого в аргументе
         //позволяет проверить числится ли сотрудник в более чем одном отделе
-        static bool IsContainedInSeveralDepartaments(Organization org, Employee findEmpl, Department dep)
+        static bool IsContainedInSeveralDepartaments(Organization organization, Employee findEmployee, Department departmentWithEmployee)
         {
-            foreach (var dep_var in org.departments)
+            foreach (var department in organization.departments)
             {
-                foreach (var emp_var in dep_var.employees)
+                foreach (var employee in department.employees)
                 {
                     if (
-                        (findEmpl.GetPersonId() == emp_var.GetPersonId()) &&
-                        (dep_var.Id != dep.Id)
+                        (findEmployee.GetPersonId() == employee.GetPersonId()) &&
+                        (department.Id != departmentWithEmployee.Id)
                         )
                         return true;
                 }
@@ -145,29 +105,25 @@ namespace OrganizationsNS
             return false;
         }
 
-        public static List<Employee> FindEmployeesWorkingInSeveralDepartments(Organization org)
+        public static List<Employee> FindEmployeesWorkingInSeveralDepartments(Organization organization)
         {
-            var empls_with_name =
-                from dep in org.departments
-                from emp in dep.employees
-                where Reports.IsContainedInSeveralDepartaments(org, emp, dep)
-                select emp;
-            return empls_with_name.ToList();
+            var resultEmplyees =
+                from department in organization.departments
+                from employee in department.employees
+                where Reports.IsContainedInSeveralDepartaments(organization, employee, department)
+                select employee;
+            return resultEmplyees.ToList();
         }
         
-
-
-        public static void FindAllEmployeesLivingOnTheSameStreet(List<Employee> emps)//projection method
+        public static void FindAllEmployeesLivingOnTheSameStreet(List<Employee> employees)
         {
-            var all_emps = emps.Select(e => new { e.address.City, e.Name }).OrderBy(e => e.City);
+            var resultEmployees = employees.Select(e => new { e.address.City, e.Name }).OrderBy(e => e.City);
 
-            foreach (var employees in all_emps)
+            foreach (var employee in resultEmployees)
             {
-                Console.WriteLine("  {0}", employees);
-            }        
+                Console.WriteLine("  {0}", employee);
+            }
         }
-
     }
-
 
 }

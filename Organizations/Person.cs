@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace OrganizationsNS
 {
-
     public class Person
     {           
         public int GetPersonId()
