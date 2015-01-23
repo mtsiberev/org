@@ -46,8 +46,7 @@ namespace UnitTestProject3
             return department.GetHashCode();
         }
     }
-
-
+    
     [TestClass]
     public class TestingOfReportsMethods
     {

@@ -8,7 +8,7 @@ namespace OrganizationsNS
 {
     class Display
     {
-        public static void ShowAll(Organization organization)
+        public static void DisplayOrganization(Organization organization)
         {
             Console.WriteLine("Organization name: {0}   Id: {1}", organization.Name, organization.Id);
             foreach (var department in organization.departments)
@@ -20,13 +20,22 @@ namespace OrganizationsNS
                         employee.Id,
                         employee.Name,
                         employee.Age,
-                        employee.GetPersonId() );
+                        employee.GetPersonId());
                 }
                 Console.WriteLine("\r\n");
             }
         }
 
 
+        public static void DisplayInstances<T>(List<T> instances)
+        {
+           // Console.WriteLine("Departament: Id: {0}  Name: {1}", department.Id, department.Name);
+            foreach (var instance in instances)
+            {
+  
+            }
+        }
+        
 
 
     }
