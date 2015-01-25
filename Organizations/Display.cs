@@ -16,27 +16,37 @@ namespace OrganizationsNS
                 Console.WriteLine("Departament: Id: {0}   Name: {1}", department.Id, department.Name);
                 foreach (var employee in department.employees)
                 {
-                    Console.WriteLine("\tEmployee Id: {0}  Name: {1}  Age {2}  PersonId {3}",
+                    Console.WriteLine("\tEmployee Id: {0}  FirstName: {1}  LastName: {2}  Date {3}  PersonId {4}",
                         employee.Id,
-                        employee.Name,
-                        employee.Age,
+                        employee.FirstName,
+                        employee.LastName,
+                        employee.BirthDate,
                         employee.GetPersonId());
                 }
                 Console.WriteLine("\r\n");
             }
         }
 
-
-        public static void DisplayInstances<T>(List<T> instances)
+        
+        public static void FindAllEmployeesLivingOnTheSameStreet(List<Employee> employees)
         {
-           // Console.WriteLine("Departament: Id: {0}  Name: {1}", department.Id, department.Name);
-            foreach (var instance in instances)
+            var resultEmployees = employees.Select(e => new { e.address.City, e.FirstName, e.LastName }).OrderBy(e => e.City);
+
+            foreach (var employee in resultEmployees)
             {
-  
+                Console.WriteLine("  {0}", employee);
             }
         }
         
-
+        // get all unique First Names of employees in a specified department
+        public static void GetAllUniqueFirstNamesOfEmployeesInSpecifiedDepartment(Department department)
+        {
+            var groupedEmployees = department.employees.GroupBy(e => e.FirstName);
+            foreach (var group in groupedEmployees)
+            {
+                Console.WriteLine(group.Key);
+            }                  
+        }
 
     }
 

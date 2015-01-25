@@ -15,7 +15,11 @@ namespace OrganizationsNS
             {
                 foreach (var employee in department.employees)
                 {
-                    if ((employee.Age > minAge) && (employee.Age < maxAge))
+                    if (
+                        ((DateTime.Now.Year - employee.BirthDate.Year) > minAge) 
+                        &&
+                        ((DateTime.Now.Year - employee.BirthDate.Year) < maxAge)
+                        )
                     {
                         result.Add(employee);
                     };
@@ -29,8 +33,8 @@ namespace OrganizationsNS
             var resultEmployees =
                 from department in organization.departments
                 from employee in department.employees
-                where employee.Age > minAge
-                where employee.Age < maxAge
+                where (DateTime.Now.Year - employee.BirthDate.Year) > minAge
+                where (DateTime.Now.Year - employee.BirthDate.Year) < maxAge
                 select employee;
             return resultEmployees.ToList();
         }
@@ -66,9 +70,9 @@ namespace OrganizationsNS
             {
                 foreach (var employee in department.employees)
                 {
-                    if (employee.Age > maximumAge)
+                    if ( (DateTime.Now.Year - employee.BirthDate.Year) > maximumAge)
                     {
-                        maximumAge = employee.Age;
+                        maximumAge = (DateTime.Now.Year - employee.BirthDate.Year);
                         departamentWithOldestEmployee = department;
                         continue;
                     }
@@ -82,7 +86,7 @@ namespace OrganizationsNS
             var resultEmployees =
                 from department in organization.departments
                 from employee in department.employees
-                where employee.Name.StartsWith(subString)
+                where employee.LastName.StartsWith(subString)
                 select employee;
             return resultEmployees.ToList();
         }
@@ -115,15 +119,7 @@ namespace OrganizationsNS
             return resultEmplyees.ToList();
         }
         
-        public static void FindAllEmployeesLivingOnTheSameStreet(List<Employee> employees)
-        {
-            var resultEmployees = employees.Select(e => new { e.address.City, e.Name }).OrderBy(e => e.City);
 
-            foreach (var employee in resultEmployees)
-            {
-                Console.WriteLine("  {0}", employee);
-            }
-        }
     }
 
 }
