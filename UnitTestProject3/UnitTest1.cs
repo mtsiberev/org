@@ -8,7 +8,8 @@ using System.Linq;
 
 namespace UnitTestProject3
 {
-    public class EmployeeCompare : IEqualityComparer<Employee>
+    public class EmployeeCompare<TEntity> : IEqualityComparer<TEntity>
+        where TEntity : Employee
     {
         public bool Equals(Employee employee1, Employee employee2)
         {
