@@ -15,7 +15,6 @@ namespace OrganizationsNS
 
         public string Name { get; set; }
         public int Age { get; set; }
-        //static Random rand = new Random((DateTime.Now.Millisecond));//решение проблемы одинаковых случайных чисел
         public Address address;
     }
 
