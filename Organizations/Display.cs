@@ -20,14 +20,13 @@ namespace OrganizationsNS
                         employee.Id,
                         employee.FirstName,
                         employee.LastName,
-                        employee.BirthDate,
-                        employee.GetPersonId());
+                        employee.BirthDate);
                 }
                 Console.WriteLine("\r\n");
             }
         }
 
-        
+
         public static void FindAllEmployeesLivingOnTheSameStreet(List<Employee> employees)
         {
             var resultEmployees = employees.Select(e => new { e.address.City, e.FirstName, e.LastName }).OrderBy(e => e.City);
@@ -37,7 +36,7 @@ namespace OrganizationsNS
                 Console.WriteLine("  {0}", employee);
             }
         }
-        
+
         // get all unique First Names of employees in a specified department
         public static void GetAllUniqueFirstNamesOfEmployeesInSpecifiedDepartment(Department department)
         {
@@ -45,9 +44,23 @@ namespace OrganizationsNS
             foreach (var group in groupedEmployees)
             {
                 Console.WriteLine(group.Key);
-            }                  
+            }
         }
+
+        public static void GetAllUniqueFirstNamesOfEmployeesInSpecifiedDepartmentLINQ(Department department)
+        {
+            var resultEmployees = department.employees.Select(x => x.FirstName).Distinct();
+            foreach (var employee in resultEmployees)
+            {
+                Console.WriteLine(employee);
+            }
+         
+        }
+
+
 
     }
 
 }
+
+

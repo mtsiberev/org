@@ -28,14 +28,23 @@ namespace OrganizationsNS
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", BirthDate = new DateTime(1995, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", BirthDate = new DateTime(1985, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", BirthDate = new DateTime(1975, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
-            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { FirstName = "Mikhail", LastName = "Petrov1", BirthDate = new DateTime(1965, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { FirstName = "Mikhail", LastName = "Petrov51", BirthDate = new DateTime(1965, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov2", BirthDate = new DateTime(1995, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov2", BirthDate = new DateTime(1985, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
-            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov2", BirthDate = new DateTime(1975, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov5", BirthDate = new DateTime(1975, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { FirstName = "Mikhail", LastName = "Petrov2", BirthDate = new DateTime(1965, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", BirthDate = new DateTime(1975, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { FirstName = "Mikhail", LastName = "Petrov1", BirthDate = new DateTime(1965, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { FirstName = "Petr", LastName = "Petrov3", BirthDate = new DateTime(1995, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
+            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov2", BirthDate = new DateTime(1985, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
 
 
             Display.GetAllUniqueFirstNamesOfEmployeesInSpecifiedDepartment(pDep);
+            
+            Console.WriteLine("\r\n");
+            Console.WriteLine("\r\n");
+            
+            Display.GetAllUniqueFirstNamesOfEmployeesInSpecifiedDepartmentLINQ(pDep);
 
 
             /*

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OrganizationsNS
 {
-    public class Reports
+    public class Facade
     {
         public static List<Employee> FindEmployeesByAge(Organization organization, int minAge, int maxAge)
         {
@@ -16,7 +16,7 @@ namespace OrganizationsNS
                 foreach (var employee in department.employees)
                 {
                     if (
-                        ((DateTime.Now.Year - employee.BirthDate.Year) > minAge) 
+                        ((DateTime.Now.Year - employee.BirthDate.Year) > minAge)
                         &&
                         ((DateTime.Now.Year - employee.BirthDate.Year) < maxAge)
                         )
@@ -70,7 +70,7 @@ namespace OrganizationsNS
             {
                 foreach (var employee in department.employees)
                 {
-                    if ( (DateTime.Now.Year - employee.BirthDate.Year) > maximumAge)
+                    if ((DateTime.Now.Year - employee.BirthDate.Year) > maximumAge)
                     {
                         maximumAge = (DateTime.Now.Year - employee.BirthDate.Year);
                         departamentWithOldestEmployee = department;
@@ -90,35 +90,6 @@ namespace OrganizationsNS
                 select employee;
             return resultEmployees.ToList();
         }
-
-        //вспомогательный метод. сообщает содержится ли сотрудник в отделе, отличном от передаваемого в аргументе
-        //позволяет проверить числится ли сотрудник в более чем одном отделе
-        static bool IsContainedInSeveralDepartaments(Organization organization, Employee findEmployee, Department departmentWithEmployee)
-        {
-            foreach (var department in organization.departments)
-            {
-                foreach (var employee in department.employees)
-                {
-                    if (
-                        (findEmployee.GetPersonId() == employee.GetPersonId()) &&
-                        (department.Id != departmentWithEmployee.Id)
-                        )
-                        return true;
-                }
-            }
-            return false;
-        }
-
-        public static List<Employee> FindEmployeesWorkingInSeveralDepartments(Organization organization)
-        {
-            var resultEmplyees =
-                from department in organization.departments
-                from employee in department.employees
-                where Reports.IsContainedInSeveralDepartaments(organization, employee, department)
-                select employee;
-            return resultEmplyees.ToList();
-        }
-        
 
     }
 
