@@ -4,20 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Organizations
+namespace OrganizationsNS
 {
     public interface IRepository<T>
     {
         void Insert(T entity);
         void Delete(T entity);
         List<T> GetAll();
-
     }
 
-
-    public class InstancesRepository<T> : IRepository<T>
+    public class Repository<T> : IRepository<T>
     {
         protected List<T> data;
+
+        public int GetNewEntityId()
+        {
+            return this.data.Count;
+        }
 
         public void Insert(T entity)
         {
@@ -28,6 +31,11 @@ namespace Organizations
         {
 
         }
+
+        public T GetEntity(int index = 0)
+        {
+            return data[index];
+        } 
 
         public List<T> GetAll()
         {

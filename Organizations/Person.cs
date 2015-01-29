@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace OrganizationsNS
 {
-    public class Person
+    
+    public interface IEntity
+    {
+        void Show();
+        int GetId();
+    }
+       
+
+    public class Person 
     {           
         public string FirstName { get; set; }
         public string LastName { get; set; }

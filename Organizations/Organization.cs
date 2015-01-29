@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OrganizationsNS
 {
-    public class Organization
+    public class Organization : IEntity
     {
         public int Id { get; private set; }
         public Organization(int id)
@@ -14,6 +14,14 @@ namespace OrganizationsNS
             Id = id;
             departments = new List<Department>();
         }
+
+        public int GetId()
+        {
+            return Id; 
+        }
+
+        public void Show() { }
+
         
         public string Name { get; set; }
         public List<Department> departments;

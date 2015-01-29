@@ -6,40 +6,27 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace UnitTestProject3
+namespace OrganizationsNS
 {
-    
-    public class OrganizationCompare : IEqualityComparer<Organization>
+
+    public class EntityCompare : IEqualityComparer<IEntity>
     {
-        public bool Equals(Organization organization1, Organization organization2)
+        public bool Equals(IEntity entity1, IEntity entity2)
         {
-            return (organization1.Id == organization2.Id);
+            return (entity1.GetId() == entity2.GetId());
         }
 
-        public int GetHashCode(Organization organization)
+        public int GetHashCode(IEntity entity)
         {
-            return organization.GetHashCode();
+            return entity.GetHashCode();
         }
     }
-
-    public class DepartmentsCompare : IEqualityComparer<Department>
-    {
-        public bool Equals(Department department1, Department department2)
-        {
-            return (department1.Id == department2.Id);
-        }
-
-        public int GetHashCode(Department department)
-        {
-            return department.GetHashCode();
-        }
-    }
-     
     
+
     [TestClass]
     public class TestingOfReportsMethods
     {
-           
+
         static public bool CompareListOfObjects<T>(List<T> expectedInstances, List<T> actualInstances, IEqualityComparer<T> cmp)
         {
             foreach (var employee in actualInstances)
@@ -57,18 +44,15 @@ namespace UnitTestProject3
         }
         ////////////        
 
+        //    static public InstanceCompare<Employee> employeesComparator = new EmployeeCompare();
+        //   static public InstanceCompare<Organization> organizationsComparator = new OrganizationCompare();
+        //   static public InstanceCompare<Department> departmentsComparator = new DepartmentsCompare();
 
+        //static public EmployeeCompare<Employee> employeesComparator = new EmployeeCompare();
+        //static public DepartmentsCompare departmentsComparator = new DepartmentsCompare();
 
-    //    static public InstanceCompare<Employee> employeesComparator = new EmployeeCompare();
-     //   static public InstanceCompare<Organization> organizationsComparator = new OrganizationCompare();
-     //   static public InstanceCompare<Department> departmentsComparator = new DepartmentsCompare();
+        static public EntityCompare entityComparator = new EntityCompare();
 
-
-  
-      //  static public EmployeeCompare<Employee> employeesComparator = new EmployeeCompare();
-        static public OrganizationCompare organizationsComparator = new OrganizationCompare();
-        static public DepartmentsCompare departmentsComparator = new DepartmentsCompare();
-       
 
 
         [TestMethod]
@@ -90,8 +74,8 @@ namespace UnitTestProject3
             expectedEmployees.Add(pDep.employees.Find(x => x.LastName == "Kozlov"));//
             expectedEmployees.Add(pDep.employees.Find(x => x.LastName == "Pikul")); ;//
 
-          //  bool result = TestingOfReportsMethods.CompareListOfObjects(actualEmployees, expectedEmployees, employeesComparator);
-         //   Assert.AreEqual(true, result, "Not equal");
+            bool result = TestingOfReportsMethods.CompareListOfObjects(actualEmployees, expectedEmployees, entityComparator);
+            Assert.AreEqual(true, result, "Not equal");
         }
 
         [TestMethod]
@@ -105,16 +89,16 @@ namespace UnitTestProject3
             Department pDep = firstline.departments.Find(x => x.Name.Contains("IT department"));
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Petrov", BirthDate = new DateTime(1995, 1, 1) });
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Pirogov", BirthDate = new DateTime(1994, 1, 1) });
-      
+
 
             actual_organizations = Facade.FindEmployeesByAgeLinQ(firstline, 21, 23);
 
             expected_organizations.Add(pDep.employees.Find(x => x.LastName == "Pavlov"));
             expected_organizations.Add(pDep.employees.Find(x => x.LastName == "Pavlinov"));
-      
 
-       //     bool result = TestingOfReportsMethods.CompareListOfObjects(actual_organizations, expected_organizations, employeesComparator);
-      //      Assert.AreEqual(true, result, "Not equal");
+
+            bool result = TestingOfReportsMethods.CompareListOfObjects(actual_organizations, expected_organizations, entityComparator);
+            Assert.AreEqual(true, result, "Not equal");
         }
 
         [TestMethod]
@@ -151,10 +135,10 @@ namespace UnitTestProject3
             Department pDep = firstline.departments.Find(x => x.Name.Contains("IT department"));
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Pirogov", BirthDate = new DateTime(1995, 1, 1) });//+
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Pavlov", BirthDate = new DateTime(1994, 1, 1) });//+
-  
+
             pDep = firstline.departments.Find(x => x.Name.Contains("HR department"));
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Dolinin", BirthDate = new DateTime(1995, 1, 1) });
-        
+
 
             /////////////////////second organization
             pDep = secondline.departments.Find(x => x.Name.Contains("IT department"));
@@ -166,15 +150,15 @@ namespace UnitTestProject3
             //////////////////////third organization
             pDep = thirdline.departments.Find(x => x.Name.Contains("IT department"));
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Teplov", BirthDate = new DateTime(1995, 1, 1) });//+
-    
+
 
             pDep = thirdline.departments.Find(x => x.Name.Contains("R&D department"));
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Aleshin", BirthDate = new DateTime(1995, 1, 1) });
-     
+
 
             actualOrganizations = Facade.FindOrganizationsByNameOfDepartmentWithPersonNumber(organizations, "IT", 2);
 
-            bool result = TestingOfReportsMethods.CompareListOfObjects(actualOrganizations, expectedOrganizations, organizationsComparator);
+            bool result = TestingOfReportsMethods.CompareListOfObjects(actualOrganizations, expectedOrganizations, entityComparator);
             Assert.AreEqual(true, result, "Not equal");
         }
 
@@ -192,17 +176,17 @@ namespace UnitTestProject3
 
             pDep.AddEmployee(new Employee(firstline.GetNewDepartmentId()) { LastName = "Petrov", BirthDate = new DateTime(1995, 1, 1) });
             pDep.AddEmployee(new Employee(firstline.GetNewDepartmentId()) { LastName = "Kotov", BirthDate = new DateTime(1995, 1, 1) });
-         
+
 
             pDep = firstline.departments.Find(x => x.Name.Contains("HR department"));
             pDep.AddEmployee(new Employee(firstline.GetNewDepartmentId()) { LastName = "Dolinin", BirthDate = new DateTime(1995, 1, 1) });
-           
+
             pDep = firstline.departments.Find(x => x.Name.Contains("R&D department"));
             pDep.AddEmployee(new Employee(firstline.GetNewDepartmentId()) { LastName = "Petrikov", BirthDate = new DateTime(1995, 1, 1) });
-          
+
             pDep = firstline.departments.Find(x => x.Name.Contains("sales department"));
             pDep.AddEmployee(new Employee(firstline.GetNewDepartmentId()) { LastName = "Tolchin", BirthDate = new DateTime(1995, 1, 1) });
-          
+
             List<Department> actualDepartments = new List<Department>();
             //actualDepartments = Reports.FindDepartmentWithOldestPerson(firstline);
             actualDepartments.Add(Facade.FindDepartmentWithOldestPerson(firstline));
@@ -210,7 +194,7 @@ namespace UnitTestProject3
             List<Department> expectedDepartments = new List<Department>();
             expectedDepartments.Add(firstline.departments.Find(x => x.Name.Contains("IT department")));
 
-            bool result = TestingOfReportsMethods.CompareListOfObjects(actualDepartments, expectedDepartments, departmentsComparator);
+            bool result = TestingOfReportsMethods.CompareListOfObjects(actualDepartments, expectedDepartments, entityComparator);
             Assert.AreEqual(true, result, "Not equal");
         }
 
@@ -222,7 +206,7 @@ namespace UnitTestProject3
             Department pDep = firstline.departments.Find(x => x.Name.Contains("IT department"));
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Petrov", BirthDate = new DateTime(1995, 1, 1) });//
             pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Kotov", BirthDate = new DateTime(1995, 1, 1) });
-       
+
 
             List<Employee> actualEmployees = Facade.FindEmployeesWithSubstring(firstline, "Pet");
 
@@ -231,12 +215,13 @@ namespace UnitTestProject3
             expected_employees.Add(pDep.employees.Find(x => x.LastName == "Petarin"));
             expected_employees.Add(pDep.employees.Find(x => x.LastName == "Petotov"));//
 
-       //     bool result = TestingOfReportsMethods.CompareListOfObjects(actualEmployees, expected_employees, employeesComparator);
-       //     Assert.AreEqual(true, result, "Not equal");
+            bool result = TestingOfReportsMethods.CompareListOfObjects(actualEmployees, expected_employees, entityComparator);
+            Assert.AreEqual(true, result, "Not equal");
 
         }
 
 
     }
+
 
 }

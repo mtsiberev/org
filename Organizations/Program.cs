@@ -8,19 +8,21 @@ using System.Threading;
 
 namespace OrganizationsNS
 {
-
+    
     class Program
     {
         static void Main(string[] args)
-        {
+        {             
 
-            List<Organization> organizations = new List<Organization>();
+            Repository<Organization> organizationsRepository = new Repository<Organization>();
 
-            for (int i = 0; i < 4; i++)
-            {
-                organizations.Add(new Organization(i) { Name = (i.ToString() + "Line") });
-            }
+            organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "FirstLine" });
+            organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "SecondtLine" });
+            organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "ThirdLine" });
+            
 
+
+/*
             organizations[0].AddDepartment(new Department(organizations[0].GetNewDepartmentId()) { Name = "IT department" });
             Department pDep = organizations[0].departments.Find(x => x.Name.Contains("IT department"));
 
@@ -40,10 +42,10 @@ namespace OrganizationsNS
 
 
             Display.GetAllUniqueFirstNamesOfEmployeesInSpecifiedDepartment(pDep);
-            
+
             Console.WriteLine("\r\n");
             Console.WriteLine("\r\n");
-            
+
             Display.GetAllUniqueFirstNamesOfEmployeesInSpecifiedDepartmentLINQ(pDep);
 
 
@@ -123,6 +125,8 @@ namespace OrganizationsNS
 
         }
     }
+
+    
 }
 
 
