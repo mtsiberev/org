@@ -12,7 +12,7 @@ namespace OrganizationsNS
         public int Id { get; private set; }
 
         public string Name { get; set; }
-        public List<Employee> employees;
+        private List<Employee> employees;
 
         public int GetNewEmployeeId()
         {
@@ -21,14 +21,24 @@ namespace OrganizationsNS
         
         public void Show() { }
         
-        public int GetId()
-        {
-            return Id;
-        }
+        public int GetId() { return Id; }
         
         public void AddEmployee(Employee employee)
         {
             this.employees.Add(employee);
         }
+
+        public Employee GetEmployeeById(int index)
+        {
+            return this.employees.Find(x => x.Id == index);
+        }
+
+
+        public List<Employee> GetAllEmployees()
+        {
+            return employees;
+        }
+
+
     }
 }

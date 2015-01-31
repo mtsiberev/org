@@ -21,11 +21,12 @@ namespace OrganizationsNS
             return entity.GetHashCode();
         }
     }
-    
+
 
     [TestClass]
-    public class TestingOfReportsMethods
+    public class TestingOfFacadeMethods
     {
+        static public EntityCompare entityComparator = new EntityCompare();
 
         static public bool CompareListOfObjects<T>(List<T> expectedInstances, List<T> actualInstances, IEqualityComparer<T> cmp)
         {
@@ -42,185 +43,207 @@ namespace OrganizationsNS
             }
             return true;
         }
-        ////////////        
-
-        //    static public InstanceCompare<Employee> employeesComparator = new EmployeeCompare();
-        //   static public InstanceCompare<Organization> organizationsComparator = new OrganizationCompare();
-        //   static public InstanceCompare<Department> departmentsComparator = new DepartmentsCompare();
-
-        //static public EmployeeCompare<Employee> employeesComparator = new EmployeeCompare();
-        //static public DepartmentsCompare departmentsComparator = new DepartmentsCompare();
-
-        static public EntityCompare entityComparator = new EntityCompare();
-
 
 
         [TestMethod]
-        public void TestingOfFindEmpsByAge()
+        public void TestingOfFindEmployeesByAge()
         {
+            Repository organizationsRepository = new Repository();
             List<Employee> actualEmployees = new List<Employee>();
             List<Employee> expectedEmployees = new List<Employee>();
 
-            Organization firstline = new Organization(0) { Name = "FirstLine" };
-            firstline.AddDepartment(new Department(firstline.GetNewDepartmentId()) { Name = "IT department" });
-            Department pDep = firstline.departments.Find(x => x.Name.Contains("IT department"));
-            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Petrov", BirthDate = new DateTime(1995, 1, 1) });
+            organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "FirstLine" });
+            Organization organization = organizationsRepository.GetEntityById(0);
+            organization.AddDepartment(new Department(organization.GetNewDepartmentId() ) { Name = "HR department" });
+            Department department = organization.GetDepartmentById(0);
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov2", Age = 25, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov3", Age = 30, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov4", Age = 35, address = new Address() { City = "NN", Street = "larina" } });
 
+            actualEmployees = Facade.FindEmployeesByAge(organizationsRepository.GetEntityById(0), 23, 32);
 
-            actualEmployees = Facade.FindEmployeesByAge(firstline, 21, 23);
+            expectedEmployees.Add(department.GetAllEmployees().Find(x => x.LastName == "Petrov2"));
+            expectedEmployees.Add(department.GetAllEmployees().Find(x => x.LastName == "Petrov3"));
 
-            expectedEmployees.Add(pDep.employees.Find(x => x.LastName == "Pavlov"));//
-            expectedEmployees.Add(pDep.employees.Find(x => x.LastName == "Pavlinov"));//
-            expectedEmployees.Add(pDep.employees.Find(x => x.LastName == "Kozlov"));//
-            expectedEmployees.Add(pDep.employees.Find(x => x.LastName == "Pikul")); ;//
-
-            bool result = TestingOfReportsMethods.CompareListOfObjects(actualEmployees, expectedEmployees, entityComparator);
+            bool result = TestingOfFacadeMethods.CompareListOfObjects(actualEmployees, expectedEmployees, entityComparator);
             Assert.AreEqual(true, result, "Not equal");
         }
+
 
         [TestMethod]
         public void TestingOfFindEmpsByAgeLinQ()
         {
-            List<Employee> actual_organizations = new List<Employee>();
-            List<Employee> expected_organizations = new List<Employee>();
+            Repository organizationsRepository = new Repository();
+            List<Employee> actualEmployees = new List<Employee>();
+            List<Employee> expectedEmployees = new List<Employee>();
 
-            Organization firstline = new Organization(0) { Name = "FirstLine" };
-            firstline.AddDepartment(new Department(firstline.GetNewDepartmentId()) { Name = "IT department" });
-            Department pDep = firstline.departments.Find(x => x.Name.Contains("IT department"));
-            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Petrov", BirthDate = new DateTime(1995, 1, 1) });
-            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Pirogov", BirthDate = new DateTime(1994, 1, 1) });
+            organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "FirstLine" });
+            Organization organization = organizationsRepository.GetEntityById(0);
+            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "HR department" });
+            Department department = organization.GetDepartmentById(0);
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov2", Age = 25, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov3", Age = 30, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov4", Age = 35, address = new Address() { City = "NN", Street = "larina" } });
 
+            actualEmployees = Facade.FindEmployeesByAge(organizationsRepository.GetEntityById(0), 23, 32);
 
-            actual_organizations = Facade.FindEmployeesByAgeLinQ(firstline, 21, 23);
+            expectedEmployees.Add(department.GetAllEmployees().Find(x => x.LastName == "Petrov2"));
+            expectedEmployees.Add(department.GetAllEmployees().Find(x => x.LastName == "Petrov3"));
 
-            expected_organizations.Add(pDep.employees.Find(x => x.LastName == "Pavlov"));
-            expected_organizations.Add(pDep.employees.Find(x => x.LastName == "Pavlinov"));
-
-
-            bool result = TestingOfReportsMethods.CompareListOfObjects(actual_organizations, expected_organizations, entityComparator);
+            bool result = TestingOfFacadeMethods.CompareListOfObjects(actualEmployees, expectedEmployees, entityComparator);
             Assert.AreEqual(true, result, "Not equal");
         }
 
+
         [TestMethod]
-        public void TestingOfFindingOrganizationsByNameWithPersonNumber()
+        public void TestingOfFindOrganizationsByNameOfDepartmentWithPersonNumber()
         {
-            List<Organization> organizations = new List<Organization>();
             List<Organization> actualOrganizations = new List<Organization>();
             List<Organization> expectedOrganizations = new List<Organization>();
+            ///////////////////////////////////////////////////////////
+            Repository organizationsRepository = new Repository();
 
-            //исходный набор организаций
-            Organization firstline = new Organization(0) { Name = "FirstLine" };
-            Organization secondline = new Organization(1) { Name = "SecondLine" };
-            Organization thirdline = new Organization(2) { Name = "ThirdLine" };
+            //FirstLine organization
+            organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "FirstLine" });
+            Organization organization = organizationsRepository.GetEntityById(0);
+            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "HR department" });
+            Department department = organization.GetDepartmentById(0);
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
 
-            organizations.Add(firstline);
-            organizations.Add(secondline);
-            organizations.Add(thirdline);
+            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "R&D department" });
+            department = organization.GetDepartmentById(1);
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Petr", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Mikhail", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Ivan", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
 
-            //организации, которые попадают под условие
-            expectedOrganizations.Add(firstline);
-            expectedOrganizations.Add(thirdline);
+            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "IT department" });
+            department = organization.GetDepartmentById(2);
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "John", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey1", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            
+            //SecondLine organization
+            organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "SecondLine" });
+            organization = organizationsRepository.GetEntityById(1);
+            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "HR department" });
+            department = organization.GetDepartmentById(0);
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
 
-            //добавим пустых отделов
-            firstline.AddDepartment(new Department(firstline.GetNewDepartmentId()) { Name = "IT department" });
-            firstline.AddDepartment(new Department(firstline.GetNewDepartmentId()) { Name = "HR department" });
-
-            secondline.AddDepartment(new Department(firstline.GetNewDepartmentId()) { Name = "IT department" });
-            secondline.AddDepartment(new Department(firstline.GetNewDepartmentId()) { Name = "sales department" });
-
-            thirdline.AddDepartment(new Department(firstline.GetNewDepartmentId()) { Name = "IT department" });
-            thirdline.AddDepartment(new Department(firstline.GetNewDepartmentId()) { Name = "R&D department" });
-
-            //добавляем сотрудников.  
-            Department pDep = firstline.departments.Find(x => x.Name.Contains("IT department"));
-            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Pirogov", BirthDate = new DateTime(1995, 1, 1) });//+
-            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Pavlov", BirthDate = new DateTime(1994, 1, 1) });//+
-
-            pDep = firstline.departments.Find(x => x.Name.Contains("HR department"));
-            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Dolinin", BirthDate = new DateTime(1995, 1, 1) });
-
-
-            /////////////////////second organization
-            pDep = secondline.departments.Find(x => x.Name.Contains("IT department"));
-            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Anotin", BirthDate = new DateTime(1995, 1, 1) });
-            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Sergeev", BirthDate = new DateTime(1995, 1, 1) });
-
-            pDep = secondline.departments.Find(x => x.Name.Contains("sales department"));
-            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Chehov", BirthDate = new DateTime(1995, 1, 1) });
-            //////////////////////third organization
-            pDep = thirdline.departments.Find(x => x.Name.Contains("IT department"));
-            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Teplov", BirthDate = new DateTime(1995, 1, 1) });//+
+            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "R&D department" });
+            department = organization.GetDepartmentById(1);
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
 
 
-            pDep = thirdline.departments.Find(x => x.Name.Contains("R&D department"));
-            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Aleshin", BirthDate = new DateTime(1995, 1, 1) });
+            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "IT department" });
+            department = organization.GetDepartmentById(2);
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
 
+            //ThirdLine organization
+            organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "ThirdLine" });
+            organization = organizationsRepository.GetEntityById(2);
+            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "HR department" });
+            department = organization.GetDepartmentById(0);
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
 
-            actualOrganizations = Facade.FindOrganizationsByNameOfDepartmentWithPersonNumber(organizations, "IT", 2);
+            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "R&D department" });
+            department = organization.GetDepartmentById(1);
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
 
-            bool result = TestingOfReportsMethods.CompareListOfObjects(actualOrganizations, expectedOrganizations, entityComparator);
+            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "IT department" });
+            department = organization.GetDepartmentById(2);
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey1", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            
+          
+            expectedOrganizations.Add(organizationsRepository.GetEntityById(0));
+            expectedOrganizations.Add(organizationsRepository.GetEntityById(2));
+            //////////////////////////////////////////////////////////
+            actualOrganizations = Facade.FindOrganizationsByNameOfDepartmentWithPersonNumber(organizationsRepository.GetAllOrganizations(), "IT", 3);
+
+            bool result = TestingOfFacadeMethods.CompareListOfObjects(actualOrganizations, expectedOrganizations, entityComparator);
             Assert.AreEqual(true, result, "Not equal");
         }
 
         [TestMethod]
         public void TestingOfFindDepartmentWithOldestPerson()
         {
-            Organization firstline = new Organization(0) { Name = "FirstLine" };
+            Department actualDepartment = new Department(-1);
+            Department expectedDepartment = new Department(-1);
 
-            firstline.AddDepartment(new Department(firstline.GetNewDepartmentId()) { Name = "IT department" });
-            firstline.AddDepartment(new Department(firstline.GetNewDepartmentId()) { Name = "HR department" });
-            firstline.AddDepartment(new Department(firstline.GetNewDepartmentId()) { Name = "R&D department" });
-            firstline.AddDepartment(new Department(firstline.GetNewDepartmentId()) { Name = "sales department" });
+            Repository organizationsRepository = new Repository();
 
-            Department pDep = firstline.departments.Find(x => x.Name.Contains("IT department"));
+            //FirstLine organization
+            organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "FirstLine" });
+            Organization organization = organizationsRepository.GetEntityById(0);
+            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "HR department" });
+            Department department = organization.GetDepartmentById(0);
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 25, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 31, address = new Address() { City = "NN", Street = "larina" } });
 
-            pDep.AddEmployee(new Employee(firstline.GetNewDepartmentId()) { LastName = "Petrov", BirthDate = new DateTime(1995, 1, 1) });
-            pDep.AddEmployee(new Employee(firstline.GetNewDepartmentId()) { LastName = "Kotov", BirthDate = new DateTime(1995, 1, 1) });
+            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "R&D department" });
+            department = organization.GetDepartmentById(1);
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Petr", LastName = "Petrov1", Age = 29, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Mikhail", LastName = "Petrov1", Age = 38, address = new Address() { City = "NN", Street = "larina" } });
+            //
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Ivan", LastName = "Petrov1", Age = 40, address = new Address() { City = "NN", Street = "larina" } });
+
+            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "IT department" });
+            department = organization.GetDepartmentById(2);
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "John", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 29, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 37, address = new Address() { City = "NN", Street = "larina" } });
 
 
-            pDep = firstline.departments.Find(x => x.Name.Contains("HR department"));
-            pDep.AddEmployee(new Employee(firstline.GetNewDepartmentId()) { LastName = "Dolinin", BirthDate = new DateTime(1995, 1, 1) });
+            actualDepartment = Facade.FindDepartmentWithOldestPerson(organizationsRepository.GetEntityById(0));
+            expectedDepartment = organizationsRepository.GetEntityById(0).GetDepartmentById(1);
 
-            pDep = firstline.departments.Find(x => x.Name.Contains("R&D department"));
-            pDep.AddEmployee(new Employee(firstline.GetNewDepartmentId()) { LastName = "Petrikov", BirthDate = new DateTime(1995, 1, 1) });
-
-            pDep = firstline.departments.Find(x => x.Name.Contains("sales department"));
-            pDep.AddEmployee(new Employee(firstline.GetNewDepartmentId()) { LastName = "Tolchin", BirthDate = new DateTime(1995, 1, 1) });
-
-            List<Department> actualDepartments = new List<Department>();
-            //actualDepartments = Reports.FindDepartmentWithOldestPerson(firstline);
-            actualDepartments.Add(Facade.FindDepartmentWithOldestPerson(firstline));
-
-            List<Department> expectedDepartments = new List<Department>();
-            expectedDepartments.Add(firstline.departments.Find(x => x.Name.Contains("IT department")));
-
-            bool result = TestingOfReportsMethods.CompareListOfObjects(actualDepartments, expectedDepartments, entityComparator);
+            bool result = ReferenceEquals(actualDepartment, expectedDepartment);
             Assert.AreEqual(true, result, "Not equal");
         }
 
         [TestMethod]
         public void TestingOfFindEmployeeWithSubstring()
         {
-            Organization firstline = new Organization(0) { Name = "FirstLine" };
-            firstline.AddDepartment(new Department(firstline.GetNewDepartmentId()) { Name = "IT department" });
-            Department pDep = firstline.departments.Find(x => x.Name.Contains("IT department"));
-            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Petrov", BirthDate = new DateTime(1995, 1, 1) });//
-            pDep.AddEmployee(new Employee(pDep.GetNewEmployeeId()) { LastName = "Kotov", BirthDate = new DateTime(1995, 1, 1) });
+            Repository organizationsRepository = new Repository();
+            List<Employee> actualEmployees = new List<Employee>();
+            List<Employee> expectedEmployees = new List<Employee>();
 
+            organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "FirstLine" });
+            Organization organization = organizationsRepository.GetEntityById(0);
+            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "HR department" });
+            Department department = organization.GetDepartmentById(0);
+            department.AddEmployee(new Employee(department.GetNewEmployeeId() ) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId() ) { FirstName = "Dmitry", LastName = "Petrov2", Age = 25, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId() ) { FirstName = "Alexey", LastName = "Kotorov3", Age = 30, address = new Address() { City = "NN", Street = "larina" } });
+            department.AddEmployee(new Employee(department.GetNewEmployeeId() ) { FirstName = "Alexey", LastName = "Petrov4", Age = 35, address = new Address() { City = "NN", Street = "larina" } });
 
-            List<Employee> actualEmployees = Facade.FindEmployeesWithSubstring(firstline, "Pet");
+            actualEmployees = Facade.FindEmployeesWithSubstring(organization, "Pet");
 
-            List<Employee> expected_employees = new List<Employee>();
-            expected_employees.Add(pDep.employees.Find(x => x.LastName == "Petrov"));//
-            expected_employees.Add(pDep.employees.Find(x => x.LastName == "Petarin"));
-            expected_employees.Add(pDep.employees.Find(x => x.LastName == "Petotov"));//
-
-            bool result = TestingOfReportsMethods.CompareListOfObjects(actualEmployees, expected_employees, entityComparator);
+            expectedEmployees.Add(department.GetAllEmployees().Find(x => x.LastName == "Petrov1"));
+            expectedEmployees.Add(department.GetAllEmployees().Find(x => x.LastName == "Petrov2"));
+            expectedEmployees.Add(department.GetAllEmployees().Find(x => x.LastName == "Petrov4"));
+                        
+            bool result = TestingOfFacadeMethods.CompareListOfObjects(actualEmployees, expectedEmployees, entityComparator);
             Assert.AreEqual(true, result, "Not equal");
-
-        }
-
-
+        }        
     }
 
 

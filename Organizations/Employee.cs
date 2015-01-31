@@ -10,17 +10,12 @@ namespace OrganizationsNS
     {
         public int Id { get; private set; }
         public Employee(int id) { Id = id; }
-
-
+        
         public void Show(){}
-
-
+        
         public int GetId()
         {
             return Id;
         }
-
-
-
     }
 }

@@ -6,38 +6,47 @@ using System.Threading.Tasks;
 
 namespace OrganizationsNS
 {
+    /*
     public interface IRepository<T>
     {
         void Insert(T entity);
         void Delete(T entity);
         List<T> GetAll();
     }
+    */
+    // public class Repository<T> : IRepository<T>
 
-    public class Repository<T> : IRepository<T>
+    public class Repository
     {
-        protected List<T> data;
+        protected List<Organization> data;
+
+        public Repository() 
+        { 
+            data = new List<Organization>() ;
+        }
+
 
         public int GetNewEntityId()
         {
             return this.data.Count;
         }
 
-        public void Insert(T entity)
+        public void Insert(Organization entity)
         {
             data.Add(entity);
         }
 
-        public void Delete(T entity)
+        public void Delete(Organization entity)
         {
 
         }
 
-        public T GetEntity(int index = 0)
+        public Organization GetEntityById(int id)
         {
-            return data[index];
-        } 
+            return data.Find(x => x.Id == id);
+        }
 
-        public List<T> GetAll()
+        public List<Organization> GetAllOrganizations()
         {
             return data;
         }
