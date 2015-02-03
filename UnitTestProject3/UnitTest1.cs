@@ -8,12 +8,11 @@ using System.Linq;
 
 namespace OrganizationsNS
 {
-
     public class EntityCompare : IEqualityComparer<IEntity>
     {
         public bool Equals(IEntity entity1, IEntity entity2)
         {
-            return (entity1.GetId() == entity2.GetId());
+            return (entity1.Id == entity2.Id);
         }
 
         public int GetHashCode(IEntity entity)
@@ -21,7 +20,6 @@ namespace OrganizationsNS
             return entity.GetHashCode();
         }
     }
-
 
     [TestClass]
     public class TestingOfFacadeMethods
@@ -48,7 +46,7 @@ namespace OrganizationsNS
         [TestMethod]
         public void TestingOfFindEmployeesByAge()
         {
-            Repository organizationsRepository = new Repository();
+            Repository <Organization> organizationsRepository = new Repository<Organization>();
             List<Employee> actualEmployees = new List<Employee>();
             List<Employee> expectedEmployees = new List<Employee>();
 
@@ -74,7 +72,7 @@ namespace OrganizationsNS
         [TestMethod]
         public void TestingOfFindEmpsByAgeLinQ()
         {
-            Repository organizationsRepository = new Repository();
+            Repository<Organization> organizationsRepository = new Repository<Organization>();
             List<Employee> actualEmployees = new List<Employee>();
             List<Employee> expectedEmployees = new List<Employee>();
 
@@ -103,7 +101,7 @@ namespace OrganizationsNS
             List<Organization> actualOrganizations = new List<Organization>();
             List<Organization> expectedOrganizations = new List<Organization>();
             ///////////////////////////////////////////////////////////
-            Repository organizationsRepository = new Repository();
+            Repository<Organization> organizationsRepository = new Repository<Organization>();
 
             //FirstLine organization
             organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "FirstLine" });
@@ -170,12 +168,11 @@ namespace OrganizationsNS
             department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
             department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
             department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey1", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            
-          
+                      
             expectedOrganizations.Add(organizationsRepository.GetEntityById(0));
             expectedOrganizations.Add(organizationsRepository.GetEntityById(2));
             //////////////////////////////////////////////////////////
-            actualOrganizations = Facade.FindOrganizationsByNameOfDepartmentWithPersonNumber(organizationsRepository.GetAllOrganizations(), "IT", 3);
+            actualOrganizations = Facade.FindOrganizationsByNameOfDepartmentWithPersonNumber(organizationsRepository.GetAll(), "IT", 3);
 
             bool result = TestingOfFacadeMethods.CompareListOfObjects(actualOrganizations, expectedOrganizations, entityComparator);
             Assert.AreEqual(true, result, "Not equal");
@@ -187,7 +184,7 @@ namespace OrganizationsNS
             Department actualDepartment = new Department(-1);
             Department expectedDepartment = new Department(-1);
 
-            Repository organizationsRepository = new Repository();
+            Repository<Organization> organizationsRepository = new Repository<Organization>();
 
             //FirstLine organization
             organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "FirstLine" });
@@ -222,7 +219,7 @@ namespace OrganizationsNS
         [TestMethod]
         public void TestingOfFindEmployeeWithSubstring()
         {
-            Repository organizationsRepository = new Repository();
+            Repository<Organization> organizationsRepository = new Repository<Organization>();
             List<Employee> actualEmployees = new List<Employee>();
             List<Employee> expectedEmployees = new List<Employee>();
 

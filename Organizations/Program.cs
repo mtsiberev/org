@@ -13,7 +13,7 @@ namespace OrganizationsNS
     {
         static void Main(string[] args)
         {
-            Repository organizationsRepository = new Repository();
+            Repository <Organization> organizationsRepository = new Repository<Organization>();
 
             //FirstLine organization
             organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "FirstLine" });

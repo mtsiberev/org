@@ -8,19 +8,16 @@ namespace OrganizationsNS
 {
     public class Organization : IEntity
     {
-        public int Id { get; private set; }
-        public Organization(int id)
+        private int id;   
+        public Organization(int argumentId){ id = argumentId; departments = new List<Department>(); }
+        
+        public int Id
         {
-            Id = id;
-            departments = new List<Department>();
-        }
-
-        public int GetId()
-        {
-            return Id; 
-        }
-
-        public void Show() { }
+            get
+            {
+                return id;
+            }
+        }    
         
         public string Name { get; set; }
         private List<Department> departments;

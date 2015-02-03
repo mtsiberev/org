@@ -15,9 +15,9 @@ namespace OrganizationsNS
             {
                 foreach (var employee in department.GetAllEmployees())
                 {
-                    if (           
+                    if (
                         (employee.Age > minAge)
-                        &&        
+                        &&
                         (employee.Age < maxAge)
                         )
                     {
@@ -38,7 +38,7 @@ namespace OrganizationsNS
                 select employee;
             return resultEmployees.ToList();
         }
-        
+
         public static List<Organization> FindOrganizationsByNameOfDepartmentWithPersonNumber(List<Organization> organizations, string departmentName, int numberOfPerson)
         {
             List<Organization> resultOrganizations = new List<Organization>();
@@ -47,7 +47,7 @@ namespace OrganizationsNS
                 foreach (var department in organization.GetAllDepartments())
                 {
                     if (
-                        (department.Name.Contains(departmentName)) &&  
+                        (department.Name.Contains(departmentName)) &&
                         (department.GetAllEmployees().Count() > numberOfPerson)
 
                         )
@@ -63,15 +63,15 @@ namespace OrganizationsNS
         public static Department FindDepartmentWithOldestPerson(Organization organization)
         {
             int maximumAge = 0;
-          //  List<Department> departaments = new List<Department>();
+            //  List<Department> departaments = new List<Department>();
             Department departamentWithOldestEmployee = new Department(-1);
 
             foreach (var department in organization.GetAllDepartments())
             {
                 foreach (var employee in department.GetAllEmployees())
-                {      
+                {
                     if (employee.Age > maximumAge)
-                    {           
+                    {
                         maximumAge = employee.Age;
                         departamentWithOldestEmployee = department;
                         continue;
@@ -92,9 +92,9 @@ namespace OrganizationsNS
         }
 
                
-        public static void FindAllEmployeesLivingOnTheSameStreet(List<Employee> employees)
+        public static void FindAllEmployeesLivingOnTheSameStreet(Department department)
         {
-            var resultEmployees = employees.Select(e => new { e.address.City, e.FirstName, e.LastName }).OrderBy(e => e.City);
+            var resultEmployees = department.GetAllEmployees().Select(e => new { e.address.City, e.FirstName, e.LastName }).OrderBy(e => e.City);
 
             foreach (var employee in resultEmployees)
             {
@@ -118,7 +118,7 @@ namespace OrganizationsNS
             {
                 Console.WriteLine(employee);
             }
-        }        
+        }
 
     }
 

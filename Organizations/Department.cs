@@ -8,9 +8,17 @@ namespace OrganizationsNS
 {
     public class Department : IEntity
     {
-        public Department(int id) { Id = id; employees = new List<Employee>(); }
-        public int Id { get; private set; }
+        private int id;
+        public Department(int argumentId) { id = argumentId; employees = new List<Employee>(); }
 
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+        }    
+        
         public string Name { get; set; }
         private List<Employee> employees;
 
@@ -18,10 +26,6 @@ namespace OrganizationsNS
         {
             return this.employees.Count;
         }
-        
-        public void Show() { }
-        
-        public int GetId() { return Id; }
         
         public void AddEmployee(Employee employee)
         {
@@ -32,13 +36,10 @@ namespace OrganizationsNS
         {
             return this.employees.Find(x => x.Id == index);
         }
-
-
+        
         public List<Employee> GetAllEmployees()
         {
             return employees;
         }
-
-
     }
 }
