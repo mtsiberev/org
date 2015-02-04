@@ -8,6 +8,37 @@ namespace OrganizationsNS
 {
     public class Facade
     {
+        private Repository<Organization> organizations;
+        private Repository<Department> departments;
+        private Repository<Employee> employees;
+
+        public Facade()
+        {
+            organizations = new Repository<Organization>();
+            departments = new Repository<Department>();
+            employees = new Repository<Employee>();
+        }
+
+        void AddOrganization(string organizationName)
+        {
+            organizations.Insert( new Organization( organizations.GetNewEntityId() ) { Name = organizationName } );
+        }
+
+        void AddDepartment(string departmentName, int organizationId)
+        {
+            
+        }
+
+        void AddEmployee(..., int organizationId, int departmentId)
+        {
+
+        }
+
+        
+
+        //-----------------------------------------------------------
+
+
         public static List<Employee> FindEmployeesByAge(Organization organization, int minAge, int maxAge)
         {
             List<Employee> result = new List<Employee>();
@@ -91,7 +122,7 @@ namespace OrganizationsNS
             return resultEmployees.ToList();
         }
 
-               
+
         public static void FindAllEmployeesLivingOnTheSameStreet(Department department)
         {
             var resultEmployees = department.GetAllEmployees().Select(e => new { e.address.City, e.FirstName, e.LastName }).OrderBy(e => e.City);

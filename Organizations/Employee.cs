@@ -13,8 +13,16 @@ namespace OrganizationsNS
 
     public class Employee : IEntity
     {
+        private int parentId;
+        void setParent(int id) { parentId = id; }
+
         private int id;
         public Employee(int argumentId) { id = argumentId; }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int Age { get; set; }
+        public Address address;
 
         public int Id
         {
@@ -23,11 +31,5 @@ namespace OrganizationsNS
                 return id;
             }
         }
-
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int Age { get; set; }
-        public Address address;
-        
     }
 }

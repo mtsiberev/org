@@ -15,39 +15,16 @@ namespace OrganizationsNS
 
     public class Repository<T> : IRepository<T> where T : class, IEntity
     {
-        protected List<T> data;        
+        private List<T> data;
 
-        public Repository()
-        {
-            data = new List<T>();
-        }
+        public void Insert(T entity) { data.Add(entity); }
+        public void Delete(T entity) { }
+        public List<T> GetAll() { return data; }
 
-        public int GetNewEntityId()
-        {
-            return this.data.Count;
-        }
+        public Repository() { data = new List<T>(); }
 
-        public void Insert(T entity)
-        {
-            data.Add(entity);
-        }
-
-        public void Delete(T entity)
-        {
-
-        }
-
-        public T GetEntityById(int id)
-        {
-            return data.Find(x => x.Id == id);
-        }
-
-        public List<T> GetAll()
-        {
-            return data;
-        }
+        public int GetNewEntityId() { return this.data.Count; }
+        public T GetEntityById(int id) { return data.Find(x => x.Id == id); }
 
     }
-
-
 }
