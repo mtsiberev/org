@@ -4,22 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrganizationsNS
+namespace Organizations
 {
     public class Department : IEntity
     {
-        private int parentId;
-        void setParent(int id) { parentId = id; }
+        private int _parentId;
+        void SetParent(int argumentId) { _parentId = argumentId; }
         
-        private int id; 
-        public Department(int argumentId) { id = argumentId;  }
+        private int _id; 
+        public Department(int argumentId) { _id = argumentId;  }
         public string Name { get; set; }
         
         public int Id
         {
             get
             {
-                return id;
+                return _id;
             }
         }
     }

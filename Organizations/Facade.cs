@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrganizationsNS
+namespace Organizations
 {
     public class Facade
     {
@@ -18,26 +18,30 @@ namespace OrganizationsNS
             departments = new Repository<Department>();
             employees = new Repository<Employee>();
         }
-
-        void AddOrganization(string organizationName)
+        
+        public void AddOrganization(Organization organization)
         {
-            organizations.Insert( new Organization( organizations.GetNewEntityId() ) { Name = organizationName } );
+            organizations.Insert(organization);
         }
 
-        void AddDepartment(string departmentName, int organizationId)
+        public void AddDepartment(Department department)
         {
-            
+            departments.Insert(department);
         }
 
-        void AddEmployee(..., int organizationId, int departmentId)
+        public void AddEmployee(Employee employee)
         {
-
+            employees.Insert(employee);
         }
 
+        public int GetId()
+        {
+            return employees.GetNewEntityId();
+        }
         
 
-        //-----------------------------------------------------------
-
+        //-----------------------------------------------------------        
+        /*
 
         public static List<Employee> FindEmployeesByAge(Organization organization, int minAge, int maxAge)
         {
@@ -121,36 +125,8 @@ namespace OrganizationsNS
                 select employee;
             return resultEmployees.ToList();
         }
-
-
-        public static void FindAllEmployeesLivingOnTheSameStreet(Department department)
-        {
-            var resultEmployees = department.GetAllEmployees().Select(e => new { e.address.City, e.FirstName, e.LastName }).OrderBy(e => e.City);
-
-            foreach (var employee in resultEmployees)
-            {
-                Console.WriteLine("  {0}", employee);
-            }
-        }
-
-        public static void GetAllUniqueFirstNamesOfEmployeesInSpecifiedDepartment(Department department)
-        {
-            var groupedEmployees = department.GetAllEmployees().GroupBy(e => e.FirstName);
-            foreach (var group in groupedEmployees)
-            {
-                Console.WriteLine(group.Key);
-            }
-        }
-
-        public static void GetAllUniqueFirstNamesOfEmployeesInSpecifiedDepartmentLINQ(Department department)
-        {
-            var resultEmployees = department.GetAllEmployees().Select(x => x.FirstName).Distinct();
-            foreach (var employee in resultEmployees)
-            {
-                Console.WriteLine(employee);
-            }
-        }
-
+            
+        */
     }
 
 }

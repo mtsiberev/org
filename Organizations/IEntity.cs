@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Organizations
 {
-    public class Address
+    public interface IEntity
     {
-        public string City { get; set; }
-        public string Street { get; set; }  
+        int Id { get; }
     }
 }

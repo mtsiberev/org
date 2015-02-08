@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 using System.Threading;
 
 
-namespace OrganizationsNS
+namespace Organizations
 {
 
     class Program
     {
         static void Main(string[] args)
         {
-            Repository <Organization> organizationsRepository = new Repository<Organization>();
-
+            var facade = new Facade();
+            facade.AddOrganization(new Organization(facade.GetId() ) );
+            facade.AddDepartment(new Department(facade.GetId() ) );
+            //var organizationsRepository = new Repository<Organization>();
+            /*
             //FirstLine organization
             organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "FirstLine" });
             Organization organization = organizationsRepository.GetEntityById(0);
@@ -86,7 +89,7 @@ namespace OrganizationsNS
 
             //department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", BirthDate = new DateTime(1985, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
             //department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", BirthDate = new DateTime(1975, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
-            
+            */
         }
     }
 

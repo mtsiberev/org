@@ -46,6 +46,8 @@
     <Compile Include="Display.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="Facade.cs" />
+    <Compile Include="IEntity.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="Organization.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

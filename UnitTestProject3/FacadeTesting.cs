@@ -1,13 +1,16 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using OrganizationsNS;
+using Organizations;
 using System.Collections.Generic;
 using System.Linq;
 
 
-namespace OrganizationsNS
+namespace Organizations
 {
+
+    /*
+
     public class EntityCompare : IEqualityComparer<IEntity>
     {
         public bool Equals(IEntity entity1, IEntity entity2)
@@ -244,4 +247,6 @@ namespace OrganizationsNS
     }
 
 
+
+    */
 }

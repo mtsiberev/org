@@ -3,28 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
 
-namespace OrganizationsNS
+namespace Organizations
 {
-    public interface IRepository<T>
-    {
-        void Insert(T entity);
-        void Delete(T entity);
-        List<T> GetAll();
-    }
-
     public class Repository<T> : IRepository<T> where T : class, IEntity
     {
         private List<T> data;
-
+        public Repository() { data = new List<T>(); }
         public void Insert(T entity) { data.Add(entity); }
         public void Delete(T entity) { }
-        public List<T> GetAll() { return data; }
+        
+        public IEnumerable<T> GetAll()
+        { return data; }
 
-        public Repository() { data = new List<T>(); }
-
-        public int GetNewEntityId() { return this.data.Count; }
-        public T GetEntityById(int id) { return data.Find(x => x.Id == id); }
-
+        public T GetById(int id)
+        { return data.Single(e => e.Id.Equals(id)); }
+        
+        public int GetNewEntityId() { return data.Count; }
     }
 }
