@@ -18,26 +18,28 @@ namespace Organizations
             departments = new Repository<Department>();
             employees = new Repository<Employee>();
         }
-        
-        public void AddOrganization(Organization organization)
-        {
-            organizations.Insert(organization);
-        }
 
-        public void AddDepartment(Department department)
+        public void AddEntity(IEntity entity)
         {
-            departments.Insert(department);
+            if (entity is Organization)
+            {
+                organizations.Insert(entity as Organization);
+            }
+            else if (entity is Department)
+            {
+                departments.Insert(entity as Department);
+            }
+            else if (entity is Employee)
+            {
+                employees.Insert(entity as Employee);
+            }
         }
-
-        public void AddEmployee(Employee employee)
-        {
-            employees.Insert(employee);
-        }
-
+        /*
         public int GetId()
         {
             return employees.GetNewEntityId();
         }
+         */
         
 
         //-----------------------------------------------------------        

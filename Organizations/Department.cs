@@ -9,11 +9,13 @@ namespace Organizations
     public class Department : IEntity
     {
         private int _parentId;
-        void SetParent(int argumentId) { _parentId = argumentId; }
-        
-        private int _id; 
-        public Department(int argumentId) { _id = argumentId;  }
-        public string Name { get; set; }
+        public Department(int parentId)
+        {
+            _parentId = parentId;
+        }
+
+        private int _id;
+        public void SetId(int instanceId) { _id = instanceId; }
         
         public int Id
         {
@@ -22,5 +24,7 @@ namespace Organizations
                 return _id;
             }
         }
+
+        public string Name { get; set; }
     }
 }

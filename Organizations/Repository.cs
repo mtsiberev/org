@@ -11,7 +11,11 @@ namespace Organizations
     {
         private List<T> data;
         public Repository() { data = new List<T>(); }
-        public void Insert(T entity) { data.Add(entity); }
+
+        public void Insert(T entity)
+        {
+            data.Add(entity);
+        }
         public void Delete(T entity) { }
         
         public IEnumerable<T> GetAll()
@@ -20,6 +24,6 @@ namespace Organizations
         public T GetById(int id)
         { return data.Single(e => e.Id.Equals(id)); }
         
-        public int GetNewEntityId() { return data.Count; }
+        //public int GetNewEntityId() { return data.Count; }
     }
 }

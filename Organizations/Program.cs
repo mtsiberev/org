@@ -14,8 +14,9 @@ namespace Organizations
         static void Main(string[] args)
         {
             var facade = new Facade();
-            facade.AddOrganization(new Organization(facade.GetId() ) );
-            facade.AddDepartment(new Department(facade.GetId() ) );
+            //facade.AddEntity();
+            //facade.AddOrganization(new Organization(facade.GetId() ) );
+            //facade.AddDepartment(new Department(facade.GetId() ) );
             //var organizationsRepository = new Repository<Organization>();
             /*
             //FirstLine organization

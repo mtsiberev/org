@@ -8,15 +8,16 @@ namespace Organizations
 {
     public class Organization : IEntity
     {
-        private int id;    
-        public Organization(int argumentId) { id = argumentId; }
-        public string Name { get; set; }  
+        private int id;
+        public Organization() { }
+
         public int Id
         {
             get
             {
                 return id;
             }
-        }          
+        }
+        public string Name { get; set; }
     }
 }
