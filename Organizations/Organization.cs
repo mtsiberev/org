@@ -8,16 +8,30 @@ namespace Organizations
 {
     public class Organization : IEntity
     {
-        private int id;
-        public Organization() { }
+        private Guid _id;
+        private Guid _parentId;
+        public Organization()
+        {
+            _parentId = Guid.NewGuid(); 
+            _id = Guid.NewGuid();
+        }
 
-        public int Id
+        public Guid Id
         {
             get
             {
-                return id;
+                return _id;
             }
         }
+
+        public Guid ParentId
+        {
+            get
+            {
+                return _parentId;
+            }
+        }
+
         public string Name { get; set; }
     }
 }

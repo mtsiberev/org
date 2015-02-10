@@ -34,14 +34,7 @@ namespace Organizations
                 employees.Insert(entity as Employee);
             }
         }
-        /*
-        public int GetId()
-        {
-            return employees.GetNewEntityId();
-        }
-         */
-        
-
+  
         //-----------------------------------------------------------        
         /*
 

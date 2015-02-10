@@ -8,20 +8,27 @@ namespace Organizations
 {
     public class Employee : IEntity
     {
-        private int _parentId;
-        public Employee(int parentId)
+        private Guid _parentId;
+        private Guid _id;
+        public Employee(Guid parentId)
         {
+            _id = Guid.NewGuid();
             _parentId = parentId;
         }
-
-        private int _id;
-        public void SetId(int instanceId) { _id = instanceId; }
-
-        public int Id
+        
+        public Guid Id
         {
             get
             {
                 return _id;
+            }
+        }
+
+        public Guid ParentId
+        {
+            get
+            {
+                return _parentId;
             }
         }
 

@@ -10,20 +10,27 @@ namespace Organizations
     public class Repository<T> : IRepository<T> where T : class, IEntity
     {
         private List<T> data;
-        public Repository() { data = new List<T>(); }
+
+        public Repository()
+        {
+            data = new List<T>();
+        }
 
         public void Insert(T entity)
         {
             data.Add(entity);
         }
         public void Delete(T entity) { }
-        
-        public IEnumerable<T> GetAll()
-        { return data; }
 
-        public T GetById(int id)
-        { return data.Single(e => e.Id.Equals(id)); }
-        
-        //public int GetNewEntityId() { return data.Count; }
+        public IEnumerable<T> GetAll()
+        {
+            return data;
+        }
+
+        public T GetById(Guid id)
+        {
+            return data.Single(e => e.Id.Equals( id ) );
+        }
+     
     }
 }

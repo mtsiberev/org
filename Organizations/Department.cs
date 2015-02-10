@@ -8,20 +8,27 @@ namespace Organizations
 {
     public class Department : IEntity
     {
-        private int _parentId;
-        public Department(int parentId)
+        private Guid _id;
+        private Guid _parentId;
+        public Department(Guid parentId)
         {
+            _id = Guid.NewGuid();
             _parentId = parentId;
         }
 
-        private int _id;
-        public void SetId(int instanceId) { _id = instanceId; }
-        
-        public int Id
+        public Guid Id
         {
             get
             {
                 return _id;
+            }
+        }
+
+        public Guid ParentId
+        {
+            get
+            {
+                return _parentId;
             }
         }
 

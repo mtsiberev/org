@@ -12,6 +12,6 @@ namespace Organizations
         void Insert(T entity);
         void Delete(T entity);
         IEnumerable<T> GetAll();
-        T GetById(int id);
+        T GetById(Guid id);
     }
 }
