@@ -14,83 +14,16 @@ namespace Organizations
         static void Main(string[] args)
         {
             var facade = new Facade();
-            //facade.AddEntity();
-            //facade.AddOrganization(new Organization(facade.GetId() ) );
-            //facade.AddDepartment(new Department(facade.GetId() ) );
-            //var organizationsRepository = new Repository<Organization>();
-            /*
-            //FirstLine organization
-            organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "FirstLine" });
-            Organization organization = organizationsRepository.GetEntityById(0);
-            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "HR department" });
-            Department department = organization.GetDepartmentById(0);
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
 
+            facade.Add(new Organization() { Name = "FirstLine" });
+            facade.Add(new Department(facade.GetOrganization("FirstLine").Id) { Name = "HR department" });
+            facade.Add(new Department(facade.GetOrganization("FirstLine").Id) { Name = "R&D department" });
+            facade.Add(new Department(facade.GetOrganization("FirstLine").Id) { Name = "IT department" });
 
-            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "R&D department" });
-            department = organization.GetDepartmentById(1);
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Petr", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Mikhail", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Ivan", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-
-
-            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "IT department" });
-            department = organization.GetDepartmentById(2);
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "John", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-
-            //SecondLine organization
-            organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "SecondLine" });
-            organization = organizationsRepository.GetEntityById(1);
-            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "HR department" });
-            department = organization.GetDepartmentById(0);
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-
-
-            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "R&D department" });
-            department = organization.GetDepartmentById(1);
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-
-
-            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "IT department" });
-            department = organization.GetDepartmentById(2);
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-
-
-            //ThirdLine organization
-            organizationsRepository.Insert(new Organization(organizationsRepository.GetNewEntityId()) { Name = "ThirdLine" });
-            organization = organizationsRepository.GetEntityById(2);
-            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "HR department" });
-            department = organization.GetDepartmentById(0);
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-
-            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "R&D department" });
-            department = organization.GetDepartmentById(1);
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-
-            organization.AddDepartment(new Department(organization.GetNewDepartmentId()) { Name = "IT department" });
-            department = organization.GetDepartmentById(2);
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Sergey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-            department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", Age = 20, address = new Address() { City = "NN", Street = "larina" } });
-
-
-            //department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Dmitry", LastName = "Petrov1", BirthDate = new DateTime(1985, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
-            //department.AddEmployee(new Employee(department.GetNewEmployeeId()) { FirstName = "Alexey", LastName = "Petrov1", BirthDate = new DateTime(1975, 1, 1), address = new Address() { City = "NN", Street = "larina" } });
-            */
+            facade.Add(new Employee(facade.GetDepartment("IT department").Id) { Name = "Ivan", LastName = "Petrov", Age = 20, Address = new Address() { City = "NN", Street = "larina" } });
+            facade.Add(new Employee(facade.GetDepartment("IT department").Id) { Name = "Dmitry", LastName = "Sidorov", Age = 30, Address = new Address() { City = "NN", Street = "larina" } });
+            facade.Add(new Employee(facade.GetDepartment("IT department").Id) { Name = "Mikhail", LastName = "Ivanov", Age = 40, Address = new Address() { City = "NN", Street = "larina" } });
+            
         }
     }
 

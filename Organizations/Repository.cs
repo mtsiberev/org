@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace Organizations
         {
             data.Add(entity);
         }
+
         public void Delete(T entity) { }
 
         public IEnumerable<T> GetAll()
@@ -31,6 +33,12 @@ namespace Organizations
         {
             return data.Single(e => e.Id.Equals( id ) );
         }
-     
+
+        public T GetByName(string name)
+        {
+            return data.Single(e => e.Name.Equals(name) );
+        }
+  
+        
     }
 }
