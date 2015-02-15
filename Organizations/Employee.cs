@@ -38,6 +38,11 @@ namespace Organizations
         public int Age { get; set; }
         public Address Address { get; set; }
 
+        public new int GetEntityCode()
+        {
+            return 2;
+        }
+
 
     }
 }

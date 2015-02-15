@@ -11,5 +11,8 @@ namespace Organizations
         Guid Id { get; }
         Guid ParentId { get; }
         string Name { get; set; }
+
+        int GetEntityCode();
+
     }
 }

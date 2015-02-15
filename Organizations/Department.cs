@@ -33,5 +33,12 @@ namespace Organizations
         }
 
         public string Name { get; set; }
+
+        public new int GetEntityCode()
+        {
+            return 1;
+        }
+
+
     }
 }
