@@ -8,11 +8,7 @@ namespace Organizations
 {
     public interface IEntity
     {
-        Guid Id { get; }
-        Guid ParentId { get; }
-        string Name { get; set; }
-
+        int Id { get; }     
         int GetEntityCode();
-
     }
 }

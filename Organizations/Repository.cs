@@ -29,16 +29,9 @@ namespace Organizations
             return data;
         }
 
-        public T GetById(Guid id)
+        public T GetById(int id)
         {
             return data.Single(e => e.Id.Equals( id ) );
-        }
-
-        public T GetByName(string name)
-        {
-            return data.Single(e => e.Name.Equals(name) );
-        }
-  
-        
+        }        
     }
 }

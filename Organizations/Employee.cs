@@ -9,15 +9,15 @@ namespace Organizations
 {
     public class Employee : IEntity
     {
-        private Guid _parentId;
-        private Guid _id;
-        public Employee(Guid parentId)
+        private IEntity _parentEntity;
+        private int _id;
+        public Employee(int id, IEntity parentEntity)
         {
-            _id = Guid.NewGuid();
-            _parentId = parentId;
+            _id = id;
+            _parentEntity = parentEntity;
         }
         
-        public Guid Id
+        public int Id
         {
             get
             {
@@ -25,11 +25,11 @@ namespace Organizations
             }
         }
 
-        public Guid ParentId
+        public IEntity ParentEntity
         {
             get
             {
-                return _parentId;
+                return _parentEntity;
             }
         }
 

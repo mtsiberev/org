@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Organizations
 {
     public class Facade
-    {
+    {        
         private Repository<Organization> organizations;
         private Repository<Department> departments;
         private Repository<Employee> employees;
@@ -19,89 +19,103 @@ namespace Organizations
             employees = new Repository<Employee>();
         }
 
-        public void Add(IEntity entity)
-        {
-            if (entity is Organization)
-            {
-                organizations.Insert(entity as Organization);
-            }
-            else if (entity is Department)
-            {
-                departments.Insert(entity as Department);
-            }
-            else if (entity is Employee)
-            {
-                employees.Insert(entity as Employee);
-            }
+        public void AddOrganization(Organization entity)
+        {                
+            organizations.Insert(entity);            
         }
 
-        public Organization GetOrganization(string name)
+        public void AddDepartment(Department entity)
         {
-            return organizations.GetByName(name);
+            departments.Insert(entity);
         }
 
-        public Organization GetOrganization(Guid id)
+        public void AddEmployee(Employee entity)
+        {
+            employees.Insert(entity);
+        }
+                      
+        public Organization GetOrganizationbyId(int id)
         {
             return organizations.GetById(id);
         }
 
-
-        public Department GetDepartment(string name)
-        {
-            return departments.GetByName(name);
-        }
-
-        public Department GetDepartment(Guid id)
+        public Department GetDepartmentById(int id)
         {
             return departments.GetById(id);
         }
 
-
-        public Employee GetEmployee(string name)
-        {
-            return employees.GetByName(name);
-        }
-
-        public Employee GetEmployee(Guid id)
+        public Employee GetEmployeeById(int id)
         {
             return employees.GetById(id);
         }
 
-        public List<Employee> FindEmployeesByAgeLinQ(Guid organizationId, int minAge, int maxAge)
+        public IEnumerable<Organization> GetAllOrganizations()
+        { 
+            return organizations.GetAll(); 
+        }
+
+        public IEnumerable<Department> GetAllDepartments()
+        {
+            return departments.GetAll();
+        }
+
+        public IEnumerable<Employee> GetAllEmployees()
+        {
+            return employees.GetAll();
+        }
+
+
+
+        public void Init()
+        {
+            organizations.Insert(new Organization(1) { Name = "FirstLine" });
+            departments.Insert(new Department(1, this.GetOrganizationbyId(1)) { Name = "IT department" });
+            departments.Insert(new Department(2, this.GetOrganizationbyId(1)) { Name = "HR department" });
+
+            employees.Insert(new Employee(1, this.GetDepartmentById(1)) { Name = "Ivan", LastName = "Petrov", Age = 20, Address = new Address() { City = "NN", Street = "Larina" } });
+            employees.Insert(new Employee(2, this.GetDepartmentById(1)) { Name = "Dmitry", LastName = "Sidorov", Age = 30, Address = new Address() { City = "NN", Street = "Gorkogo" } });
+            employees.Insert(new Employee(3, this.GetDepartmentById(1)) { Name = "Mikhail", LastName = "Ivanov", Age = 40, Address = new Address() { City = "SPB", Street = "Larina" } });
+
+            employees.Insert(new Employee(4, this.GetDepartmentById(2)) { Name = "Petr", LastName = "Zuev", Age = 25, Address = new Address() { City = "SPB", Street = "Pushkina" } });
+            employees.Insert(new Employee(5, this.GetDepartmentById(2)) { Name = "Evgeny", LastName = "Palev", Age = 33, Address = new Address() { City = "NN", Street = "Lenina" } });
+            employees.Insert(new Employee(6, this.GetDepartmentById(2)) { Name = "Denis", LastName = "Chadov", Age = 38, Address = new Address() { City = "NN", Street = "Larina" } });
+        }
+        
+        public List<Employee> FindEmployeesByAgeLinQ(int organizationId, int minAge, int maxAge)
         {
             var resultEmployees =
                 from employee in employees.GetAll()
-                where (departments.GetById(employee.ParentId).ParentId == organizationId)
+                where (departments.GetById(employee.ParentEntity.Id).ParentEntity.Id == organizationId)
                 where (employee.Age > minAge)
                 where (employee.Age < maxAge)
                 select employee;
             return resultEmployees.ToList();
         }
-
+               
         public List<Organization> FindOrganizationsByNameOfDepartmentWithPersonNumber(string departmentName,
             int numberOfPerson)
         {
             var resultOrganizations =
                 from department in departments.GetAll()
                 where department.Name == departmentName
-                let countEmployees = employees.GetAll().Count(employee => employee.ParentId == department.Id)
+                let countEmployees = employees.GetAll().Count(employee => employee.ParentEntity.Id == department.Id)
                 where countEmployees >= numberOfPerson
-                select organizations.GetById(department.ParentId);
+                select organizations.GetById(department.ParentEntity.Id);
             return resultOrganizations.ToList();
-        }
+        }               
 
-        public Department FindDepartmentWithOldestPerson(Organization organization)
+        public Department FindDepartmentWithOldestPerson()
         {
             return departments.GetById(
                 employees.GetAll().First(x => x.Age == employees.GetAll().Max(y => y.Age))
-                .ParentId);
+                .ParentEntity.Id);
         }
-
-        public List<Employee> FindEmployeesWithSubstring(Guid organizationId, string subString)
+        
+        public List<Employee> FindEmployeesWithSubstring(int organizationId, string subString)
         {
             var resultEmployees =
                 from employee in employees.GetAll()
-                where (departments.GetById(employee.ParentId).ParentId == organizationId)
+                where (departments.GetById(employee.ParentEntity.Id).ParentEntity.Id == organizationId)
                 where (employee.LastName.Contains(subString))
                 select employee;
             return resultEmployees.ToList();
