@@ -64,10 +64,10 @@ namespace Organizations
             return employees.GetAll();
         }
 
-        public IEntity GetRandomEmployee() 
+        public Employee GetRandomEmployee() 
         {
-            Random rand = new Random((DateTime.Now.Millisecond));
-            int i =  rand.Next(0, employees.GetAll().Count() );
+            Random rand = new Random((DateTime.Now.Millisecond) );
+            var i =  rand.Next(0, employees.GetAll().Count() );
             return employees.GetById(i);
         } 
 

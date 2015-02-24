@@ -15,7 +15,14 @@ namespace Organizations
         }
 
         private Facade facade;
-        public  void DisplayOrganization(int organizationId)
+
+        public void ShowEntityCode(IEntity entity) 
+        {
+            Console.WriteLine("\tEntity code is: {0}", entity.GetEntityCode() );
+        }
+
+
+        public void DisplayOrganization(int organizationId)
         {
             foreach (var employee in facade.GetAllEmployees())
             {
