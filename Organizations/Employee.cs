@@ -9,12 +9,12 @@ namespace Organizations
 {
     public class Employee : IEntity
     {
-        private IEntity _parentEntity;
+        private Department _parentDepartment;
         private int _id;
-        public Employee(int id, IEntity parentEntity)
+        public Employee(int id, Department parentDepartment)
         {
             _id = id;
-            _parentEntity = parentEntity;
+            _parentDepartment = parentDepartment;
         }
         
         public int Id
@@ -25,11 +25,11 @@ namespace Organizations
             }
         }
 
-        public IEntity ParentEntity
+        public Department ParentDepartment
         {
             get
             {
-                return _parentEntity;
+                return _parentDepartment;
             }
         }
 

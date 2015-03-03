@@ -14,7 +14,7 @@ namespace Organizations
         static void Main(string[] args)
         {
             Reports report = new Reports();
-            report.DisplayOrganization(1);
+            report.ShowAllEmployeesInOrganization(1);
             report.ShowAllEmployeesLivingOnTheSameStreet(1);
             report.ShowAllUniqueFirstNamesOfEmployeesInSpecifiedDepartment(1);
             report.ShowAllUniqueFirstNamesOfEmployeesInSpecifiedDepartmentLINQ(1);

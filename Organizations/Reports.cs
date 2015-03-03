@@ -9,25 +9,26 @@ namespace Organizations
     public class Reports
     {
         public Reports()
-        { 
-            facade = new Facade(); 
+        {
+            facade = new Facade(new Repository<Organization>(), 
+                new Repository<Department>(), 
+                new Repository<Employee>() );
             facade.Init();
         }
 
         private Facade facade;
 
-        public void ShowEntityCode(IEntity entity) 
+        public void ShowEntityCode(IEntity entity)
         {
-            Console.WriteLine("\tEntity code is: {0}", entity.GetEntityCode() );
+            Console.WriteLine("\tEntity code is: {0}", entity.GetEntityCode());
         }
 
-
-        public void DisplayOrganization(int organizationId)
-        {
-            foreach (var employee in facade.GetAllEmployees())
-            {
-                if (facade.GetDepartmentById(employee.ParentEntity.Id).ParentEntity.Id != organizationId)
-                    continue;
+        public void ShowAllEmployeesInOrganization(int organizationId)
+        {        
+            foreach(var employee in facade.GetAllEmployees().
+                ToList().
+                FindAll(e => e.ParentDepartment.ParentOrganization.Id == organizationId))
+            {                
                 Console.WriteLine("\tEmployee Id: {0}  FirstName: {1}  LastName: {2}  Date {3}",
                     employee.Id,
                     employee.Name,
@@ -36,22 +37,20 @@ namespace Organizations
                     );
             }
         }
-                                                       
-           
+
+
         public void ShowAllEmployeesLivingOnTheSameStreet(int departmentId)
-        {
-            var employeesInDepartment = facade.GetAllEmployees().ToList().FindAll(e => e.ParentEntity.Id == departmentId);
-            var resultEmployees = employeesInDepartment.Select(e => new { e.Address.Street, e.Name, e.LastName }).OrderBy(e => e.Street);
+        {        
+            var resultEmployees = facade.GetAllEmployeesLivingOnTheSameStreet(departmentId);
             foreach (var employee in resultEmployees)
             {
-                Console.WriteLine("  {0}", employee);
+                Console.WriteLine("Employee: {0}   Street: {1}", employee.LastName, employee.Address.Street);              
             }
         }
         
-        
-        public  void ShowAllUniqueFirstNamesOfEmployeesInSpecifiedDepartment(int departmentId)
+        public void ShowAllUniqueFirstNamesOfEmployeesInSpecifiedDepartment(int departmentId)
         {
-            var employeesInDepartment = facade.GetAllEmployees().ToList().FindAll(e => e.ParentEntity.Id == departmentId);
+            var employeesInDepartment = facade.GetEmployeesInDepartment(departmentId);
             var groupedEmployees = employeesInDepartment.GroupBy(e => e.Name);
             foreach (var group in groupedEmployees)
             {
@@ -59,20 +58,18 @@ namespace Organizations
             }
         }
 
-
         public void ShowAllUniqueFirstNamesOfEmployeesInSpecifiedDepartmentLINQ(int departmentId)
         {
-            var employeesInDepartment = facade.GetAllEmployees().ToList().FindAll(e => e.ParentEntity.Id == departmentId);
+            var employeesInDepartment = facade.GetEmployeesInDepartment(departmentId);
             var resultEmployees = employeesInDepartment.Select(x => x.Name).Distinct();
             foreach (var employee in resultEmployees)
             {
                 Console.WriteLine(employee);
             }
         }
-           
-        
+
     }
-    
+
 }
 
 

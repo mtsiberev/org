@@ -8,12 +8,12 @@ namespace Organizations
 {
     public class Department : IEntity
     {
-        private IEntity _parentEntity;
+        private Organization _parentOrganization;
         private int _id;
-        public Department(int id, IEntity parentEntity)
+        public Department(int id, Organization parentOrganization)
         {
             _id = id;
-            _parentEntity = parentEntity;
+            _parentOrganization = parentOrganization;
         }
 
         public int Id
@@ -24,11 +24,11 @@ namespace Organizations
             }
         }
 
-        public IEntity ParentEntity
+        public Organization ParentOrganization
         {
             get
             {
-                return _parentEntity;
+                return _parentOrganization;
             }
         }
 
