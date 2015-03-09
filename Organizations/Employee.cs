@@ -9,19 +9,19 @@ namespace Organizations
 {
     public class Employee : IEntity
     {
-        private Department _parentDepartment;
-        private int _id;
+        private readonly Department m_parentDepartment;
+        private readonly int m_id;
         public Employee(int id, Department parentDepartment)
         {
-            _id = id;
-            _parentDepartment = parentDepartment;
+            m_id = id;
+            m_parentDepartment = parentDepartment;
         }
         
         public int Id
         {
             get
             {
-                return _id;
+                return m_id;
             }
         }
 
@@ -29,7 +29,7 @@ namespace Organizations
         {
             get
             {
-                return _parentDepartment;
+                return m_parentDepartment;
             }
         }
 
@@ -42,7 +42,5 @@ namespace Organizations
         {
             return 2;
         }
-
-
     }
 }

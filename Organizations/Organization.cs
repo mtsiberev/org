@@ -8,17 +8,17 @@ namespace Organizations
 {
     public class Organization : IEntity
     {
-        private int _id;
+        private readonly int m_id;
         public Organization(int id)
         {  
-            _id = id;
+            m_id = id;
         }
 
         public int Id
         {
             get
             {
-                return _id;
+                return m_id;
             }
         } 
 

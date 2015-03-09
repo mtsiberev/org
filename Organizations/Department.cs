@@ -8,19 +8,19 @@ namespace Organizations
 {
     public class Department : IEntity
     {
-        private Organization _parentOrganization;
-        private int _id;
+        private readonly Organization m_parentOrganization;
+        private readonly int m_id;
         public Department(int id, Organization parentOrganization)
         {
-            _id = id;
-            _parentOrganization = parentOrganization;
+            m_id = id;
+            m_parentOrganization = parentOrganization;
         }
 
         public int Id
         {
             get
             {
-                return _id;
+                return m_id;
             }
         }
 
@@ -28,7 +28,7 @@ namespace Organizations
         {
             get
             {
-                return _parentOrganization;
+                return m_parentOrganization;
             }
         }
 
@@ -38,7 +38,6 @@ namespace Organizations
         {
             return 1;
         }
-
 
     }
 }

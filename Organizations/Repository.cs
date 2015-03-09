@@ -10,28 +10,28 @@ namespace Organizations
 {
     public class Repository<T> : IRepository<T> where T : class, IEntity
     {
-        private List<T> data;
+        private readonly List<T> m_data;
 
         public Repository()
         {
-            data = new List<T>();
+            m_data = new List<T>();
         }
 
         public void Insert(T entity)
         {
-            data.Add(entity);
+            m_data.Add(entity);
         }
 
         public void Delete(T entity) { }
 
         public IEnumerable<T> GetAll()
         {
-            return data;
+            return m_data;
         }
 
         public T GetById(int id)
         {
-            return data.Single(e => e.Id.Equals( id ) );
+            return m_data.Single(e => e.Id.Equals( id ) );
         }        
     }
 }

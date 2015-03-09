@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,13 +11,13 @@ namespace Organizations
     {
         public Reports()
         {
-            facade = new Facade(new Repository<Organization>(), 
+            m_facade = new Facade(new Repository<Organization>(), 
                 new Repository<Department>(), 
                 new Repository<Employee>() );
-            facade.Init();
+            m_facade.Init();
         }
 
-        private Facade facade;
+        private readonly Facade m_facade;
 
         public void ShowEntityCode(IEntity entity)
         {
@@ -25,7 +26,7 @@ namespace Organizations
 
         public void ShowAllEmployeesInOrganization(int organizationId)
         {        
-            foreach(var employee in facade.GetAllEmployees().
+            foreach(var employee in m_facade.GetAllEmployees().
                 ToList().
                 FindAll(e => e.ParentDepartment.ParentOrganization.Id == organizationId))
             {                
@@ -41,7 +42,7 @@ namespace Organizations
 
         public void ShowAllEmployeesLivingOnTheSameStreet(int departmentId)
         {        
-            var resultEmployees = facade.GetAllEmployeesLivingOnTheSameStreet(departmentId);
+            var resultEmployees = m_facade.GetAllEmployeesLivingOnTheSameStreet(departmentId);
             foreach (var employee in resultEmployees)
             {
                 Console.WriteLine("Employee: {0}   Street: {1}", employee.LastName, employee.Address.Street);              
@@ -50,7 +51,7 @@ namespace Organizations
         
         public void ShowAllUniqueFirstNamesOfEmployeesInSpecifiedDepartment(int departmentId)
         {
-            var employeesInDepartment = facade.GetEmployeesInDepartment(departmentId);
+            var employeesInDepartment = m_facade.GetEmployeesInDepartment(departmentId);
             var groupedEmployees = employeesInDepartment.GroupBy(e => e.Name);
             foreach (var group in groupedEmployees)
             {
@@ -58,9 +59,9 @@ namespace Organizations
             }
         }
 
-        public void ShowAllUniqueFirstNamesOfEmployeesInSpecifiedDepartmentLINQ(int departmentId)
+        public void ShowAllUniqueFirstNamesOfEmployeesInSpecifiedDepartmentLinq(int departmentId)
         {
-            var employeesInDepartment = facade.GetEmployeesInDepartment(departmentId);
+            var employeesInDepartment = m_facade.GetEmployeesInDepartment(departmentId);
             var resultEmployees = employeesInDepartment.Select(x => x.Name).Distinct();
             foreach (var employee in resultEmployees)
             {
