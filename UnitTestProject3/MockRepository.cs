@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Organizations
 {
@@ -17,7 +18,7 @@ namespace Organizations
         public bool InsertIsCalled { get; private set; }
         public bool DeleteIsCalled { get; private set; }
         public bool GetByIdIsCalled { get; private set; }
-
+     
         public MockOrganizationRepository()
         {
             m_data = new List<Organization>();
@@ -53,7 +54,12 @@ namespace Organizations
         public Organization GetById(int id)
         {
             GetByIdIsCalled = true;
-            return m_data != null ? m_data.Single(e => e.Id.Equals(id)) : LastInsertedOrganization;
+            return LastInsertedOrganization;
+        }
+
+        public Organization GetRandom()
+        {
+            return LastInsertedOrganization;
         }
     }
 
@@ -69,7 +75,7 @@ namespace Organizations
         public bool InsertIsCalled { get; private set; }
         public bool DeleteIsCalled { get; private set; }
         public bool GetByIdIsCalled { get; private set; }
-
+ 
         public MockDepartmentRepository()
         {
             m_data = new List<Department>();
@@ -105,8 +111,14 @@ namespace Organizations
         public Department GetById(int id)
         {
             GetByIdIsCalled = true;
-            return m_data != null ? m_data.Single(e => e.Id.Equals(id)) : LastInsertedDepartment;
+            return LastInsertedDepartment;
         }
+
+        public Department GetRandom()
+        {
+            return LastInsertedDepartment;
+        }
+
     }
     /// <summary>
     /// ///////////////////////////////////////////////////////////
@@ -120,9 +132,7 @@ namespace Organizations
         public bool InsertIsCalled { get; private set; }
         public bool DeleteIsCalled { get; private set; }
         public bool GetByIdIsCalled { get; private set; }
-        public bool CheckRandomEmployeeIsCalled { get; set; }
-        public string CallingMethod { get; private set; }
-
+    
         public MockEmployeeRepository()
         {
             m_data = new List<Employee>();
@@ -157,14 +167,16 @@ namespace Organizations
 
         public Employee GetById(int id)
         {
-            if (CheckRandomEmployeeIsCalled)
-            {
-                var stackTrace = new StackTrace();           
-                var stackFrames = stackTrace.GetFrames();  
-                CallingMethod = stackFrames[1].GetMethod().Name;
-            }
             GetByIdIsCalled = true;
-            return m_data != null ? m_data.Single(e => e.Id.Equals(id)) : LastInsertedEmployee;
+            return LastInsertedEmployee;
+        }
+
+        public Employee GetRandom()
+        {
+            return m_data != null ? m_data.First() : LastInsertedEmployee;
+            //оставил такую реализацию, т.к. метод GetRandom используется в FindDepartmentWithOldestPerson
+            //при этом мок репозиторий MockEmployeeRepository для тестирования этого метода инициализится 
+            //коллекцией, а не одним объектом
         }
     }
     

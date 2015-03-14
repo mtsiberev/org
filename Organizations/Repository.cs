@@ -32,6 +32,13 @@ namespace Organizations
         public T GetById(int id)
         {
             return m_data.Single(e => e.Id.Equals( id ) );
-        }        
+        }
+
+        public T GetRandom()
+        {
+            var rand = new Random((DateTime.Now.Millisecond));
+            var randomNext = rand.Next(0, m_data.Count);
+            return m_data[randomNext];
+        }
     }
 }

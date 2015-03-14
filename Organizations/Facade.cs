@@ -64,14 +64,28 @@ namespace Organizations
             return m_employeesRepository.GetAll();
         }
 
-        public Employee GetRandomEmployee() 
+        public IEntity GetRandomEntity(int entityCode) 
         {
-            var rand = new Random((DateTime.Now.Millisecond) );
-            var randomNext = rand.Next(0, m_employeesRepository.GetAll().Count() );
-            return m_employeesRepository.GetById(randomNext);
+            switch (entityCode)
+            {
+                case 0:
+                    return m_organizationsRepository.GetRandom();
+                    break;
+
+                case 1:
+                    return m_departmentsRepository.GetRandom();
+                    break;
+
+                case 2:
+                    return m_employeesRepository.GetRandom();
+                    break;
+
+                default:
+                    return null;
+                    break;
+            }
         } 
-
-
+        
         public void Init()
         {
             m_organizationsRepository.Insert(new Organization(1) { Name = "FirstLine" });
@@ -92,8 +106,7 @@ namespace Organizations
             return this.GetAllEmployees().ToList().
                 FindAll(e => e.ParentDepartment.Id == departmentId);
         }
-
-
+        
         public List<Employee> GetAllEmployeesLivingOnTheSameStreet(int departmentId)
         {
             var employeesInDepartment = GetEmployeesInDepartment(departmentId);
@@ -104,41 +117,46 @@ namespace Organizations
         {
             var resultEmployees =
                 from employee in m_employeesRepository.GetAll()
-                where (m_departmentsRepository.GetById(employee.ParentDepartment.Id).ParentOrganization.Id == organizationId)
+                where (employee.ParentDepartment.ParentOrganization.Id == organizationId)
                 where (employee.Age > minAge)
                 where (employee.Age < maxAge)
                 select employee;
             return resultEmployees.ToList();
         }
                
-        public List<Organization> FindOrganizationsByNameOfDepartmentWithPersonNumber(string departmentName,
-            int numberOfPerson)
+        public List<Organization> FindOrganizationsByNameOfDepartmentWithPersonNumber(string departmentName, int numberOfPerson)
         {
             var resultOrganizations =
                 from department in m_departmentsRepository.GetAll()
                 where department.Name == departmentName
-                let countEmployees = m_employeesRepository.GetAll().Count(employee => employee.ParentDepartment.Id == department.Id)
+                let countEmployees =
+                    m_employeesRepository.GetAll().Count(employee => employee.ParentDepartment.Id == department.Id)
                 where countEmployees >= numberOfPerson
-                select m_organizationsRepository.GetById(department.ParentOrganization.Id);
+                select department.ParentOrganization;
             return resultOrganizations.ToList();
         }               
 
         public Department FindDepartmentWithOldestPerson()
         {
-            return m_departmentsRepository.GetById(
-                m_employeesRepository.GetAll().First(x => x.Age == m_employeesRepository.GetAll().Max(y => y.Age))
-                .ParentDepartment.Id);
+            var resultEmployee = m_employeesRepository.GetRandom();
+            foreach (var employee in m_employeesRepository.GetAll().
+                Where(employee => resultEmployee.Age < employee.Age))
+            {
+                resultEmployee = employee;
+            }
+            return resultEmployee.ParentDepartment;
         }
         
         public List<Employee> FindEmployeesWithSubstring(int organizationId, string subString)
         {
             var resultEmployees =
-                from employee in m_employeesRepository.GetAll()
-                where (m_departmentsRepository.GetById(employee.ParentDepartment.Id).ParentOrganization.Id == organizationId)
-                where (employee.LastName.Contains(subString))
-                select employee;
+               from employee in m_employeesRepository.GetAll()
+               where (employee.ParentDepartment.ParentOrganization.Id == organizationId)
+               where (employee.LastName.Contains(subString))
+               select employee;
             return resultEmployees.ToList();
         }
+
     }
 
 }

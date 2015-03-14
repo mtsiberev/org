@@ -13,5 +13,6 @@ namespace Organizations
         void Delete(T entity);
         IEnumerable<T> GetAll();
         T GetById(int id);
+        T GetRandom();
     }
 }

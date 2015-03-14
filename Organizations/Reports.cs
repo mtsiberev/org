@@ -38,11 +38,11 @@ namespace Organizations
                     );
             }
         }
-
-
+        
         public void ShowAllEmployeesLivingOnTheSameStreet(int departmentId)
         {        
             var resultEmployees = m_facade.GetAllEmployeesLivingOnTheSameStreet(departmentId);
+
             foreach (var employee in resultEmployees)
             {
                 Console.WriteLine("Employee: {0}   Street: {1}", employee.LastName, employee.Address.Street);              

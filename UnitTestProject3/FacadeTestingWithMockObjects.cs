@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,46 +15,46 @@ namespace Organizations
         public void TestingOfFacadeAddOrganization()
         {
             var organization = new Organization(1);
-            var mockOrganizations = new MockOrganizationRepository();
+            var mockRepositoryOrganizations = new MockOrganizationRepository();
             var facade = new Facade(
-                mockOrganizations,
+                mockRepositoryOrganizations,
                 null,
                 null);
 
             facade.AddOrganization(organization);
-            Assert.AreEqual(true, mockOrganizations.InsertIsCalled);
-            Assert.AreEqual(organization, mockOrganizations.LastInsertedOrganization);
+            Assert.AreEqual(true, mockRepositoryOrganizations.InsertIsCalled);
+            Assert.AreEqual(organization, mockRepositoryOrganizations.LastInsertedOrganization);
         }
 
         [TestMethod]
         public void TestingOfFacadeAddDepartment()
         {
             var department = new Department(1, null);
-            var mockDepartments = new MockDepartmentRepository();
+            var mockRepositoryDepartments = new MockDepartmentRepository();
             var facade = new Facade(
                 null,
-                mockDepartments,
+                mockRepositoryDepartments,
                 null);
 
             facade.AddDepartment(department);
-            Assert.AreEqual(true, mockDepartments.InsertIsCalled);
-            Assert.AreEqual(department, mockDepartments.LastInsertedDepartment);
+            Assert.AreEqual(true, mockRepositoryDepartments.InsertIsCalled);
+            Assert.AreEqual(department, mockRepositoryDepartments.LastInsertedDepartment);
         }
 
         [TestMethod]
         public void TestingOfFacadeAddEmployee()
         {
             var employee = new Employee(1, null);
-            var mockEmployees = new MockEmployeeRepository();
+            var mockRepositoryEmployees = new MockEmployeeRepository();
             var facade = new Facade(
                 null,
                 null,
-                mockEmployees);
+                mockRepositoryEmployees);
 
             facade.AddEmployee(employee);
 
-            Assert.AreEqual(true, mockEmployees.InsertIsCalled);
-            Assert.AreEqual(employee, mockEmployees.LastInsertedEmployee);
+            Assert.AreEqual(true, mockRepositoryEmployees.InsertIsCalled);
+            Assert.AreEqual(employee, mockRepositoryEmployees.LastInsertedEmployee);
         }
 
         //GetOrganizationbyId
@@ -61,14 +62,14 @@ namespace Organizations
         public void TestingOfFacadeGetOrganizationById()
         {
             var organization = new Organization(1);
-            var mockOrganizations = new MockOrganizationRepository(organization);
+            var mockRepositoryOrganizations = new MockOrganizationRepository(organization);
             var facade = new Facade(
-                mockOrganizations,
+                mockRepositoryOrganizations,
                 null,
                 null);
 
             Assert.AreEqual(organization, facade.GetOrganizationById(1));
-            Assert.AreEqual(true, mockOrganizations.GetByIdIsCalled);
+            Assert.AreEqual(true, mockRepositoryOrganizations.GetByIdIsCalled);
         }
 
         //GetDepartmentById
@@ -76,14 +77,14 @@ namespace Organizations
         public void TestingOfFacadeGetDepartmentById()
         {
             var department = new Department(1, null);
-            var mockDepartments = new MockDepartmentRepository(department);
+            var mockRepositoryDepartments = new MockDepartmentRepository(department);
             var facade = new Facade(
                 null,
-                mockDepartments,
+                mockRepositoryDepartments,
                 null);
 
             Assert.AreEqual(department, facade.GetDepartmentById(1));
-            Assert.AreEqual(true, mockDepartments.GetByIdIsCalled);
+            Assert.AreEqual(true, mockRepositoryDepartments.GetByIdIsCalled);
         }
 
         //GetEmployeeById
@@ -91,14 +92,14 @@ namespace Organizations
         public void TestingOfFacadeGetEmployeeById()
         {
             var employee = new Employee(1, null);
-            var mockEmployees = new MockEmployeeRepository(employee);
+            var mockRepositoryEmployees = new MockEmployeeRepository(employee);
             var facade = new Facade(
                 null,
                 null,
-                mockEmployees);
+                mockRepositoryEmployees);
 
             Assert.AreEqual(employee, facade.GetEmployeeById(1));
-            Assert.AreEqual(true, mockEmployees.GetByIdIsCalled);
+            Assert.AreEqual(true, mockRepositoryEmployees.GetByIdIsCalled);
         }
 
         //GetAllOrganizations
@@ -109,14 +110,16 @@ namespace Organizations
             var organization2 = new Organization(2);
             var organizations = new List<Organization> { organization1, organization2 };
 
-            var mockOrganizations = new MockOrganizationRepository(organizations);
+            var mockRepositoryOrganizations = new MockOrganizationRepository(organizations);
             var facade = new Facade(
-                mockOrganizations,
+                mockRepositoryOrganizations,
                 null,
                 null);
 
-            Assert.AreEqual(organizations, facade.GetAllOrganizations());
+            var actualOrganizations = facade.GetAllOrganizations().ToList();
+            CollectionAssert.AreEqual(organizations, actualOrganizations);
         }
+
         //GetAllDepartments
         [TestMethod]
         public void TestingOfFacadeGetAllDepartments()
@@ -125,14 +128,16 @@ namespace Organizations
             var department2 = new Department(2, null);
             var departments = new List<Department> { department1, department2 };
 
-            var mockDepartments = new MockDepartmentRepository(departments);
+            var mockRepositoryDepartments = new MockDepartmentRepository(departments);
             var facade = new Facade(
                 null,
-                mockDepartments,
+                mockRepositoryDepartments,
                 null);
 
-            Assert.AreEqual(departments, facade.GetAllDepartments());
+            var actualDepartments = facade.GetAllDepartments().ToList();
+            CollectionAssert.AreEqual(departments, actualDepartments);
         }
+
         //GetAllEmployees
         [TestMethod]
         public void TestingOfFacadeGetAllEmployees()
@@ -141,35 +146,64 @@ namespace Organizations
             var employee2 = new Employee(2, null);
             var employees = new List<Employee> { employee1, employee2 };
 
-            var mockEmployees = new MockEmployeeRepository(employees);
+            var mockRepositoryEmployees = new MockEmployeeRepository(employees);
             var facade = new Facade(
                 null,
                 null,
-                mockEmployees);
+                mockRepositoryEmployees);
 
-            Assert.AreEqual(employees, facade.GetAllEmployees());
+            var actualEmployeess = facade.GetAllEmployees().ToList();
+            CollectionAssert.AreEqual(employees, actualEmployeess);
         }
+        
+        //GetRandomOrganization
+        [TestMethod]
+        public void TestingOfFacadeGetRandomOrganization()
+        {
+            var organization1 = new Organization(1);
+            var mockRepositoryOrganizations = new MockOrganizationRepository(organization1);
 
+            var facade = new Facade(
+                mockRepositoryOrganizations,
+                null,
+                null);
+
+            var resultOrganization = facade.GetRandomEntity(0);
+            Assert.AreEqual(organization1, resultOrganization);
+        }
+        
+        //GetRandomDepartment
+        [TestMethod]
+        public void TestingOfFacadeGetRandomDepartment()
+        {
+            var department1 = new Department(1, null);
+            var mockRepositoryDepartments = new MockDepartmentRepository(department1);
+
+            var facade = new Facade(
+                null,
+                mockRepositoryDepartments,
+                null);
+
+            var resultDepartment = facade.GetRandomEntity(1);
+            Assert.AreEqual(department1, resultDepartment);
+        }
+        
         //GetRandomEmployee
         [TestMethod]
         public void TestingOfFacadeGetRandomEmployee()
         {
             var employee1 = new Employee(1, null);
-            var employee2 = new Employee(2, null);
-            var employees = new List<Employee> { employee1, employee2 };
-
-            var mockEmployees = new MockEmployeeRepository(employees) { CheckRandomEmployeeIsCalled = true };
+            var mockRepositoryEmployees = new MockEmployeeRepository(employee1);
 
             var facade = new Facade(
                 null,
                 null,
-                mockEmployees);
+                mockRepositoryEmployees);
 
-            facade.GetRandomEmployee();
-            Assert.AreEqual("GetRandomEmployee", mockEmployees.CallingMethod);
+            var resultEmloyee = facade.GetRandomEntity(2);
+            Assert.AreEqual(employee1, resultEmloyee);
         }
-
-
+        
         //GetAllEmployeesLivingOnTheSameStreet
         [TestMethod]
         public void TestingOfGetAllEmployeesLivingOnTheSameStreet()
@@ -180,12 +214,12 @@ namespace Organizations
             var employee3 = new Employee(3, department1) { Address = new Address() { Street = "Gagarina" } };
 
             var employees = new List<Employee> { employee1, employee2, employee3 };
-            var mockEmployees = new MockEmployeeRepository(employees);
+            var mockRepositoryEmployees = new MockEmployeeRepository(employees);
 
             var facade = new Facade(
                 null,
                 null,
-                mockEmployees);
+                mockRepositoryEmployees);
             var actualEmployees = facade.GetAllEmployeesLivingOnTheSameStreet(1);
             var expectedEmployees = new List<Employee> { employee1, employee3, employee2 };
             CollectionAssert.AreEqual(actualEmployees, expectedEmployees);
@@ -196,24 +230,24 @@ namespace Organizations
         public void TestingOfFindEmployeesByAgeLinQ()
         {
             var organization = new Organization(1);
-            var mockOrganizations = new MockOrganizationRepository(organization);
+            var mockRepositoryOrganizations = new MockOrganizationRepository(organization);
 
             var department1 = new Department(1, organization);
             var department2 = new Department(2, organization);
             var departments = new List<Department> { department1, department2 };
-            var mockDepartments = new MockDepartmentRepository(departments);
+            var mockRepositoryDepartments = new MockDepartmentRepository(departments);
 
             var employee1 = new Employee(1, department1) { Age = 20 };
             var employee2 = new Employee(2, department1) { Age = 21 };
             var employee3 = new Employee(3, department2) { Age = 21 };
             var employee4 = new Employee(4, department2) { Age = 22 };
             var employees = new List<Employee> { employee1, employee2, employee3, employee4 };
-            var mockEmployees = new MockEmployeeRepository(employees);
+            var mockRepositoryEmployees = new MockEmployeeRepository(employees);
 
             var facade = new Facade(
-                mockOrganizations,
-                mockDepartments,
-                mockEmployees);
+                mockRepositoryOrganizations,
+                mockRepositoryDepartments,
+                mockRepositoryEmployees);
 
             var actualEmployees = facade.FindEmployeesByAgeLinQ(1, 20, 22);
             var expectedEmployees = new List<Employee> { employee2, employee3 };
@@ -228,7 +262,7 @@ namespace Organizations
             var organization1 = new Organization(1);
             var organization2 = new Organization(2);
             var organizations = new List<Organization> { organization1, organization2 };
-            var mockOrganizations = new MockOrganizationRepository(organizations);
+            var mockRepositoryOrganizations = new MockOrganizationRepository(organizations);
 
             var department1 = new Department(1, organization1) { Name = "IT" };
             var department2 = new Department(2, organization1) { Name = "HR" };
@@ -236,7 +270,7 @@ namespace Organizations
             var department4 = new Department(4, organization2) { Name = "HR" };
 
             var departments = new List<Department> { department1, department2, department3, department4 };
-            var mockDepartments = new MockDepartmentRepository(departments);
+            var mockRepositoryDepartments = new MockDepartmentRepository(departments);
 
             var employee1 = new Employee(1, department1);
             var employee2 = new Employee(2, department2);
@@ -245,12 +279,12 @@ namespace Organizations
             var employee5 = new Employee(5, department1);
 
             var employees = new List<Employee> { employee1, employee2, employee3, employee4, employee5 };
-            var mockEmployees = new MockEmployeeRepository(employees);
+            var mockRepositoryEmployees = new MockEmployeeRepository(employees);
 
             var facade = new Facade(
-                mockOrganizations,
-                mockDepartments,
-                mockEmployees);
+                mockRepositoryOrganizations,
+                mockRepositoryDepartments,
+                mockRepositoryEmployees);
 
             var actualOrganizations = facade.FindOrganizationsByNameOfDepartmentWithPersonNumber("IT", 2);
             var expectedOrganizations = new List<Organization> { organization1 };
@@ -263,14 +297,14 @@ namespace Organizations
         public void TestingOfFindDepartmentWithOldestPerson()
         {
             var organization = new Organization(1);
-            var mockOrganizations = new MockOrganizationRepository(organization);
+            var mockRepositoryOrganizations = new MockOrganizationRepository(organization);
 
             var department1 = new Department(1, organization) { Name = "IT" };
             var department2 = new Department(2, organization) { Name = "HR" };
             var department3 = new Department(3, organization) { Name = "RD" };
 
             var departments = new List<Department> { department1, department2, department3 };
-            var mockDepartments = new MockDepartmentRepository(departments);
+            var mockRepositoryDepartments = new MockDepartmentRepository(departments);
 
             var employee1 = new Employee(1, department1) { Age = 25 };
             var employee2 = new Employee(2, department2) { Age = 30 };
@@ -279,12 +313,12 @@ namespace Organizations
             var employee5 = new Employee(5, department2) { Age = 45 };
 
             var employees = new List<Employee> { employee1, employee2, employee3, employee4, employee5 };
-            var mockEmployees = new MockEmployeeRepository(employees);
+            var mockRepositoryEmployees = new MockEmployeeRepository(employees);
 
             var facade = new Facade(
-                mockOrganizations,
-                mockDepartments,
-                mockEmployees);
+                mockRepositoryOrganizations,
+                mockRepositoryDepartments,
+                mockRepositoryEmployees);
 
             var actualDepartment = facade.FindDepartmentWithOldestPerson();
             var expectedDepartment = department2;
@@ -297,10 +331,10 @@ namespace Organizations
         public void TestingOfFindEmployeesWithSubstring()
         {
             var organization = new Organization(1);
-            var mockOrganizations = new MockOrganizationRepository(organization);
+            var mockRepositoryOrganizations = new MockOrganizationRepository(organization);
 
             var department = new Department(1, organization);
-            var mockDepartments = new MockDepartmentRepository(department);
+            var mockRepositoryDepartments = new MockDepartmentRepository(department);
 
             var employee1 = new Employee(1, department) { LastName = "Molotov"};
             var employee2 = new Employee(2, department) {LastName = "Pavlov"};
@@ -309,12 +343,12 @@ var employee3 = new Employee(3, department) { LastName = "Sergeev"};
             
             var employee5 = new Employee(5, department) { LastName = "Aleeev"};
             var employees = new List<Employee> { employee1, employee2, employee3, employee4, employee5 };
-            var mockEmployees = new MockEmployeeRepository(employees);
+            var mockRepositoryEmployees = new MockEmployeeRepository(employees);
 
             var facade = new Facade(
-                mockOrganizations,
-                mockDepartments,
-                mockEmployees);
+                mockRepositoryOrganizations,
+                mockRepositoryDepartments,
+                mockRepositoryEmployees);
 
             var expectedEmployee = new List<Employee> {employee1, employee2, employee4};
             var actualEmployee = facade.FindEmployeesWithSubstring(1, "ov");
@@ -329,20 +363,20 @@ var employee3 = new Employee(3, department) { LastName = "Sergeev"};
             var department1 = new Department(1, null);
             var department2 = new Department(2, null);
             var departments = new List<Department> { department1, department2 };
-            var mockDepartments = new MockDepartmentRepository(departments);
+            var mockRepositoryDepartments = new MockDepartmentRepository(departments);
 
             var employee1 = new Employee(1, department1);
             var employee2 = new Employee(2, department2);
             var employee3 = new Employee(3, department2);
             var employees = new List<Employee> { employee1, employee2, employee3 };
-            var mockEmployees = new MockEmployeeRepository(employees);
+            var mockRepositoryEmployees = new MockEmployeeRepository(employees);
 
             var expectedEmployees = new List<Employee> { employee2, employee3 };
 
             var facade = new Facade(
                 null,
-                mockDepartments,
-                mockEmployees);
+                mockRepositoryDepartments,
+                mockRepositoryEmployees);
             var actualEmployees = facade.GetEmployeesInDepartment(2);
 
             CollectionAssert.AreEqual(expectedEmployees, actualEmployees);

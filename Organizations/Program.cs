@@ -20,7 +20,7 @@ namespace Organizations
             report.ShowAllEmployeesLivingOnTheSameStreet(1);
             report.ShowAllUniqueFirstNamesOfEmployeesInSpecifiedDepartment(1);
             report.ShowAllUniqueFirstNamesOfEmployeesInSpecifiedDepartmentLinq(1);
-
+            
             report.ShowEntityCode(new Organization(1) );
             report.ShowEntityCode(new Department(1, null) );
             report.ShowEntityCode(new Employee(1, null) );
