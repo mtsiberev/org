@@ -6,7 +6,7 @@
     <ProjectGuid>{D35B3840-99E5-40FF-B706-E8E9A107132C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OrganizationsNS</RootNamespace>
+    <RootNamespace>Organizations</RootNamespace>
     <AssemblyName>UnitTestProject3</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NMock3">
+      <HintPath>..\packages\NMock3.3.5.44\lib\net40\NMock3.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -50,8 +53,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="FacadeTestingWithNMock.cs" />
     <Compile Include="MockRepository.cs" />
     <Compile Include="FacadeTesting.cs" />
+    <Compile Include="NMock3\NMockTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FacadeTestingWithMockObjects.cs" />
   </ItemGroup>
@@ -60,6 +65,10 @@
       <Project>{1809f837-f29b-46fb-a316-f37589283b9a}</Project>
       <Name>Organizations</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NMock3\NMock3 Cheat Sheet.pdf" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
