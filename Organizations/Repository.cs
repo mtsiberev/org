@@ -34,10 +34,10 @@ namespace Organizations
             return m_data.Single(e => e.Id.Equals( id ) );
         }
 
+        static Random random = new Random((DateTime.Now.Millisecond));
         public T GetRandom()
         {
-            var rand = new Random((DateTime.Now.Millisecond));
-            var randomNext = rand.Next(0, m_data.Count);
+            var randomNext = random.Next(0, m_data.Count);
             return m_data[randomNext];
         }
     }

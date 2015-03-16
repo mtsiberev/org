@@ -168,7 +168,7 @@ namespace Organizations
                 null,
                 null);
 
-            var resultOrganization = facade.GetRandomEntity(0);
+            var resultOrganization = facade.GetRandomByEntityCode(0);
             Assert.AreEqual(organization1, resultOrganization);
         }
         
@@ -184,7 +184,7 @@ namespace Organizations
                 mockRepositoryDepartments,
                 null);
 
-            var resultDepartment = facade.GetRandomEntity(1);
+            var resultDepartment = facade.GetRandomByEntityCode(1);
             Assert.AreEqual(department1, resultDepartment);
         }
         
@@ -200,7 +200,7 @@ namespace Organizations
                 null,
                 mockRepositoryEmployees);
 
-            var resultEmloyee = facade.GetRandomEntity(2);
+            var resultEmloyee = facade.GetRandomByEntityCode(2);
             Assert.AreEqual(employee1, resultEmloyee);
         }
         

@@ -173,10 +173,7 @@ namespace Organizations
 
         public Employee GetRandom()
         {
-            return m_data != null ? m_data.First() : LastInsertedEmployee;
-            //оставил такую реализацию, т.к. метод GetRandom используется в FindDepartmentWithOldestPerson
-            //при этом мок репозиторий MockEmployeeRepository для тестирования этого метода инициализится 
-            //коллекцией, а не одним объектом
+            return LastInsertedEmployee;
         }
     }
     

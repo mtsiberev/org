@@ -64,7 +64,7 @@ namespace Organizations
             return m_employeesRepository.GetAll();
         }
 
-        public IEntity GetRandomEntity(int entityCode) 
+        public IEntity GetRandomByEntityCode(int entityCode) 
         {
             switch (entityCode)
             {
@@ -84,8 +84,13 @@ namespace Organizations
                     return null;
                     break;
             }
-        } 
-        
+        }
+
+        public Employee GetRandomEmployee()
+        {
+            return m_employeesRepository.GetRandom();
+        }
+
         public void Init()
         {
             m_organizationsRepository.Insert(new Organization(1) { Name = "FirstLine" });
@@ -138,7 +143,7 @@ namespace Organizations
 
         public Department FindDepartmentWithOldestPerson()
         {
-            var resultEmployee = m_employeesRepository.GetRandom();
+            var resultEmployee = m_employeesRepository.GetAll().First();
             foreach (var employee in m_employeesRepository.GetAll().
                 Where(employee => resultEmployee.Age < employee.Age))
             {

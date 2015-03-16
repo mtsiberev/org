@@ -13,9 +13,10 @@ namespace Organizations
 
     class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var report = new Reports();
+
             report.ShowAllEmployeesInOrganization(1);
             report.ShowAllEmployeesLivingOnTheSameStreet(1);
             report.ShowAllUniqueFirstNamesOfEmployeesInSpecifiedDepartment(1);
@@ -24,10 +25,16 @@ namespace Organizations
             report.ShowEntityCode(new Organization(1) );
             report.ShowEntityCode(new Department(1, null) );
             report.ShowEntityCode(new Employee(1, null) );
-            
-        }
-    }
 
+            report.ShowInitializedFacade();
+            
+            for (int i = 0; i < 10; i++)
+                report.ShowRandomEmployee();
+        }
+
+    }
 }
+
+
 
 
