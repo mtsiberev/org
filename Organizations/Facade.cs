@@ -108,7 +108,7 @@ namespace Organizations
         
         public List<Employee> GetEmployeesInDepartment(int departmentId)
         {
-            return this.GetAllEmployees().ToList().
+            return GetAllEmployees().ToList().
                 FindAll(e => e.ParentDepartment.Id == departmentId);
         }
         
