@@ -49,19 +49,19 @@ namespace Organizations
             return m_employeesRepository.GetById(id);
         }
 
-        public IEnumerable<Organization> GetAllOrganizations()
+        public List<Organization> GetAllOrganizations()
         {
-            return m_organizationsRepository.GetAll(); 
+            return m_organizationsRepository.GetAll().ToList(); 
         }
 
-        public IEnumerable<Department> GetAllDepartments()
+        public List<Department> GetAllDepartments()
         {
-            return m_departmentsRepository.GetAll();
+            return m_departmentsRepository.GetAll().ToList();
         }
 
-        public IEnumerable<Employee> GetAllEmployees()
+        public List<Employee> GetAllEmployees()
         {
-            return m_employeesRepository.GetAll();
+            return m_employeesRepository.GetAll().ToList();
         }
 
         public IEntity GetRandomByEntityCode(int entityCode) 
@@ -118,7 +118,7 @@ namespace Organizations
             return employeesInDepartment.OrderBy(e => e.Address.Street).ToList();
         }
                         
-        public List<Employee> FindEmployeesByAgeLinQ(int organizationId, int minAge, int maxAge)
+        public List<Employee> FindEmployeesByAge(int organizationId, int minAge, int maxAge)
         {
             var resultEmployees =
                 from employee in m_employeesRepository.GetAll()

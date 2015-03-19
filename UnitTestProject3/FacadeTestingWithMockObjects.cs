@@ -225,9 +225,9 @@ namespace Organizations
             CollectionAssert.AreEqual(actualEmployees, expectedEmployees);
         }
 
-        //FindEmployeesByAgeLinQ
+        //FindEmployeesByAge
         [TestMethod]
-        public void TestingOfFindEmployeesByAgeLinQ()
+        public void TestingOfFindEmployeesByAge()
         {
             var organization = new Organization(1);
             var mockRepositoryOrganizations = new MockOrganizationRepository(organization);
@@ -249,7 +249,7 @@ namespace Organizations
                 mockRepositoryDepartments,
                 mockRepositoryEmployees);
 
-            var actualEmployees = facade.FindEmployeesByAgeLinQ(1, 20, 22);
+            var actualEmployees = facade.FindEmployeesByAge(1, 20, 22);
             var expectedEmployees = new List<Employee> { employee2, employee3 };
 
             CollectionAssert.AreEqual(actualEmployees, expectedEmployees);

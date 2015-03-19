@@ -19,27 +19,28 @@ namespace Organizations
 
         private readonly Facade m_facade;
 
-        public void FindOrganizationsByNameOfDepartmentWithPersonNumber(string departmentName, int numberOfPerson)
+        public void ShowOrganizationsByNameOfDepartmentWithPersonNumber(string departmentName, int numberOfPerson)
         {
             var resultDepartments = m_facade.FindOrganizationsByNameOfDepartmentWithPersonNumber(departmentName,
                 numberOfPerson);
 
             foreach (var department in resultDepartments)
             {
-                Console.WriteLine("Department Id: {0},  Name: {1}", department.Id, department.Name);
+                Console.WriteLine("\nDepartment Id: {0},  Name: {1}", department.Id, department.Name);
             }
         }
 
         public void ShowEntityCode(IEntity entity)
         {
-            Console.WriteLine("\tEntity code is: {0}", entity.GetEntityCode());
+            Console.WriteLine("\nEntity {0} has code: {1}", 
+                entity.GetType().Name, entity.GetEntityCode());
         }
 
         public void ShowAllOrganizations()
         {
             foreach (var organization in m_facade.GetAllOrganizations().ToList())
             {
-                Console.WriteLine("\tOrganization Id: {0}  Name: {1}", organization.Id, organization.Name);
+                Console.WriteLine("\nOrganization Id: {0}  Name: {1}", organization.Id, organization.Name);
             }
         }
 
@@ -49,7 +50,7 @@ namespace Organizations
                 ToList().
                 FindAll(e => e.ParentOrganization.Id == organizationId))
             {
-                Console.WriteLine("\tDepartment Id: {0}  Name: {1}",
+                Console.WriteLine("\nDepartment Id: {0}  Name: {1}",
                     department.Id,
                     department.Name
                     );
@@ -58,6 +59,7 @@ namespace Organizations
 
         public void ShowAllEmployeesInOrganization(int organizationId)
         {
+            Console.WriteLine("\nOrganization with Id: {0} contains the following employees:", organizationId);
             foreach (var employee in m_facade.GetAllEmployees().
                 ToList().
                 FindAll(e => e.ParentDepartment.ParentOrganization.Id == organizationId))
@@ -71,13 +73,13 @@ namespace Organizations
             }
         }
 
-        public void ShowEmployeesByAgeLinQ(int organizationId, int minAge, int maxAge)
+        public void ShowEmployeesByAge(int organizationId, int minAge, int maxAge)
         {
-            var resultEmployees = m_facade.FindEmployeesByAgeLinQ(organizationId, minAge, maxAge);
-
-            foreach (var employee in m_facade.GetAllEmployees().ToList())
+            var resultEmployees = m_facade.FindEmployeesByAge(organizationId, minAge, maxAge);
+            Console.WriteLine("\nEmployees in range {0} - {1} of age:", minAge, maxAge);
+            foreach (var employee in resultEmployees)
             {
-                Console.WriteLine("\tEmployee Id: {0}  FirstName: {1}  LastName: {2}  Date {3}",
+                Console.WriteLine("Employee Id: {0}  FirstName: {1}  LastName: {2}  Age {3}",
                     employee.Id,
                     employee.Name,
                     employee.LastName,
@@ -89,7 +91,7 @@ namespace Organizations
         public void ShowAllEmployeesLivingOnTheSameStreet(int departmentId)
         {
             var resultEmployees = m_facade.GetAllEmployeesLivingOnTheSameStreet(departmentId);
-
+            Console.WriteLine("\nDepartment with Id: {0} contains employees living on same street:", departmentId);
             foreach (var employee in resultEmployees)
             {
                 Console.WriteLine("Employee: {0}  Street: {1}", employee.LastName, employee.Address.Street);
@@ -99,26 +101,18 @@ namespace Organizations
         public void ShowEmployeesWithSubstring(int organizationId, string subString)
         {
             var resultEmployees = m_facade.FindEmployeesWithSubstring(organizationId, subString);
+            Console.WriteLine("\nEmployees which have substring '{0}' in LastName:", subString);
             foreach (var employee in resultEmployees)
             {
                 Console.WriteLine("Employee Id: {0}  LastName: {1}", employee.Id, employee.LastName);
             }
         }
-
+        
         public void ShowAllUniqueFirstNamesOfEmployeesInSpecifiedDepartment(int departmentId)
         {
             var employeesInDepartment = m_facade.GetEmployeesInDepartment(departmentId);
-            var groupedEmployees = employeesInDepartment.GroupBy(e => e.Name);
-            foreach (var group in groupedEmployees)
-            {
-                Console.WriteLine(group.Key);
-            }
-        }
-
-        public void ShowAllUniqueFirstNamesOfEmployeesInSpecifiedDepartmentLinq(int departmentId)
-        {
-            var employeesInDepartment = m_facade.GetEmployeesInDepartment(departmentId);
             var resultEmployees = employeesInDepartment.Select(x => x.Name).Distinct();
+            Console.WriteLine("\nUnique names of employees in department with Id {0}:", departmentId);
             foreach (var employee in resultEmployees)
             {
                 Console.WriteLine(employee);
@@ -127,7 +121,9 @@ namespace Organizations
 
         public void ShowDepartmentWithOldestPerson()
         {
-            Console.WriteLine(m_facade.FindDepartmentWithOldestPerson());
+            var department = m_facade.FindDepartmentWithOldestPerson();
+            Console.WriteLine("\nDepartment with oldest person has Id: {0} Name:  {1}",
+                department.Id, department.Name);
         }
 
         public void ShowRandomEmployee()
@@ -136,31 +132,6 @@ namespace Organizations
             Console.WriteLine("Random Employee Id: {0} Name: {1} LastName: {2}", 
                 employee.Id, 
                 employee.Name, 
-                employee.LastName);
-        }
-        
-        public void ShowOrganizationById(int id)
-        {
-            var organization = m_facade.GetOrganizationById(id);
-            Console.WriteLine("Organization Id: {0} Name: {1}",
-                organization.Id,
-                organization.Name);
-        }
-
-        public void ShowDepartmentById(int id)
-        {
-            var department = m_facade.GetDepartmentById(id);
-            Console.WriteLine("Department Id: {0} Name: {1}",
-                department.Id,
-                department.Name);
-        }
-
-        public void ShowEmployeeById(int id)
-        {
-            var employee = m_facade.GetEmployeeById(id);
-            Console.WriteLine("Employee Id: {0} Name: {1} LastName: {2}",
-                employee.Id,
-                employee.Name,
                 employee.LastName);
         }
         

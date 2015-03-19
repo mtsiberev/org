@@ -45,7 +45,7 @@ namespace Organizations
 
 
         [TestMethod]
-        public void TestingOfFindEmployeesByAgeLinQ()
+        public void TestingOfFindEmployeesByAge()
         {
 
             var facade = new Facade(
@@ -68,7 +68,7 @@ namespace Organizations
             facade.AddEmployee(new Employee(5, facade.GetDepartmentById(2)) { Name = "Evgeny", LastName = "Palev", Age = 33, Address = new Address() { City = "NN", Street = "Lenina" } });
             facade.AddEmployee(new Employee(6, facade.GetDepartmentById(2)) { Name = "Denis", LastName = "Chadov", Age = 38, Address = new Address() { City = "NN", Street = "Larina" } });
 
-            actualEmployees = facade.FindEmployeesByAgeLinQ(1, 21, 37);
+            actualEmployees = facade.FindEmployeesByAge(1, 21, 37);
 
             expectedEmployees.Add(facade.GetEmployeeById(2));
             expectedEmployees.Add(facade.GetEmployeeById(4));
