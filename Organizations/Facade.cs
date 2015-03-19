@@ -70,19 +70,15 @@ namespace Organizations
             {
                 case 0:
                     return m_organizationsRepository.GetRandom();
-                    break;
 
                 case 1:
                     return m_departmentsRepository.GetRandom();
-                    break;
 
                 case 2:
                     return m_employeesRepository.GetRandom();
-                    break;
-
+                 
                 default:
                     return null;
-                    break;
             }
         }
 

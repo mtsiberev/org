@@ -144,7 +144,7 @@ namespace Organizations
               m_factory.CreateMock<IRepository<Employee>>();
 
             mockRepositoryEmployee.Expects.One.Method(_ => _.GetAll()).WillReturn(expectedEmployees);
-            
+
             var facade = new Facade(
                null,
                null,
@@ -153,6 +153,60 @@ namespace Organizations
             var resultEmployees = facade.GetAllEmployeesLivingOnTheSameStreet(1);
             CollectionAssert.AreEqual(resultEmployees, expectedEmployees);
         }
+        
+        //FindEmployeesByAge
+        [TestMethod]
+        public void TestingOfFindEmployeesByAge()
+        {
+            var fakeDepartment = new Department(1, new Organization(1));
+            var expectedEmployee = new Employee(2, fakeDepartment) { Age = 25 };
 
+            var fakeEmployees = new List<Employee>
+            {
+                new Employee(1, fakeDepartment) {Age = 20},
+                expectedEmployee,
+                new Employee(3, fakeDepartment) {Age = 30},
+            };
+
+            Mock<IRepository<Employee>> mockRepositoryEmployee =
+             m_factory.CreateMock<IRepository<Employee>>();
+
+            mockRepositoryEmployee.Expects.One.Method(_ => _.GetAll()).WillReturn(fakeEmployees);
+
+            var facade = new Facade(
+                null,
+                null,
+                mockRepositoryEmployee.MockObject);
+
+            Assert.AreEqual(expectedEmployee, facade.FindEmployeesByAge(1, 20, 30).First());
+        }
+
+        //FindDepartmentWithOldestPerson
+        [TestMethod]
+        public void TestingOfFindDepartmentWithOldestPerson()
+        {
+            var fakeDepartment1 = new Department(1, null);
+            var fakeDepartment2 = new Department(2, null);
+            var fakeDepartment3 = new Department(3, null);
+
+            var fakeEmployees = new List<Employee>
+            {
+                new Employee(1, fakeDepartment1) {Age = 20},
+                new Employee(2, fakeDepartment2) {Age = 25},
+                new Employee(3, fakeDepartment3) {Age = 30},
+            };
+
+            Mock<IRepository<Employee>> mockRepositoryEmployee =
+             m_factory.CreateMock<IRepository<Employee>>();
+
+            var facade = new Facade(
+                null,
+                null,
+                mockRepositoryEmployee.MockObject);
+
+            mockRepositoryEmployee.Expects.Any.Method(_ => _.GetAll()).WillReturn(fakeEmployees);
+            var resultDepartment = facade.FindDepartmentWithOldestPerson();
+            Assert.AreEqual(fakeDepartment3, resultDepartment);
+        }
     }
 }
