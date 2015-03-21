@@ -381,6 +381,7 @@ var employee3 = new Employee(3, department) { LastName = "Sergeev"};
 
             CollectionAssert.AreEqual(expectedEmployees, actualEmployees);
         }
+   
     }
 
 }
