@@ -66,7 +66,7 @@ namespace Organizations
           
             for (int i = 0; i < 5; i++)
                 report.ShowRandomEmployee();
-
+            /*
             var container = new RegisterAsPlugin().Container;
             var employeeRepositoryTest = container.GetInstance<IRepository<Employee>>("Employee");
             
@@ -75,9 +75,10 @@ namespace Organizations
             var departmentRepository = container2.GetInstance<IRepository<Department>>();
             var employeeRepository = container2.GetInstance<IRepository<Employee>>();
             
-            var facc = new Facade(organizationRepository, departmentRepository, employeeRepository);
-            facc.Init();
-            facc.GetAllEmployees();
+            var facade = new Facade(organizationRepository, departmentRepository, employeeRepository);
+            facade.Init();
+            facade.GetAllEmployees();
+             */
         }
 
     }
