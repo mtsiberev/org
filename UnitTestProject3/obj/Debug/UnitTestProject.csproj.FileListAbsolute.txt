@@ -5,3 +5,10 @@ C:\repository\org\UnitTestProject3\bin\Debug\Organizations.pdb
 C:\repository\org\UnitTestProject3\obj\Debug\UnitTestProject.csprojResolveAssemblyReference.cache
 C:\repository\org\UnitTestProject3\obj\Debug\UnitTestProject3.dll
 C:\repository\org\UnitTestProject3\obj\Debug\UnitTestProject3.pdb
+C:\repository\org\UnitTestProject3\bin\Debug\NMock3.dll
+C:\repository\org\UnitTestProject3\bin\Debug\NMock3.xml
+C:\repository\org\UnitTestProject3\bin\Debug\StructureMap.dll
+C:\repository\org\UnitTestProject3\bin\Debug\StructureMap.Net4.dll
+C:\repository\org\UnitTestProject3\bin\Debug\StructureMap.pdb
+C:\repository\org\UnitTestProject3\bin\Debug\StructureMap.xml
+C:\repository\org\UnitTestProject3\bin\Debug\StructureMap.Net4.pdb

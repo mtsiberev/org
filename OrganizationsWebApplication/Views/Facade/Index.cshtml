@@ -1,6 +1,4 @@
-﻿
-@model int
-
+﻿@model Organizations.Facade
 
 @{
     ViewBag.Title = "Index";
@@ -16,6 +14,6 @@
 </head>
     <body>
         Age of random employee:
-        @Model
+        @Model.GetRandomEmployee().Age
     </body>
 </html>

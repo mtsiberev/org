@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StructureMap;
 
 namespace Organizations
 {
@@ -11,7 +12,8 @@ namespace Organizations
         private readonly IRepository<Organization> m_organizationsRepository;
         private readonly IRepository<Department> m_departmentsRepository;
         private readonly IRepository<Employee> m_employeesRepository;
-        
+
+        [DefaultConstructor]
         public Facade(IRepository<Organization> organizations, IRepository<Department> departments, IRepository<Employee> employees)
         {
             m_organizationsRepository = organizations;
@@ -108,7 +110,7 @@ namespace Organizations
                 FindAll(e => e.ParentDepartment.Id == departmentId);
         }
         
-        public List<Employee> GetAllEmployeesLivingOnTheSameStreet(int departmentId)
+        public List<Employee> OrderEmployeesByStreet(int departmentId)
         {
             var employeesInDepartment = GetEmployeesInDepartment(departmentId);
             return employeesInDepartment.OrderBy(e => e.Address.Street).ToList();
@@ -119,8 +121,8 @@ namespace Organizations
             var resultEmployees =
                 from employee in m_employeesRepository.GetAll()
                 where (employee.ParentDepartment.ParentOrganization.Id == organizationId)
-                where (employee.Age > minAge)
-                where (employee.Age < maxAge)
+                where (employee.Age >= minAge)
+                where (employee.Age <= maxAge)
                 select employee;
             return resultEmployees.ToList();
         }

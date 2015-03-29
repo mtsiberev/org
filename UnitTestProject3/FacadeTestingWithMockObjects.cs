@@ -203,10 +203,10 @@ namespace Organizations
             var resultEmloyee = facade.GetRandomByEntityCode(2);
             Assert.AreEqual(employee1, resultEmloyee);
         }
-        
-        //GetAllEmployeesLivingOnTheSameStreet
+
+        //OrderEmployeesByStreet
         [TestMethod]
-        public void TestingOfGetAllEmployeesLivingOnTheSameStreet()
+        public void TestingOfOrderEmployeesByStreet()
         {
             var department1 = new Department(1, null);
             var employee1 = new Employee(1, department1) { Address = new Address() { Street = "Gagarina" } };
@@ -220,7 +220,7 @@ namespace Organizations
                 null,
                 null,
                 mockRepositoryEmployees);
-            var actualEmployees = facade.GetAllEmployeesLivingOnTheSameStreet(1);
+            var actualEmployees = facade.OrderEmployeesByStreet(1);
             var expectedEmployees = new List<Employee> { employee1, employee3, employee2 };
             CollectionAssert.AreEqual(actualEmployees, expectedEmployees);
         }
@@ -237,10 +237,10 @@ namespace Organizations
             var departments = new List<Department> { department1, department2 };
             var mockRepositoryDepartments = new MockDepartmentRepository(departments);
 
-            var employee1 = new Employee(1, department1) { Age = 20 };
-            var employee2 = new Employee(2, department1) { Age = 21 };
-            var employee3 = new Employee(3, department2) { Age = 21 };
-            var employee4 = new Employee(4, department2) { Age = 22 };
+            var employee1 = new Employee(1, department1) { Age = 21 };
+            var employee2 = new Employee(2, department1) { Age = 22 };
+            var employee3 = new Employee(3, department2) { Age = 23 };
+            var employee4 = new Employee(4, department2) { Age = 24 };
             var employees = new List<Employee> { employee1, employee2, employee3, employee4 };
             var mockRepositoryEmployees = new MockEmployeeRepository(employees);
 
@@ -249,7 +249,7 @@ namespace Organizations
                 mockRepositoryDepartments,
                 mockRepositoryEmployees);
 
-            var actualEmployees = facade.FindEmployeesByAge(1, 20, 22);
+            var actualEmployees = facade.FindEmployeesByAge(1, 22, 23);
             var expectedEmployees = new List<Employee> { employee2, employee3 };
 
             CollectionAssert.AreEqual(actualEmployees, expectedEmployees);

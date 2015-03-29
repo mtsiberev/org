@@ -212,7 +212,7 @@ namespace Organizations
 
         //GetAllEmployeesLivingOnTheSameStreet-------------------
         [TestMethod]
-        public void TestingOfGetAllEmployeesLivingOnTheSameStreet()
+        public void TestingOfOrderEmployeesByStreet()
         {
             Mock<IRepository<Employee>> mockRepositoryEmployee =
               m_factory.CreateMock<IRepository<Employee>>();
@@ -239,7 +239,7 @@ namespace Organizations
                null,
              mockRepositoryEmployee.MockObject);
 
-            var resultEmployees = facade.GetAllEmployeesLivingOnTheSameStreet(1);
+            var resultEmployees = facade.OrderEmployeesByStreet(1);
             CollectionAssert.AreEqual(resultEmployees, expectedEmployees);
         }
 
@@ -250,15 +250,19 @@ namespace Organizations
             Mock<IRepository<Employee>> mockRepositoryEmployee =
              m_factory.CreateMock<IRepository<Employee>>();
 
-            var fakeDepartment = new Department(1, new Organization(1));
-            var expectedEmployee = new Employee(2, fakeDepartment) { Age = 25 };
+            var organization = new Organization(1);
+            var department1 = new Department(1, organization);
+            var department2 = new Department(2, organization);
+
+            var employee1 = new Employee(1, department1) { Age = 21 };
+            var employee2 = new Employee(2, department1) { Age = 22 };
+            var employee3 = new Employee(3, department2) { Age = 23 };
+            var employee4 = new Employee(4, department2) { Age = 24 };
+            
+            var expectedEmployees = new List<Employee> {employee2, employee3};
 
             var fakeEmployees = new List<Employee>
-            {
-                new Employee(1, fakeDepartment) {Age = 20},
-                expectedEmployee,
-                new Employee(3, fakeDepartment) {Age = 30},
-            };
+            { employee1, employee2, employee3, employee4 };
 
             mockRepositoryEmployee.Expects.One.Method(_ => _.GetAll()).WillReturn(fakeEmployees);
 
@@ -267,7 +271,7 @@ namespace Organizations
                 null,
                 mockRepositoryEmployee.MockObject);
 
-            Assert.AreEqual(expectedEmployee, facade.FindEmployeesByAge(1, 20, 30).First());
+            CollectionAssert.AreEqual(expectedEmployees, facade.FindEmployeesByAge(1, 22, 23));
         }
 
         //FindOrganizationsByNameOfDepartmentWithPersonNumber
@@ -357,15 +361,20 @@ namespace Organizations
             Mock<IRepository<Employee>> mockRepositoryEmployee =
                 m_factory.CreateMock<IRepository<Employee>>();
 
-            var organization = new Organization(1);
-            var department = new Department(1, organization);
+            var organization1 = new Organization(1);
+            var organization2 = new Organization(2);
 
-            var employee1 = new Employee(1, department) { LastName = "Molotov" };
-            var employee2 = new Employee(2, department) { LastName = "Pavlov" };
-            var employee3 = new Employee(3, department) { LastName = "Sergeev" };
-            var employee4 = new Employee(4, department) { LastName = "Zotov" };
-            var employee5 = new Employee(5, department) { LastName = "Aleeev" };
-            var employees = new List<Employee> { employee1, employee2, employee3, employee4, employee5 };
+            var department1 = new Department(1, organization1);
+            var department2 = new Department(1, organization2);
+
+            var employee1 = new Employee(1, department1) { LastName = "Molotov" };
+            var employee2 = new Employee(2, department1) { LastName = "Pavlov" };
+            var employee3 = new Employee(3, department1) { LastName = "Sergeev" };
+            var employee4 = new Employee(4, department2) { LastName = "Zotov" };
+            var employee5 = new Employee(5, department2) { LastName = "Aleeev" };
+            var employee6 = new Employee(6, department2) { LastName = "Strahov" };
+
+            var employees = new List<Employee> { employee1, employee2, employee3, employee4, employee5, employee6 };
 
             mockRepositoryEmployee.Expects.One.Method(_ => _.GetAll()).WillReturn(employees);
 
@@ -374,7 +383,7 @@ namespace Organizations
                 mockRepositoryDepartment.MockObject,
                 mockRepositoryEmployee.MockObject);
 
-            var expectedEmployee = new List<Employee> { employee1, employee2, employee4 };
+            var expectedEmployee = new List<Employee> { employee1, employee2 };
             var actualEmployee = facade.FindEmployeesWithSubstring(1, "ov");
 
             CollectionAssert.AreEqual(actualEmployee, expectedEmployee);

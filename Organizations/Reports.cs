@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StructureMap;
 
 namespace Organizations
 {
@@ -11,10 +12,17 @@ namespace Organizations
     {
         public Reports()
         {
-            m_facade = new Facade(new Repository<Organization>(),
+            m_facade = new Facade(
+                new Repository<Organization>(),
                 new Repository<Department>(),
                 new Repository<Employee>());
             m_facade.Init();
+        }
+
+        [DefaultConstructor]
+        public Reports(Facade facade)
+        {
+            m_facade = facade;
         }
 
         private readonly Facade m_facade;
@@ -88,13 +96,19 @@ namespace Organizations
             }
         }
         
-        public void ShowAllEmployeesLivingOnTheSameStreet(int departmentId)
+        public void ShowAllEmployeesOrederedByStreet(int departmentId)
         {
-            var resultEmployees = m_facade.GetAllEmployeesLivingOnTheSameStreet(departmentId);
+            var resultEmployees = m_facade.OrderEmployeesByStreet(departmentId);
             Console.WriteLine("\nDepartment with Id: {0} contains employees living on same street:", departmentId);
+            string street = null;
             foreach (var employee in resultEmployees)
             {
-                Console.WriteLine("Employee: {0}  Street: {1}", employee.LastName, employee.Address.Street);
+                if ( (street == null) || (employee.Address.Street != street) )
+                {
+                    street = employee.Address.Street;
+                    Console.WriteLine("On the street {0} are living the following employees:", employee.Address.Street);
+                }
+                Console.WriteLine("Employee: {0}", employee.LastName);
             }
         }
 

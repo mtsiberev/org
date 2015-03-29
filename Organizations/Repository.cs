@@ -11,6 +11,7 @@ namespace Organizations
     public class Repository<T> : IRepository<T> where T : class, IEntity
     {
         private readonly List<T> m_data;
+        static Random random = new Random((DateTime.Now.Millisecond));
 
         public Repository()
         {
@@ -34,7 +35,6 @@ namespace Organizations
             return m_data.Single(e => e.Id.Equals( id ) );
         }
 
-        static Random random = new Random((DateTime.Now.Millisecond));
         public T GetRandom()
         {
             var randomNext = random.Next(0, m_data.Count);

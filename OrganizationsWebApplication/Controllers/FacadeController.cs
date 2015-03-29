@@ -21,7 +21,8 @@ namespace OrganizationsWebApplication.Controllers
             var facade = new Facade(organizationRepository, departmentRepository, employeeRepository);
             facade.Init();
 
-            return View(facade.GetRandomEmployee().Age);
+            //return View(facade.GetRandomEmployee().Age);
+            return View(facade);
         }
 
     }
