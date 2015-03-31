@@ -23,6 +23,7 @@ namespace Organizations
         public Reports(Facade facade)
         {
             m_facade = facade;
+            m_facade.Init();
         }
 
         private readonly Facade m_facade;

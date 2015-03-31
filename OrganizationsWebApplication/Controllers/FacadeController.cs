@@ -15,13 +15,8 @@ namespace OrganizationsWebApplication.Controllers
         public ActionResult Index()
         {
             var container = new RegisterByContainer().Container;
-            var organizationRepository = container.GetInstance<IRepository<Organization>>();
-            var departmentRepository = container.GetInstance<IRepository<Department>>();
-            var employeeRepository = container.GetInstance<IRepository<Employee>>();
-            var facade = new Facade(organizationRepository, departmentRepository, employeeRepository);
-            facade.Init();
-
-            //return View(facade.GetRandomEmployee().Age);
+            var facade = container.GetInstance<Facade>();
+   
             return View(facade);
         }
 
