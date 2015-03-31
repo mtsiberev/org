@@ -5,16 +5,21 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Организации</h2>
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>Организации</title>
 </head>
     <body>
-        Age of random employee:
-        @Model.GetRandomEmployee().Age
+        @foreach (var organization in Model.GetAllOrganizations() )
+        {
+            @Html.ActionLink(@organization.Name, "Department")
+            <div></div>
+            //<link href="/Views/Facade/">Название организации: @organization.Name</>
+        }
+
     </body>
 </html>

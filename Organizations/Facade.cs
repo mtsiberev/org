@@ -19,6 +19,7 @@ namespace Organizations
             m_organizationsRepository = organizations;
             m_departmentsRepository = departments;
             m_employeesRepository = employees;
+            Init();
         }
        
         public void AddOrganization(Organization entity)
@@ -92,6 +93,9 @@ namespace Organizations
         public void Init()
         {
             m_organizationsRepository.Insert(new Organization(1) { Name = "FirstLine" });
+            m_organizationsRepository.Insert(new Organization(2) { Name = "SecondLine" });
+            m_organizationsRepository.Insert(new Organization(3) { Name = "ThirdLine" });
+            
             m_departmentsRepository.Insert(new Department(1, this.GetOrganizationById(1)) { Name = "IT department" });
             m_departmentsRepository.Insert(new Department(2, this.GetOrganizationById(1)) { Name = "HR department" });
 

@@ -19,6 +19,15 @@ namespace OrganizationsWebApplication.Controllers
    
             return View(facade);
         }
+        
+
+        public ActionResult Department()
+        {
+            var container = new RegisterByContainer().Container;
+            var facade = container.GetInstance<Facade>();
+
+            return View(facade);
+        }
 
     }
 }
