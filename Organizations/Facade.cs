@@ -19,7 +19,6 @@ namespace Organizations
             m_organizationsRepository = organizations;
             m_departmentsRepository = departments;
             m_employeesRepository = employees;
-            Init();
         }
        
         public void AddOrganization(Organization entity)

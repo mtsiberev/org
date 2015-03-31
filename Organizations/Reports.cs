@@ -10,18 +10,20 @@ namespace Organizations
 {
     public class Reports
     {
+        [DefaultConstructor]
         public Reports()
         {
+            Console.WriteLine("Constructor without argument");
             m_facade = new Facade(
                 new Repository<Organization>(),
                 new Repository<Department>(),
                 new Repository<Employee>());
             m_facade.Init();
         }
-
-        [DefaultConstructor]
+        
         public Reports(Facade facade)
-        {
+        { 
+            Console.WriteLine("Constructor with Facade argument");
             m_facade = facade;
         }
 
@@ -40,7 +42,7 @@ namespace Organizations
 
         public void ShowEntityCode(IEntity entity)
         {
-            Console.WriteLine("\nEntity {0} has code: {1}", 
+            Console.WriteLine("\nEntity {0} has code: {1}",
                 entity.GetType().Name, entity.GetEntityCode());
         }
 
@@ -95,7 +97,7 @@ namespace Organizations
                     );
             }
         }
-        
+
         public void ShowAllEmployeesOrederedByStreet(int departmentId)
         {
             var resultEmployees = m_facade.OrderEmployeesByStreet(departmentId);
@@ -103,7 +105,7 @@ namespace Organizations
             string street = null;
             foreach (var employee in resultEmployees)
             {
-                if ( (street == null) || (employee.Address.Street != street) )
+                if ((street == null) || (employee.Address.Street != street))
                 {
                     street = employee.Address.Street;
                     Console.WriteLine("On the street {0} are living the following employees:", employee.Address.Street);
@@ -121,7 +123,7 @@ namespace Organizations
                 Console.WriteLine("Employee Id: {0}  LastName: {1}", employee.Id, employee.LastName);
             }
         }
-        
+
         public void ShowAllUniqueFirstNamesOfEmployeesInSpecifiedDepartment(int departmentId)
         {
             var employeesInDepartment = m_facade.GetEmployeesInDepartment(departmentId);
@@ -143,22 +145,22 @@ namespace Organizations
         public void ShowRandomEmployee()
         {
             var employee = m_facade.GetRandomEmployee();
-            Console.WriteLine("Random Employee Id: {0} Name: {1} LastName: {2}", 
-                employee.Id, 
-                employee.Name, 
+            Console.WriteLine("Random Employee Id: {0} Name: {1} LastName: {2}",
+                employee.Id,
+                employee.Name,
                 employee.LastName);
         }
-        
+
         public void ShowInitializedFacade()
         {
             ShowAllOrganizations();
-            foreach (var organization in m_facade.GetAllOrganizations() )
+            foreach (var organization in m_facade.GetAllOrganizations())
             {
                 ShowAllDepartmentsInOrganization(organization.Id);
                 ShowAllEmployeesInOrganization(organization.Id);
             }
         }
-        
+
     }
 
 }

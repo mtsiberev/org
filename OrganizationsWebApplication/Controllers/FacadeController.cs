@@ -16,6 +16,7 @@ namespace OrganizationsWebApplication.Controllers
         {
             var container = new RegisterByContainer().Container;
             var facade = container.GetInstance<Facade>();
+            facade.Init();
    
             return View(facade);
         }
@@ -25,6 +26,7 @@ namespace OrganizationsWebApplication.Controllers
         {
             var container = new RegisterByContainer().Container;
             var facade = container.GetInstance<Facade>();
+            facade.Init();
 
             return View(facade);
         }

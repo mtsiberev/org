@@ -19,9 +19,11 @@ namespace Organizations
                 x.For<IRepository<Department>>().Singleton().Use<Repository<Department>>();
                 x.For<IRepository<Employee>>().Singleton().Use<Repository<Employee>>();
 
+                x.For<Reports>().Singleton().Use<Reports>();
+
                 x.For<Reports>().Singleton().Use<Reports>()
                     .Ctor<Facade>().Is<Facade>();
-
+                
                 x.For<Facade>().Singleton().Use<Facade>()
                     .Ctor<Repository<Organization>>().Is<Repository<Organization>>()
                     .Ctor<Repository<Department>>().Is<Repository<Department>>()
