@@ -7,11 +7,13 @@ using StructureMap;
 
 namespace Organizations
 {
-    public class RegisterByContainer
+    public sealed class RegisterByContainer
     {
-        public IContainer Container;
+        private static volatile RegisterByContainer s_instance;
+        private static object syncRoot = new Object();
 
-        public RegisterByContainer()
+        public IContainer Container;
+        private RegisterByContainer()
         {
             Container = new Container(x =>
             {
@@ -23,7 +25,7 @@ namespace Organizations
 
                 x.For<Reports>().Singleton().Use<Reports>()
                     .Ctor<Facade>().Is<Facade>();
-                
+
                 x.For<Facade>().Singleton().Use<Facade>()
                     .Ctor<Repository<Organization>>().Is<Repository<Organization>>()
                     .Ctor<Repository<Department>>().Is<Repository<Department>>()
@@ -31,6 +33,19 @@ namespace Organizations
             });
         }
 
-
+        public static RegisterByContainer Instance
+        {
+            get
+            {
+                if (s_instance != null) return s_instance;
+                lock (syncRoot)
+                {
+                    if (s_instance == null)
+                        s_instance = new RegisterByContainer();
+                }
+                return s_instance;
+            }
+        }
     }
+
 }

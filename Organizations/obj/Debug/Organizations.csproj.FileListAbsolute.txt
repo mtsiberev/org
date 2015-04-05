@@ -3,8 +3,15 @@ c:\users\mtsiberev\documents\visual studio 2012\Projects\Organizations\Organizat
 c:\users\mtsiberev\documents\visual studio 2012\Projects\Organizations\Organizations\bin\Debug\Organizations.pdb
 c:\users\mtsiberev\documents\visual studio 2012\Projects\Organizations\Organizations\obj\Debug\Organizations.exe
 c:\users\mtsiberev\documents\visual studio 2012\Projects\Organizations\Organizations\obj\Debug\Organizations.pdb
+C:\repository\org\Organizations\bin\Debug\Organizations.pdb
+C:\repository\org\Organizations\bin\Debug\StructureMap.dll
+C:\repository\org\Organizations\bin\Debug\StructureMap.Net4.dll
+C:\repository\org\Organizations\bin\Debug\StructureMap.pdb
+C:\repository\org\Organizations\bin\Debug\StructureMap.xml
+C:\repository\org\Organizations\bin\Debug\StructureMap.Net4.pdb
+C:\repository\org\Organizations\obj\Debug\Organizations.pdb
 C:\repository\org\Organizations\bin\Debug\Organizations.exe.config
 C:\repository\org\Organizations\bin\Debug\Organizations.exe
-C:\repository\org\Organizations\bin\Debug\Organizations.pdb
 C:\repository\org\Organizations\obj\Debug\Organizations.exe
-C:\repository\org\Organizations\obj\Debug\Organizations.pdb
+C:\repository\org\Organizations\obj\Debug\Organizations.csprojResolveAssemblyReference.cache
+C:\repository\org\Organizations\bin\Debug\ConsoleApp.exe.config

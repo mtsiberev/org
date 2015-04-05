@@ -1,14 +1,10 @@
-﻿@model Organizations.Facade
-
+﻿@model Organizations.Department
 
 @{
     ViewBag.Title = "Department";
 }
 
 <h2>Department</h2>
-@foreach (var department in Model.GetAllDepartments())
-{
     <div>
-    @department.Name
+    @Model.Name
     </div>
-}

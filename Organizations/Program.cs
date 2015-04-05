@@ -12,17 +12,15 @@ using StructureMap.Configuration.DSL;
 
 namespace Organizations
 {
-  
+
     class Program
     {
         private static void Main(string[] args)
         {
-            var container = new RegisterByContainer().Container;
+            var container = RegisterByContainer.Instance.Container;
             var reports = container.GetInstance<Reports>();
-
-            var reports2 = container.With(new Facade(null, null, null) ).GetInstance<Reports>();
-
-            /*
+            //var reports2 = container.With(new Facade(null, null, null)).GetInstance<Reports>();
+            
             Console.WriteLine(container.WhatDoIHave() );
             
             reports.ShowInitializedFacade();
@@ -44,7 +42,7 @@ namespace Organizations
 
             for (int i = 0; i < 5; i++)
                 reports.ShowRandomEmployee();
-             */
+             
         }
 
     }

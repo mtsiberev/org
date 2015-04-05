@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Organizations</RootNamespace>
-    <AssemblyName>UnitTestProject3</AssemblyName>
+    <AssemblyName>UnitTest</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -59,16 +59,20 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="FacadeTestingWithNMock.cs" />
-    <Compile Include="MockRepository.cs" />
-    <Compile Include="FacadeTesting.cs" />
+    <Compile Include="NMock\FacadeTestingWithNMock.cs" />
+    <Compile Include="Mock\MockRepository.cs" />
+    <Compile Include="SimpleTesting\FacadeTesting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FacadeTestingWithMockObjects.cs" />
+    <Compile Include="Mock\FacadeTestingWithMockObjects.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Organizations\Organizations.csproj">
+    <ProjectReference Include="..\ClassesLibrary\ClassLibrary.csproj">
+      <Project>{02cbf1dd-b005-4f5f-8a8b-ac73e8eb91db}</Project>
+      <Name>ClassLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Organizations\ConsoleApp.csproj">
       <Project>{1809f837-f29b-46fb-a316-f37589283b9a}</Project>
-      <Name>Organizations</Name>
+      <Name>ConsoleApp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

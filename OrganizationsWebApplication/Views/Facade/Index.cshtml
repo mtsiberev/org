@@ -16,7 +16,8 @@
     <body>
         @foreach (var organization in Model.GetAllOrganizations() )
         {
-            @Html.ActionLink(@organization.Name, "Department")
+            //@Html.ActionLink(organization.Name, "Department")
+            @Html.ActionLink(organization.Name, "Department", "Facade", new { id = organization.Id }, null )
             <div></div>
             //<link href="/Views/Facade/">Название организации: @organization.Name</>
         }

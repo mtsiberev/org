@@ -5,30 +5,31 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Organizations;
+using StructureMap;
 
 namespace OrganizationsWebApplication.Controllers
 {
     public class FacadeController : Controller
     {
+        private Facade facade;
+        public FacadeController()
+        {
+            var container = RegisterByContainer.Instance.Container;
+            facade = container.GetInstance<Facade>();
+            facade.Init();
+        }
+
         //
         // GET: /Facade/
         public ActionResult Index()
         {
-            var container = new RegisterByContainer().Container;
-            var facade = container.GetInstance<Facade>();
-            facade.Init();
-   
             return View(facade);
         }
-        
 
-        public ActionResult Department()
+        public ActionResult Department(int i)
         {
-            var container = new RegisterByContainer().Container;
-            var facade = container.GetInstance<Facade>();
-            facade.Init();
-
-            return View(facade);
+            var dep = facade.GetDepartmentById(i);
+            return View(dep);
         }
 
     }

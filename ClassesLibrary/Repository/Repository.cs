@@ -32,7 +32,7 @@ namespace Organizations
 
         public T GetById(int id)
         {
-            return m_data.Single(e => e.Id.Equals( id ) );
+            return m_data.First(e => e.Id.Equals(id));
         }
 
         public T GetRandom()
