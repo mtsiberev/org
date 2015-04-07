@@ -1,0 +1,26 @@
+﻿@model OrganizationsWebApplication.Models.OrganizationModels
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<h2>Организации</h2>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Организации</title>
+</head>
+<body>
+    @foreach (var organization in Model.Organizations)
+    {
+        @Html.ActionLink(organization.Name, "Department", "Home", new { id = organization.Id }, null)
+        <div></div>
+    }
+
+</body>
+</html>

@@ -111,10 +111,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\FacadeController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrganizationModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -133,7 +134,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -143,16 +143,12 @@
       <Project>{02cbf1dd-b005-4f5f-8a8b-ac73e8eb91db}</Project>
       <Name>ClassLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Organizations\ConsoleApp.csproj">
-      <Project>{1809f837-f29b-46fb-a316-f37589283b9a}</Project>
-      <Name>ConsoleApp</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Facade\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Facade\Department.cshtml" />
+    <Content Include="Views\Home\Department.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
