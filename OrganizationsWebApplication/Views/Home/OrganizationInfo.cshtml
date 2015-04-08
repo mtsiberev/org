@@ -1,0 +1,19 @@
+﻿@model OrganizationsWebApplication.Models.OrganizationModel
+
+@{
+    ViewBag.Title = "Department";
+}
+
+<h2>Department</h2>
+<div>
+    @Model.Name
+    
+    @foreach (var department in Model.Departments)
+    {
+        //@Html.ActionLink(organization.Name, "Department", null, new { id = organization.Id })
+        @Html.ActionLink(department.Name, "OrganizationInfo", new { id = department.Id } )
+        <div></div>
+    }
+    
+
+</div>

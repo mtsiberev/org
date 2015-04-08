@@ -13,11 +13,11 @@ namespace OrganizationsWebApplication.Models
         public int Id { get; set; }
     }
 
-    public class OrganizationModels
+    public class OrganizationListModels
     {
         public List<SimpleOrganization> Organizations {  get;  private set; }
 
-        public OrganizationModels(List<SimpleOrganization> organizationsList)
+        public OrganizationListModels(List<SimpleOrganization> organizationsList)
         {
             Organizations = organizationsList;
         }

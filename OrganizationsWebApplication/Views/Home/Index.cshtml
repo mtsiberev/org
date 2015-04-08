@@ -1,4 +1,4 @@
-﻿@model OrganizationsWebApplication.Models.OrganizationModels
+﻿@model OrganizationsWebApplication.Models.OrganizationListModels
 
 @{
     ViewBag.Title = "Index";
@@ -18,7 +18,8 @@
 <body>
     @foreach (var organization in Model.Organizations)
     {
-        @Html.ActionLink(organization.Name, "Department", "Home", new { id = organization.Id }, null)
+        //@Html.ActionLink(organization.Name, "Department", null, new { id = organization.Id })
+        @Html.ActionLink(organization.Name, "OrganizationInfo", new { org = organization } )
         <div></div>
     }
 

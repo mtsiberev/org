@@ -20,13 +20,18 @@ namespace OrganizationsWebApplication.Controllers
                 from organization in m_facade.GetAllOrganizations()
                 where (true)
                 select new SimpleOrganization() {Name = organization.Name, Id = organization.Id};
-            return View(new OrganizationModels(organizations.ToList() ) );
+
+            return View(new OrganizationListModels(organizations.ToList() ) );
         }
         
-        public ActionResult Department(int i)
+        public ActionResult OrganizationInfo(SimpleOrganization organization = null)
         {
-            var dep = m_facade.GetDepartmentById(i);
-            return View(dep);
+            var departments =
+                from department in m_facade.GetAllDepartments()
+                where department.ParentOrganization.Id == organization.Id
+                select new SimpleDepartment() {Name = department.Name, Id = department.Id};
+
+            return View(new OrganizationModel(departments.ToList(), organization.Name));
         }
 
     }
