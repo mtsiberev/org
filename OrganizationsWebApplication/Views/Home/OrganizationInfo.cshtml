@@ -4,16 +4,19 @@
     ViewBag.Title = "Department";
 }
 
-<h2>Department</h2>
-<div>
-    @Model.Name
-    
-    @foreach (var department in Model.Departments)
-    {
-        //@Html.ActionLink(organization.Name, "Department", null, new { id = organization.Id })
-        @Html.ActionLink(department.Name, "OrganizationInfo", new { id = department.Id } )
-        <div></div>
-    }
-    
+<html>
+<head>
+</head>
+<body style="font-family:Consolas;color:#569CD6;font-size:20px; background-color:#262626;">
+    <div>
+        <h3>Organization @Model.Name</h3>
 
-</div>
+        @foreach (var department in Model.Departments)
+        {
+            @Html.ActionLink(department.Name, "DepartmentInfo", new { id = department.Id }, new { style = "color: white" })
+            <div></div>
+        }
+    </div>
+
+</body>
+</html>

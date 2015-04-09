@@ -1,25 +1,21 @@
-﻿@model OrganizationsWebApplication.Models.OrganizationListModels
+﻿@using OrganizationsWebApplication.Controllers
+@model OrganizationsWebApplication.Models.OrganizationListModels
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-
-<h2>Организации</h2>
 <!DOCTYPE html>
-
 <html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Организации</title>
-</head>
-<body>
+    <head></head>
+        <body style="font-family:Consolas;color:#569CD6;font-size:20px; background-color:#262626;">
+    <h3>Organizations</h3>
+
     @foreach (var organization in Model.Organizations)
     {
-        //@Html.ActionLink(organization.Name, "Department", null, new { id = organization.Id })
-        @Html.ActionLink(organization.Name, "OrganizationInfo", new { org = organization } )
+        @Html.ActionLink(organization.Name, "OrganizationInfo", 
+        new { id = organization.Id }, 
+        new { style = "color: white" })
         <div></div>
     }
 

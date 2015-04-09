@@ -24,15 +24,30 @@ namespace OrganizationsWebApplication.Controllers
             return View(new OrganizationListModels(organizations.ToList() ) );
         }
         
-        public ActionResult OrganizationInfo(SimpleOrganization organization = null)
+        public ActionResult OrganizationInfo(int id = 0)
         {
+            var name = m_facade.GetOrganizationById(id).Name;
             var departments =
                 from department in m_facade.GetAllDepartments()
-                where department.ParentOrganization.Id == organization.Id
+                where department.ParentOrganization.Id == id
                 select new SimpleDepartment() {Name = department.Name, Id = department.Id};
 
-            return View(new OrganizationModel(departments.ToList(), organization.Name));
+            return View(new OrganizationModel(departments.ToList(), name));
         }
-
+        
+        public ActionResult DepartmentInfo(int id = 0)
+        {
+            var name = m_facade.GetDepartmentById(id).Name;
+            var employees =
+               from employee in m_facade.GetEmployeesInDepartment(id)
+               select new SimpleEmployee() 
+               { 
+                   Name = String.Join(" ", employee.Name, employee.LastName), 
+                   Id = employee.Id 
+               };
+            
+            return View(new DepartmentModel(employees.ToList(), name));
+        }
+        
     }
 }
