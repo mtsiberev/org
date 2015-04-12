@@ -20,16 +20,8 @@ namespace Organizations
                 x.For<IRepository<Organization>>().Singleton().Use<Repository<Organization>>();
                 x.For<IRepository<Department>>().Singleton().Use<Repository<Department>>();
                 x.For<IRepository<Employee>>().Singleton().Use<Repository<Employee>>();
-
+                x.For<Facade>().Singleton().Use<Facade>();
                 x.For<Reports>().Singleton().Use<Reports>();
-
-                x.For<Reports>().Singleton().Use<Reports>()
-                    .Ctor<Facade>().Is<Facade>();
-
-                x.For<Facade>().Singleton().Use<Facade>()
-                    .Ctor<Repository<Organization>>().Is<Repository<Organization>>()
-                    .Ctor<Repository<Department>>().Is<Repository<Department>>()
-                    .Ctor<Repository<Employee>>().Is<Repository<Employee>>();
             });
         }
 

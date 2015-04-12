@@ -8,25 +8,30 @@ using StructureMap;
 namespace Organizations
 {
     public class Facade
-    {        
+    {
         private readonly IRepository<Organization> m_organizationsRepository;
         private readonly IRepository<Department> m_departmentsRepository;
         private readonly IRepository<Employee> m_employeesRepository;
-
+        
         [DefaultConstructor]
+        public Facade()
+        {
+            m_organizationsRepository = new Repository<Organization>();
+            m_departmentsRepository = new Repository<Department>();
+            m_employeesRepository = new Repository<Employee>();
+            Init();
+        }
+
         public Facade(IRepository<Organization> organizations, IRepository<Department> departments, IRepository<Employee> employees)
         {
             m_organizationsRepository = organizations;
             m_departmentsRepository = departments;
             m_employeesRepository = employees;
-            ///
-            /// 
-            Init();
         }
-       
+
         public void AddOrganization(Organization entity)
         {
-            m_organizationsRepository.Insert(entity);            
+            m_organizationsRepository.Insert(entity);
         }
 
         public void AddDepartment(Department entity)
@@ -38,7 +43,7 @@ namespace Organizations
         {
             m_employeesRepository.Insert(entity);
         }
-                      
+
         public Organization GetOrganizationById(int id)
         {
             return m_organizationsRepository.GetById(id);
@@ -56,7 +61,7 @@ namespace Organizations
 
         public List<Organization> GetAllOrganizations()
         {
-            return m_organizationsRepository.GetAll().ToList(); 
+            return m_organizationsRepository.GetAll().ToList();
         }
 
         public List<Department> GetAllDepartments()
@@ -69,7 +74,7 @@ namespace Organizations
             return m_employeesRepository.GetAll().ToList();
         }
 
-        public IEntity GetRandomByEntityCode(int entityCode) 
+        public IEntity GetRandomByEntityCode(int entityCode)
         {
             switch (entityCode)
             {
@@ -81,7 +86,7 @@ namespace Organizations
 
                 case 2:
                     return m_employeesRepository.GetRandom();
-                 
+
                 default:
                     return null;
             }
@@ -97,7 +102,7 @@ namespace Organizations
             m_organizationsRepository.Insert(new Organization(1) { Name = "FirstLine" });
             m_organizationsRepository.Insert(new Organization(2) { Name = "SecondLine" });
             m_organizationsRepository.Insert(new Organization(3) { Name = "ThirdLine" });
-            
+
             m_departmentsRepository.Insert(new Department(1, this.GetOrganizationById(1)) { Name = "IT department" });
             m_departmentsRepository.Insert(new Department(2, this.GetOrganizationById(1)) { Name = "HR department" });
 
@@ -109,19 +114,19 @@ namespace Organizations
             m_employeesRepository.Insert(new Employee(5, this.GetDepartmentById(2)) { Name = "Evgeny", LastName = "Palev", Age = 33, Address = new Address() { City = "NN", Street = "Lenina" } });
             m_employeesRepository.Insert(new Employee(6, this.GetDepartmentById(2)) { Name = "Denis", LastName = "Chadov", Age = 38, Address = new Address() { City = "NN", Street = "Larina" } });
         }
-        
+
         public List<Employee> GetEmployeesInDepartment(int departmentId)
         {
             return GetAllEmployees().ToList().
                 FindAll(e => e.ParentDepartment.Id == departmentId);
         }
-        
+
         public List<Employee> OrderEmployeesByStreet(int departmentId)
         {
             var employeesInDepartment = GetEmployeesInDepartment(departmentId);
             return employeesInDepartment.OrderBy(e => e.Address.Street).ToList();
         }
-                        
+
         public List<Employee> FindEmployeesByAge(int organizationId, int minAge, int maxAge)
         {
             var resultEmployees =
@@ -132,7 +137,7 @@ namespace Organizations
                 select employee;
             return resultEmployees.ToList();
         }
-               
+
         public List<Organization> FindOrganizationsByNameOfDepartmentWithPersonNumber(string departmentName, int numberOfPerson)
         {
             var resultOrganizations =
@@ -143,7 +148,7 @@ namespace Organizations
                 where countEmployees >= numberOfPerson
                 select department.ParentOrganization;
             return resultOrganizations.ToList();
-        }               
+        }
 
         public Department FindDepartmentWithOldestPerson()
         {
@@ -155,7 +160,7 @@ namespace Organizations
             }
             return resultEmployee.ParentDepartment;
         }
-        
+
         public List<Employee> FindEmployeesWithSubstring(int organizationId, string subString)
         {
             var resultEmployees =

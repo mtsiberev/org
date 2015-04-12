@@ -13,17 +13,13 @@ namespace Organizations
         [DefaultConstructor]
         public Reports()
         {
-            Console.WriteLine("Constructor without argument");
-            m_facade = new Facade(
-                new Repository<Organization>(),
-                new Repository<Department>(),
-                new Repository<Employee>());
-            m_facade.Init();
+            Console.WriteLine("Reports NO arguments");
+            m_facade = new Facade();
         }
         
         public Reports(Facade facade)
-        { 
-            Console.WriteLine("Constructor with Facade argument");
+        {
+            Console.WriteLine("Reports WITH arguments");
             m_facade = facade;
         }
 
