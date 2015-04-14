@@ -19,7 +19,6 @@ namespace Organizations
             m_organizationsRepository = new Repository<Organization>();
             m_departmentsRepository = new Repository<Department>();
             m_employeesRepository = new Repository<Employee>();
-            Init();
         }
 
         public Facade(IRepository<Organization> organizations, IRepository<Department> departments, IRepository<Employee> employees)

@@ -51,7 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdoHelper.cs" />
     <Compile Include="Container\RegisterByContainer.cs" />
+    <Compile Include="DbEntity\DepartmentDb.cs" />
+    <Compile Include="DbEntity\EmployeeDb.cs" />
+    <Compile Include="DbEntity\IEntityDb.cs" />
+    <Compile Include="DbEntity\OrganizationDb.cs" />
     <Compile Include="Entity\Address.cs" />
     <Compile Include="Entity\Department.cs" />
     <Compile Include="Entity\Employee.cs" />
@@ -62,6 +67,7 @@
     <Compile Include="Reports\Reports.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
+    <Compile Include="DbEntity\RepositoryDb.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

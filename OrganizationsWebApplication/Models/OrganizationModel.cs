@@ -5,7 +5,7 @@ using System.Web;
 
 namespace OrganizationsWebApplication.Models
 {
-    public class SimpleDepartment
+    public class DtoDepartment
     {
         public string Name { get; set; }
         public int Id { get; set; }
@@ -13,10 +13,10 @@ namespace OrganizationsWebApplication.Models
     
     public class OrganizationModel
     {
-        public List<SimpleDepartment> Departments { get; private set; }
+        public List<DtoDepartment> Departments { get; private set; }
         public string Name;
 
-        public OrganizationModel(List<SimpleDepartment> organizationsList, string name)
+        public OrganizationModel(List<DtoDepartment> organizationsList, string name)
         {
             Departments = organizationsList;
             Name = name;

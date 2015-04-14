@@ -12,14 +12,13 @@ namespace Organizations
     {
         [DefaultConstructor]
         public Reports()
+            :this(new Facade())
         {
-            Console.WriteLine("Reports NO arguments");
-            m_facade = new Facade();
+            m_facade.Init();
         }
         
         public Reports(Facade facade)
         {
-            Console.WriteLine("Reports WITH arguments");
             m_facade = facade;
         }
 

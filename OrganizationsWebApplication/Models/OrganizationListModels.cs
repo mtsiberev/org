@@ -7,7 +7,7 @@ using Organizations;
 
 namespace OrganizationsWebApplication.Models
 {
-    public class SimpleOrganization
+    public class DtoOrganization
     {
         public string Name { get; set; }
         public int Id { get; set; }
@@ -15,9 +15,9 @@ namespace OrganizationsWebApplication.Models
 
     public class OrganizationListModels
     {
-        public List<SimpleOrganization> Organizations {  get;  private set; }
+        public List<DtoOrganization> Organizations {  get;  private set; }
 
-        public OrganizationListModels(List<SimpleOrganization> organizationsList)
+        public OrganizationListModels(List<DtoOrganization> organizationsList)
         {
             Organizations = organizationsList;
         }

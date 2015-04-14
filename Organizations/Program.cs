@@ -17,11 +17,8 @@ namespace Organizations
     {
         private static void Main(string[] args)
         {
-            var container = RegisterByContainer.Instance.Container;
-            var reports = container.GetInstance<Reports>();
-            
-            Console.WriteLine(container.WhatDoIHave());
-            
+            var reports = RegisterByContainer.Container.GetInstance<Reports>();
+          
             reports.ShowInitializedFacade();
             reports.ShowEntityCode(new Organization(1));
             reports.ShowAllOrganizations();

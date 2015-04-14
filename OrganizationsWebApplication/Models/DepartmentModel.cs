@@ -5,7 +5,7 @@ using System.Web;
 
 namespace OrganizationsWebApplication.Models
 {
-    public class SimpleEmployee
+    public class DtoEmployee
     {
         public string Name { get; set; }
         public int Id { get; set; }
@@ -13,10 +13,10 @@ namespace OrganizationsWebApplication.Models
 
     public class DepartmentModel
     {
-        public List<SimpleEmployee> Employees { get; private set; }
+        public List<DtoEmployee> Employees { get; private set; }
         public string Name;
 
-        public DepartmentModel(List<SimpleEmployee> employeeList, string name)
+        public DepartmentModel(List<DtoEmployee> employeeList, string name)
         {
             Employees = employeeList;
             Name = name;
