@@ -8,6 +8,8 @@ namespace Organizations.DbEntity
 {
     class DepartmentDb : IEntityDb
     {
+        public int OrganizationId { get; private set; }
         public int Id { get; private set; }
+        public string Name { get; set; }
     }
 }

@@ -22,7 +22,19 @@ namespace Organizations.DbEntity
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+            var table = AdoHelper.GetEmployeeById(id);
+            var reader = table.CreateDataReader();
+            int depId;
+            string name;
+
+            while (reader.Read())
+            {
+                id = (int)reader.GetValue(0);
+                depId = (int)reader.GetValue(1);
+                name = reader.GetValue(2).ToString();
+            }
+            //return new (id, depId) { Name = name };
+            return null;
         }
 
         public T GetRandom()

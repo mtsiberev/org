@@ -15,10 +15,8 @@ namespace Organizations
         
         [DefaultConstructor]
         public Facade()
+            : this(new Repository<Organization>(), new Repository<Department>(), new Repository<Employee>())
         {
-            m_organizationsRepository = new Repository<Organization>();
-            m_departmentsRepository = new Repository<Department>();
-            m_employeesRepository = new Repository<Employee>();
         }
 
         public Facade(IRepository<Organization> organizations, IRepository<Department> departments, IRepository<Employee> employees)

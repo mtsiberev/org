@@ -17,6 +17,10 @@ namespace Organizations
     {
         private static void Main(string[] args)
         {
+            var ado = new AdoHelper();
+            ado.OpenSqlConnection();
+            //ado.GetEmployeeById(1);
+            /*
             var reports = RegisterByContainer.Container.GetInstance<Reports>();
           
             reports.ShowInitializedFacade();
@@ -37,6 +41,7 @@ namespace Organizations
 
             for (int i = 0; i < 5; i++)
                 reports.ShowRandomEmployee();
+            */
         }
 
     }

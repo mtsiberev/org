@@ -8,6 +8,30 @@ namespace Organizations.DbEntity
 {
     class EmployeeDb : IEntityDb
     {
-        public int Id { get; private set; }
+        private readonly int m_departmentId;
+        private readonly int m_id;
+        public EmployeeDb(int id, int parentDepartment)
+        {
+            m_id = id;
+            m_departmentId = parentDepartment;
+        }
+        
+        public int Id
+        {
+            get
+            {
+                return m_id;
+            }
+        }
+
+        public int ParentDepartment
+        {
+            get
+            {
+                return m_departmentId;
+            }
+        }
+        
+        public string Name { get; set; }
     }
 }
