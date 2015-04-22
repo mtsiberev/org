@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Organizations.DbEntity
 {
-    class EmployeeDb : IEntityDb
+    public class EmployeeDb : IEntityDb
     {
         private readonly int m_departmentId;
         private readonly int m_id;

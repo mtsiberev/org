@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using Organizations.DbEntity;
 using StructureMap;
 using StructureMap.Configuration.DSL;
 
@@ -17,8 +18,14 @@ namespace Organizations
     {
         private static void Main(string[] args)
         {
-            var ado = new AdoHelper();
-            ado.OpenSqlConnection();
+            //var ado = new AdoHelper();
+            var repDb = new RepositoryDb<EmployeeDb>();
+            var emp = repDb.GetById(1);
+            Console.WriteLine(emp.Id);
+            Console.WriteLine(emp.Name);
+            
+            //AdoHelper.GetEntity(1);
+            //ado.OpenSqlConnection();
             //ado.GetEmployeeById(1);
             /*
             var reports = RegisterByContainer.Container.GetInstance<Reports>();

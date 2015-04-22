@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Organizations.DbEntity
 {
-    class OrganizationDb : IEntityDb
+    public class OrganizationDb : IEntityDb
     {
         public int Id { get; private set; }
         public string Name { get; set; }

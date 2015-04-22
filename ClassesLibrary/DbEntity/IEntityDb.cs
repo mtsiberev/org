@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Organizations.DbEntity
 {
-    interface IEntityDb
+    public interface IEntityDb
     {
         int Id { get; }
     }
