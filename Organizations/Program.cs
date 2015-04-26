@@ -17,18 +17,18 @@ namespace Organizations
     {
         private static void Main(string[] args)
         {
-            var repDb = new RepositoryDb<EmployeeDb>();
-            var emp1 = repDb.GetById(1);           
-            //Console.WriteLine(emp1.Id);
-            //Console.WriteLine(emp1.Name);
-            repDb.Insert(emp1);
-            repDb.Insert(emp1);
+            var emplsDb = new RepositoryDb<EmployeeDb>();
+            var emp1 = emplsDb.GetById(1);
+            Console.WriteLine("Employee Id: {0} Name: {1}", emp1.Id, emp1.Name);
+            emp1.Name = "Jones";
+            emplsDb.Insert(emp1);
+            emplsDb.Delete(emp1);
 
-            var list = repDb.GetAll();
+            Console.WriteLine("\nList after deleting and inserting:");
+            var list = emplsDb.GetAll();
             foreach (var emp in list)
             {
-                Console.WriteLine(emp.Id);
-                Console.WriteLine(emp.Name);
+                Console.WriteLine("Employee Id: {0} Name: {1}", emp.Id, emp.Name);
             }
             
             /*

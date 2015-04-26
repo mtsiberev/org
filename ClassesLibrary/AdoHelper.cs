@@ -51,10 +51,8 @@ namespace Organizations
 
         public static void ExecCommand(string queryString)
         {
-            using (var connection = new SqlConnection())
+            using (var connection = new SqlConnection(GetConnectionString()))
             {
-                connection.ConnectionString = GetConnectionString();
-                var command = new SqlCommand(queryString, connection);
                 try
                 {
                     connection.Open();
@@ -63,13 +61,25 @@ namespace Organizations
                 {
                     Console.WriteLine(ex.Message);
                 }
+                SqlTransaction transaction = connection.BeginTransaction("SampleTransaction");
+                var command = new SqlCommand(queryString, connection) {Transaction = transaction};
+
                 try
                 {
                     command.ExecuteNonQuery();
+                    transaction.Commit();
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
+                    try
+                    {
+                        transaction.Rollback();
+                    }
+                    catch (Exception ex2)
+                    {
+                        Console.WriteLine(ex2.Message);
+                    }
                 }
             }
         }

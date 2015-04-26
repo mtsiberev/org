@@ -13,7 +13,30 @@ namespace Organizations.DbEntity
         
         public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            var queryString = "";
+            if (typeof(T) == typeof(EmployeeDb))
+            {
+                var tempEntity = entity as EmployeeDb;
+                queryString = String.Format("DELETE FROM {0} WHERE Id = {1};",
+                    c_employeesDb, tempEntity.Id);
+            }
+
+            if (typeof(T) == typeof(DepartmentDb))
+            {
+                var tempEntity = entity as DepartmentDb;
+                queryString = String.Format("DELETE FROM {0} WHERE Id = {1};",
+                    c_departmentsDb, tempEntity.Id);
+            }
+            
+            if (typeof(T) == typeof(OrganizationDb))
+            {
+                var tempEntity = entity as OrganizationDb;
+                queryString = String.Format("DELETE FROM {0} WHERE Id = {1};",
+                    c_organizationsDb, tempEntity.Id);
+            }
+            
+            if (queryString.Length != 0)
+                AdoHelper.ExecCommand(queryString);
         }
 
         public void Insert(T entity)
@@ -29,14 +52,14 @@ namespace Organizations.DbEntity
             if (typeof(T) == typeof(DepartmentDb))
             {
                 var tempEntity = entity as DepartmentDb;
-                queryString = String.Format("INSERT INTO {0} (DepartmentId, Name) VALUES ({1}, '{2}');",
+                queryString = String.Format("INSERT INTO {0} (OrganizationId, Name) VALUES ({1}, '{2}');",
                     c_departmentsDb, tempEntity.ParentOrganization, tempEntity.Name);
             }
 
             if (typeof(T) == typeof(OrganizationDb))
             {
                 var tempEntity = entity as OrganizationDb;
-                queryString = String.Format("INSERT INTO {0} (DepartmentId, Name) VALUES ('{1}');",
+                queryString = String.Format("INSERT INTO {0} (Name) VALUES ('{1}');",
                     c_organizationsDb, tempEntity.Name);
             }
 
