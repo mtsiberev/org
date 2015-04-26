@@ -10,40 +10,20 @@ using Organizations.DbEntity;
 
 namespace Organizations
 {
-
-    public class AdoHelper
+    public static class AdoHelper
     {
-        public AdoHelper()
-        {
-        }
-
         private static string GetConnectionString()
         {
             return Properties.Settings.Default.TestConnectionString;
         }
 
-        public static dynamic GetEntity(Type T, int id)
+        public static DataTable GetDataTable(string queryString)
         {
-            if (T == typeof(EmployeeDb))
-                return GetEmployeeDb(id);
-            if (T == typeof(DepartmentDb))
-                return GetDepartmentDb(id);
-            if (T == typeof(OrganizationDb))
-                return GetOrganizationDb(id);
-            return null;
-        }
-
-        /// /////////////////////////////////////////
-        public static EmployeeDb GetEmployeeDb(int id)
-        {
-            const string queryString = "SELECT * FROM Employees "
-                                       + "WHERE Id = @PARAM_ID;";
-            var employeeTable = new DataTable();
+            var table = new DataTable();
             using (var connection = new SqlConnection())
             {
                 connection.ConnectionString = GetConnectionString();
                 var adapter = new SqlDataAdapter(queryString, connection);
-                adapter.SelectCommand.Parameters.AddWithValue("@PARAM_ID", id);
                 try
                 {
                     connection.Open();
@@ -54,84 +34,27 @@ namespace Organizations
                 }
                 try
                 {
-                    adapter.Fill(employeeTable);
+                    adapter.Fill(table);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
             }
-
-            //this code should be removed to Mapper class
-            var reader = employeeTable.CreateDataReader();
-            int depId = 0;
-            string name = "";
-            while (reader.Read())
-            {
-                id = (int)reader.GetValue(0);
-                depId = (int)reader.GetValue(1);
-                name = reader.GetValue(2).ToString();
-            }
-            return new EmployeeDb(id, depId) { Name = name };
+            return table;
         }
 
-        //////////////////////////////////////////////
-        private static DepartmentDb GetDepartmentDb(int id)
+        public static DataTableReader GetDataTableReader(DataTable table)
         {
-            return null;
+            return table.CreateDataReader();
         }
 
-        private static OrganizationDb GetOrganizationDb(int id)
-        {
-            return null;
-        }
-
-
-        /*
-        public static DataTable GetEmployeeById(int id)
-        {
-            const string queryString = "SELECT * FROM Employees "
-                                       + "WHERE Id = @PARAM_ID;";
-            var employee = new DataTable();
-            using (var connection = new SqlConnection())
-            {
-                connection.ConnectionString = GetConnectionString();
-                var adapter = new SqlDataAdapter(queryString, connection);
-                adapter.SelectCommand.Parameters.AddWithValue("@PARAM_ID", id);
-                try
-                {
-                    connection.Open();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                try
-                {
-                    adapter.Fill(employee);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-            return employee;
-        }
-        */
-
-        public string GetQueryString()
-        {
-            return "SELECT * FROM Employees;";
-        }
-
-        public void OpenSqlConnection()
+        public static void ExecCommand(string queryString)
         {
             using (var connection = new SqlConnection())
             {
                 connection.ConnectionString = GetConnectionString();
-                var query = GetQueryString();
-                var command = new SqlCommand(query, connection);
-
+                var command = new SqlCommand(queryString, connection);
                 try
                 {
                     connection.Open();
@@ -140,19 +63,16 @@ namespace Organizations
                 {
                     Console.WriteLine(ex.Message);
                 }
-
-                using (SqlDataReader reader = command.ExecuteReader())
+                try
                 {
-                    while (reader.Read())
-                    {
-                        Console.WriteLine("\t{0}\t{1}\t{2}",
-                            reader[0], reader[1], reader[2]);
-                    }
-                    Console.ReadLine();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
-
 
     }
 }

@@ -11,7 +11,7 @@ namespace Organizations
     {
         void Insert(T entity);
         void Delete(T entity);
-        IEnumerable<T> GetAll();
+        List<T> GetAll();
         T GetById(int id);
         T GetRandom();
     }

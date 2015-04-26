@@ -13,20 +13,42 @@ using StructureMap.Configuration.DSL;
 
 namespace Organizations
 {
-
     class Program
     {
         private static void Main(string[] args)
         {
-            //var ado = new AdoHelper();
             var repDb = new RepositoryDb<EmployeeDb>();
-            var emp = repDb.GetById(1);
-            Console.WriteLine(emp.Id);
-            Console.WriteLine(emp.Name);
+            var emp1 = repDb.GetById(1);           
+            //Console.WriteLine(emp1.Id);
+            //Console.WriteLine(emp1.Name);
+            repDb.Insert(emp1);
+            repDb.Insert(emp1);
+
+            var list = repDb.GetAll();
+            foreach (var emp in list)
+            {
+                Console.WriteLine(emp.Id);
+                Console.WriteLine(emp.Name);
+            }
             
-            //AdoHelper.GetEntity(1);
-            //ado.OpenSqlConnection();
-            //ado.GetEmployeeById(1);
+            /*
+            var repDep = new RepositoryDb<DepartmentDb>();
+            var depById = repDep.GetById(1);
+            if (depById != null)
+            {
+                Console.WriteLine(depById.Id);
+                Console.WriteLine(depById.Name);
+            }
+
+            var list2 = repDep.GetAll();
+            foreach (var dep in list2)
+            {
+                Console.WriteLine(dep.Id);
+                Console.WriteLine(dep.ParentOrganization);
+                Console.WriteLine(dep.Name);
+            }
+            */
+
             /*
             var reports = RegisterByContainer.Container.GetInstance<Reports>();
           

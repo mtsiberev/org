@@ -46,7 +46,7 @@ namespace Organizations
             DeleteIsCalled = true;
         }
 
-        public IEnumerable<Organization> GetAll()
+        public List<Organization> GetAll()
         {
             return m_data;
         }
@@ -103,7 +103,7 @@ namespace Organizations
             DeleteIsCalled = true;
         }
 
-        public IEnumerable<Department> GetAll()
+        public List<Department> GetAll()
         {
             return m_data;
         }
@@ -160,7 +160,7 @@ namespace Organizations
             DeleteIsCalled = true;
         }
 
-        public IEnumerable<Employee> GetAll()
+        public List<Employee> GetAll()
         {
             return m_data;
         }

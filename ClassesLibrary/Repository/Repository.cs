@@ -25,7 +25,7 @@ namespace Organizations
 
         public void Delete(T entity) { }
 
-        public IEnumerable<T> GetAll()
+        public List<T> GetAll()
         {
             return m_data;
         }
