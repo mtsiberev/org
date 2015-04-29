@@ -46,14 +46,14 @@ namespace Organizations.DbEntity
             {
                 var tempEntity = entity as EmployeeDb;
                 queryString = String.Format("INSERT INTO {0} (DepartmentId, Name) VALUES ({1}, '{2}');",
-                    c_employeesDb, tempEntity.ParentDepartment, tempEntity.Name);
+                    c_employeesDb, tempEntity.ParentDepartmentId, tempEntity.Name);
             }
 
             if (typeof(T) == typeof(DepartmentDb))
             {
                 var tempEntity = entity as DepartmentDb;
                 queryString = String.Format("INSERT INTO {0} (OrganizationId, Name) VALUES ({1}, '{2}');",
-                    c_departmentsDb, tempEntity.ParentOrganization, tempEntity.Name);
+                    c_departmentsDb, tempEntity.ParentOrganizationId, tempEntity.Name);
             }
 
             if (typeof(T) == typeof(OrganizationDb))
@@ -85,7 +85,7 @@ namespace Organizations.DbEntity
             {
                 while (reader.Read())
                 {
-                    resultList.Add(MapperDB.GetObject(typeof(T), reader));
+                    //resultList.Add(MapperDB.GetObject(typeof(T), reader));
                 }
             }
             return resultList;
@@ -105,7 +105,7 @@ namespace Organizations.DbEntity
             var table = AdoHelper.GetDataTable(queryString);
             var reader = AdoHelper.GetDataTableReader(table);
             if (reader.Read())
-                return MapperDB.GetObject(typeof(T), reader);
+                ;//return MapperDB.GetObject(typeof(T), reader);
             return null;
         }
 

@@ -17,6 +17,24 @@ namespace Organizations
     {
         private static void Main(string[] args)
         {
+            var orgRepo = new RepoOrganizationDb();
+            var depRepo = new RepoDepartmentDb();
+            var empRepo = new RepoEmployeeDb();
+
+            var org = orgRepo.GetById(1);
+            Console.WriteLine("Org Id: {0} Name: {1}", org.Id, org.Name);
+
+            var dep = depRepo.GetById(5);
+            Console.WriteLine("Dep Id: {0} Name: {1}", dep.Id, dep.Name);
+
+            var emp = empRepo.GetById(1);
+            Console.WriteLine("Emp Id: {0} Name: {1}", emp.Id, emp.Name);
+
+            var fac = new Facade(orgRepo, depRepo, empRepo);
+            var emplFromFac = fac.GetEmployeeById(1);
+            Console.WriteLine("Emp Id: {0} Name: {1}", emplFromFac.Id, emplFromFac.Name);
+
+            /*
             var emplsDb = new RepositoryDb<EmployeeDb>();
             var emp1 = emplsDb.GetById(1);
             Console.WriteLine("Employee Id: {0} Name: {1}", emp1.Id, emp1.Name);
@@ -30,7 +48,7 @@ namespace Organizations
             {
                 Console.WriteLine("Employee Id: {0} Name: {1}", emp.Id, emp.Name);
             }
-            
+            */
             /*
             var repDep = new RepositoryDb<DepartmentDb>();
             var depById = repDep.GetById(1);
@@ -39,7 +57,6 @@ namespace Organizations
                 Console.WriteLine(depById.Id);
                 Console.WriteLine(depById.Name);
             }
-
             var list2 = repDep.GetAll();
             foreach (var dep in list2)
             {
@@ -48,26 +65,21 @@ namespace Organizations
                 Console.WriteLine(dep.Name);
             }
             */
-
             /*
-            var reports = RegisterByContainer.Container.GetInstance<Reports>();
-          
+            var reports = RegisterByContainer.Container.GetInstance<Reports>();          
             reports.ShowInitializedFacade();
             reports.ShowEntityCode(new Organization(1));
             reports.ShowAllOrganizations();
             reports.ShowOrganizationsByNameOfDepartmentWithPersonNumber("IT", 2);
-
             reports.ShowEntityCode(new Department(1, null));
             reports.ShowAllDepartmentsInOrganization(1);
             reports.ShowDepartmentWithOldestPerson();
-
             reports.ShowEntityCode(new Employee(1, null));
             reports.ShowAllEmployeesInOrganization(1);
             reports.ShowAllEmployeesOrederedByStreet(1);
             reports.ShowEmployeesWithSubstring(1, "ov");
             reports.ShowEmployeesByAge(1, 27, 38);
             reports.ShowAllUniqueFirstNamesOfEmployeesInSpecifiedDepartment(1);
-
             for (int i = 0; i < 5; i++)
                 reports.ShowRandomEmployee();
             */

@@ -10,7 +10,7 @@ namespace Organizations
 {
     public static class MapperDB
     {
-        private static EmployeeDb GetEmployeeDb(DataTableReader reader)
+        public static EmployeeDb GetEmployeeDb(DataTableReader reader)
         {
             var id = (int)reader.GetValue(0);
             var parentId = (int)reader.GetValue(1);
@@ -18,7 +18,7 @@ namespace Organizations
             return new EmployeeDb(id, parentId) { Name = name };
         }
 
-        private static DepartmentDb GetDepartmentDb(DataTableReader reader)
+        public static DepartmentDb GetDepartmentDb(DataTableReader reader)
         {
             var id = (int)reader.GetValue(0);
             var parentId = (int)reader.GetValue(1);
@@ -26,13 +26,14 @@ namespace Organizations
             return new DepartmentDb(id, parentId) { Name = name };
         }
 
-        private static OrganizationDb GetOrganizationDb(DataTableReader reader)
+        public static OrganizationDb GetOrganizationDb(DataTableReader reader)
         {
             var id = (int)reader.GetValue(0);
             var name = reader.GetValue(1).ToString();
             return new OrganizationDb(id) { Name = name };
         }
 
+        /*
         public static dynamic GetObject(Type T, DataTableReader reader)
         {
             if (T == typeof(EmployeeDb))
@@ -43,5 +44,6 @@ namespace Organizations
                 return GetOrganizationDb(reader);
             return null;
         }
+        */
     }
 }

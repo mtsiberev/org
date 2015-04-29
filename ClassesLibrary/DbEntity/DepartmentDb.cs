@@ -26,7 +26,7 @@ namespace Organizations.DbEntity
             }
         }
 
-        public int ParentOrganization
+        public int ParentOrganizationId
         {
             get
             {

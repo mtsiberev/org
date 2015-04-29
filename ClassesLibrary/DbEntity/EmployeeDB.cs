@@ -26,7 +26,7 @@ namespace Organizations.DbEntity
             }
         }
 
-        public int ParentDepartment
+        public int ParentDepartmentId
         {
             get
             {
