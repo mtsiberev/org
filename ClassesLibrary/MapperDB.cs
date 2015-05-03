@@ -8,7 +8,7 @@ using Organizations.DbEntity;
 
 namespace Organizations
 {
-    public static class MapperDB
+    public static class MapperDb
     {
         public static EmployeeDb GetEmployeeDb(DataTableReader reader)
         {
@@ -32,18 +32,5 @@ namespace Organizations
             var name = reader.GetValue(1).ToString();
             return new OrganizationDb(id) { Name = name };
         }
-
-        /*
-        public static dynamic GetObject(Type T, DataTableReader reader)
-        {
-            if (T == typeof(EmployeeDb))
-                return GetEmployeeDb(reader);
-            if (T == typeof(DepartmentDb))
-                return GetDepartmentDb(reader);
-            if (T == typeof(OrganizationDb))
-                return GetOrganizationDb(reader);
-            return null;
-        }
-        */
     }
 }

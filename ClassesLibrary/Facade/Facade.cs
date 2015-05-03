@@ -13,7 +13,7 @@ namespace Organizations
         private readonly IRepository<Department> m_departmentsRepository;
         private readonly IRepository<Employee> m_employeesRepository;
         
-        [DefaultConstructor]
+        //[DefaultConstructor]
         public Facade()
             : this(new Repository<Organization>(), new Repository<Department>(), new Repository<Employee>())
         {

@@ -14,7 +14,8 @@ namespace Organizations
     {
         private static string GetConnectionString()
         {
-            return Properties.Settings.Default.TestConnectionString;
+            //return Properties.Settings.Default.ConsoleConnectionString;
+            return Properties.Settings.Default.MvcConnectionString;
         }
 
         public static DataTable GetDataTable(string queryString)
@@ -63,7 +64,6 @@ namespace Organizations
                 }
                 SqlTransaction transaction = connection.BeginTransaction("SampleTransaction");
                 var command = new SqlCommand(queryString, connection) {Transaction = transaction};
-
                 try
                 {
                     command.ExecuteNonQuery();

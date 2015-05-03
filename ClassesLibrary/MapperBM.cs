@@ -7,7 +7,7 @@ using Organizations.DbEntity;
 
 namespace Organizations
 {
-    public static class MapperBM
+    public static class MapperBm
     {
         public static Employee GetEmployee(
             EmployeeDb employeeDb, 

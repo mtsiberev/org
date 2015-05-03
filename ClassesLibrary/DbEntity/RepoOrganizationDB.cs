@@ -26,8 +26,7 @@ namespace Organizations.DbEntity
             if (queryString.Length != 0)
                 AdoHelper.ExecCommand(queryString);
         }
-
-
+        
         public List<Organization> GetAll()
         {
             var queryString = "";
@@ -39,7 +38,8 @@ namespace Organizations.DbEntity
             {
                 while (reader.Read())
                 {
-                    //resultList.Add(MapperDB.GetObject(typeof(T), reader));
+                    var organizationDb = MapperDb.GetOrganizationDb(reader);
+                    resultList.Add(MapperBm.GetOrganization(organizationDb));
                 }
             }
             return resultList;
@@ -53,9 +53,8 @@ namespace Organizations.DbEntity
             var reader = AdoHelper.GetDataTableReader(table);
             OrganizationDb organizationDb = null;
             if (reader.Read())
-                organizationDb = MapperDB.GetOrganizationDb(reader);
-
-            return MapperBM.GetOrganization(organizationDb);
+                organizationDb = MapperDb.GetOrganizationDb(reader);
+            return MapperBm.GetOrganization(organizationDb);
         }
         
         public Organization GetRandom()

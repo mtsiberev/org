@@ -28,9 +28,20 @@ namespace Organizations.Properties {
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\v11.0;AttachDbFilename=|DataDirectory|\\Test.mdf;Integrated " +
             "Security=True;Connect Timeout=30")]
-        public string TestConnectionString {
+        public string ConsoleConnectionString {
             get {
-                return ((string)(this["TestConnectionString"]));
+                return ((string)(this["ConsoleConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\v11.0;AttachDbFilename=|DataDirectory|\\Data.mdf;Integrated " +
+            "Security=True;Connect Timeout=30")]
+        public string MvcConnectionString {
+            get {
+                return ((string)(this["MvcConnectionString"]));
             }
         }
     }

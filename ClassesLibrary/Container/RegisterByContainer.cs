@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Organizations.DbEntity;
 using StructureMap;
 
 namespace Organizations
@@ -22,9 +23,9 @@ namespace Organizations
                     if (s_container == null)
                         s_container = new Container(x =>
                         {
-                            x.For<IRepository<Organization>>().Singleton().Use<Repository<Organization>>();
-                            x.For<IRepository<Department>>().Singleton().Use<Repository<Department>>();
-                            x.For<IRepository<Employee>>().Singleton().Use<Repository<Employee>>();
+                            x.For<IRepository<Organization>>().Singleton().Use<RepoOrganizationDb>();
+                            x.For<IRepository<Department>>().Singleton().Use<RepoDepartmentDb>();
+                            x.For<IRepository<Employee>>().Singleton().Use<RepoEmployeeDb>();
                             x.For<Facade>().Singleton().Use<Facade>();
                             x.For<Reports>().Singleton().Use<Reports>();
                         });

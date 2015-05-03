@@ -19,7 +19,6 @@ namespace Organizations.DbEntity
             if (queryString.Length != 0)
                 AdoHelper.ExecCommand(queryString);
         }
-        
 
         public void Insert(Department entity)
         {
@@ -41,7 +40,9 @@ namespace Organizations.DbEntity
             {
                 while (reader.Read())
                 {
-                    //resultList.Add(MapperDB.GetObject(typeof(T), reader));
+                    var departmentDb = MapperDb.GetDepartmentDb(reader);
+                    var organization = repoOrgDb.GetById(departmentDb.ParentOrganizationId);
+                    resultList.Add(MapperBm.GetDepartment(departmentDb, organization));
                 }
             }
             return resultList;
@@ -55,11 +56,9 @@ namespace Organizations.DbEntity
             var reader = AdoHelper.GetDataTableReader(table);
             DepartmentDb departmentDb = null;
             if (reader.Read())
-                departmentDb = MapperDB.GetDepartmentDb(reader);
-            var orgId = departmentDb.ParentOrganizationId;
+                departmentDb = MapperDb.GetDepartmentDb(reader);
             var organization = repoOrgDb.GetById(departmentDb.ParentOrganizationId);
-
-            return MapperBM.GetDepartment(departmentDb, organization);
+            return MapperBm.GetDepartment(departmentDb, organization);
         }
         
         public Department GetRandom()

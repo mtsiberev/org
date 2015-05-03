@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Organizations;
+using Organizations.DbEntity;
 using OrganizationsWebApplication.Models;
 
 namespace OrganizationsWebApplication.Controllers
@@ -12,11 +13,15 @@ namespace OrganizationsWebApplication.Controllers
     {
         //
         // GET: /Home/
-        private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
-     
+        //private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
+        private Facade m_facade = RegisterByContainer.Container
+                .With(new RepoOrganizationDb())
+                .With(new RepoDepartmentDb())
+                .With(new RepoEmployeeDb())
+                .GetInstance<Facade>();
+
         public ActionResult Index()
         {
-            m_facade.Init();//
             var organizations =
                 from organization in m_facade.GetAllOrganizations()
                 where (true)

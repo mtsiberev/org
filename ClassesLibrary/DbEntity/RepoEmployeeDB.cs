@@ -29,7 +29,7 @@ namespace Organizations.DbEntity
             if (queryString.Length != 0)
                 AdoHelper.ExecCommand(queryString);
         }
-        
+
         public List<Employee> GetAll()
         {
             var queryString = "";
@@ -41,13 +41,15 @@ namespace Organizations.DbEntity
             {
                 while (reader.Read())
                 {
-                    //resultList.Add(MapperDB.GetObject(typeof(T), reader));
+                    var employeeDb = MapperDb.GetEmployeeDb(reader);
+                    var department = repoDepDb.GetById(employeeDb.ParentDepartmentId);
+                    var organization = repoOrgnDb.GetById(department.ParentOrganization.Id);
+                    resultList.Add(MapperBm.GetEmployee(employeeDb, department, organization));
                 }
             }
             return resultList;
         }
-        
-        
+
         public Employee GetById(int id)
         {
             var queryString = "";
@@ -56,18 +58,15 @@ namespace Organizations.DbEntity
             var reader = AdoHelper.GetDataTableReader(table);
             EmployeeDb employeeDb = null;
             if (reader.Read())
-                employeeDb  = MapperDB.GetEmployeeDb(reader);
+                employeeDb = MapperDb.GetEmployeeDb(reader);
             var department = repoDepDb.GetById(employeeDb.ParentDepartmentId);
             var organization = repoOrgnDb.GetById(department.ParentOrganization.Id);
-
-            return MapperBM.GetEmployee(employeeDb, department, organization);
+            return MapperBm.GetEmployee(employeeDb, department, organization);
         }
-        
+
         public Employee GetRandom()
         {
             throw new NotImplementedException();
         }
-        
-
     }
 }
