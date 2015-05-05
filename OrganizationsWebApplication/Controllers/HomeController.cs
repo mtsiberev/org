@@ -54,10 +54,16 @@ namespace OrganizationsWebApplication.Controllers
 
             return View(new DepartmentModel(employees.ToList(), name));
         }
-     
-        public ActionResult AddOrganization()
+        
+        public ActionResult AddOrganizationMenu()
         {
             return View();
+        }
+        
+        public ActionResult AddOrganization(string name)
+        {
+            m_facade.AddOrganization(new Organization(0){Name = name});
+            return RedirectToAction("Index");
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
@@ -66,7 +72,6 @@ namespace OrganizationsWebApplication.Controllers
             m_facade.DeleteOrganization(id);
             return RedirectToAction("Index");
         }
-
 
     }
 }
