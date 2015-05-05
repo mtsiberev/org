@@ -35,6 +35,9 @@ namespace OrganizationsWebApplication.Controllers
             var name = m_facade.GetOrganizationById(id).Name;
             var departments =
                 from department in m_facade.GetAllDepartments()
+
+                where department != null//////////////
+
                 where department.ParentOrganization.Id == id
                 select new DtoDepartment() { Name = department.Name, Id = department.Id };
 
