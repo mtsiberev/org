@@ -11,32 +11,8 @@ namespace Organizations.DbEntity
         private const string c_departmentsDb = "Departments";
         private const string c_organizationsDb = "Organizations";
         
-        public void Delete(T entity)
+        public void Delete(int id)
         {
-            var queryString = "";
-            if (typeof(T) == typeof(EmployeeDb))
-            {
-                var tempEntity = entity as EmployeeDb;
-                queryString = String.Format("DELETE FROM {0} WHERE Id = {1};",
-                    c_employeesDb, tempEntity.Id);
-            }
-
-            if (typeof(T) == typeof(DepartmentDb))
-            {
-                var tempEntity = entity as DepartmentDb;
-                queryString = String.Format("DELETE FROM {0} WHERE Id = {1};",
-                    c_departmentsDb, tempEntity.Id);
-            }
-            
-            if (typeof(T) == typeof(OrganizationDb))
-            {
-                var tempEntity = entity as OrganizationDb;
-                queryString = String.Format("DELETE FROM {0} WHERE Id = {1};",
-                    c_organizationsDb, tempEntity.Id);
-            }
-            
-            if (queryString.Length != 0)
-                AdoHelper.ExecCommand(queryString);
         }
 
         public void Insert(T entity)

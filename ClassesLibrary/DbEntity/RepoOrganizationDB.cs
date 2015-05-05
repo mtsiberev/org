@@ -9,11 +9,11 @@ namespace Organizations.DbEntity
     public class RepoOrganizationDb : IRepository<Organization>
     {
         private const string c_organizationsDb = "Organizations";
-        public void Delete(Organization entity)
+        public void Delete(int id)
         {
             var queryString = "";
             queryString = String.Format("DELETE FROM {0} WHERE Id = {1};",
-                c_organizationsDb, entity.Id);
+                c_organizationsDb, id);
             if (queryString.Length != 0)
                 AdoHelper.ExecCommand(queryString);
         }

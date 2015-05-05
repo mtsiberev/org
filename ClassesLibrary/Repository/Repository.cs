@@ -23,7 +23,7 @@ namespace Organizations
             m_data.Add(entity);
         }
 
-        public void Delete(T entity) { }
+        public void Delete(int id) { }
 
         public List<T> GetAll()
         {

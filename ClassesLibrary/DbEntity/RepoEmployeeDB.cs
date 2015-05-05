@@ -12,11 +12,11 @@ namespace Organizations.DbEntity
         private RepoOrganizationDb repoOrgnDb = new RepoOrganizationDb();
         private RepoDepartmentDb repoDepDb = new RepoDepartmentDb();
 
-        public void Delete(Employee entity)
+        public void Delete(int id)
         {
             var queryString = "";
             queryString = String.Format("DELETE FROM {0} WHERE Id = {1};",
-                c_employeesDb, entity.Id);
+                c_employeesDb, id);
             if (queryString.Length != 0)
                 AdoHelper.ExecCommand(queryString);
         }

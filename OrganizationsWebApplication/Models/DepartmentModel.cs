@@ -16,9 +16,9 @@ namespace OrganizationsWebApplication.Models
         public List<DtoEmployee> Employees { get; private set; }
         public string Name;
 
-        public DepartmentModel(List<DtoEmployee> employeeList, string name)
+        public DepartmentModel(List<DtoEmployee> employeesList, string name)
         {
-            Employees = employeeList;
+            Employees = employeesList;
             Name = name;
         }
 

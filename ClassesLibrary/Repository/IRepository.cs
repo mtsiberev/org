@@ -10,7 +10,7 @@ namespace Organizations
     public interface IRepository<T>
     {
         void Insert(T entity);
-        void Delete(T entity);
+        void Delete(int id);
         List<T> GetAll();
         T GetById(int id);
         T GetRandom();

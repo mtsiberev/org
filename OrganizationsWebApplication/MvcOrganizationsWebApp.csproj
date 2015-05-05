@@ -156,6 +156,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Home\AddOrganization.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

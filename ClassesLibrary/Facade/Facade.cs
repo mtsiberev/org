@@ -31,6 +31,11 @@ namespace Organizations
             m_organizationsRepository.Insert(entity);
         }
 
+        public void DeleteOrganization(int id)
+        {
+            m_organizationsRepository.Delete(id);
+        }
+
         public void AddDepartment(Department entity)
         {
             m_departmentsRepository.Insert(entity);

@@ -40,9 +40,9 @@ namespace Organizations
             InsertIsCalled = true;
         }
 
-        public void Delete(Organization entity)
+        public void Delete(int id)
         {
-            LastDeletedOrganization = entity;
+            //LastDeletedOrganization = entity;
             DeleteIsCalled = true;
         }
 
@@ -97,9 +97,9 @@ namespace Organizations
             InsertIsCalled = true;
         }
 
-        public void Delete(Department entity)
+        public void Delete(int id)
         {
-            LastDeletedDepartment = entity;
+            //LastDeletedDepartment = entity;
             DeleteIsCalled = true;
         }
 
@@ -154,9 +154,9 @@ namespace Organizations
             InsertIsCalled = true;
         }
 
-        public void Delete(Employee entity)
+        public void Delete(int id)
         {
-            LastDeletedEmployee = entity;
+            //LastDeletedEmployee = entity;
             DeleteIsCalled = true;
         }
 

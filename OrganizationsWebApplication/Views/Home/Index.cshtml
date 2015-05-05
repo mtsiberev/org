@@ -7,17 +7,27 @@
 
 <!DOCTYPE html>
 <html>
-    <head></head>
-        <body style="font-family:Consolas;color:#569CD6;font-size:20px; background-color:#262626;">
+<head>
+</head>
+<body style="font-family:Consolas;color:#569CD6;font-size:20px; background-color:#262626;">
     <h3>Organizations</h3>
 
     @foreach (var organization in Model.Organizations)
     {
-        @Html.ActionLink(organization.Name, "OrganizationInfo", 
-        new { id = organization.Id }, 
+        @Html.ActionLink(organization.Name, "OrganizationInfo",
+        new { id = organization.Id },
         new { style = "color: white" })
-        <div></div>
-    }
 
+        using (Html.BeginForm("DeleteOrganization", "Home",  new { id = organization.Id }))
+        {
+            <button type="submit">Delete</button>
+        }
+        <p></p>
+    }
+    <p></p>
+    @using (Html.BeginForm("AddOrganization", "Home", FormMethod.Post))
+    {
+        <button type="submit">Add organization</button>
+    }
 </body>
 </html>
