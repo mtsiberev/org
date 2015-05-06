@@ -9,9 +9,7 @@ namespace Organizations.DbEntity
     public class RepoEmployeeDb : IRepository<Employee>
     {
         private const string c_employeesDb = "Employees";
-        private RepoOrganizationDb repoOrgnDb = new RepoOrganizationDb();
-        private RepoDepartmentDb repoDepDb = new RepoDepartmentDb();
-
+     
         public void Delete(int id)
         {
             var queryString = "";
@@ -34,16 +32,18 @@ namespace Organizations.DbEntity
         {
             var queryString = "";
             var resultList = new List<Employee>();
-                queryString = String.Format("SELECT * FROM {0};", c_employeesDb);
+            queryString = String.Format("SELECT * FROM {0};", c_employeesDb);
             var table = AdoHelper.GetDataTable(queryString);
             var reader = AdoHelper.GetDataTableReader(table);
             if (reader.HasRows)
             {
+                var repositoryDepartmentDb = new RepoDepartmentDb();
+                var repositoryOrganizationDb = new RepoOrganizationDb();
                 while (reader.Read())
                 {
                     var employeeDb = MapperDb.GetEmployeeDb(reader);
-                    var department = repoDepDb.GetById(employeeDb.ParentDepartmentId);
-                    var organization = repoOrgnDb.GetById(department.ParentOrganization.Id);
+                    var department = repositoryDepartmentDb.GetById(employeeDb.ParentDepartmentId);
+                    var organization = repositoryOrganizationDb.GetById(department.ParentOrganization.Id);
                     resultList.Add(MapperBm.GetEmployee(employeeDb, department, organization));
                 }
             }
@@ -57,10 +57,16 @@ namespace Organizations.DbEntity
             var table = AdoHelper.GetDataTable(queryString);
             var reader = AdoHelper.GetDataTableReader(table);
             EmployeeDb employeeDb = null;
+            var repositoryDepartmentDb = new RepoDepartmentDb();
+            var repositoryOrganizationDb = new RepoOrganizationDb();
+
             if (reader.Read())
+            {
                 employeeDb = MapperDb.GetEmployeeDb(reader);
-            var department = repoDepDb.GetById(employeeDb.ParentDepartmentId);
-            var organization = repoOrgnDb.GetById(department.ParentOrganization.Id);
+            }
+
+            var department = repositoryDepartmentDb.GetById(employeeDb.ParentDepartmentId);
+            var organization = repositoryOrganizationDb.GetById(department.ParentOrganization.Id);
             return MapperBm.GetEmployee(employeeDb, department, organization);
         }
 

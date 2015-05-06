@@ -9,15 +9,24 @@ namespace Organizations.DbEntity
     public class RepoDepartmentDb : IRepository<Department>
     {
         private const string c_departmentsDb = "Departments";
-        private RepoOrganizationDb repoOrgDb = new RepoOrganizationDb();
-
+        
         public void Delete(int id)
         {
+            var repositoryEmployeeDb = new RepoEmployeeDb();
             var queryString = "";
             queryString = String.Format("DELETE FROM {0} WHERE Id = {1};",
                 c_departmentsDb, id);
             if (queryString.Length != 0)
                 AdoHelper.ExecCommand(queryString);
+
+            var employeeList = repositoryEmployeeDb.GetAll();
+            foreach (var employee in employeeList)
+            {
+                if (employee.ParentDepartment.Id == id)
+                {
+                    repositoryEmployeeDb.Delete(id);
+                }
+            }
         }
 
         public void Insert(Department entity)
@@ -28,26 +37,27 @@ namespace Organizations.DbEntity
             if (queryString.Length != 0)
                 AdoHelper.ExecCommand(queryString);
         }
-        
+
         public List<Department> GetAll()
         {
             var queryString = "";
             var resultList = new List<Department>();
-                queryString = String.Format("SELECT * FROM {0};", c_departmentsDb);
+            queryString = String.Format("SELECT * FROM {0};", c_departmentsDb);
             var table = AdoHelper.GetDataTable(queryString);
             var reader = AdoHelper.GetDataTableReader(table);
             if (reader.HasRows)
             {
+                var repositoryOrganizationDb = new RepoOrganizationDb();
                 while (reader.Read())
                 {
                     var departmentDb = MapperDb.GetDepartmentDb(reader);
-                    var organization = repoOrgDb.GetById(departmentDb.ParentOrganizationId);
+                    var organization = repositoryOrganizationDb.GetById(departmentDb.ParentOrganizationId);
                     resultList.Add(MapperBm.GetDepartment(departmentDb, organization));
                 }
             }
             return resultList;
         }
-        
+
         public Department GetById(int id)
         {
             var queryString = "";
@@ -55,12 +65,15 @@ namespace Organizations.DbEntity
             var table = AdoHelper.GetDataTable(queryString);
             var reader = AdoHelper.GetDataTableReader(table);
             DepartmentDb departmentDb = null;
+            var repositoryOrganizationDb = new RepoOrganizationDb();
             if (reader.Read())
+            {
                 departmentDb = MapperDb.GetDepartmentDb(reader);
-            var organization = repoOrgDb.GetById(departmentDb.ParentOrganizationId);
+            }
+            var organization = repositoryOrganizationDb.GetById(departmentDb.ParentOrganizationId);
             return MapperBm.GetDepartment(departmentDb, organization);
         }
-        
+
         public Department GetRandom()
         {
             throw new NotImplementedException();

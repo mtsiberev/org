@@ -9,6 +9,7 @@ namespace Organizations.DbEntity
     public class RepoOrganizationDb : IRepository<Organization>
     {
         private const string c_organizationsDb = "Organizations";
+        
         public void Delete(int id)
         {
             var queryString = "";
@@ -16,6 +17,16 @@ namespace Organizations.DbEntity
                 c_organizationsDb, id);
             if (queryString.Length != 0)
                 AdoHelper.ExecCommand(queryString);
+
+            var repositoryDepartmentDb = new RepoDepartmentDb();
+            var departmentList = repositoryDepartmentDb.GetAll();
+            foreach (var department in departmentList)
+            {
+                if (department.ParentOrganization.Id == id)
+                {
+                    repositoryDepartmentDb.Delete(department.Id);
+                }
+            }
         }
 
         public void Insert(Organization entity)

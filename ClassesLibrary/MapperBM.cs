@@ -26,9 +26,6 @@ namespace Organizations
         public static Department GetDepartment(DepartmentDb departmentDb,
             Organization organization)
         {
-            if (organization == null) return null;///
-
-
             return new Department(
                 departmentDb.Id, 
                 new Organization(
@@ -38,8 +35,6 @@ namespace Organizations
 
         public static Organization GetOrganization(OrganizationDb organizationDb)
         {
-            if (organizationDb == null) return null;///
-            
                 return new Organization(organizationDb.Id)
                 {Name = organizationDb.Name};
         }

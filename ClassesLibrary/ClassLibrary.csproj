@@ -92,7 +92,6 @@
     <Compile Include="Reports\Reports.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
-    <Compile Include="DbEntity\RepositoryDb.cs" />
     <Compile Include="TestDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
