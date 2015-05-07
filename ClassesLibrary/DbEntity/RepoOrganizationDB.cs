@@ -12,12 +12,6 @@ namespace Organizations.DbEntity
         
         public void Delete(int id)
         {
-            var queryString = "";
-            queryString = String.Format("DELETE FROM {0} WHERE Id = {1};",
-                c_organizationsDb, id);
-            if (queryString.Length != 0)
-                AdoHelper.ExecCommand(queryString);
-
             var repositoryDepartmentDb = new RepoDepartmentDb();
             var departmentList = repositoryDepartmentDb.GetAll();
             foreach (var department in departmentList)
@@ -27,6 +21,13 @@ namespace Organizations.DbEntity
                     repositoryDepartmentDb.Delete(department.Id);
                 }
             }
+
+            var queryString = "";
+            queryString = String.Format("DELETE FROM {0} WHERE Id = {1};",
+                c_organizationsDb, id);
+            if (queryString.Length != 0)
+                AdoHelper.ExecCommand(queryString);
+            
         }
 
         public void Insert(Organization entity)

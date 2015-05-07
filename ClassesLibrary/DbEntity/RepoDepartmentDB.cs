@@ -9,24 +9,25 @@ namespace Organizations.DbEntity
     public class RepoDepartmentDb : IRepository<Department>
     {
         private const string c_departmentsDb = "Departments";
-        
+
         public void Delete(int id)
         {
             var repositoryEmployeeDb = new RepoEmployeeDb();
-            var queryString = "";
-            queryString = String.Format("DELETE FROM {0} WHERE Id = {1};",
-                c_departmentsDb, id);
-            if (queryString.Length != 0)
-                AdoHelper.ExecCommand(queryString);
 
             var employeeList = repositoryEmployeeDb.GetAll();
             foreach (var employee in employeeList)
             {
                 if (employee.ParentDepartment.Id == id)
                 {
-                    repositoryEmployeeDb.Delete(id);
+                    repositoryEmployeeDb.Delete(employee.Id);
                 }
             }
+
+            var queryString = "";
+            queryString = String.Format("DELETE FROM {0} WHERE Id = {1};",
+                c_departmentsDb, id);
+            if (queryString.Length != 0)
+                AdoHelper.ExecCommand(queryString);
         }
 
         public void Insert(Department entity)
