@@ -158,6 +158,8 @@
     </None>
     <Content Include="Views\Home\AddOrganization.cshtml" />
     <Content Include="Views\Home\AddOrganizationMenu.cshtml" />
+    <Content Include="Views\Home\AddDepartmentMenu.cshtml" />
+    <Content Include="Views\Home\AddDepartment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

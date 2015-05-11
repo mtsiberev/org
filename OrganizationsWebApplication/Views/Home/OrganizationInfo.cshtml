@@ -16,7 +16,14 @@
             @Html.ActionLink(department.Name, "DepartmentInfo", new { id = department.Id }, new { style = "color: white" })
             <div></div>
         }
+        
     </div>
+    <p></p>
+    @using (Html.BeginForm("AddDepartmentMenu", "Home", FormMethod.Post))
+    {
+        <button type="submit">Add department</button>
+    }
+    
 
 </body>
 </html>

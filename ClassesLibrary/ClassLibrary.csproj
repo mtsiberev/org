@@ -72,9 +72,9 @@
     <Compile Include="DbEntity\EmployeeDb.cs" />
     <Compile Include="DbEntity\IEntityDb.cs" />
     <Compile Include="DbEntity\OrganizationDb.cs" />
-    <Compile Include="DbEntity\RepoDepartmentDB.cs" />
-    <Compile Include="DbEntity\RepoEmployeeDB.cs" />
-    <Compile Include="DbEntity\RepoOrganizationDB.cs" />
+    <Compile Include="DbEntity\RepositoryDepartmentDatabase.cs" />
+    <Compile Include="DbEntity\RepositoryEmployeeDatabase.cs" />
+    <Compile Include="DbEntity\RepositoryOrganizationDatabase.cs" />
     <Compile Include="Entity\Address.cs" />
     <Compile Include="Entity\Department.cs" />
     <Compile Include="Entity\Employee.cs" />

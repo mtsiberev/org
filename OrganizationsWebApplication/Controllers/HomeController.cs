@@ -13,12 +13,7 @@ namespace OrganizationsWebApplication.Controllers
     {
         //
         // GET: /Home/
-        //private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
-        private Facade m_facade = RegisterByContainer.Container
-                .With(new RepoOrganizationDb())
-                .With(new RepoDepartmentDb())
-                .With(new RepoEmployeeDb())
-                .GetInstance<Facade>();
+        private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
 
         public ActionResult Index()
         {
@@ -70,6 +65,17 @@ namespace OrganizationsWebApplication.Controllers
         public ActionResult DeleteOrganization(int id = 0)
         {
             m_facade.DeleteOrganization(id);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult AddDepartmentMenu()
+        {
+            return View();
+        }
+
+        public ActionResult AddDepartment(string name)
+        {
+            //m_facade.AddDepartment(new Department(0, new Organization(parentId)){Name = name});
             return RedirectToAction("Index");
         }
 

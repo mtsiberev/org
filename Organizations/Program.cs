@@ -17,12 +17,7 @@ namespace Organizations
     {
         private static void Main(string[] args)
         {
-            var container = RegisterByContainer.Container;
-            var facade = container
-                .With(new RepoOrganizationDb())
-                .With(new RepoDepartmentDb())
-                .With(new RepoEmployeeDb())
-                .GetInstance<Facade>();
+            var facade = RegisterByContainer.Container.GetInstance<Facade>();
             var report = new Reports(facade);
             report.ShowAllOrganizations();
             report.ShowAllEmployeesInOrganization(1);
