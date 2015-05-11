@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "Organizations
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTestProject3\UnitTest.csproj", "{D35B3840-99E5-40FF-B706-E8E9A107132C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcOrganizationsWebApp", "OrganizationsWebApplication\MvcOrganizationsWebApp.csproj", "{EEE1715E-6D2C-4C72-ACAA-9BB49C37FCF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrganizationsWebApplication", "OrganizationsWebApplication\OrganizationsWebApplication.csproj", "{EEE1715E-6D2C-4C72-ACAA-9BB49C37FCF8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary", "ClassesLibrary\ClassLibrary.csproj", "{02CBF1DD-B005-4F5F-8A8B-AC73E8EB91DB}"
 EndProject

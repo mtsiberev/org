@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Organizations.DbEntity;
+using System.Configuration;
 
 
 namespace Organizations
@@ -17,8 +18,10 @@ namespace Organizations
         private static List<string> queryList = new List<string>();
         private static string GetConnectionString()
         {
-            //return Properties.Settings.Default.ConsoleConnectionString;
-            return Properties.Settings.Default.MvcConnectionString;
+            return ConfigurationManager.
+                ConnectionStrings["ConnectionString"].ConnectionString;
+            ////return Properties.Settings.Default.ConsoleConnectionString;
+            //return Properties.Settings.Default.MvcConnectionString;
         }
         
         private void ClearQueue()
