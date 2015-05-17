@@ -11,19 +11,33 @@
 </head>
 <body style="font-family:Consolas;color:#569CD6;font-size:20px; background-color:#262626;">
     <h3>Organizations</h3>
-
-    @foreach (var organization in Model.Organizations)
-    {
-        @Html.ActionLink(organization.Name, "OrganizationInfo",
+    <table>
+        @foreach (var organization in Model.Organizations)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(organization.Name, "OrganizationInfo",
         new { id = organization.Id },
         new { style = "color: white" })
+                </td>
 
-        using (Html.BeginForm("DeleteOrganization", "Home",  new { id = organization.Id }))
-        {
-            <button type="submit">Delete</button>
+                <td>
+                    @using (Html.BeginForm("EditOrganization", "Home", new { id = organization.Id }))
+                    {
+                        <button type="submit">Edit</button>
+                    }
+                </td>
+                <td>
+                    @using (Html.BeginForm("DeleteOrganization", "Home", new { id = organization.Id }))
+                    {
+                        <button type="submit">Delete</button>
+                    }
+                </td>
+            </tr>
+
+            <p></p>
         }
-        <p></p>
-    }
+    </table>
     <p></p>
     @using (Html.BeginForm("AddOrganizationMenu", "Home", FormMethod.Post))
     {

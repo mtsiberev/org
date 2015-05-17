@@ -8,13 +8,18 @@
 <html>
 <head>
 </head>
-<body style="font-family:Consolas;color:#569CD6;font-size:20px; background-color:#262626;">
+<body style="font-family: Consolas; color: #569CD6; font-size: 20px; background-color: #262626;">
     <h3>Add New Organization</h3>
 
-    <text style="color: white">Please input department name and press Enter:</text>
+    <text style="color: white">Please input department name:</text>
+    <h3>@Model.ParentId</h3>
+
     @using (Html.BeginForm("AddDepartment", "Home"))
     {
+        @Html.HiddenFor(m => m.ParentId)
         @Html.TextBoxFor(m => m.Name)
+        <br />
+        <input type="submit" value="Create" class="btn btn-default" />
     }
 
 </body>

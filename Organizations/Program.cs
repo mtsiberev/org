@@ -26,7 +26,6 @@ namespace Organizations
             var facade = RegisterByContainer.Container.GetInstance<Facade>();
             var report = new Reports(facade);
             report.ShowAllOrganizations();
-            report.ShowAllEmployeesInOrganization(1);
         }
 
     }

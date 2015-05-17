@@ -9,34 +9,19 @@ namespace Organizations.DbEntity
     public class RepositoryEmployeeDatabase : IRepository<Employee>
     {
         private const string c_employeesDatabaseName = "Employees";
-
-        private string GetDeletingQueryString(int id)
-        {
-            return String.Format("DELETE FROM {0} WHERE Id = {1};",
-                c_employeesDatabaseName, id);
-        }
-
+        
         public void Delete(int id)
         {
-            AddDeletingQuery(id);
-            AdoHelper.Instance.ExecCommand();
+            var queryString = String.Format("DELETE FROM {0} WHERE Id = {1};",
+                c_employeesDatabaseName, id);
+            AdoHelper.ExecCommand(queryString);
         }
-
-        public void AddDeletingQuery(int id)
-        {
-            var queryString = GetDeletingQueryString(id);
-            AdoHelper.Instance.AddQuery(queryString);
-        }
-
+        
         public void Insert(Employee entity)
         {
             var queryString = String.Format("INSERT INTO {0} (DepartmentId, Name) VALUES ({1}, '{2}');",
                 c_employeesDatabaseName, entity.ParentDepartment.Id, entity.Name);
-            if (queryString.Length != 0)
-            {
-                AdoHelper.Instance.AddQuery(queryString);
-                AdoHelper.Instance.ExecCommand();
-            }
+                AdoHelper.ExecCommand(queryString);
         }
 
         public List<Employee> GetAll()

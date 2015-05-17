@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "AddEmployeeMenu";
+}
+
+@model OrganizationsWebApplication.Models.DtoEmployee
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family:Consolas;color:#569CD6;font-size:20px; background-color:#262626;">
+    <h3>Add New Organization</h3>
+
+    <text style="color: white">Please input employee name:</text>
+    @using (Html.BeginForm("AddEmployee", "Home"))
+    {
+        @Html.HiddenFor(m => m.ParentId)
+        @Html.TextBoxFor(m => m.Name)
+        <br />
+        <input type="submit" value="Create" class="btn btn-default" />
+    }
+
+</body>
+</html>

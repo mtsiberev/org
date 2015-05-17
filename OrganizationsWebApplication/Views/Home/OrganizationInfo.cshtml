@@ -19,7 +19,7 @@
         
     </div>
     <p></p>
-    @using (Html.BeginForm("AddDepartmentMenu", "Home", FormMethod.Post))
+    @using (Html.BeginForm("AddDepartmentMenu", "Home", new { id = @Model.Id }, FormMethod.Post))
     {
         <button type="submit">Add department</button>
     }

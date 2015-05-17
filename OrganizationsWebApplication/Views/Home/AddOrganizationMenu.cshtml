@@ -11,10 +11,12 @@
 <body style="font-family:Consolas;color:#569CD6;font-size:20px; background-color:#262626;">
     <h3>Add New Organization</h3>
 
-    <text style="color: white">Please input organization name and press Enter:</text>
+    <text style="color: white">Please input organization name:</text>
     @using (Html.BeginForm("AddOrganization", "Home"))
     {
         @Html.TextBoxFor(m => m.Name)
+        <br/>
+            <input type="submit" value="Create" class="btn btn-default" />
     }
 
 </body>

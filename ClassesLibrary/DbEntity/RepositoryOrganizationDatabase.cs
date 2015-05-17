@@ -10,40 +10,18 @@ namespace Organizations.DbEntity
     {
         private const string c_organizationsDatabaseName = "Organizations";
 
-        private string GetDeletingQueryString(int id)
-        {
-            return String.Format("DELETE FROM {0} WHERE Id = {1};",
-                c_organizationsDatabaseName, id);
-        }
-
         public void Delete(int id)
         {
-            var repositoryDepartmentDb = new RepositoryDepartmentDatabase();
-            //var repositoryDepartmentDb = RegisterByContainer.Container.GetInstance<IRepository<Department>>();
-
-            var departmentList = repositoryDepartmentDb.GetAll();
-            foreach (var department in departmentList)
-            {
-                if (department.ParentOrganization.Id == id)
-                {
-                    repositoryDepartmentDb.AddDeletingQuery(department.Id);//////////////
-                }
-            }
-
-            var queryString = GetDeletingQueryString(id);
-            AdoHelper.Instance.AddQuery(queryString);
-            AdoHelper.Instance.ExecCommand();
+            var queryString = String.Format("DELETE FROM {0} WHERE Id = {1};",
+                c_organizationsDatabaseName, id);
+            AdoHelper.ExecCommand(queryString);
         }
 
         public void Insert(Organization entity)
         {
             var queryString = String.Format("INSERT INTO {0} (Name) VALUES ('{1}');",
                 c_organizationsDatabaseName, entity.Name);
-            if (queryString.Length != 0)
-            {
-                AdoHelper.Instance.AddQuery(queryString);
-                AdoHelper.Instance.ExecCommand();
-            }
+                AdoHelper.ExecCommand(queryString);
         }
 
         public List<Organization> GetAll()

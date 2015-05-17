@@ -14,5 +14,12 @@
     {
         <div style="color: white">@employee.Name</div>
     }
+    
+    @using (Html.BeginForm("AddEmployeeMenu", "Home", new { id = @Model.Id }, FormMethod.Post))
+    {
+        <button type="submit">Add employee</button>
+    }
+    
+
 </body>
 </html>
