@@ -3,23 +3,43 @@
 @{
     ViewBag.Title = "DepartmentInfo";
 }
-
+<!DOCTYPE html>
 <html>
 <head>
 </head>
 <body style="font-family:Consolas;color:#569CD6;font-size:20px; background-color:#262626;">
- <h3>@Model.Name</h3>
-
-    @foreach (var employee in Model.Employees)
-    {
-        <div style="color: white">@employee.Name</div>
-    }
-    
-    @using (Html.BeginForm("AddEmployeeMenu", "Home", new { id = @Model.Id }, FormMethod.Post))
+    <h3>@Model.Name</h3>
+    <table>
+        @foreach (var employee in Model.Employees)
+        {
+            <tr>
+                <td>
+                    <div style="color: white">@employee.Name</div>
+                </td>
+                <td>
+                    @using (Html.BeginForm("EditEmployee", "Home", 
+                        new { id = employee.Id }))
+                    {
+                        <button type="submit">Edit</button>
+                    }
+                </td>
+                <td>
+                    @using (Html.BeginForm("DeleteEmployee", "Home", 
+                        new { id = employee.Id }))
+                    {
+                        <button type="submit">Delete</button>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    <p></p>
+    @using (Html.BeginForm("AddEmployeeMenu", "Home", 
+        new { id = @Model.Id }, FormMethod.Post))
     {
         <button type="submit">Add employee</button>
     }
-    
+
 
 </body>
 </html>

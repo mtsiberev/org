@@ -16,7 +16,12 @@ namespace Organizations.DbEntity
                 c_employeesDatabaseName, id);
             AdoHelper.ExecCommand(queryString);
         }
-        
+
+        public void Update(int id, Employee entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Insert(Employee entity)
         {
             var queryString = String.Format("INSERT INTO {0} (DepartmentId, Name) VALUES ({1}, '{2}');",

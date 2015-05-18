@@ -12,14 +12,15 @@ namespace Organizations
         private readonly IRepository<Organization> m_organizationsRepository;
         private readonly IRepository<Department> m_departmentsRepository;
         private readonly IRepository<Employee> m_employeesRepository;
-        
+
         //[DefaultConstructor]
         public Facade()
             : this(new Repository<Organization>(), new Repository<Department>(), new Repository<Employee>())
         {
         }
 
-        public Facade(IRepository<Organization> organizations, IRepository<Department> departments, IRepository<Employee> employees)
+        public Facade(IRepository<Organization> organizations, IRepository<Department> departments,
+            IRepository<Employee> employees)
         {
             m_organizationsRepository = organizations;
             m_departmentsRepository = departments;
@@ -34,6 +35,32 @@ namespace Organizations
         public void DeleteOrganization(int id)
         {
             m_organizationsRepository.Delete(id);
+        }
+
+        public void UpdateOrganization(int id, Organization entity)
+        {
+            m_organizationsRepository.Update(id, entity);
+        }
+
+        public void UpdateDepartment(int id, Department entity)
+        {
+            m_departmentsRepository.Update(id, entity);
+        }
+        
+        public void UpdateEmployee(int id, Employee entity)
+        {
+            m_employeesRepository.Update(id, entity);
+        }
+        
+
+        public void DeleteDepartment(int id)
+        {
+            m_departmentsRepository.Delete(id);
+        }
+
+        public void DeleteEmployee(int id)
+        {
+            m_employeesRepository.Delete(id);
         }
 
         public void AddDepartment(Department entity)

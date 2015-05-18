@@ -46,6 +46,11 @@ namespace Organizations
             DeleteIsCalled = true;
         }
 
+        public void Update(int id, Organization entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Organization> GetAll()
         {
             return m_data;
@@ -103,6 +108,11 @@ namespace Organizations
             DeleteIsCalled = true;
         }
 
+        public void Update(int id, Department entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Department> GetAll()
         {
             return m_data;
@@ -158,6 +168,11 @@ namespace Organizations
         {
             //LastDeletedEmployee = entity;
             DeleteIsCalled = true;
+        }
+
+        public void Update(int id, Employee entity)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Employee> GetAll()

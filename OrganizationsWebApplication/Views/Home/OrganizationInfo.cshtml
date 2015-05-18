@@ -3,27 +3,45 @@
 @{
     ViewBag.Title = "Department";
 }
-
+<!DOCTYPE html>
 <html>
 <head>
 </head>
 <body style="font-family:Consolas;color:#569CD6;font-size:20px; background-color:#262626;">
-    <div>
+   
         <h3>Organization @Model.Name</h3>
-
-        @foreach (var department in Model.Departments)
-        {
-            @Html.ActionLink(department.Name, "DepartmentInfo", new { id = department.Id }, new { style = "color: white" })
-            <div></div>
-        }
-        
-    </div>
+        <table>
+            @foreach (var department in Model.Departments)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(department.Name, "DepartmentInfo", 
+                        new { id = department.Id }, 
+                        new { style = "color: white" })
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("EditDepartment", "Home",
+                            new { id = department.Id }))
+                        {
+                            <button type="submit">Edit</button>
+                        }
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("DeleteDepartment", "Home", 
+                            new { id = department.Id }))
+                        {
+                            <button type="submit">Delete</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
     <p></p>
     @using (Html.BeginForm("AddDepartmentMenu", "Home", new { id = @Model.Id }, FormMethod.Post))
     {
         <button type="submit">Add department</button>
     }
-    
+
 
 </body>
 </html>

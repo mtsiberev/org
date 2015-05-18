@@ -30,8 +30,7 @@ namespace OrganizationsWebApplication.Controllers
                 from department in m_facade.GetAllDepartments()
                 where department.ParentOrganization.Id == id
                 select new DtoDepartment() { Name = department.Name, Id = department.Id };
-
-            return View(new OrganizationModel(id, departments.ToList(), name));
+            return View(new OrganizationModel(){Id = id, Departments = departments.ToList(), Name = name});
         }
 
         public ActionResult AddOrganizationMenu()
@@ -45,6 +44,20 @@ namespace OrganizationsWebApplication.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult UpdateOrganizationMenu(int id)
+        {
+            var name = m_facade.GetOrganizationById(id).Name;
+            var organization = new OrganizationModel(){ Id = id, Departments = null, Name = name };
+            return View(organization);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult UpdateOrganization(OrganizationModel organization)
+        {
+            m_facade.UpdateOrganization(organization.Id, new Organization(organization.Id) { Name = organization.Name});
+            return RedirectToAction("Index");
+        }
+        
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult DeleteOrganization(int id = 0)
         {
@@ -82,6 +95,12 @@ namespace OrganizationsWebApplication.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult DeleteDepartment(int id = 0)
+        {
+            m_facade.DeleteDepartment(id);
+            return RedirectToAction("Index");
+        }
+
         ////////////////////////////////////////////////////////////////////////////
         
         public ActionResult AddEmployeeMenu(int id)
@@ -94,6 +113,12 @@ namespace OrganizationsWebApplication.Controllers
         {
             var department = m_facade.GetDepartmentById(employee.ParentId);
             m_facade.AddEmployee(new Employee(0, department) { Name = employee.Name });
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteEmployee(int id = 0)
+        {
+            m_facade.DeleteEmployee(id);
             return RedirectToAction("Index");
         }
     }

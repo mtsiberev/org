@@ -17,6 +17,11 @@ namespace Organizations.DbEntity
             AdoHelper.ExecCommand(queryString);
         }
 
+        public void Update(int id, Department entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Insert(Department entity)
         {
             var queryString = String.Format("INSERT INTO {0} (OrganizationId, Name) VALUES ({1}, '{2}');",

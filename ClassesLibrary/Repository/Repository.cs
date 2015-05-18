@@ -25,6 +25,11 @@ namespace Organizations
 
         public void Delete(int id) { }
 
+        public void Update(int id, T entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<T> GetAll()
         {
             return m_data;

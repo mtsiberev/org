@@ -24,6 +24,16 @@ namespace Organizations.DbEntity
                 AdoHelper.ExecCommand(queryString);
         }
 
+        public void Update(int id, Organization entity)
+        {
+            var queryString = String.Format("UPDATE {0} SET Name = '{1}' WHERE Id = {2}",
+                c_organizationsDatabaseName,
+                entity.Name,
+                id
+                );
+            AdoHelper.ExecCommand(queryString);
+        }
+
         public List<Organization> GetAll()
         {
             var resultList = new List<Organization>();

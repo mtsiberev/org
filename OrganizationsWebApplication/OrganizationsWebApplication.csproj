@@ -161,6 +161,8 @@
     <Content Include="Views\Home\AddDepartmentMenu.cshtml" />
     <Content Include="Views\Home\AddDepartment.cshtml" />
     <Content Include="Views\Home\AddEmployeeMenu.cshtml" />
+    <Content Include="Views\Home\UpdateOrganizationMenu.cshtml" />
+    <Content Include="Views\Home\UpdateOrganization.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
