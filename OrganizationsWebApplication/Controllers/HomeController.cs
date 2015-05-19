@@ -12,7 +12,7 @@ namespace OrganizationsWebApplication.Controllers
     public class HomeController : Controller
     {
         private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
-
+        ////////////////////////////////////////////////////
         public ActionResult Index()
         {
             var organizations =
@@ -50,15 +50,13 @@ namespace OrganizationsWebApplication.Controllers
             var organization = new OrganizationModel(){ Id = id, Departments = null, Name = name };
             return View(organization);
         }
-
-        [AcceptVerbs(HttpVerbs.Post)]
+        
         public ActionResult UpdateOrganization(OrganizationModel organization)
         {
             m_facade.UpdateOrganization(organization.Id, new Organization(organization.Id) { Name = organization.Name});
             return RedirectToAction("Index");
         }
         
-        [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult DeleteOrganization(int id = 0)
         {
             m_facade.DeleteOrganization(id);
@@ -66,7 +64,23 @@ namespace OrganizationsWebApplication.Controllers
         }
         
         ////////////////////////////////////////////////////
-        
+        public ActionResult UpdateDepartmentMenu(int id)
+        {
+            var department = m_facade.GetDepartmentById(id);
+            var dtoDepartment = new DtoDepartment() { Id = department.Id, 
+                ParentId = department.ParentOrganization.Id, 
+                Name = department.Name };
+            return View(dtoDepartment);
+        }
+
+        public ActionResult UpdateDepartment(DtoDepartment department)
+        {
+            var departmentBm = m_facade.GetDepartmentById(department.Id);
+            departmentBm.Name = department.Name;
+            m_facade.UpdateDepartment(departmentBm.Id, departmentBm);
+            return RedirectToAction("Index");
+        }
+
         public ActionResult DepartmentInfo(int id = 0)
         {
             var name = m_facade.GetDepartmentById(id).Name;
@@ -78,7 +92,7 @@ namespace OrganizationsWebApplication.Controllers
                    Id = employee.Id
                };
 
-            return View(new DepartmentModel(id, employees.ToList(), name));
+            return View(new DepartmentModel(){Id = id, Employees = employees.ToList(), Name = name});
         }
 
         public ActionResult AddDepartmentMenu(int id)
@@ -86,8 +100,7 @@ namespace OrganizationsWebApplication.Controllers
             var department = new DtoDepartment() { ParentId = id };
             return View(department);
         }
-
-        [AcceptVerbs(HttpVerbs.Post)]
+        
         public ActionResult AddDepartment(DtoDepartment department)
         {
             var organization = m_facade.GetOrganizationById(department.ParentId);
@@ -101,8 +114,27 @@ namespace OrganizationsWebApplication.Controllers
             return RedirectToAction("Index");
         }
 
-        ////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////
+        public ActionResult UpdateEmployeeMenu(int id)
+        {
+            var employee = m_facade.GetEmployeeById(id);
+            var dtoEmployee = new DtoEmployee()
+            {
+                Id = employee.Id,
+                ParentId = employee.ParentDepartment.Id,
+                Name = employee.Name
+            };
+            return View(dtoEmployee);
+        }
         
+        public ActionResult UpdateEmployee(DtoEmployee employee)
+        {
+            var employeeBm = m_facade.GetEmployeeById(employee.Id);
+            employeeBm.Name = employee.Name;
+            m_facade.UpdateEmployee(employeeBm.Id, employeeBm);
+            return RedirectToAction("Index");
+        }
+
         public ActionResult AddEmployeeMenu(int id)
         {
             var employee = new DtoEmployee() { ParentId = id };

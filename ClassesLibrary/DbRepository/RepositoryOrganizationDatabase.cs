@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Organizations.DbEntity;
+using Organizations.Helpers;
+using Organizations.Mappers;
 
-namespace Organizations.DbEntity
+namespace Organizations.DbRepository
 {
     public class RepositoryOrganizationDatabase : IRepository<Organization>
     {
@@ -21,7 +21,7 @@ namespace Organizations.DbEntity
         {
             var queryString = String.Format("INSERT INTO {0} (Name) VALUES ('{1}');",
                 c_organizationsDatabaseName, entity.Name);
-                AdoHelper.ExecCommand(queryString);
+            AdoHelper.ExecCommand(queryString);
         }
 
         public void Update(int id, Organization entity)
@@ -53,13 +53,16 @@ namespace Organizations.DbEntity
 
         public Organization GetById(int id)
         {
-            var queryString = String.Format("SELECT * FROM {0} WHERE Id = {1};", c_organizationsDatabaseName, id);
+            var queryString = String.Format("SELECT TOP 1 * FROM {0} WHERE Id = {1};", c_organizationsDatabaseName, id);
             var table = AdoHelper.GetDataTable(queryString);
             var reader = AdoHelper.GetDataTableReader(table);
             OrganizationDb organizationDb = null;
             if (reader.Read())
+            {
                 organizationDb = MapperDb.GetOrganizationDb(reader);
-            return MapperBm.GetOrganization(organizationDb);
+                return MapperBm.GetOrganization(organizationDb);
+            }
+            return null;
         }
 
         public Organization GetRandom()

@@ -67,23 +67,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdoHelper.cs" />
+    <Compile Include="Helpers\AdoHelper.cs" />
     <Compile Include="Container\RegisterByContainer.cs" />
     <Compile Include="DbEntity\DepartmentDb.cs" />
     <Compile Include="DbEntity\EmployeeDb.cs" />
     <Compile Include="DbEntity\IEntityDb.cs" />
     <Compile Include="DbEntity\OrganizationDb.cs" />
-    <Compile Include="DbEntity\RepositoryDepartmentDatabase.cs" />
-    <Compile Include="DbEntity\RepositoryEmployeeDatabase.cs" />
-    <Compile Include="DbEntity\RepositoryOrganizationDatabase.cs" />
+    <Compile Include="DbRepository\RepositoryDepartmentDatabase.cs" />
+    <Compile Include="DbRepository\RepositoryEmployeeDatabase.cs" />
+    <Compile Include="DbRepository\RepositoryOrganizationDatabase.cs" />
     <Compile Include="Entity\Address.cs" />
     <Compile Include="Entity\Department.cs" />
     <Compile Include="Entity\Employee.cs" />
     <Compile Include="Entity\IEntity.cs" />
     <Compile Include="Entity\Organization.cs" />
     <Compile Include="Facade\Facade.cs" />
-    <Compile Include="MapperBM.cs" />
-    <Compile Include="MapperDB.cs" />
+    <Compile Include="Mappers\MapperBM.cs" />
+    <Compile Include="Mappers\MapperDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

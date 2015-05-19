@@ -14,16 +14,8 @@ namespace OrganizationsWebApplication.Models
 
     public class DepartmentModel
     {
-        public int Id;
-        public List<DtoEmployee> Employees { get; private set; }
-        public string Name;
-
-        public DepartmentModel(int id, List<DtoEmployee> employeesList, string name)
-        {
-            Id = id;
-            Employees = employeesList;
-            Name = name;
-        }
-
+        public int Id { get; set; }
+        public List<DtoEmployee> Employees { get;  set; }
+        public string Name { get; set; }
     }
 }

@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Employee";
+}
+
+@model OrganizationsWebApplication.Models.DtoEmployee
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family:Consolas;color:#569CD6;font-size:20px; background-color:#262626;">
+    <h3>Update Department @Model.Name</h3>
+
+    <text style="color: white">Please edit employee name:</text>
+
+    @using (Html.BeginForm("UpdateEmployee", "Home"))
+    {
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.ParentId)
+        @Html.TextBoxFor(m => m.Name)
+        <br />
+        <input type="submit" value="Create" class="btn btn-default" />
+    }
+
+</body>
+</html>

@@ -17,7 +17,7 @@
                     <div style="color: white">@employee.Name</div>
                 </td>
                 <td>
-                    @using (Html.BeginForm("EditEmployee", "Home", 
+                    @using (Html.BeginForm("UpdateEmployeeMenu", "Home", 
                         new { id = employee.Id }))
                     {
                         <button type="submit">Edit</button>

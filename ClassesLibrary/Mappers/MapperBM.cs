@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Organizations.DbEntity;
+﻿using Organizations.DbEntity;
 
-namespace Organizations
+namespace Organizations.Mappers
 {
     public static class MapperBm
     {
