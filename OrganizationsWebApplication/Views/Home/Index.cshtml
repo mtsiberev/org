@@ -8,46 +8,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style type="text/css">
-        button#submit
-    {
-        width: 25px;
-        height: 30px;
-    }
-        .block1 { 
-            width: 200px; 
-            background: #green;
-            padding: 5px;
-            padding-right: 20px; 
-            border: solid 1px black; 
-            float: left;
-        }
-    </style>
-
+    <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
+    <title></title>
 </head>
-<body style="font-family:Consolas;color:#569CD6;font-size:20px; background-color:#262626;">
+<body>
     <h3>Organizations</h3>
 
-    <table border="5" bgcolor="#000000">
-
+    <table>
         @foreach (var organization in Model.Organizations)
         {
             <tr>
-                <td>
+                <td class="block">
                     @Html.ActionLink(organization.Name, "OrganizationInfo",
-                        new { id = organization.Id },
-                        new { style = "color: white" })
+                        new { id = organization.Id })
                 </td>
-                <td>
+
+                <td class="operationBlock">
                     @using (Html.BeginForm("UpdateOrganizationMenu", "Home", new { id = organization.Id }))
                     {
-                        <button type="submit">Edit</button>
+                        <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit">
+                        //<button type="submit">Edit</button>
                     }
                 </td>
-                <td>
+                <td class="operationBlock">
                     @using (Html.BeginForm("DeleteOrganization", "Home", new { id = organization.Id }))
                     {
-                        <button type="submit">Delete</button>
+                        <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit">
+                        //<button type="submit">Delete</button>
                     }
                 </td>
             </tr>
