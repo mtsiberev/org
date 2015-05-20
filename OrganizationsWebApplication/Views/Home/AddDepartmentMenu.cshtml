@@ -7,20 +7,33 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
 </head>
-<body style="font-family: Consolas; color: #569CD6; font-size: 20px; background-color: #262626;">
-    <h3>Add New Organization</h3>
+<body>
+    <h3>Add New Department</h3>
 
     <text style="color: white">Please input department name:</text>
-    <h3>@Model.ParentId</h3>
-
+    
     @using (Html.BeginForm("AddDepartment", "Home"))
     {
-        @Html.HiddenFor(m => m.ParentId)
-        @Html.TextBoxFor(m => m.Name)
-        <br />
-        <input type="submit" value="Create" class="btn btn-default" />
+        <table>
+            <tr>
+                <td>
+                    <div class="container">
+                        <div class="group">
+                            @Html.HiddenFor(m => m.ParentId)
+                            @Html.TextBoxFor(m => m.Name, new { @class = "inputMaterial", @type = "text" })
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Name</label>
+                            <span style="bottom: 35px; left: 55%; position:relative; ">
+                                <input type="image" src="../../Content/ic_done_24px.svg" alt="create" name="submit" />
+                            </span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     }
-
 </body>
 </html>

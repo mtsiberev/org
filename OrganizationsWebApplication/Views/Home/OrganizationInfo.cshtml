@@ -5,32 +5,34 @@
 }
 <!DOCTYPE html>
 <html>
-<head>
-</head>
-<body style="font-family:Consolas;color:#569CD6;font-size:20px; background-color:#262626;">
+    <head>
+        <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
+    </head>
+<body>
    
         <h3>Organization @Model.Name</h3>
         <table>
             @foreach (var department in Model.Departments)
             {
                 <tr>
-                    <td>
-                        @Html.ActionLink(department.Name, "DepartmentInfo", 
-                        new { id = department.Id }, 
-                        new { style = "color: white" })
+                    <td class="block">
+                        @Html.ActionLink(department.Name, "DepartmentInfo",
+                        new { id = department.Id }
+                        )
                     </td>
-                    <td>
+
+                    <td class="operationBlock">
                         @using (Html.BeginForm("UpdateDepartmentMenu", "Home",
                             new { id = department.Id }))
                         {
-                            <button type="submit">Edit</button>
+                            <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
                         }
                     </td>
-                    <td>
-                        @using (Html.BeginForm("DeleteDepartment", "Home", 
+                    <td class="operationBlock">
+                        @using (Html.BeginForm("DeleteDepartment", "Home",
                             new { id = department.Id }))
                         {
-                            <button type="submit">Delete</button>
+                            <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
                         }
                     </td>
                 </tr>

@@ -12,8 +12,23 @@
     <title></title>
 </head>
 <body>
-    <h3>Organizations</h3>
-
+    
+    <table>
+        <tr>
+            <td class="block" style="background: #3f51b5">
+                <span style="color: #fff">
+                    Organizations
+                </span>
+            </td>
+            <td class="operationBlock" style="background: #3f51b5">
+                @using (Html.BeginForm("AddOrganizationMenu", "Home", FormMethod.Post))
+                {
+                    <input type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
+                }
+            </td>
+        </tr>
+    </table>
+    
     <table>
         @foreach (var organization in Model.Organizations)
         {
@@ -26,25 +41,17 @@
                 <td class="operationBlock">
                     @using (Html.BeginForm("UpdateOrganizationMenu", "Home", new { id = organization.Id }))
                     {
-                        <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit">
-                        //<button type="submit">Edit</button>
+                        <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
                     }
                 </td>
                 <td class="operationBlock">
                     @using (Html.BeginForm("DeleteOrganization", "Home", new { id = organization.Id }))
                     {
-                        <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit">
-                        //<button type="submit">Delete</button>
+                        <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
                     }
                 </td>
             </tr>
         }
     </table>
-    <p></p>
-    <p></p>
-    @using (Html.BeginForm("AddOrganizationMenu", "Home", FormMethod.Post))
-    {
-        <button type="submit">Add organization</button>
-    }
 </body>
 </html>
