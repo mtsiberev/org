@@ -9,27 +9,35 @@
         <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
     </head>
 <body>
-   
-        <h3>Organization @Model.Name</h3>
+    <table>
+        <tr>
+            <td class="block" style="background: #3F51B5; width: 400px">
+                <span style="color: #fff">
+                    Organization @Model.Name
+                </span>
+            </td>
+        </tr>
+    </table>
+    
         <table>
             @foreach (var department in Model.Departments)
             {
                 <tr>
                     <td class="block">
-                        @Html.ActionLink(department.Name, "DepartmentInfo",
-                        new { id = department.Id }
+                        @Html.ActionLink(department.Name, "DepartmentInfo", "Department",
+                        new { id = department.Id }, null
                         )
                     </td>
 
                     <td class="operationBlock">
-                        @using (Html.BeginForm("UpdateDepartmentMenu", "Home",
+                        @using (Html.BeginForm("UpdateDepartmentMenu", "Department",
                             new { id = department.Id }))
                         {
                             <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
                         }
                     </td>
                     <td class="operationBlock">
-                        @using (Html.BeginForm("DeleteDepartment", "Home",
+                        @using (Html.BeginForm("DeleteDepartment", "Department",
                             new { id = department.Id }))
                         {
                             <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
@@ -39,7 +47,7 @@
             }
         </table>
     <p></p>
-    @using (Html.BeginForm("AddDepartmentMenu", "Home", new { id = @Model.Id }, FormMethod.Post))
+    @using (Html.BeginForm("AddDepartmentMenu", "Department", new { id = @Model.Id }, FormMethod.Post))
     {
         <button type="submit">Add department</button>
     }

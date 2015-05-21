@@ -15,18 +15,23 @@
     
     <table>
         <tr>
-            <td class="block" style="background: #3f51b5">
+            <td class="block" style="background: #3F51B5; width: 345px">
                 <span style="color: #fff">
                     Organizations
                 </span>
             </td>
-            <td class="operationBlock" style="background: #3f51b5">
-                @using (Html.BeginForm("AddOrganizationMenu", "Home", FormMethod.Post))
+            <td class="operationBlock" style="background: #3F51B5">
+                @using (Html.BeginForm("AddOrganizationMenu", "Organization", FormMethod.Post))
                 {
                     <input type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
                 }
             </td>
         </tr>
+        
+        <tr>
+            <td></td>
+        </tr>
+
     </table>
     
     <table>
@@ -34,18 +39,17 @@
         {
             <tr>
                 <td class="block">
-                    @Html.ActionLink(organization.Name, "OrganizationInfo",
-                        new { id = organization.Id })
+                    @Html.ActionLink(organization.Name, "OrganizationInfo", "Organization",
+                        new { id = organization.Id }, null)
                 </td>
-
                 <td class="operationBlock">
-                    @using (Html.BeginForm("UpdateOrganizationMenu", "Home", new { id = organization.Id }))
+                    @using (Html.BeginForm("UpdateOrganizationMenu", "Organization", new { id = organization.Id }))
                     {
                         <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
                     }
                 </td>
                 <td class="operationBlock">
-                    @using (Html.BeginForm("DeleteOrganization", "Home", new { id = organization.Id }))
+                    @using (Html.BeginForm("DeleteOrganization", "Organization", new { id = organization.Id }))
                     {
                         <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
                     }

@@ -119,7 +119,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -162,15 +165,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Home\AddOrganization.cshtml" />
-    <Content Include="Views\Home\AddOrganizationMenu.cshtml" />
-    <Content Include="Views\Home\AddDepartmentMenu.cshtml" />
-    <Content Include="Views\Home\AddDepartment.cshtml" />
-    <Content Include="Views\Home\AddEmployeeMenu.cshtml" />
-    <Content Include="Views\Home\UpdateOrganizationMenu.cshtml" />
-    <Content Include="Views\Home\UpdateOrganization.cshtml" />
-    <Content Include="Views\Home\UpdateDepartmentMenu.cshtml" />
-    <Content Include="Views\Home\UpdateEmployeeMenu.cshtml" />
+    <Content Include="Views\Organization\AddOrganizationMenu.cshtml" />
+    <Content Include="Views\Department\AddDepartmentMenu.cshtml" />
+    <Content Include="Views\Employee\AddEmployeeMenu.cshtml" />
+    <Content Include="Views\Organization\UpdateOrganizationMenu.cshtml" />
+    <Content Include="Views\Department\UpdateDepartmentMenu.cshtml" />
+    <Content Include="Views\Employee\UpdateEmployeeMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -185,10 +185,10 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\OrganizationInfo.cshtml" />
+    <Content Include="Views\Organization\OrganizationInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\DepartmentInfo.cshtml" />
+    <Content Include="Views\Department\DepartmentInfo.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

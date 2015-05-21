@@ -10,10 +10,17 @@
         <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
     </head>
 <body>
-    <h3>Add New employee</h3>
+    <table>
+        <tr>
+            <td class="block" style="background: #3F51B5; width: 400px">
+                <span style="color: #fff">
+                    Please input employee name:
+                </span>
+            </td>
+        </tr>
+    </table>
 
-    <text style="color: white">Please input employee name:</text>
-    @using (Html.BeginForm("AddEmployee", "Home"))
+    @using (Html.BeginForm("AddEmployee", "Employee"))
     {
         <table>
             <tr>
@@ -25,7 +32,7 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Name</label>
-                            <span style="bottom: 35px; left: 55%; position:relative; ">
+                            <span style="bottom: 35px; left: 65%; position:relative; ">
                                 <input type="image" src="../../Content/ic_done_24px.svg" alt="create" name="submit" />
                             </span>
                         </div>
