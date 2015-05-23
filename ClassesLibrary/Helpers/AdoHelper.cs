@@ -2,11 +2,14 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using NLog;
 
 namespace Organizations.Helpers
 {
     public static class AdoHelper
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         private static string GetConnectionString()
         {
             return ConfigurationManager.
@@ -19,22 +22,27 @@ namespace Organizations.Helpers
             using (var connection = new SqlConnection())
             {
                 connection.ConnectionString = GetConnectionString();
-                var adapter = new SqlDataAdapter(queryString, connection);
-                try
+                using (var adapter = new SqlDataAdapter(queryString, connection))
                 {
-                    connection.Open();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                try
-                {
-                    adapter.Fill(table);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
+                    try
+                    {
+                        connection.Open();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        return null;
+                    }
+
+                    try
+                    {
+                        adapter.Fill(table);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        return null;
+                    }
                 }
             }
             return table;
@@ -55,26 +63,31 @@ namespace Organizations.Helpers
                 }
                 catch (Exception ex)
                 {
+                    logger.Error("Error Opening Connection");
                     Console.WriteLine(ex.Message);
                 }
+
                 SqlTransaction transaction = connection.BeginTransaction("Transaction");
-                var command = new SqlCommand(queryString, connection) { Transaction = transaction };
-                try
+                using (var command = new SqlCommand(queryString, connection) { Transaction = transaction })
                 {
-                    command.ExecuteNonQuery();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
                     try
                     {
-                        transaction.Rollback();
+                        command.ExecuteNonQuery();
+                        transaction.Commit();
                     }
-                    catch (Exception ex2)
+                    catch (Exception ex)
                     {
-                        Console.WriteLine(ex2.Message);
+                        Console.WriteLine(ex.Message);
+                        try
+                        {
+                            transaction.Rollback();
+                        }
+                        catch (Exception ex2)
+                        {
+                            Console.WriteLine(ex2.Message);
+                        }
                     }
+                    logger.Trace("Transaction {0} successfully completed", queryString);
                 }
             }
         }

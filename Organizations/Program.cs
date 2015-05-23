@@ -8,10 +8,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using NLog;
 using Organizations.DbEntity;
 using StructureMap;
 using StructureMap.Configuration.DSL;
-
 
 namespace Organizations
 {
@@ -31,7 +31,3 @@ namespace Organizations
 
     }
 }
-
-
-
-
