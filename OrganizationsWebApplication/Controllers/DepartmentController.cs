@@ -37,7 +37,7 @@ namespace OrganizationsWebApplication.Controllers
         {
             var departmentBm = m_facade.GetDepartmentById(department.Id);
             departmentBm.Name = department.Name;
-            m_facade.UpdateDepartment(departmentBm.Id, departmentBm);
+            m_facade.UpdateDepartment(departmentBm);
             return RedirectToAction("Index", "Home");
         }
 

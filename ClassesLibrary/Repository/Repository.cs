@@ -25,7 +25,7 @@ namespace Organizations
 
         public void Delete(int id) { }
 
-        public void Update(int id, T entity)
+        public void Update(T entity)
         {
             throw new NotImplementedException();
         }

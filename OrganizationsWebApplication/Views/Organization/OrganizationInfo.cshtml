@@ -5,21 +5,29 @@
 }
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
-    </head>
+<head>
+    <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
+</head>
 <body>
     <table>
-        <tr>
-            <td class="block" style="background: #3F51B5; width: 400px">
-                <span style="color: #fff">
-                    Organization @Model.Name
-                </span>
-            </td>
-        </tr>
-    </table>
-    
-        <table>
+        <thead>
+            <tr>
+                <td class="block" style="background: #3F51B5; width: 400px">
+                    <span style="color: #fff">
+                        Organization @Model.Name
+                    </span>
+                </td>
+                <td class="operationBlock" style="background: #3F51B5">
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                    {
+                        <input type="image" src="../../Content/ic_home_24px_inverse.svg" alt="add" name="submit" />
+                    }
+                </td>
+
+            </tr>
+        </thead>
+
+        <tbody>
             @foreach (var department in Model.Departments)
             {
                 <tr>
@@ -31,26 +39,28 @@
 
                     <td class="operationBlock">
                         @using (Html.BeginForm("UpdateDepartmentMenu", "Department",
-                            new { id = department.Id }))
+                        new { id = department.Id }))
                         {
                             <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
                         }
                     </td>
                     <td class="operationBlock">
                         @using (Html.BeginForm("DeleteDepartment", "Department",
-                            new { id = department.Id }))
+                        new { id = department.Id }))
                         {
                             <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
                         }
                     </td>
                 </tr>
             }
-        </table>
-    <p></p>
-    @using (Html.BeginForm("AddDepartmentMenu", "Department", new { id = @Model.Id }, FormMethod.Post))
-    {
-        <button type="submit">Add department</button>
-    }
+    </table>
+</body>
+
+<p></p>
+@using (Html.BeginForm("AddDepartmentMenu", "Department", new { id = @Model.Id }, FormMethod.Post))
+{
+    <button type="submit">Add department</button>
+}
 
 
 </body>

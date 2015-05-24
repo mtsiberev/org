@@ -49,7 +49,7 @@ namespace OrganizationsWebApplication.Controllers
 
         public ActionResult UpdateOrganization(OrganizationModel organization)
         {
-            m_facade.UpdateOrganization(organization.Id, new Organization(organization.Id) { Name = organization.Name });
+            m_facade.UpdateOrganization(new Organization(organization.Id) { Name = organization.Name });
             return RedirectToAction("Index", "Home");
         }
 
@@ -58,6 +58,5 @@ namespace OrganizationsWebApplication.Controllers
             m_facade.DeleteOrganization(id);
             return RedirectToAction("Index", "Home");
         }
-        
     }
 }

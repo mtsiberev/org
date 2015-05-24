@@ -11,7 +11,7 @@ namespace Organizations
     {
         void Insert(T entity);
         void Delete(int id);
-        void Update(int id, T entity);
+        void Update(T entity);
         List<T> GetAll();
         T GetById(int id);
         T GetRandom();

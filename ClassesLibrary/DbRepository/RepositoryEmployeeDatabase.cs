@@ -17,12 +17,12 @@ namespace Organizations.DbRepository
             AdoHelper.ExecCommand(queryString);
         }
 
-        public void Update(int id, Employee entity)
+        public void Update(Employee entity)
         {
             var queryString = String.Format("UPDATE {0} SET Name = '{1}' WHERE Id = {2}",
                 c_employeesDatabaseName,
                 entity.Name,
-                id);
+                entity.Id);
             AdoHelper.ExecCommand(queryString);
         }
 
@@ -37,18 +37,18 @@ namespace Organizations.DbRepository
         {
             var resultList = new List<Employee>();
             var queryString = String.Format("SELECT * FROM {0};", c_employeesDatabaseName);
-            var table = AdoHelper.GetDataTable(queryString);
-            var reader = AdoHelper.GetDataTableReader(table);
-            if (reader.HasRows)
+            using (var reader = AdoHelper.GetDataTableReader(queryString))
             {
-                var repositoryDepartmentDb = new RepositoryDepartmentDatabase();
-                var repositoryOrganizationDb = new RepositoryOrganizationDatabase();
-                while (reader.Read())
+                if (reader.HasRows)
                 {
-                    var employeeDb = MapperDb.GetEmployeeDb(reader);
-                    var department = repositoryDepartmentDb.GetById(employeeDb.ParentDepartmentId);
-                    var organization = repositoryOrganizationDb.GetById(department.ParentOrganization.Id);
-                    resultList.Add(MapperBm.GetEmployee(employeeDb, department, organization));
+                    var repositoryDepartmentDb = RegisterByContainer.Container.GetInstance<IRepository<Department>>();
+                    
+                    while (reader.Read())
+                    {
+                        var employeeDb = MapperDb.GetEmployeeDb(reader);
+                        var department = repositoryDepartmentDb.GetById(employeeDb.ParentDepartmentId);
+                        resultList.Add(MapperBm.GetEmployee(employeeDb, department));
+                    }
                 }
             }
             return resultList;
@@ -57,19 +57,15 @@ namespace Organizations.DbRepository
         public Employee GetById(int id)
         {
             var queryString = String.Format("SELECT TOP 1 * FROM {0} WHERE Id = {1};", c_employeesDatabaseName, id);
-            var table = AdoHelper.GetDataTable(queryString);
-            var reader = AdoHelper.GetDataTableReader(table);
-            EmployeeDb employeeDb = null;
-
             var repositoryDepartmentDb = RegisterByContainer.Container.GetInstance<IRepository<Department>>();
-            var repositoryOrganizationDb = RegisterByContainer.Container.GetInstance<IRepository<Organization>>();
-
-            if (reader.Read())
+            using (var reader = AdoHelper.GetDataTableReader(queryString))
             {
-                employeeDb = MapperDb.GetEmployeeDb(reader);
-                var department = repositoryDepartmentDb.GetById(employeeDb.ParentDepartmentId);
-                var organization = repositoryOrganizationDb.GetById(department.ParentOrganization.Id);
-                return MapperBm.GetEmployee(employeeDb, department, organization);
+                if (reader.Read())
+                {
+                    EmployeeDb employeeDb = MapperDb.GetEmployeeDb(reader);
+                    var department = repositoryDepartmentDb.GetById(employeeDb.ParentDepartmentId);
+                    return MapperBm.GetEmployee(employeeDb, department);
+                }
             }
             return null;
         }

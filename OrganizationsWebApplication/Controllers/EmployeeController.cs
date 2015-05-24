@@ -36,7 +36,7 @@ namespace OrganizationsWebApplication.Controllers
         {
             var employeeBm = m_facade.GetEmployeeById(employee.Id);
             employeeBm.Name = employee.Name;
-            m_facade.UpdateEmployee(employeeBm.Id, employeeBm);
+            m_facade.UpdateEmployee(employeeBm);
             return RedirectToAction("Index", "Home");
         }
 

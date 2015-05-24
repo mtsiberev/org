@@ -16,7 +16,7 @@ namespace Organizations.Helpers
               ConnectionStrings["ConnectionString"].ConnectionString;
         }
 
-        public static DataTable GetDataTable(string queryString)
+        public static DataTableReader GetDataTableReader(string queryString)
         {
             var table = new DataTable();
             using (var connection = new SqlConnection())
@@ -30,7 +30,7 @@ namespace Organizations.Helpers
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        logger.Error(ex.Message);
                         return null;
                     }
 
@@ -40,16 +40,11 @@ namespace Organizations.Helpers
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        logger.Error(ex.Message);
                         return null;
                     }
                 }
             }
-            return table;
-        }
-
-        public static DataTableReader GetDataTableReader(DataTable table)
-        {
             return table.CreateDataReader();
         }
 
@@ -63,31 +58,22 @@ namespace Organizations.Helpers
                 }
                 catch (Exception ex)
                 {
-                    logger.Error("Error Opening Connection");
-                    Console.WriteLine(ex.Message);
+                    logger.Error(ex.Message);
+                    return;
                 }
-
-                SqlTransaction transaction = connection.BeginTransaction("Transaction");
-                using (var command = new SqlCommand(queryString, connection) { Transaction = transaction })
+          
+                using (var command = new SqlCommand(queryString, connection))
                 {
                     try
                     {
                         command.ExecuteNonQuery();
-                        transaction.Commit();
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.Message);
-                        try
-                        {
-                            transaction.Rollback();
-                        }
-                        catch (Exception ex2)
-                        {
-                            Console.WriteLine(ex2.Message);
-                        }
+                        logger.Error(ex.Message);
+                        return;
                     }
-                    logger.Trace("Transaction {0} successfully completed", queryString);
+                    logger.Trace("SqlCommand: {0} successfully completed", queryString);
                 }
             }
         }

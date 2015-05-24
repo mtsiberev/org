@@ -151,6 +151,9 @@
     <Content Include="Content\ic_add_box_24px_inverse.svg" />
     <Content Include="Content\ic_delete_24px.svg" />
     <Content Include="Content\ic_done_24px.svg" />
+    <Content Include="Content\ic_home_24px.svg" />
+    <Content Include="Content\ic_home_24px_inverse.svg" />
+    <Content Include="Content\ic_keyboard_backspace_24px.svg" />
     <Content Include="Content\ic_mode_edit_24px.svg" />
     <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
