@@ -46,7 +46,7 @@ namespace Organizations
             DeleteIsCalled = true;
         }
 
-        public void Update(int id, Organization entity)
+        public void Update(Organization entity)
         {
             throw new NotImplementedException();
         }
@@ -108,7 +108,7 @@ namespace Organizations
             DeleteIsCalled = true;
         }
 
-        public void Update(int id, Department entity)
+        public void Update(Department entity)
         {
             throw new NotImplementedException();
         }
@@ -170,7 +170,7 @@ namespace Organizations
             DeleteIsCalled = true;
         }
 
-        public void Update(int id, Employee entity)
+        public void Update(Employee entity)
         {
             throw new NotImplementedException();
         }
