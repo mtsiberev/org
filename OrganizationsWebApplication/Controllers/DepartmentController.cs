@@ -65,7 +65,8 @@ namespace OrganizationsWebApplication.Controllers
         {
             var organization = m_facade.GetOrganizationById(department.ParentId);
             m_facade.AddDepartment(new Department(0, organization) { Name = department.Name });
-            return RedirectToAction("Index", "Home");
+
+            return RedirectToAction("OrganizationInfo", "Organization", new { id = organization.Id } );
         }
 
         public ActionResult DeleteDepartment(int id = 0)

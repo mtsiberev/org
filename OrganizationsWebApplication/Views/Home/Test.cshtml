@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
+        <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
+        <title></title>
+    </head>
+
+<body>
+    <a>Change View</a>
+
+    <div class="block" style="background: #3F51B5;">
+        <ul>
+            <li>
+                <span style="color: #fff">
+                    Organizations
+                </span>
+            </li>
+            <li class="operationBlock" style="background: #3F51B5"></li>
+            <li class="operationBlock" style="background: #3F51B5">
+                @using (Html.BeginForm("AddOrganizationMenu", "Organization", FormMethod.Post))
+                {
+                    <input type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
+                }
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        @foreach (var organization in Model.Organizations)
+        {
+            <div>
+                <ul>
+                    <li class="block">
+                        @Html.ActionLink(organization.Name, "OrganizationInfo", "Organization",
+                            new { id = organization.Id }, null)     
+                    </li>
+                    <li class="operationBlock">
+                        @using (Html.BeginForm("UpdateOrganizationMenu", "Organization", new { id = organization.Id }))
+                        {
+                            <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
+                        }
+                    </li>
+                    <li class="operationBlock">
+                        @using (Html.BeginForm("DeleteOrganization", "Organization", new { id = organization.Id }))
+                        {
+                            <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
+                        }
+                    </li>
+                </ul>
+            </div>
+        }
+    </div>
+</body>
+</html>>

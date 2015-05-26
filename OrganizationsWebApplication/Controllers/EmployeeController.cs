@@ -50,7 +50,8 @@ namespace OrganizationsWebApplication.Controllers
         {
             var department = m_facade.GetDepartmentById(employee.ParentId);
             m_facade.AddEmployee(new Employee(0, department) { Name = employee.Name });
-            return RedirectToAction("Index", "Home");
+
+            return RedirectToAction("DepartmentInfo", "Department", new { id = department.Id } );
         }
 
         public ActionResult DeleteEmployee(int id = 0)
@@ -59,7 +60,5 @@ namespace OrganizationsWebApplication.Controllers
             return RedirectToAction("Index", "Home");
         }
   
-
-
     }
 }

@@ -8,50 +8,52 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="../../Content/JavaScript1.js"></script>
     <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
+
     <title></title>
 </head>
 <body>
-    <table>
-        <thead class="block" style="background: #3F51B5;">
-            <tr>
-                <td>
-                    <span style="color: #fff">
-                        Organizations
-                    </span>
-                </td>
-                <td class="operationBlock" style="background: #3F51B5"></td>
-                <td class="operationBlock" style="background: #3F51B5">
-                    @using (Html.BeginForm("AddOrganizationMenu", "Organization", FormMethod.Post))
+    <a href="#" onclick="test()">Change view</a>
+    <p>
+    </p>
+    <span class="block" style="background: #3F51B5;">
+        <span style="color: #fff">
+            Organizations
+        </span>
+    </span>
+
+    <span class="operationBlock" style="background: #3F51B5">
+        @using (Html.BeginForm("AddOrganizationMenu", "Organization", FormMethod.Post))
+        {
+            <input style="background: #3F51B5"  type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
+        }
+    </span>
+
+    <div class="content">
+        @foreach (var organization in Model.Organizations)
+        {
+            <div>
+                <span class="block">
+                    @Html.ActionLink(organization.Name, "OrganizationInfo", "Organization",
+                                new { id = organization.Id }, null)
+                </span>
+                <span class="operationBlock">
+                    @using (Html.BeginForm("UpdateOrganizationMenu", "Organization", new { id = organization.Id }))
                     {
-                        <input type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
+                        <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
                     }
-                </td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var organization in Model.Organizations)
-            {
-                <tr>
-                    <td class="block">
-                        @Html.ActionLink(organization.Name, "OrganizationInfo", "Organization",
-                        new { id = organization.Id }, null)
-                    </td>
-                    <td class="operationBlock">
-                        @using (Html.BeginForm("UpdateOrganizationMenu", "Organization", new { id = organization.Id }))
-                        {
-                            <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
-                        }
-                    </td>
-                    <td class="operationBlock">
-                        @using (Html.BeginForm("DeleteOrganization", "Organization", new { id = organization.Id }))
-                        {
-                            <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                </span>
+                <span class="operationBlock">
+                    @using (Html.BeginForm("DeleteOrganization", "Organization", new { id = organization.Id }))
+                    {
+                        <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
+                    }
+                </span>
+            </div>
+        }
+    </div>
 </body>
-</html>
+</html>>

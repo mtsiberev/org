@@ -155,7 +155,9 @@
     <Content Include="Content\ic_home_24px_inverse.svg" />
     <Content Include="Content\ic_keyboard_backspace_24px.svg" />
     <Content Include="Content\ic_mode_edit_24px.svg" />
+    <Content Include="Content\JavaScript1.js" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\StyleSheet1.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -183,6 +185,7 @@
     <Content Include="Views\Organization\UpdateOrganizationMenu.cshtml" />
     <Content Include="Views\Department\UpdateDepartmentMenu.cshtml" />
     <Content Include="Views\Employee\UpdateEmployeeMenu.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
