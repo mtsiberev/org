@@ -8,7 +8,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="../../Content/JavaScript1.js"></script>
     <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
@@ -19,23 +18,27 @@
     <a href="#" onclick="test()">Change view</a>
     <p>
     </p>
-    <span class="block" style="background: #3F51B5;">
-        <span style="color: #fff">
-            Organizations
+   
+    <div class="header" style="background: #3F51B5;">
+        <span  style="background: #3F51B5;">
+            <span style="color: #fff">
+                Organizations
+            </span>
         </span>
-    </span>
 
-    <span class="operationBlock" style="background: #3F51B5">
-        @using (Html.BeginForm("AddOrganizationMenu", "Organization", FormMethod.Post))
-        {
-            <input style="background: #3F51B5"  type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
-        }
-    </span>
+        <span class="operationBlock" style="background: #3F51B5">
+            @using (Html.BeginForm("AddOrganizationMenu", "Organization", FormMethod.Post))
+            {
+                <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
+            }
+        </span>
+    </div>
+   
 
     <div class="content">
         @foreach (var organization in Model.Organizations)
         {
-            <div>
+            <div class="row">
                 <span class="block">
                     @Html.ActionLink(organization.Name, "OrganizationInfo", "Organization",
                                 new { id = organization.Id }, null)
@@ -45,8 +48,6 @@
                     {
                         <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
                     }
-                </span>
-                <span class="operationBlock">
                     @using (Html.BeginForm("DeleteOrganization", "Organization", new { id = organization.Id }))
                     {
                         <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
@@ -56,4 +57,4 @@
         }
     </div>
 </body>
-</html>>
+</html>

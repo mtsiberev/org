@@ -56,9 +56,10 @@ namespace OrganizationsWebApplication.Controllers
 
         public ActionResult DeleteEmployee(int id = 0)
         {
+            var parentId = m_facade.GetEmployeeById(id).ParentDepartment.Id;
             m_facade.DeleteEmployee(id);
-            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("Index", "Home");
+            return RedirectToAction("DepartmentInfo", "Department", new { id = parentId });
         }
-  
     }
 }

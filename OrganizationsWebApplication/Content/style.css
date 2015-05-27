@@ -1,23 +1,8 @@
-﻿.content {
-    font-size: 0;
-}
-
-    .content > div {
-        font-size: 12px;
-        display: block;
-    }
-
-    .content.grid > div {
-        display: inline-block;
-        width: 33%;
-    }
-
-
-/*////////////////////////////////////*/
+﻿/*////////////////////////////////////*/
 body {
     /*font-family: Consolas;*/
     font-family: "RobotoDraft","Roboto",sans-serif;
-    font-size: 20px;
+    font-size: 10px;
     color: #569CD6;
     background-color: #f9f9f9;
 }
@@ -41,30 +26,88 @@ a {
     text-decoration: none;
 }
 
+.header {
+    width: 400px;
+    font-size: 20px;
+    display: inline-block;
+    padding: 5px;
+}
+
+.content {
+    font-size: 0;
+    width: 400px;
+}
+
+    .content.grid {
+        margin-left: -10px;
+    }
+
+.row {
+    font-size: 0;
+    background: #eee;
+    display: block;
+}
+
+    .row + .row {
+        margin-top: 10px;
+    }
+
+.content.grid > .row {
+    display: inline-block;
+    width: 33.3%;
+    position: relative;
+    padding: 50px 10px;
+    border-left: 10px solid #fff;
+}
+
+.block, .operationBlock {
+    vertical-align: middle;
+    display: inline-block;
+    padding: 5px;
+}
+
 .block {
-    width: 50%;
-    background: #EEEEEE;
+    width: 70%;
+    font-size: 12px;
     text-align: left;
-    margin: 10px;
-    height: 15px;
-    border: 1px solid grey;
-    border-bottom: none;
-    border-left: none;
-    border-right: none;
 }
 
 .operationBlock {
-    background: #EEEEEE;
     text-align: left;
-    width: 10px;
-    height: 15px;
-    margin: 10px;
-    border: 1px solid grey;
-    border-bottom: none;
-    border-left: none;
-    border-right: none;
+    width: 20%;
+    font-size: 0;
+    text-align: center;
 }
 
+.grid .operationBlock {
+    position: absolute;
+    top: 0;
+    right: 0;
+    white-space: nowrap;
+    z-index: 1;
+    width: auto;
+}
+
+.grid .block {
+    display: block;
+    width: 100%;
+}
+
+.operationBlock button {
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.operationBlock form {
+    display: inline-block;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+    .operationBlock form + form {
+        margin-left: 10px;
+    }
 
 /* ANIMATIONS ================ */
 * {

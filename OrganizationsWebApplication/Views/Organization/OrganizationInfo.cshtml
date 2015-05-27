@@ -9,51 +9,48 @@
     <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
 </head>
 <body>
-    <table>
-        <thead>
-            <tr>
-                <td class="block" style="background: #3F51B5; width: 400px">
-                    <span style="color: #fff">
-                        Organization @Model.Name
-                    </span>
-                </td>
-                <td class="operationBlock" style="background: #3F51B5">
-                    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-                    {
-                        <input type="image" src="../../Content/ic_home_24px_inverse.svg" alt="add" name="submit" />
-                    }
-                </td>
+    <div class="header" style="background: #3F51B5;">
+        <span style="background: #3F51B5;">
+            <span style="color: #fff">
+                Organization @Model.Name
+            </span>
+        </span>
 
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var department in Model.Departments)
+        <span class="operationBlock" style="background: #3F51B5">
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
             {
-                <tr>
-                    <td class="block">
-                        @Html.ActionLink(department.Name, "DepartmentInfo", "Department",
-                        new { id = department.Id }, null
-                        )
-                    </td>
-
-                    <td class="operationBlock">
-                        @using (Html.BeginForm("UpdateDepartmentMenu", "Department",
-                        new { id = department.Id }))
-                        {
-                            <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
-                        }
-                    </td>
-                    <td class="operationBlock">
-                        @using (Html.BeginForm("DeleteDepartment", "Department",
-                        new { id = department.Id }))
-                        {
-                            <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
-                        }
-                    </td>
-                </tr>
+                <input type="image" src="../../Content/ic_home_24px_inverse.svg" alt="add" name="submit" />
             }
-    </table>
+        </span>
+    </div>
+
+    @foreach (var department in Model.Departments)
+    {
+        <div class="content">
+            <div class="row">
+                <span class="block">
+                    @Html.ActionLink(department.Name, "DepartmentInfo", "Department",
+                new { id = department.Id }, null
+                )
+                </span>
+
+                <span class="operationBlock">
+                    @using (Html.BeginForm("UpdateDepartmentMenu", "Department",
+                new { id = department.Id }))
+                    {
+                        <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
+                    }
+
+                    @using (Html.BeginForm("DeleteDepartment", "Department",
+                new { id = department.Id }))
+                    {
+                        <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
+                    }
+                </span>
+            </div>
+        </div>
+    }
+
 </body>
 
 <p></p>

@@ -29,7 +29,5 @@ namespace OrganizationsWebApplication.Controllers
             return View();
         }
 
-
-
     }
 }
