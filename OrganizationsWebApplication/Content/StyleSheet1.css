@@ -1,9 +1,0 @@
-﻿.content { 
-    font-size: 0;
-}
-.content > div { 
-    font-size: 12px; display: block;
-}
-.content.grid > div { 
-    display: inline-block; width: 33%;
-}

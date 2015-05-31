@@ -21,13 +21,6 @@ namespace OrganizationsWebApplication.Controllers
                 select new DtoOrganization() { Name = organization.Name, Id = organization.Id };
 
             return View(new OrganizationListModels(organizations.ToList()));
-            //return RedirectToAction("Test", "Home");
         }
-        
-        public ActionResult Test()
-        {
-            return View();
-        }
-
     }
 }
