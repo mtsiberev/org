@@ -1,18 +1,39 @@
-﻿function setlist() {
+﻿function sortSwitch() {
+    var x = getCookie("sort");
+
+    if (x == "ascending") {
+        deleteCookie("sort");
+        setCookie("sort", "descending");
+        location.reload();
+        return false;
+    }
+
+    if (x == "descending") {
+        deleteCookie("sort");
+        setCookie("sort", "ascending");
+        location.reload();
+        return false;
+    }
+    else {
+        setCookie("sort", "ascending");
+        location.reload();
+        return false;
+    }
+}
+
+function setList() {
     deleteCookie("view");
     setCookie("view", "list");
-
-    setview();
+    location.reload();
 }
 
-function setgrid() {
+function setGrid() {
     deleteCookie("view");
     setCookie("view", "grid");
-
-    setview();
+    location.reload();
 }
 
-function setview() {
+function setView() {
     var x = getCookie("view");
     if (x == "grid")
     {

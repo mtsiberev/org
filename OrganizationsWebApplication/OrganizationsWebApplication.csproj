@@ -156,6 +156,8 @@
     <Content Include="Content\ic_keyboard_backspace_24px.svg" />
     <Content Include="Content\ic_mode_edit_24px.svg" />
     <Content Include="Content\JavaScript.js" />
+    <Content Include="Content\sort-ascending.svg" />
+    <Content Include="Content\sort-descending.svg" />
     <Content Include="Content\style.css" />
     <Content Include="Content\view-list.svg" />
     <Content Include="Content\view-module.svg" />

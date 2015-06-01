@@ -16,8 +16,7 @@
 
     <title></title>
 </head>
-<body onload="setview()">
-
+<body onload="setView()">
 
     <div class="header" style="background: #3F51B5;">
         <span style="background: #3F51B5;">
@@ -27,25 +26,62 @@
         </span>
 
         <span class="operationBlock" style="background: #3F51B5">
+
             @using (Html.BeginForm("AddOrganizationMenu", "Organization", FormMethod.Post))
             {
                 <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
             }
+
+            @if (Request.Cookies["sort"] != null)
+            {
+                var value = Request.Cookies["sort"].Value;
+                if (value == "ascending")
+                {
+                    <form>
+                        <input onclick=" sortSwitch() " style="background: #3F51B5" type="image" src="../../Content/sort-descending.svg" alt="add" name="submit" />
+                    </form>
+                }
+                else if (value == "descending")
+                {
+                    <form>
+                        <input onclick=" sortSwitch() " style="background: #3F51B5" type="image" src="../../Content/sort-ascending.svg" alt="add" name="submit" />
+                    </form>
+                }
+            }
+            else
+            {
+                <form>
+                    <input onclick=" sortSwitch() " style="background: #3F51B5" type="image" src="../../Content/sort-ascending.svg" alt="add" name="submit" />
+                </form>
+            }
+
+            @if (Request.Cookies["view"] != null)
+            {
+                var value = Request.Cookies["view"].Value;
+                if (value == "list")
+                {
+                    <form>
+                        <input onclick=" setGrid() " style="background: #3F51B5" type="image" src="../../Content/view-module.svg" alt="grid" name="submit" />
+                    </form>
+                }
+                else if (value == "grid")
+                {
+                    <form>
+                        <input onclick=" setList() " style="background: #3F51B5" type="image" src="../../Content/view-list.svg" alt="list" name="submit" />
+                    </form>
+                }
+            }
+            else
+            {
+                <form>
+                    <input onclick=" setGrid() " style="background: #3F51B5" type="image" src="../../Content/view-module.svg" alt="grid" name="submit" />
+                </form>
+            }
+
         </span>
-
-        <span class="operationBlock" style="background: #3F51B5">
-            <form>
-                <input onclick="setlist()" style="background: #3F51B5" type="image" src="../../Content/view-list.svg" alt="list" name="submit" />
-            </form>
-
-            <form>
-                <input onclick="setgrid()" style="background: #3F51B5" type="image" src="../../Content/view-module.svg" alt="grid" name="submit" />
-            </form>
-        </span>
-
+        <br>
 
     </div>
-
 
     <div class="content">
         @foreach (var organization in Model.Organizations)

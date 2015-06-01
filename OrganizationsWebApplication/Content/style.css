@@ -74,10 +74,11 @@ a {
 
 .operationBlock {
     text-align: left;
-    width: 20%;
+ 
     font-size: 0;
     text-align: center;
 }
+
 
 .grid .operationBlock {
     position: absolute;
