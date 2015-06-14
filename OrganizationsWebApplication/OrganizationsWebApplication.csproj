@@ -147,6 +147,8 @@
     <Content Include="App_Data\Data_log.ldf">
       <DependentUpon>Data.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\ic-double-left.svg" />
+    <Content Include="Content\ic-double-right.svg" />
     <Content Include="Content\ic_add_box_24px.svg" />
     <Content Include="Content\ic_add_box_24px_inverse.svg" />
     <Content Include="Content\ic_delete_24px.svg" />

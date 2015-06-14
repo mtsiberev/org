@@ -45,5 +45,15 @@ namespace Organizations
             var randomNext = random.Next(0, m_data.Count);
             return m_data[randomNext];
         }
+
+        public List<Organization> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetCount()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

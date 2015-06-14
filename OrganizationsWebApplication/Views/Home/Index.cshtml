@@ -26,6 +26,17 @@
         </span>
 
         <span class="operationBlock" style="background: #3F51B5">
+            
+            
+            <form>
+                <input onclick=" prevPage() " style="background: #3F51B5" type="image" src="../../Content/ic-double-left.svg" alt="prev" name="submit" />
+            </form>
+            
+            <form>
+                <input onclick=" nextPage() " style="background: #3F51B5" type="image" src="../../Content/ic-double-right.svg" alt="next" name="submit" />
+            </form>
+            
+
 
             @using (Html.BeginForm("AddOrganizationMenu", "Organization", FormMethod.Post))
             {

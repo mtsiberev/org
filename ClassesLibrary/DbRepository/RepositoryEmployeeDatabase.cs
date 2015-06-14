@@ -74,5 +74,15 @@ namespace Organizations.DbRepository
         {
             throw new NotImplementedException();
         }
+
+        public List<Organization> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetCount()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

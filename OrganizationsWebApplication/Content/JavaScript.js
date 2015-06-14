@@ -20,7 +20,44 @@
         return false;
     }
 }
+/////////////////////////////////////////
+function nextPage() {
+    var x = getCookie("pageNumber");
+    if (x == undefined) {
+        x = 2;
+        setCookie("pageNumber", x);
+        location.reload();
+        return false;
+    } else {
+        x = parseInt(x) + 1;
 
+        var maxPage = getCookie("maxPageNumber");
+        if (x > maxPage) return false;
+
+        deleteCookie("pageNumber");
+        setCookie("pageNumber", x);
+        location.reload();
+        return false;
+    }
+}
+
+function prevPage() {
+    var x = getCookie("pageNumber");
+    if (x == 1) return false;
+    if (x == undefined) {
+        x = 1;
+        setCookie("pageNumber", x);
+        location.reload();
+        return false;
+    } else {
+        x = parseInt(x) - 1;
+        deleteCookie("pageNumber");
+        setCookie("pageNumber", x);
+        location.reload();
+        return false;
+    }
+}
+/////////////////////////////////////////
 function setList() {
     deleteCookie("view");
     setCookie("view", "list");
@@ -35,8 +72,7 @@ function setGrid() {
 
 function setView() {
     var x = getCookie("view");
-    if (x == "grid")
-    {
+    if (x == "grid") {
         $(".content").toggleClass("grid", true);
     }
     if (x == "list") {

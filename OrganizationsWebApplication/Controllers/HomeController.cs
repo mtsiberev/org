@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Organizations;
-using Organizations.DbEntity;
 using OrganizationsWebApplication.Models;
 
 namespace OrganizationsWebApplication.Controllers
@@ -15,26 +13,57 @@ namespace OrganizationsWebApplication.Controllers
         ////////////////////////////////////////////////////
         public ActionResult Index()
         {
-            var organizations =
-                from organization in m_facade.GetAllOrganizations()
-                where (true)
-                select new DtoOrganization() { Name = organization.Name, Id = organization.Id };
-            
-            var sortedOrganizations = organizations.ToList();
+            int currentPageNumber = 1;
+            if (Request.Cookies["pageNumber"] != null)
+            {
+                var str = Request.Cookies["pageNumber"].Value;
+                currentPageNumber = Convert.ToInt32(str);
+            }
+            ///////////////////////////////////////////////////////
+            var pageSizeCookie = new HttpCookie("pageSize") { Value = "5" };
+            Response.Cookies.Add(pageSizeCookie);
 
+            int pageSize = 0;
+            if (Request.Cookies["pageSize"] != null)
+            {
+                var str = Request.Cookies["pageSize"].Value;
+                pageSize = Convert.ToInt32(str);
+            }
+            ///////////////////////////////////////////////////////
+            var maxPageNumber = new HttpCookie("maxPageNumber");
+            var organizationsCount = m_facade.GetOrganizationsCount();
+
+            var maxPageCount = organizationsCount / pageSize;
+            if ((organizationsCount % pageSize)!= 0) maxPageCount++;
+
+            maxPageNumber.Value = maxPageCount.ToString();
+            Response.Cookies.Add(maxPageNumber);
+            ////////////////////////////////////////////////////////// 
             if (Request.Cookies["sort"] != null)
             {
-                var value = Request.Cookies["sort"].Value;
-                if (value == "descending")
+                var sortType = Request.Cookies["sort"].Value;
+                if (sortType == "descending")
                 {
-                    sortedOrganizations = sortedOrganizations.OrderByDescending(x => x.Name).ToList();
+                    var sortedOrganizations =
+                        from organization in m_facade.GetEntitiesForOnePage(currentPageNumber, pageSize, "DESC")
+                        where (true)
+                        select new DtoOrganization() { Name = organization.Name, Id = organization.Id };
+                    return View(new OrganizationListModels(sortedOrganizations.ToList()));
                 }
-                else if (value == "ascending")
+                if (sortType == "ascending")
                 {
-                    sortedOrganizations = sortedOrganizations.OrderBy(x => x.Name).ToList();
+                    var sortedOrganizations =
+                       from organization in m_facade.GetEntitiesForOnePage(currentPageNumber, pageSize, "ASC")
+                       where (true)
+                       select new DtoOrganization() { Name = organization.Name, Id = organization.Id };
+                    return View(new OrganizationListModels(sortedOrganizations.ToList()));
                 }
             }
-            return View(new OrganizationListModels(sortedOrganizations));
+            var defaultSortedOrganizations =
+                  from organization in m_facade.GetEntitiesForOnePage(currentPageNumber, pageSize, "DESC")
+                  where (true)
+                  select new DtoOrganization() { Name = organization.Name, Id = organization.Id };
+            return View(new OrganizationListModels(defaultSortedOrganizations.ToList()));
         }
     }
 }

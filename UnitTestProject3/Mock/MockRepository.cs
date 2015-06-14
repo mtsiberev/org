@@ -66,6 +66,16 @@ namespace Organizations
         {
             return LastInsertedOrganization;
         }
+
+        public List<Organization> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetCount()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     /// <summary>
@@ -129,6 +139,15 @@ namespace Organizations
             return LastInsertedDepartment;
         }
 
+        public List<Organization> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetCount()
+        {
+            throw new NotImplementedException();
+        }
     }
     /// <summary>
     /// ///////////////////////////////////////////////////////////
@@ -189,6 +208,16 @@ namespace Organizations
         public Employee GetRandom()
         {
             return LastInsertedEmployee;
+        }
+
+        public List<Organization> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetCount()
+        {
+            throw new NotImplementedException();
         }
     }
     

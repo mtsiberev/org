@@ -90,6 +90,16 @@ namespace Organizations
         {
             return m_organizationsRepository.GetAll().ToList();
         }
+        
+        public int GetOrganizationsCount()
+        {
+            return m_organizationsRepository.GetCount();
+        }
+
+        public List<Organization> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+        {
+            return m_organizationsRepository.GetEntitiesForOnePage(pageNum, pageSize, sortType);
+        }
 
         public List<Department> GetAllDepartments()
         {
