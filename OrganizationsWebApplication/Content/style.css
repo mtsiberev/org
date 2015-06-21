@@ -1,4 +1,22 @@
-﻿/*////////////////////////////////////*/
+﻿a {
+    display: block;
+    padding: 10px;
+}
+
+.grid .block a {
+    display: block;
+}
+
+.block:hover {
+    background-color: #6CF;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+
+/*////////////////////////////////////*/
 body {
     /*font-family: Consolas;*/
     font-family: "RobotoDraft","Roboto",sans-serif;
@@ -74,7 +92,6 @@ a {
 
 .operationBlock {
     text-align: left;
- 
     font-size: 0;
     text-align: center;
 }

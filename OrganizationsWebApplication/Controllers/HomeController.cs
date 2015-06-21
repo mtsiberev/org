@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using Organizations;
 using OrganizationsWebApplication.Models;
+using WebMatrix.WebData;
 
 namespace OrganizationsWebApplication.Controllers
 {
@@ -13,6 +14,14 @@ namespace OrganizationsWebApplication.Controllers
         ////////////////////////////////////////////////////
         public ActionResult Index()
         {
+            if (!WebSecurity.IsAuthenticated)
+            {
+                Response.Redirect("~/account/login");
+            }
+
+
+
+
             int currentPageNumber = 1;
             if (Request.Cookies["pageNumber"] != null)
             {

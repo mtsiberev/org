@@ -26,17 +26,15 @@
         </span>
 
         <span class="operationBlock" style="background: #3F51B5">
-            
-            
-            <form>
-                <input onclick=" prevPage() " style="background: #3F51B5" type="image" src="../../Content/ic-double-left.svg" alt="prev" name="submit" />
-            </form>
-            
-            <form>
-                <input onclick=" nextPage() " style="background: #3F51B5" type="image" src="../../Content/ic-double-right.svg" alt="next" name="submit" />
-            </form>
-            
 
+            <form>
+                <img src="../../Content/ic-double-left.svg" onclick=" prevPage() " style="cursor: pointer;" />
+            </form>
+
+            <form>
+                <img src="../../Content/ic-double-right.svg" onclick=" nextPage() " style="cursor: pointer;" />
+            </form>
+            
 
             @using (Html.BeginForm("AddOrganizationMenu", "Organization", FormMethod.Post))
             {
@@ -49,20 +47,20 @@
                 if (value == "ascending")
                 {
                     <form>
-                        <input onclick=" sortSwitch() " style="background: #3F51B5" type="image" src="../../Content/sort-descending.svg" alt="add" name="submit" />
+                        <img src="../../Content/sort-descending.svg" onclick=" sortSwitch() " style="cursor: pointer;" />
                     </form>
                 }
                 else if (value == "descending")
                 {
                     <form>
-                        <input onclick=" sortSwitch() " style="background: #3F51B5" type="image" src="../../Content/sort-ascending.svg" alt="add" name="submit" />
+                        <img src="../../Content/sort-ascending.svg" onclick=" sortSwitch() " style="cursor: pointer;" />
                     </form>
                 }
             }
             else
             {
                 <form>
-                    <input onclick=" sortSwitch() " style="background: #3F51B5" type="image" src="../../Content/sort-ascending.svg" alt="add" name="submit" />
+                    <img src="../../Content/sort-ascending.svg" onclick=" sortSwitch() " style="cursor: pointer;" />
                 </form>
             }
 
@@ -72,23 +70,22 @@
                 if (value == "list")
                 {
                     <form>
-                        <input onclick=" setGrid() " style="background: #3F51B5" type="image" src="../../Content/view-module.svg" alt="grid" name="submit" />
+                        <img src="../../Content/view-module.svg" onclick=" setGrid() " style="cursor: pointer;" />
                     </form>
                 }
                 else if (value == "grid")
                 {
                     <form>
-                        <input onclick=" setList() " style="background: #3F51B5" type="image" src="../../Content/view-list.svg" alt="list" name="submit" />
+                        <img src="../../Content/view-list.svg" onclick=" setList() " style="cursor: pointer;" />
                     </form>
                 }
             }
             else
             {
                 <form>
-                    <input onclick=" setGrid() " style="background: #3F51B5" type="image" src="../../Content/view-module.svg" alt="grid" name="submit" />
+                    <img src="../../Content/view-module.svg" onclick=" setGrid() " style="cursor: pointer;" />
                 </form>
             }
-
         </span>
         <br>
 
@@ -100,7 +97,7 @@
             <div class="row">
                 <span class="block">
                     @Html.ActionLink(organization.Name, "OrganizationInfo", "Organization",
-                            new { id = organization.Id }, null)
+                      new { id = organization.Id }, null)
                 </span>
                 <span class="operationBlock">
                     @using (Html.BeginForm("UpdateOrganizationMenu", "Organization", new { id = organization.Id }))
