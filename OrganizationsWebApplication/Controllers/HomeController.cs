@@ -21,13 +21,13 @@ namespace OrganizationsWebApplication.Controllers
 
 
 
-
-            int currentPageNumber = 1;
-            if (Request.Cookies["pageNumber"] != null)
+            if (Request.Cookies["pageNumber"] == null)
             {
-                var stringPageNumber = Request.Cookies["pageNumber"].Value;
-                currentPageNumber = Convert.ToInt32(stringPageNumber);
+                Response.Cookies["pageNumber"].Value = "1";
             }
+           
+            var stringPageNumber = Request.Cookies["pageNumber"].Value;
+            var currentPageNumber = Convert.ToInt32(stringPageNumber);
             ///////////////////////////////////////////////////////
             var pageSizeCookie = new HttpCookie("pageSize") { Value = "5" };
             Response.Cookies.Add(pageSizeCookie);
@@ -43,7 +43,7 @@ namespace OrganizationsWebApplication.Controllers
             var organizationsCount = m_facade.GetOrganizationsCount();
 
             var maxPageCount = organizationsCount / pageSize;
-            if ((organizationsCount % pageSize)!= 0) maxPageCount++;
+            if ((organizationsCount % pageSize) != 0) maxPageCount++;
 
             maxPageNumber.Value = maxPageCount.ToString();
             Response.Cookies.Add(maxPageNumber);
