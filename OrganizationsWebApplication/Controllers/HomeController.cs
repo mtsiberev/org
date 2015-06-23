@@ -25,8 +25,8 @@ namespace OrganizationsWebApplication.Controllers
             int currentPageNumber = 1;
             if (Request.Cookies["pageNumber"] != null)
             {
-                var str = Request.Cookies["pageNumber"].Value;
-                currentPageNumber = Convert.ToInt32(str);
+                var stringPageNumber = Request.Cookies["pageNumber"].Value;
+                currentPageNumber = Convert.ToInt32(stringPageNumber);
             }
             ///////////////////////////////////////////////////////
             var pageSizeCookie = new HttpCookie("pageSize") { Value = "5" };
@@ -56,23 +56,23 @@ namespace OrganizationsWebApplication.Controllers
                     var sortedOrganizations =
                         from organization in m_facade.GetEntitiesForOnePage(currentPageNumber, pageSize, "DESC")
                         where (true)
-                        select new DtoOrganization() { Name = organization.Name, Id = organization.Id };
-                    return View(new OrganizationListModels(sortedOrganizations.ToList()));
+                        select new OrganizationViewModel() { Name = organization.Name, Id = organization.Id };
+                    return View(new ListOfOrganizationsViewModel(sortedOrganizations.ToList()));
                 }
                 if (sortType == "ascending")
                 {
                     var sortedOrganizations =
                        from organization in m_facade.GetEntitiesForOnePage(currentPageNumber, pageSize, "ASC")
                        where (true)
-                       select new DtoOrganization() { Name = organization.Name, Id = organization.Id };
-                    return View(new OrganizationListModels(sortedOrganizations.ToList()));
+                       select new OrganizationViewModel() { Name = organization.Name, Id = organization.Id };
+                    return View(new ListOfOrganizationsViewModel(sortedOrganizations.ToList()));
                 }
             }
             var defaultSortedOrganizations =
                   from organization in m_facade.GetEntitiesForOnePage(currentPageNumber, pageSize, "DESC")
                   where (true)
-                  select new DtoOrganization() { Name = organization.Name, Id = organization.Id };
-            return View(new OrganizationListModels(defaultSortedOrganizations.ToList()));
+                  select new OrganizationViewModel() { Name = organization.Name, Id = organization.Id };
+            return View(new ListOfOrganizationsViewModel(defaultSortedOrganizations.ToList()));
         }
     }
 }

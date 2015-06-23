@@ -1,5 +1,5 @@
 ﻿@using OrganizationsWebApplication.Controllers
-@model OrganizationsWebApplication.Models.OrganizationListModels
+@model OrganizationsWebApplication.Models.ListOfOrganizationsViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -31,10 +31,23 @@
                 <img src="../../Content/ic-double-left.svg" onclick=" prevPage() " style="cursor: pointer;" />
             </form>
 
+
+            @if (Request.Cookies["pageNumber"] != null)
+            {
+                var stringPageNumber = Request.Cookies["pageNumber"].Value;
+                int currentPageNumber = Convert.ToInt32(stringPageNumber);
+                <form>
+                    <span style=" font-family: RobotoDraft,Roboto,sans-serif; font-size: 20px; color: #ffffff;">
+                        @currentPageNumber
+                    </span>
+                </form>
+            }
+
+
             <form>
                 <img src="../../Content/ic-double-right.svg" onclick=" nextPage() " style="cursor: pointer;" />
             </form>
-            
+
 
             @using (Html.BeginForm("AddOrganizationMenu", "Organization", FormMethod.Post))
             {
@@ -89,29 +102,29 @@
         </span>
         <br>
 
-    </div>
+        </div>
 
-    <div class="content">
-        @foreach (var organization in Model.Organizations)
-        {
-            <div class="row">
-                <span class="block">
-                    @Html.ActionLink(organization.Name, "OrganizationInfo", "Organization",
+        <div class="content">
+            @foreach (var organization in Model.Organizations)
+            {
+                <div class="row">
+                    <span class="block">
+                        @Html.ActionLink(organization.Name, "OrganizationInfo", "Organization",
                       new { id = organization.Id }, null)
-                </span>
-                <span class="operationBlock">
-                    @using (Html.BeginForm("UpdateOrganizationMenu", "Organization", new { id = organization.Id }))
-                    {
-                        <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
-                    }
-                    @using (Html.BeginForm("DeleteOrganization", "Organization", new { id = organization.Id }))
-                    {
-                        <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
-                    }
-                </span>
-            </div>
-        }
-    </div>
+                    </span>
+                    <span class="operationBlock">
+                        @using (Html.BeginForm("UpdateOrganizationMenu", "Organization", new { id = organization.Id }))
+                        {
+                            <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
+                        }
+                        @using (Html.BeginForm("DeleteOrganization", "Organization", new { id = organization.Id }))
+                        {
+                            <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
+                        }
+                    </span>
+                </div>
+            }
+        </div>
 </body>
 
 </html>

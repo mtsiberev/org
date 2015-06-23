@@ -25,8 +25,8 @@ namespace OrganizationsWebApplication.Controllers
             var departments =
                 from department in m_facade.GetAllDepartments()
                 where department.ParentOrganization.Id == id
-                select new DtoDepartment() { Name = department.Name, Id = department.Id };
-            return View(new OrganizationModel() { Id = id, Departments = departments.ToList(), Name = name });
+                select new DepartmentViewModel() { Name = department.Name, Id = department.Id };
+            return View(new OrganizationWithDepartmentsViewModel() { Id = id, Departments = departments.ToList(), Name = name });
         }
 
         public ActionResult AddOrganizationMenu()
@@ -43,11 +43,11 @@ namespace OrganizationsWebApplication.Controllers
         public ActionResult UpdateOrganizationMenu(int id)
         {
             var name = m_facade.GetOrganizationById(id).Name;
-            var organization = new OrganizationModel() { Id = id, Departments = null, Name = name };
-            return View(organization);
+            var organizationWithDepartmentsModel = new OrganizationWithDepartmentsViewModel() { Id = id, Departments = null, Name = name };
+            return View(organizationWithDepartmentsModel);
         }
 
-        public ActionResult UpdateOrganization(OrganizationModel organization)
+        public ActionResult UpdateOrganization(OrganizationWithDepartmentsViewModel organization)
         {
             m_facade.UpdateOrganization(new Organization(organization.Id) { Name = organization.Name });
             return RedirectToAction("Index", "Home");
