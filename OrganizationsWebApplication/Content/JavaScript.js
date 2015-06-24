@@ -1,4 +1,5 @@
-﻿function sortSwitch() {
+﻿/////////////////////////////////////////
+function sortSwitch() {
     var x = getCookie("sort");
 
     if (x == "ascending") {

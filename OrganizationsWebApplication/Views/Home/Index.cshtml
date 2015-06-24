@@ -17,90 +17,108 @@
     <title></title>
 </head>
 <body onload="setView()">
+    
+    
+    <div class="loginMenu">
+        <nav>
+            <ul class="cf">
+                <li>
+                    <a class="dropdown" href="#">@WebSecurity.CurrentUserName</a>
+                    <ul>
+                        @Html.ActionLink("Logout", "Logout", "Account")
+                    </ul>
+                </li>
 
-    <div class="header" style="background: #3F51B5;">
-        <span style="background: #3F51B5;">
-            <span style="color: #fff">
-                Organizations
+            </ul>
+        </nav>
+    </div>
+    
+    <br/>
+    
+        <div class="header" style="background: #3F51B5;">
+            <span style="background: #3F51B5;">
+                <span style="color: #fff">
+                    Organizations
+                </span>
             </span>
-        </span>
+            
 
-        <span class="operationBlock" style="background: #3F51B5">
+            <span class="operationBlock" style="background: #3F51B5">
 
-            <form>
-                <img src="../../Content/ic-double-left.svg" onclick=" prevPage() " style="cursor: pointer;" />
-            </form>
-
-
-            @if (Request.Cookies["pageNumber"] != null)
-            {
-                var stringPageNumber = Request.Cookies["pageNumber"].Value;
-                int currentPageNumber = Convert.ToInt32(stringPageNumber);
                 <form>
-                    <span style=" font-family: RobotoDraft,Roboto,sans-serif; font-size: 20px; color: #ffffff;">
-                        @currentPageNumber
-                    </span>
+                    <img src="../../Content/ic-double-left.svg" onclick=" prevPage() " style="cursor: pointer;" />
                 </form>
-            }
 
 
-            <form>
-                <img src="../../Content/ic-double-right.svg" onclick=" nextPage() " style="cursor: pointer;" />
-            </form>
-
-
-            @using (Html.BeginForm("AddOrganizationMenu", "Organization", FormMethod.Post))
-            {
-                <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
-            }
-
-            @if (Request.Cookies["sort"] != null)
-            {
-                var value = Request.Cookies["sort"].Value;
-                if (value == "ascending")
+                @if (Request.Cookies["pageNumber"] != null)
                 {
+                    var stringPageNumber = Request.Cookies["pageNumber"].Value;
+                    int currentPageNumber = Convert.ToInt32(stringPageNumber);
                     <form>
-                        <img src="../../Content/sort-descending.svg" onclick=" sortSwitch() " style="cursor: pointer;" />
+                        <span style=" font-family: RobotoDraft,Roboto,sans-serif; font-size: 20px; color: #ffffff;">
+                            @currentPageNumber
+                        </span>
                     </form>
                 }
-                else if (value == "descending")
+
+
+                <form>
+                    <img src="../../Content/ic-double-right.svg" onclick=" nextPage() " style="cursor: pointer;" />
+                </form>
+
+
+                @using (Html.BeginForm("AddOrganizationMenu", "Organization", FormMethod.Post))
+                {
+                    <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
+                }
+
+                @if (Request.Cookies["sort"] != null)
+                {
+                    var value = Request.Cookies["sort"].Value;
+                    if (value == "ascending")
+                    {
+                        <form>
+                            <img src="../../Content/sort-descending.svg" onclick=" sortSwitch() " style="cursor: pointer;" />
+                        </form>
+                    }
+                    else if (value == "descending")
+                    {
+                        <form>
+                            <img src="../../Content/sort-ascending.svg" onclick=" sortSwitch() " style="cursor: pointer;" />
+                        </form>
+                    }
+                }
+                else
                 {
                     <form>
                         <img src="../../Content/sort-ascending.svg" onclick=" sortSwitch() " style="cursor: pointer;" />
                     </form>
                 }
-            }
-            else
-            {
-                <form>
-                    <img src="../../Content/sort-ascending.svg" onclick=" sortSwitch() " style="cursor: pointer;" />
-                </form>
-            }
 
-            @if (Request.Cookies["view"] != null)
-            {
-                var value = Request.Cookies["view"].Value;
-                if (value == "list")
+                @if (Request.Cookies["view"] != null)
+                {
+                    var value = Request.Cookies["view"].Value;
+                    if (value == "list")
+                    {
+                        <form>
+                            <img src="../../Content/view-module.svg" onclick=" setGrid() " style="cursor: pointer;" />
+                        </form>
+                    }
+                    else if (value == "grid")
+                    {
+                        <form>
+                            <img src="../../Content/view-list.svg" onclick=" setList() " style="cursor: pointer;" />
+                        </form>
+                    }
+                }
+                else
                 {
                     <form>
                         <img src="../../Content/view-module.svg" onclick=" setGrid() " style="cursor: pointer;" />
                     </form>
                 }
-                else if (value == "grid")
-                {
-                    <form>
-                        <img src="../../Content/view-list.svg" onclick=" setList() " style="cursor: pointer;" />
-                    </form>
-                }
-            }
-            else
-            {
-                <form>
-                    <img src="../../Content/view-module.svg" onclick=" setGrid() " style="cursor: pointer;" />
-                </form>
-            }
-        </span>
-        <br>
+            </span>
+            <br>
 
         </div>
 
