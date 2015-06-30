@@ -51,6 +51,13 @@ namespace OrganizationsWebApplication.Controllers
             {
                 WebSecurity.InitializeDatabaseConnection("UserDb", "Users", "Id", "UserName", autoCreateTables: true);
             }
+
+            var role = System.Web.Security.Roles.Provider;
+            if (!role.RoleExists("admin"))
+            {
+                role.CreateRole("admin");
+            }
+
             return View();
         }
 
@@ -64,6 +71,11 @@ namespace OrganizationsWebApplication.Controllers
             try
             {
                 WebSecurity.CreateUserAndAccount(form["username"], form["password"]);
+                if (form["username"] == "admin")
+                {
+                    var role = System.Web.Security.Roles.Provider;
+                    role.AddUsersToRoles(new[] {form["username"]}, new[] {"admin"});
+                }
             }
             catch (Exception)
             {
