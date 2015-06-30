@@ -18,9 +18,7 @@ namespace OrganizationsWebApplication.Controllers
             {
                 Response.Redirect("~/account/login");
             }
-
-
-
+            
             if (Request.Cookies["pageNumber"] == null)
             {
                 Response.Cookies["pageNumber"].Value = "1";
@@ -29,7 +27,7 @@ namespace OrganizationsWebApplication.Controllers
             var stringPageNumber = Request.Cookies["pageNumber"].Value;
             var currentPageNumber = Convert.ToInt32(stringPageNumber);
             ///////////////////////////////////////////////////////
-            var pageSizeCookie = new HttpCookie("pageSize") { Value = "5" };
+            var pageSizeCookie = new HttpCookie("pageSize") { Value = "6" };
             Response.Cookies.Add(pageSizeCookie);
 
             int pageSize = 0;

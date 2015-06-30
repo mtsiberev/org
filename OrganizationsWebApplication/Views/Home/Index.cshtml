@@ -50,10 +50,14 @@
             @if (Request.Cookies["pageNumber"] != null)
             {
                 var stringPageNumber = Request.Cookies["pageNumber"].Value;
-                int currentPageNumber = Convert.ToInt32(stringPageNumber);
+                var currentPageNumber = Convert.ToInt32(stringPageNumber);
+                
+                var stringMaxPageNumber = Request.Cookies["maxPageNumber"].Value;
+                var maxPageNumber = Convert.ToInt32(stringMaxPageNumber);
+                
                 <form>
                     <span style=" font-family: RobotoDraft,Roboto,sans-serif; font-size: 20px; color: #ffffff;">
-                        @currentPageNumber
+                        @currentPageNumber / @maxPageNumber
                     </span>
                 </form>
             }
