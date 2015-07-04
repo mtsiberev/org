@@ -204,6 +204,8 @@
     <Content Include="Views\Employee\UpdateEmployeeMenu.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\_LayoutPage1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

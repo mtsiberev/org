@@ -1,4 +1,5 @@
-﻿nav ul {
+﻿/*//dropdown menu//*/
+nav ul {
     background: #303F9F;
     font-size: 0;
     list-style: none;
@@ -89,27 +90,17 @@ nav li ul a:hover {
 }
 
 /*////////////////////////////////////*/
-a {
+.block a {
+    padding: 15px;
     display: block;
-    padding: 10px;
 }
 
 .grid .block a {
     display: block;
 }
 
-.block:hover {
-    background-color: #6CF;
-    -webkit-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -ms-transition: 0.5s;
-    -o-transition: 0.5s;
-    transition: 0.5s;
-}
-
 /*////////////////////////////////////*/
 body {
-    /*font-family: Consolas;*/
     font-family: "RobotoDraft","Roboto",sans-serif;
     font-size: 10px;
     color: #569CD6;
@@ -146,28 +137,91 @@ a {
 .content {
     font-size: 0;
     width: 600px;
+    display: table;
+    table-layout: fixed;
 }
 
     .content.grid {
         margin-left: -10px;
+        display: block;
     }
 
 .row {
     font-size: 0;
     background: #eee;
-    display: block;
+    display: table-row;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
 }
 
+    .row:hover {
+        background-color: #6CF;
+    }
+    
     .row + .row {
         margin-top: 10px;
     }
+
+    .row > .block, .row > .operationBlock {
+        border-top: 5px solid #fff;
+        padding: 0;
+    }
+
+
+.content.grid .row > .block, .content.grid .row > .operationBlock {
+    border-top: 0;
+}
 
 .content.grid > .row {
     display: inline-block;
     width: 33.3%;
     position: relative;
-    padding: 50px 10px;
+    padding: 0;
     border-left: 10px solid #fff;
+}
+
+
+    .content.grid > .row .block a {
+        padding: 40px 10px 10px 10px;
+        text-align: center;
+        height: 150px;
+        display: block;
+        vertical-align: middle;
+        overflow: hidden;
+        border-bottom: 10px solid #eee;
+        -webkit-transition: 0.5s;
+        -moz-transition: 0.5s;
+        -ms-transition: 0.5s;
+        -o-transition: 0.5s;
+        transition: 0.5s;
+    }
+
+    .content.grid > .row:hover .block a {
+        border-bottom: 10px solid #6CF;
+    }
+    
+
+
+.content .block, .content .operationBlock {
+    display: table-cell;
+}
+
+
+.content .operationBlock {
+    text-align: right;
+    padding-right: 10px;
+    width: 70px;
+}
+
+.content.grid .operationBlock {
+    width: auto;
+}
+
+.content.grid .block, .content.grid .operationBlock {
+    display: inline-block;
 }
 
 .block, .operationBlock {
@@ -194,8 +248,9 @@ a {
     top: 0;
     right: 0;
     white-space: nowrap;
-    z-index: 1;
     width: auto;
+    padding: 10px;
+    z-index: 100;
 }
 
 .grid .block {
@@ -240,7 +295,7 @@ a {
 
 .inputMaterial {
     font-size: 18px;
-    padding: 10px 10px 10px 5px;
+    padding: 10px 50px 10px 5px;
     display: block;
     width: 300px;
     border: none;

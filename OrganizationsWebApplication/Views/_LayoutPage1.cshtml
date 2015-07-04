@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+
+
+    <div class="loginMenu">
+        <nav>
+            <ul>
+                <li>
+                    <a class="dropdown" href="#">@WebSecurity.CurrentUserName</a>
+                    <ul>
+                        @Html.ActionLink("Logout", "Logout", "Account")
+                    </ul>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+
+
+
+    <div>
+        @RenderBody()
+    </div>
+    
+    
+    <br>
+    
+
+    <span class="operationBlock" style="background: #000; width: 600px" >
+
+        <form>
+            <img src="../../Content/ic-double-left.svg" onclick=" prevPage() " style="cursor: pointer;" />
+        </form>
+
+        @if (Request.Cookies["pageNumber"] != null)
+        {
+            var stringPageNumber = Request.Cookies["pageNumber"].Value;
+            var currentPageNumber = Convert.ToInt32(stringPageNumber);
+
+            var stringMaxPageNumber = Request.Cookies["maxPageNumber"].Value;
+            var maxPageNumber = Convert.ToInt32(stringMaxPageNumber);
+
+            <form>
+                <span style=" font-family: RobotoDraft,Roboto,sans-serif; font-size: 20px; color: #ffffff;">
+                    @currentPageNumber / @maxPageNumber
+                </span>
+            </form>
+        }
+
+        <form>
+            <img src="../../Content/ic-double-right.svg" onclick=" nextPage() " style="cursor: pointer;" />
+        </form>
+        
+    </span>
+    
+    
+
+</body>
+</html>
