@@ -144,6 +144,8 @@
     <Compile Include="Models\OrganizationViewModel.cs" />
     <Compile Include="Models\DepartmentViewModel.cs" />
     <Compile Include="Models\OrganizationWithDepartmentsViewModel.cs" />
+    <Compile Include="MvcHelpers\Page.cs" />
+    <Compile Include="MvcHelpers\Paginator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

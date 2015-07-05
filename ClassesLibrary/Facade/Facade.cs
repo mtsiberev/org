@@ -96,9 +96,19 @@ namespace Organizations
             return m_organizationsRepository.GetCount();
         }
 
-        public List<Organization> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+        public List<Organization> GetOrganizationsForOnePage(int pageNum, int pageSize, string sortType)
         {
             return m_organizationsRepository.GetEntitiesForOnePage(pageNum, pageSize, sortType);
+        }
+
+        public List<Department> GetDepartmentsForOnePage(int pageNum, int pageSize, string sortType)
+        {
+            return m_departmentsRepository.GetEntitiesForOnePage(pageNum, pageSize, sortType);
+        }
+
+        public List<Employee> GetEmployeesForOnePage(int pageNum, int pageSize, string sortType)
+        {
+            return m_employeesRepository.GetEntitiesForOnePage(pageNum, pageSize, sortType);
         }
 
         public List<Department> GetAllDepartments()
@@ -207,7 +217,7 @@ namespace Organizations
                select employee;
             return resultEmployees.ToList();
         }
-
+        
     }
 
 }

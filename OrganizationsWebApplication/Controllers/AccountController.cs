@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Organizations;
 using WebMatrix.WebData;
 
 namespace OrganizationsWebApplication.Controllers
@@ -10,6 +11,13 @@ namespace OrganizationsWebApplication.Controllers
     public class AccountController : Controller
     {
 
+        public ActionResult Administration()
+        {
+            Response.Redirect("~/home/index");
+            return View();
+        }
+
+        
         [HttpGet]
         public ActionResult Login()
         {

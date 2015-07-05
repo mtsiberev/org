@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace Organizations
 {
-    public interface IRepository<T> : IPaging<Organization>
+    public interface IRepository<T> : IPaging<T>
     {
         void Insert(T entity);
         void Delete(int id);

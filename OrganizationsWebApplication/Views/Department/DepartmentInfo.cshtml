@@ -1,7 +1,7 @@
 ﻿@model OrganizationsWebApplication.Models.DepartmentWithEmployeesViewModel
 
 @{
-    ViewBag.Title = "DepartmentInfo";
+    ViewBag.Title = "Department Info";
 }
 <!DOCTYPE html>
 <html>
@@ -13,22 +13,14 @@
     <div class="header" style="background: #3F51B5;">
         <span style="background: #3F51B5;">
             <span style="color: #fff">
-                Department @Model.Name
+                @Model.Name
             </span>
-        </span>
-
-        <span class="operationBlock" style="background: #3F51B5">
-            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-            {
-                <input type="image" src="../../Content/ic_home_24px_inverse.svg" alt="add" name="submit" />
-            }
         </span>
     </div>
 
-
-    @foreach (var employee in Model.Employees)
-    {
-        <div class="content">
+    <div class="content">
+        @foreach (var employee in Model.Employees)
+        {
             <div class="row">
                 <span class="block" style="color:black">
                     <span>@employee.Name</span>
@@ -36,27 +28,19 @@
 
                 <span class="operationBlock">
                     @using (Html.BeginForm("UpdateEmployeeMenu", "Employee",
-                new { id = employee.Id }))
+                        new { id = employee.Id }))
                     {
                         <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
                     }
 
                     @using (Html.BeginForm("DeleteEmployee", "Employee",
-                new { id = employee.Id }))
+                        new { id = employee.Id }))
                     {
                         <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
                     }
                 </span>
             </div>
-        </div>
-    }
-
-    <p></p>
-    @using (Html.BeginForm("AddEmployeeMenu", "Employee",
-        new { id = @Model.Id }, FormMethod.Post))
-    {
-        <button type="submit">Add employee</button>
-    }
-
+        }
+    </div>
 </body>
 </html>

@@ -2,97 +2,15 @@
 @model OrganizationsWebApplication.Models.ListOfOrganizationsViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Organizations";
 }
 
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="jquery.cookie.js"></script>
-
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="../../Content/JavaScript.js"></script>
-    <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
-
     <title></title>
 </head>
 <body onload="setView()">
-
-
-    <div class="header" style="background: #3F51B5">
-        <span style="background: #3F51B5;">
-            <span style="color: #fff">
-                Organizations
-            </span>
-        </span>
-
-
-        <span class="operationBlock" style="background: #3F51B5">
-
-
-            @if (Roles.IsUserInRole("admin"))
-            {
-                using (Html.BeginForm("AddOrganizationMenu", "Organization", FormMethod.Post))
-                {
-                    <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
-                }
-            }
-
-
-            @if (Request.Cookies["sort"] != null)
-            {
-                var value = Request.Cookies["sort"].Value;
-                if (value == "ascending")
-                {
-                    <form>
-                        <img src="../../Content/sort-descending.svg" onclick=" sortSwitch() " style="cursor: pointer;" />
-                    </form>
-                }
-                else if (value == "descending")
-                {
-                    <form>
-                        <img src="../../Content/sort-ascending.svg" onclick=" sortSwitch() " style="cursor: pointer;" />
-                    </form>
-                }
-            }
-            else
-            {
-                <form>
-                    <img src="../../Content/sort-ascending.svg" onclick=" sortSwitch() " style="cursor: pointer;" />
-                </form>
-            }
-
-            @if (Request.Cookies["view"] != null)
-            {
-                var value = Request.Cookies["view"].Value;
-                if (value == "list")
-                {
-                    <form>
-                        <img src="../../Content/view-module.svg" onclick=" setGrid() " style="cursor: pointer;" />
-                    </form>
-                }
-                else if (value == "grid")
-                {
-                    <form>
-                        <img src="../../Content/view-list.svg" onclick=" setList() " style="cursor: pointer;" />
-                    </form>
-                }
-            }
-            else
-            {
-                <form>
-                    <img src="../../Content/view-module.svg" onclick=" setGrid() " style="cursor: pointer;" />
-                </form>
-            }
-        </span>
-
-
-
-
-
-        <br>
-
-    </div>
 
     <div class="content">
         @foreach (var organization in Model.Organizations)
@@ -116,10 +34,8 @@
                         }
                     </span>
                 }
-
             </div>
         }
     </div>
 </body>
-
 </html>

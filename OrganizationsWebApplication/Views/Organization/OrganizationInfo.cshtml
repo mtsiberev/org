@@ -1,7 +1,7 @@
 ﻿@model OrganizationsWebApplication.Models.OrganizationWithDepartmentsViewModel
 
 @{
-    ViewBag.Title = "Department";
+    ViewBag.Title = "Organization Info";
 }
 <!DOCTYPE html>
 <html>
@@ -12,21 +12,14 @@
     <div class="header" style="background: #3F51B5;">
         <span style="background: #3F51B5;">
             <span style="color: #fff">
-                Organization @Model.Name
+                @Model.Name
             </span>
         </span>
-
-        <span class="operationBlock" style="background: #3F51B5">
-            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-            {
-                <input type="image" src="../../Content/ic_home_24px_inverse.svg" alt="add" name="submit" />
-            }
-        </span>
     </div>
+    <div class="content">
+        @foreach (var department in Model.Departments)
+        {
 
-    @foreach (var department in Model.Departments)
-    {
-        <div class="content">
             <div class="row">
                 <span class="block">
                     @Html.ActionLink(department.Name, "DepartmentInfo", "Department",
@@ -48,15 +41,10 @@
                     }
                 </span>
             </div>
-        </div>
-    }
-
+        }
+    </div>
 </body>
 
-<p></p>
-@using (Html.BeginForm("AddDepartmentMenu", "Department", new { id = @Model.Id }, FormMethod.Post))
-{
-    <button type="submit">Add department</button>
-}
+
 
 </html>

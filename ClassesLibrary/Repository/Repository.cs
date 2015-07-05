@@ -46,7 +46,7 @@ namespace Organizations
             return m_data[randomNext];
         }
 
-        public List<Organization> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+        public List<T> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
         {
             throw new NotImplementedException();
         }

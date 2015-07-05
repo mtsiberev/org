@@ -74,9 +74,32 @@ namespace Organizations.DbRepository
             throw new NotImplementedException();
         }
 
-        public List<Organization> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+        public List<Department> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
         {
-            throw new NotImplementedException();
+            var repositoryOrganizationDb = RegisterByContainer.Container.GetInstance<IRepository<Organization>>();
+
+            var resultList = new List<Department>();
+
+            var queryString = String.Format(
+                "SELECT * FROM {0} WHERE id IN " +
+                "(SELECT id FROM {0} ORDER BY Name " +
+                "OFFSET ({1} - 1) * {2} ROWS " +
+                "FETCH NEXT {2} ROWS ONLY ) ORDER BY Name {3};",
+                c_departmentsDatabaseName, pageNum, pageSize, sortType);
+
+            using (var reader = AdoHelper.GetDataTableReader(queryString))
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var departmentDb = MapperDb.GetDepartmentDb(reader);
+                        var organization = repositoryOrganizationDb.GetById(departmentDb.ParentOrganizationId);
+                        resultList.Add(MapperBm.GetDepartment(departmentDb, organization));
+                    }
+                }
+            }
+            return resultList;
         }
 
         public int GetCount()

@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
-using NLog;
-using Organizations.DbEntity;
-using StructureMap;
-using StructureMap.Configuration.DSL;
 
 namespace Organizations
 {

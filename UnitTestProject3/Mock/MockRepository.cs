@@ -139,7 +139,7 @@ namespace Organizations
             return LastInsertedDepartment;
         }
 
-        public List<Organization> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+        public List<Department> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
         {
             throw new NotImplementedException();
         }
@@ -210,7 +210,7 @@ namespace Organizations
             return LastInsertedEmployee;
         }
 
-        public List<Organization> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+        public List<Employee> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
         {
             throw new NotImplementedException();
         }

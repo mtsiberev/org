@@ -72,22 +72,12 @@ nav li ul a:hover {
 
 /*////////////////////////////////////*/
 
-.loginMenu {
+.userMenu {
     width: 600px;
     background: #303F9F;
-    display: inline-block;
 }
 
 /*////////////////////////////////////*/
-.currentUserMenu {
-    background: #303F9F;
-    color: #fff;
-    width: 600px;
-    font-size: 10px;
-    display: inline-block;
-    padding: 3px;
-    text-align: right;
-}
 
 /*////////////////////////////////////*/
 .block a {
@@ -160,7 +150,7 @@ a {
     .row:hover {
         background-color: #6CF;
     }
-    
+
     .row + .row {
         margin-top: 10px;
     }
@@ -202,7 +192,7 @@ a {
     .content.grid > .row:hover .block a {
         border-bottom: 10px solid #6CF;
     }
-    
+
 
 
 .content .block, .content .operationBlock {
@@ -241,7 +231,6 @@ a {
     font-size: 0;
     text-align: center;
 }
-
 
 .grid .operationBlock {
     position: absolute;

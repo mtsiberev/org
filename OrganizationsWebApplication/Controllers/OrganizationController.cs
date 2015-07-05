@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Organizations;
 using OrganizationsWebApplication.Models;
+using OrganizationsWebApplication.MvcHelpers;
 
 namespace OrganizationsWebApplication.Controllers
 {
@@ -13,20 +14,48 @@ namespace OrganizationsWebApplication.Controllers
         //
         // GET: /Organization/
         private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
-        
+
         public ActionResult Index()
         {
             return View();
         }
-        
+
         public ActionResult OrganizationInfo(int id = 0)
         {
+            var page = Paginator.GetPageObject(m_facade.GetOrganizationsCount());
+            var currentPageNumber = page.CurrentPageNumber;
+            var pageSize = page.PageSize;
             var name = m_facade.GetOrganizationById(id).Name;
-            var departments =
-                from department in m_facade.GetAllDepartments()
-                where department.ParentOrganization.Id == id
-                select new DepartmentViewModel() { Name = department.Name, Id = department.Id };
-            return View(new OrganizationWithDepartmentsViewModel() { Id = id, Departments = departments.ToList(), Name = name });
+
+
+            if (Request.Cookies["sort"] != null)
+            {
+                var sortType = Request.Cookies["sort"].Value;
+                if (sortType == "descending")
+                {
+                    var sortedDepartments =
+                        from department in m_facade.GetDepartmentsForOnePage(currentPageNumber, pageSize, "DESC")
+                        where department.ParentOrganization.Id == id
+                        select new DepartmentViewModel() { Name = department.Name, Id = department.Id };
+                    return View(new OrganizationWithDepartmentsViewModel() { Id = id, Departments = sortedDepartments.ToList(), Name = name });
+                }
+
+                if (sortType == "ascending")
+                {
+                    var sortedDepartments =
+                       from department in m_facade.GetDepartmentsForOnePage(currentPageNumber, pageSize, "ASC")
+                       where department.ParentOrganization.Id == id
+                       select new DepartmentViewModel() { Name = department.Name, Id = department.Id };
+                    return View(new OrganizationWithDepartmentsViewModel() { Id = id, Departments = sortedDepartments.ToList(), Name = name });
+                }
+            }
+
+            var defaultSortedDepartments =
+                  from department in m_facade.GetDepartmentsForOnePage(currentPageNumber, pageSize, "DESC")
+                  where department.ParentOrganization.Id == id
+                  select new DepartmentViewModel() { Name = department.Name, Id = department.Id };
+            return View(new OrganizationWithDepartmentsViewModel() { Id = id, Departments = defaultSortedDepartments.ToList(), Name = name });
+
         }
 
         public ActionResult AddOrganizationMenu()
