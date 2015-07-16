@@ -1,4 +1,9 @@
-﻿/*//dropdown menu//*/
+﻿body {
+    position: absolute;
+    left: 30%;
+}
+
+/*//dropdown menu//*/
 nav ul {
     background: #303F9F;
     font-size: 0;
@@ -69,15 +74,10 @@ nav li ul a:hover {
 }
 
 /*////////////////////////////////////*/
-
-/*////////////////////////////////////*/
-
 .userMenu {
     width: 600px;
     background: #303F9F;
 }
-
-/*////////////////////////////////////*/
 
 /*////////////////////////////////////*/
 .block a {

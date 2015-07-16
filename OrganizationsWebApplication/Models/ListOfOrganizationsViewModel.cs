@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using OrganizationsWebApplication.MvcHelpers;
 
 namespace OrganizationsWebApplication.Models
 {
@@ -6,10 +7,12 @@ namespace OrganizationsWebApplication.Models
     {
         public List<OrganizationViewModel> Organizations {  get;  private set; }
 
-        public ListOfOrganizationsViewModel(List<OrganizationViewModel> organizationsList)
+        public Page Page { get; private set; }
+
+        public ListOfOrganizationsViewModel(List<OrganizationViewModel> organizationsList, Page page)
         {
             Organizations = organizationsList;
+            Page = page;
         }
-        
     }
 }

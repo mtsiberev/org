@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NLog;
 using Organizations.Helpers;
 using Organizations.Mappers;
 
@@ -8,6 +9,8 @@ namespace Organizations.DbRepository
 {
     public class RepositoryOrganizationDatabase : IRepository<Organization>
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         private const string c_organizationsDatabaseName = "Organizations";
 
         public void Delete(int id)
@@ -52,7 +55,7 @@ namespace Organizations.DbRepository
             return resultList;
         }
 
-        public int GetCount()
+        public int GetCount(int id)
         {
             int result = 0;
             var queryString = String.Format("SELECT COUNT(*) FROM {0};", c_organizationsDatabaseName);
@@ -68,18 +71,18 @@ namespace Organizations.DbRepository
             }
             return result;
         }
-        
-        public List<Organization> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+
+        public List<Organization> GetEntitiesForOnePage(int pageNum, int pageSize, int parentId)
         {
             var resultList = new List<Organization>();
 
             var queryString = String.Format(
-                "SELECT * FROM {0} WHERE id IN " +
-                "(SELECT id FROM {0} ORDER BY Name " +
-                "OFFSET ({1} - 1) * {2} ROWS " +
-                "FETCH NEXT {2} ROWS ONLY ) ORDER BY Name {3};",
-                c_organizationsDatabaseName, pageNum, pageSize, sortType);
-
+             "SELECT * FROM {0} " +
+             "ORDER BY Name " +
+             "OFFSET ({1} - 1) * {2} ROWS " +
+             "FETCH NEXT {2} ROWS ONLY;",
+             c_organizationsDatabaseName, pageNum, pageSize);
+            
             using (var reader = AdoHelper.GetDataTableReader(queryString))
             {
                 if (reader.HasRows)
@@ -112,7 +115,5 @@ namespace Organizations.DbRepository
         {
             throw new NotImplementedException();
         }
-
-
     }
 }

@@ -1,0 +1,29 @@
+﻿@model OrganizationsWebApplication.Models.Page
+
+
+<span class="operationBlock" style="background: #3F51B5; width: 600px; height: 50px">
+
+    @if (@Model.PageType == "organizationsPage")
+    {
+        using (Html.BeginForm("AddOrganizationMenu", "Organization", FormMethod.Post))
+        {
+            <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
+        }
+    }
+
+    @if (@Model.PageType == "departmentsPage")
+    {
+        using (Html.BeginForm("AddDepartmentMenu", "Department", new { id = @Model.CurrentInstanceId }, FormMethod.Post))
+        {
+            <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
+        }
+    }
+
+    @if (@Model.PageType == "employeesPage")
+    {
+        using (Html.BeginForm("AddEmployeeMenu", "Employee", new { id = @Model.CurrentInstanceId }, FormMethod.Post))
+        {
+            <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
+        }
+    }
+</span>

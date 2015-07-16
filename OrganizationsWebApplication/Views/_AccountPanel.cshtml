@@ -1,0 +1,21 @@
+﻿<div class="userMenu">
+    <nav>
+        <ul>
+            <li>
+                <a class="dropdown" href="#">@WebSecurity.CurrentUserName</a>
+                <ul>
+                    <li>
+                        @Html.ActionLink("Logout", "Logout", "Account")
+                    </li>
+
+                    @if (Roles.IsUserInRole("admin"))
+                    {
+                        <li>
+                            @Html.ActionLink("Administration", "Administration", "Account")
+                        </li>
+                    }
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</div>

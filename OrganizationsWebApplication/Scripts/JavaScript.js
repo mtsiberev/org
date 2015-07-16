@@ -2,58 +2,21 @@
 function sortSwitch() {
     var x = getCookie("sort");
 
-    if (x == "ascending") {
+    if (x == "asc") {
         deleteCookie("sort");
-        setCookie("sort", "descending");
+        setCookie("sort", "desc");
         location.reload();
         return false;
     }
 
-    if (x == "descending") {
+    if (x == "desc") {
         deleteCookie("sort");
-        setCookie("sort", "ascending");
+        setCookie("sort", "asc");
         location.reload();
         return false;
     }
     else {
-        setCookie("sort", "ascending");
-        location.reload();
-        return false;
-    }
-}
-/////////////////////////////////////////
-function nextPage() {
-    var x = getCookie("pageNumber");
-    if (x == undefined) {
-        x = 2;
-        setCookie("pageNumber", x);
-        location.reload();
-        return false;
-    } else {
-        x = parseInt(x) + 1;
-
-        var maxPage = getCookie("maxPageNumber");
-        if (x > maxPage) return false;
-
-        deleteCookie("pageNumber");
-        setCookie("pageNumber", x);
-        location.reload();
-        return false;
-    }
-}
-
-function prevPage() {
-    var x = getCookie("pageNumber");
-    if (x == 1) return false;
-    if (x == undefined) {
-        x = 1;
-        setCookie("pageNumber", x);
-        location.reload();
-        return false;
-    } else {
-        x = parseInt(x) - 1;
-        deleteCookie("pageNumber");
-        setCookie("pageNumber", x);
+        setCookie("sort", "asc");
         location.reload();
         return false;
     }
@@ -106,7 +69,6 @@ function setCookie(name, value, options) {
             updatedCookie += "=" + propValue;
         }
     }
-
     document.cookie = updatedCookie;
 }
 

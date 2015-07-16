@@ -8,15 +8,28 @@
 <head>
     <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
 </head>
-<body>
+<body onload="setView()">
+
+
+    @Html.Partial("~/Views/_AccountPanel.cshtml")
+
 
     <div class="header" style="background: #3F51B5;">
         <span style="background: #3F51B5;">
             <span style="color: #fff">
-                @Model.Name
+                Department: @Model.Name
             </span>
         </span>
     </div>
+    <br>
+
+    @if (Roles.IsUserInRole("admin"))
+    {
+        @Html.Partial("~/Views/_AddNewInstancePanel.cshtml", @Model.Page)
+        <br>
+    }
+    @Html.Partial("~/Views/_GoBackPanel.cshtml", @Model.Page)
+    @Html.Partial("~/Views/_ListSortPanel.cshtml", @Model.Page)
 
     <div class="content">
         @foreach (var employee in Model.Employees)
@@ -25,22 +38,27 @@
                 <span class="block" style="color:black">
                     <span>@employee.Name</span>
                 </span>
-
-                <span class="operationBlock">
-                    @using (Html.BeginForm("UpdateEmployeeMenu", "Employee",
+                @if (Roles.IsUserInRole("admin"))
+                {
+                    <span class="operationBlock">
+                        @using (Html.BeginForm("UpdateEmployeeMenu", "Employee",
                         new { id = employee.Id }))
-                    {
-                        <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
-                    }
+                        {
+                            <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
+                        }
 
-                    @using (Html.BeginForm("DeleteEmployee", "Employee",
+                        @using (Html.BeginForm("DeleteEmployee", "Employee",
                         new { id = employee.Id }))
-                    {
-                        <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
-                    }
-                </span>
+                        {
+                            <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
+                        }
+                    </span>
+                }
             </div>
         }
     </div>
+
+    @Html.Partial("~/Views/_PagingPanel.cshtml", Model.Page)
+
 </body>
 </html>

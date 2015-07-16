@@ -93,22 +93,33 @@ namespace Organizations
         
         public int GetOrganizationsCount()
         {
-            return m_organizationsRepository.GetCount();
+            int i = 0;
+            return m_organizationsRepository.GetCount(i);
         }
 
-        public List<Organization> GetOrganizationsForOnePage(int pageNum, int pageSize, string sortType)
+        public int GetDepartmentsCount(int id)
         {
-            return m_organizationsRepository.GetEntitiesForOnePage(pageNum, pageSize, sortType);
+            return m_departmentsRepository.GetCount(id);
+        }
+        
+        public int GetEmployeesCount(int id)
+        {
+            return m_employeesRepository.GetCount(id);
+        }
+        
+        public List<Organization> GetOrganizationsForOnePage(int pageNum, int pageSize, int currentId)
+        {
+            return m_organizationsRepository.GetEntitiesForOnePage(pageNum, pageSize, currentId);
         }
 
-        public List<Department> GetDepartmentsForOnePage(int pageNum, int pageSize, string sortType)
+        public List<Department> GetDepartmentsForOnePage(int pageNum, int pageSize, int currentId)
         {
-            return m_departmentsRepository.GetEntitiesForOnePage(pageNum, pageSize, sortType);
+            return m_departmentsRepository.GetEntitiesForOnePage(pageNum, pageSize, currentId);
         }
 
-        public List<Employee> GetEmployeesForOnePage(int pageNum, int pageSize, string sortType)
+        public List<Employee> GetEmployeesForOnePage(int pageNum, int pageSize, int currentId)
         {
-            return m_employeesRepository.GetEntitiesForOnePage(pageNum, pageSize, sortType);
+            return m_employeesRepository.GetEntitiesForOnePage(pageNum, pageSize, currentId);
         }
 
         public List<Department> GetAllDepartments()

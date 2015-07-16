@@ -1,53 +1,62 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
+using Organizations;
+using OrganizationsWebApplication.Models;
 
 namespace OrganizationsWebApplication.MvcHelpers
 {
     public class Paginator
     {
-        private static int pageSize = 6;
-
-        public static Page GetPageObject(int entitiesQty)
+        private const int pageSize = 6;
+        public static void ClearSession(string pageType)
         {
-            SetPageSize();
-            SetMaxPageNumber(entitiesQty);
-            return new Page(pageSize, GetCurrentPageNumber());
+            HttpContext.Current.Session.Remove(pageType);
         }
 
-        private static void SetPageSize()
+        private static string GetCurrentPage(string pageType)
         {
-            var pageSizeCookie = new HttpCookie("pageSize") { Value = pageSize.ToString() };
-            HttpContext.Current.Response.Cookies.Add(pageSizeCookie);
-        }
-        
-        private static int GetCurrentPageNumber()
-        {
-            if (HttpContext.Current.Request.Cookies["pageNumber"] == null)
-            {
-                HttpContext.Current.Response.Cookies["pageNumber"].Value = "1";
-            }
+            var valueString = HttpContext.Current.Session[pageType] as String;
+            if (valueString != null) return HttpContext.Current.Session[pageType] as String;
 
-            var stringPageNumber = HttpContext.Current.Request.Cookies["pageNumber"].Value;
-            return Convert.ToInt32(stringPageNumber);
+            const string startPageValue = "1";
+            HttpContext.Current.Session[pageType] = startPageValue;
+            return startPageValue;
         }
-        
 
-        private static void SetMaxPageNumber(int entitiesQty)
+        public static Page GetPageObject(string pageType, int entitiesCount, int currentId, int parentId)
         {
-            var entitiesCount = entitiesQty;
             var maxPageCount = entitiesCount / pageSize;
-            if ((entitiesCount % pageSize) != 0) maxPageCount++;
+            if ( (entitiesCount % pageSize) != 0) maxPageCount++;
+            var currentPage = int.Parse(GetCurrentPage(pageType));
+            if (currentPage > maxPageCount) currentPage--;
+            if (currentPage == 0) currentPage = 1;
 
-            if (HttpContext.Current.Request.Cookies["maxPageNumber"] == null)
-            {
-                var maxPageNumber = new HttpCookie("maxPageNumber") { Value = maxPageCount.ToString() };
-                HttpContext.Current.Response.Cookies.Add(maxPageNumber);
-            }
-
-            HttpContext.Current.Response.Cookies["maxPageNumber"].Value = maxPageCount.ToString();
+            return new Page(pageSize, currentPage, maxPageCount, pageType, currentId, parentId);
         }
 
+        public static Page GetOrganizationsListPage(Facade facade)
+        {
+            const string pageType = "organizationsPage";
+            int organizationsCount = facade.GetOrganizationsCount();
+       
+            return GetPageObject(pageType, organizationsCount, -1, -1);
+        }
+
+        public static Page GetDepartmentsListPage(Facade facade, int id)
+        {
+            const string pagetype = "departmentsPage";
+            int departmentsCount = facade.GetDepartmentsCount(id);
+
+            return GetPageObject(pagetype, departmentsCount, id, -1);
+        }
+
+        public static Page GetEmployeesListPage(Facade facade, int id)
+        {
+            const string pagetype = "employeesPage";
+            int parentId = facade.GetDepartmentById(id).ParentOrganization.Id;
+            int employeesCount = facade.GetEmployeesCount(id);
+
+            return GetPageObject(pagetype, employeesCount, id, parentId);
+        }
     }
 }

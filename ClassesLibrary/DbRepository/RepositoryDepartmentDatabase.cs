@@ -51,6 +51,24 @@ namespace Organizations.DbRepository
             }
             return resultList;
         }
+        
+        public int GetCount(int organizationId)
+        {
+            int result = 0;
+            var queryString = String.Format("SELECT COUNT(*) FROM {0} WHERE OrganizationId = {1};", c_departmentsDatabaseName, organizationId);
+            using (var reader = AdoHelper.GetDataTableReader(queryString))
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = (int)reader.GetValue(0);
+                    }
+                }
+            }
+            return result;
+        }
+
 
         public Department GetById(int id)
         {
@@ -74,19 +92,20 @@ namespace Organizations.DbRepository
             throw new NotImplementedException();
         }
 
-        public List<Department> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+        public List<Department> GetEntitiesForOnePage(int pageNum, int pageSize, int parentId)
         {
             var repositoryOrganizationDb = RegisterByContainer.Container.GetInstance<IRepository<Organization>>();
 
             var resultList = new List<Department>();
-
+            
             var queryString = String.Format(
-                "SELECT * FROM {0} WHERE id IN " +
-                "(SELECT id FROM {0} ORDER BY Name " +
-                "OFFSET ({1} - 1) * {2} ROWS " +
-                "FETCH NEXT {2} ROWS ONLY ) ORDER BY Name {3};",
-                c_departmentsDatabaseName, pageNum, pageSize, sortType);
-
+                "SELECT * FROM {0} " +
+                "WHERE OrganizationId = {1} " +
+                "ORDER BY Name " +
+                "OFFSET ({2} - 1) * {3} ROWS " +
+                "FETCH NEXT {3} ROWS ONLY;",
+                c_departmentsDatabaseName, parentId, pageNum, pageSize);
+            
             using (var reader = AdoHelper.GetDataTableReader(queryString))
             {
                 if (reader.HasRows)
@@ -100,11 +119,6 @@ namespace Organizations.DbRepository
                 }
             }
             return resultList;
-        }
-
-        public int GetCount()
-        {
-            throw new NotImplementedException();
         }
     }
 }

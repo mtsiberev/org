@@ -134,6 +134,7 @@
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -144,7 +145,7 @@
     <Compile Include="Models\OrganizationViewModel.cs" />
     <Compile Include="Models\DepartmentViewModel.cs" />
     <Compile Include="Models\OrganizationWithDepartmentsViewModel.cs" />
-    <Compile Include="MvcHelpers\Page.cs" />
+    <Compile Include="Models\Page.cs" />
     <Compile Include="MvcHelpers\Paginator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -171,7 +172,7 @@
     <Content Include="Content\ic_home_24px_inverse.svg" />
     <Content Include="Content\ic_keyboard_backspace_24px.svg" />
     <Content Include="Content\ic_mode_edit_24px.svg" />
-    <Content Include="Content\JavaScript.js" />
+    <Content Include="Scripts\JavaScript.js" />
     <Content Include="Content\sort-ascending.svg" />
     <Content Include="Content\sort-descending.svg" />
     <Content Include="Content\style.css" />
@@ -207,7 +208,12 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\_LayoutPage1.cshtml" />
+    <Content Include="Views\Organization\OrganizationsList.cshtml" />
+    <Content Include="Views\_GoBackPanel.cshtml" />
+    <Content Include="Views\_ListSortPanel.cshtml" />
+    <Content Include="Views\_PagingPanel.cshtml" />
+    <Content Include="Views\_AccountPanel.cshtml" />
+    <Content Include="Views\_AddNewInstancePanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -219,15 +225,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Organization\OrganizationInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Department\DepartmentInfo.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Home\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

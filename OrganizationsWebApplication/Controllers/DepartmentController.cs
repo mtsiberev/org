@@ -5,22 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using Organizations;
 using OrganizationsWebApplication.Models;
+using OrganizationsWebApplication.MvcHelpers;
 
 namespace OrganizationsWebApplication.Controllers
 {
     public class DepartmentController : Controller
     {
-        //
-        // GET: /Department/
         private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
-        
-        public ActionResult Index()
-        {
-            return View();
-        }
-        
-        ////////////////////////////////////////////////////
-
+    
         public ActionResult UpdateDepartmentMenu(int id)
         {
             var department = m_facade.GetDepartmentById(id);
@@ -43,16 +35,14 @@ namespace OrganizationsWebApplication.Controllers
 
         public ActionResult DepartmentInfo(int id = 0)
         {
+            Page page = Paginator.GetEmployeesListPage(m_facade, id);
+
             var name = m_facade.GetDepartmentById(id).Name;
             var employees =
-               from employee in m_facade.GetEmployeesInDepartment(id)
-               select new EmployeeViewModel()
-               {
-                   Name = String.Join(" ", employee.Name, employee.LastName),
-                   Id = employee.Id
-               };
+               from employee in m_facade.GetEmployeesForOnePage(page.CurrentPageNumber, page.PageSize, page.CurrentInstanceId)
+               select new EmployeeViewModel(){ Name = String.Join(" ", employee.Name, employee.LastName), Id = employee.Id };
 
-            return View(new DepartmentWithEmployeesViewModel() { Id = id, Employees = employees.ToList(), Name = name });
+            return View(new DepartmentWithEmployeesViewModel() { Id = id, Employees = employees.ToList(), Name = name, Page = page});
         }
 
         public ActionResult AddDepartmentMenu(int id)
@@ -76,7 +66,5 @@ namespace OrganizationsWebApplication.Controllers
          
             return RedirectToAction("OrganizationInfo", "Organization", new { id = parentId });
         }
-        
-
     }
 }

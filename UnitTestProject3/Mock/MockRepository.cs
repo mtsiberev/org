@@ -67,12 +67,12 @@ namespace Organizations
             return LastInsertedOrganization;
         }
 
-        public List<Organization> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+        public List<Organization> GetEntitiesForOnePage(int pageNum, int pageSize, int parentId)
         {
             throw new NotImplementedException();
         }
 
-        public int GetCount()
+        public int GetCount(int id)
         {
             throw new NotImplementedException();
         }
@@ -139,12 +139,12 @@ namespace Organizations
             return LastInsertedDepartment;
         }
 
-        public List<Department> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+        public List<Department> GetEntitiesForOnePage(int pageNum, int pageSize, int parentId)
         {
             throw new NotImplementedException();
         }
 
-        public int GetCount()
+        public int GetCount(int id)
         {
             throw new NotImplementedException();
         }
@@ -210,12 +210,12 @@ namespace Organizations
             return LastInsertedEmployee;
         }
 
-        public List<Employee> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+        public List<Employee> GetEntitiesForOnePage(int pageNum, int pageSize, int parentId)
         {
             throw new NotImplementedException();
         }
 
-        public int GetCount()
+        public int GetCount(int id)
         {
             throw new NotImplementedException();
         }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Organizations;
 using OrganizationsWebApplication.Models;
@@ -11,51 +8,31 @@ namespace OrganizationsWebApplication.Controllers
 {
     public class OrganizationController : Controller
     {
-        //
-        // GET: /Organization/
         private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
 
-        public ActionResult Index()
+        public ActionResult OrganizationsList()
         {
-            return View();
+            Page page = Paginator.GetOrganizationsListPage(m_facade);
+            var sortType = Request.Cookies["sort"] != null ? Request.Cookies["sort"].Value : "desc";
+
+            var sortedOrganizations =
+                    from organization in m_facade.GetOrganizationsForOnePage(page.CurrentPageNumber, page.PageSize, page.CurrentInstanceId)
+                    where (true)
+                    select new OrganizationViewModel() { Name = organization.Name, Id = organization.Id };
+
+            return View(new ListOfOrganizationsViewModel(sortedOrganizations.ToList(), page));
         }
 
         public ActionResult OrganizationInfo(int id = 0)
         {
-            var page = Paginator.GetPageObject(m_facade.GetOrganizationsCount());
-            var currentPageNumber = page.CurrentPageNumber;
-            var pageSize = page.PageSize;
+            Page page = Paginator.GetDepartmentsListPage(m_facade, id);
             var name = m_facade.GetOrganizationById(id).Name;
+            var sortType = Request.Cookies["sort"] != null ? Request.Cookies["sort"].Value : "desc";
 
-
-            if (Request.Cookies["sort"] != null)
-            {
-                var sortType = Request.Cookies["sort"].Value;
-                if (sortType == "descending")
-                {
-                    var sortedDepartments =
-                        from department in m_facade.GetDepartmentsForOnePage(currentPageNumber, pageSize, "DESC")
-                        where department.ParentOrganization.Id == id
-                        select new DepartmentViewModel() { Name = department.Name, Id = department.Id };
-                    return View(new OrganizationWithDepartmentsViewModel() { Id = id, Departments = sortedDepartments.ToList(), Name = name });
-                }
-
-                if (sortType == "ascending")
-                {
-                    var sortedDepartments =
-                       from department in m_facade.GetDepartmentsForOnePage(currentPageNumber, pageSize, "ASC")
-                       where department.ParentOrganization.Id == id
-                       select new DepartmentViewModel() { Name = department.Name, Id = department.Id };
-                    return View(new OrganizationWithDepartmentsViewModel() { Id = id, Departments = sortedDepartments.ToList(), Name = name });
-                }
-            }
-
-            var defaultSortedDepartments =
-                  from department in m_facade.GetDepartmentsForOnePage(currentPageNumber, pageSize, "DESC")
-                  where department.ParentOrganization.Id == id
-                  select new DepartmentViewModel() { Name = department.Name, Id = department.Id };
-            return View(new OrganizationWithDepartmentsViewModel() { Id = id, Departments = defaultSortedDepartments.ToList(), Name = name });
-
+            var sortedDepartments =
+               from department in m_facade.GetDepartmentsForOnePage(page.CurrentPageNumber, page.PageSize, page.CurrentInstanceId)
+               select new DepartmentViewModel() { Name = department.Name, Id = department.Id };
+            return View(new OrganizationWithDepartmentsViewModel() { Id = id, Departments = sortedDepartments.ToList(), Name = name, Page = page });
         }
 
         public ActionResult AddOrganizationMenu()
@@ -66,7 +43,7 @@ namespace OrganizationsWebApplication.Controllers
         public ActionResult AddOrganization(string name)
         {
             m_facade.AddOrganization(new Organization(0) { Name = name });
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("OrganizationsList", "Organization");
         }
 
         public ActionResult UpdateOrganizationMenu(int id)
@@ -79,13 +56,13 @@ namespace OrganizationsWebApplication.Controllers
         public ActionResult UpdateOrganization(OrganizationWithDepartmentsViewModel organization)
         {
             m_facade.UpdateOrganization(new Organization(organization.Id) { Name = organization.Name });
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("OrganizationsList", "Organization");
         }
 
         public ActionResult DeleteOrganization(int id = 0)
         {
             m_facade.DeleteOrganization(id);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("OrganizationsList", "Organization");
         }
     }
 }

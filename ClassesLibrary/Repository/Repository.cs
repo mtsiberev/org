@@ -46,12 +46,12 @@ namespace Organizations
             return m_data[randomNext];
         }
 
-        public List<T> GetEntitiesForOnePage(int pageNum, int pageSize, string sortType)
+        public List<T> GetEntitiesForOnePage(int pageNum, int pageSize, int parentId)
         {
             throw new NotImplementedException();
         }
 
-        public int GetCount()
+        public int GetCount(int id)
         {
             throw new NotImplementedException();
         }

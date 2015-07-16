@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Organizations;
 using OrganizationsWebApplication.Models;
 
@@ -10,16 +6,8 @@ namespace OrganizationsWebApplication.Controllers
 {
     public class EmployeeController : Controller
     {
-        //
-        // GET: /Employee/
         private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
-
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        ///////////////////////////////////////////////////////
+     
         public ActionResult UpdateEmployeeMenu(int id)
         {
             var employee = m_facade.GetEmployeeById(id);
