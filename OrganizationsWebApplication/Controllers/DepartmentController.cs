@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Organizations;
 using OrganizationsWebApplication.Models;
@@ -30,19 +28,22 @@ namespace OrganizationsWebApplication.Controllers
             var departmentBm = m_facade.GetDepartmentById(department.Id);
             departmentBm.Name = department.Name;
             m_facade.UpdateDepartment(departmentBm);
-            return RedirectToAction("Index", "Home");
+         
+            return RedirectToAction("OrganizationInfo", "Organization", new { id = departmentBm.ParentOrganization.Id });
         }
 
         public ActionResult DepartmentInfo(int id = 0)
         {
             Page page = Paginator.GetEmployeesListPage(m_facade, id);
-
             var name = m_facade.GetDepartmentById(id).Name;
+
             var employees =
                from employee in m_facade.GetEmployeesForOnePage(page.CurrentPageNumber, page.PageSize, page.CurrentInstanceId)
                select new EmployeeViewModel(){ Name = String.Join(" ", employee.Name, employee.LastName), Id = employee.Id };
+            
+            var sortedEmployees = SortingHelper.GetListSortedByName(employees);
 
-            return View(new DepartmentWithEmployeesViewModel() { Id = id, Employees = employees.ToList(), Name = name, Page = page});
+            return View(new DepartmentWithEmployeesViewModel() { Id = id, Employees = sortedEmployees.ToList(), Name = name, Page = page });
         }
 
         public ActionResult AddDepartmentMenu(int id)

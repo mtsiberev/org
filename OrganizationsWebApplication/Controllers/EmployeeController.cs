@@ -25,7 +25,8 @@ namespace OrganizationsWebApplication.Controllers
             var employeeBm = m_facade.GetEmployeeById(employee.Id);
             employeeBm.Name = employee.Name;
             m_facade.UpdateEmployee(employeeBm);
-            return RedirectToAction("Index", "Home");
+
+            return RedirectToAction("DepartmentInfo", "Department", new { id = employeeBm.ParentDepartment.Id });
         }
 
         public ActionResult AddEmployeeMenu(int id)

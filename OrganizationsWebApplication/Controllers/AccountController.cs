@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Organizations;
 using WebMatrix.WebData;
 
 namespace OrganizationsWebApplication.Controllers
@@ -16,7 +12,6 @@ namespace OrganizationsWebApplication.Controllers
             Response.Redirect("~/home/index");
             return View();
         }
-
         
         [HttpGet]
         public ActionResult Login()
@@ -65,7 +60,6 @@ namespace OrganizationsWebApplication.Controllers
             {
                 role.CreateRole("admin");
             }
-
             return View();
         }
 
@@ -100,6 +94,5 @@ namespace OrganizationsWebApplication.Controllers
             Response.Redirect("~/account/login");
             return View();
         }
-
     }
 }

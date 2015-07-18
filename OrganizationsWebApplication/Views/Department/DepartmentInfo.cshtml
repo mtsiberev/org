@@ -1,35 +1,13 @@
 ﻿@model OrganizationsWebApplication.Models.DepartmentWithEmployeesViewModel
 
 @{
-    ViewBag.Title = "Department Info";
+    ViewBag.Title = "Department: " + @Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
-</head>
-<body onload="setView()">
 
+<div class="wrapper">
 
-    @Html.Partial("~/Views/_AccountPanel.cshtml")
-
-
-    <div class="header" style="background: #3F51B5;">
-        <span style="background: #3F51B5;">
-            <span style="color: #fff">
-                Department: @Model.Name
-            </span>
-        </span>
-    </div>
-    <br>
-
-    @if (Roles.IsUserInRole("admin"))
-    {
-        @Html.Partial("~/Views/_AddNewInstancePanel.cshtml", @Model.Page)
-        <br>
-    }
-    @Html.Partial("~/Views/_GoBackPanel.cshtml", @Model.Page)
-    @Html.Partial("~/Views/_ListSortPanel.cshtml", @Model.Page)
+    @Html.Partial("~/Views/_MainCommandsBar.cshtml", @Model.Page)
 
     <div class="content">
         @foreach (var employee in Model.Employees)
@@ -57,8 +35,5 @@
             </div>
         }
     </div>
-
-    @Html.Partial("~/Views/_PagingPanel.cshtml", Model.Page)
-
-</body>
-</html>
+</div>
+@Html.Partial("~/Views/_PagingBar.cshtml", Model.Page)

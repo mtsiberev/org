@@ -1,0 +1,21 @@
+﻿@model OrganizationsWebApplication.Models.Page
+
+    <span class="operationBlock" style="background: #000; width: 600px; height: 50px; margin-top: -50px;display: block;">
+
+        @if (@Model.MaxPageNumber > 0)
+        {
+            using (Html.BeginForm("Prev", "Navigation", @Model))
+            {
+                <input type="image" src="../../Content/ic-double-left.svg" name="submit" style="cursor: pointer;" />
+            }
+            <form>
+                <span style="font-family: RobotoDraft, Roboto, sans-serif; font-size: 20px; color: #ffffff;">
+                    @Model.CurrentPageNumber / @Model.MaxPageNumber
+                </span>
+            </form>
+            using (Html.BeginForm("Next", "Navigation", @Model))
+            {
+                <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />
+            }
+        }
+    </span>

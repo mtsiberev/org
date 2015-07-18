@@ -1,7 +1,20 @@
-﻿body {
+﻿html, body {
+    height: 80%;
+    padding: 0;
+    margin: 0;
+}
+
+.wrapper {
+    background-color: #f9f9f9;
+    min-height: 100%;
+    padding-bottom: 50px; 
+}
+
+body {
     position: absolute;
     left: 30%;
 }
+
 
 /*//dropdown menu//*/
 nav ul {
@@ -94,7 +107,7 @@ body {
     font-family: "RobotoDraft","Roboto",sans-serif;
     font-size: 10px;
     color: #569CD6;
-    background-color: #f9f9f9;
+    background-color: white;
 }
 
 button {

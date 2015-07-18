@@ -1,38 +1,13 @@
-﻿@using OrganizationsWebApplication.Controllers
-@using OrganizationsWebApplication.Models
-@model OrganizationsWebApplication.Models.ListOfOrganizationsViewModel
+﻿@model OrganizationsWebApplication.Models.ListOfOrganizationsViewModel
 
 @{
-    ViewBag.Title = "Organizations";
+    ViewBag.Title = "Organizations list";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body onload="setView()">
-    
-    @Html.Partial("~/Views/_AccountPanel.cshtml")
-    
-    <div class="header" style="background: #3F51B5;">
-        <span style="background: #3F51B5;">
-            <span style="color: #fff">
-                Organizations list
-            </span>
-        </span>
-    </div>
-    <br>
-    
-    @if (Roles.IsUserInRole("admin"))
-    {
-        @Html.Partial("~/Views/_AddNewInstancePanel.cshtml", @Model.Page)
-        <br>
-    }
-    @Html.Partial("~/Views/_GoBackPanel.cshtml", @Model.Page)
- 
-    @Html.Partial("~/Views/_ListSortPanel.cshtml", @Model.Page)
-   
+<div class="wrapper">
+
+    @Html.Partial("~/Views/_MainCommandsBar.cshtml", @Model.Page)
 
     <div class="content">
         @foreach (var organization in Model.Organizations)
@@ -59,8 +34,7 @@
             </div>
         }
     </div>
+</div>
 
-    @Html.Partial("~/Views/_PagingPanel.cshtml", Model.Page)
+@Html.Partial("~/Views/_PagingBar.cshtml", Model.Page)
 
-</body>
-</html>

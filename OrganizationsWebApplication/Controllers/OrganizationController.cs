@@ -13,12 +13,12 @@ namespace OrganizationsWebApplication.Controllers
         public ActionResult OrganizationsList()
         {
             Page page = Paginator.GetOrganizationsListPage(m_facade);
-            var sortType = Request.Cookies["sort"] != null ? Request.Cookies["sort"].Value : "desc";
-
-            var sortedOrganizations =
+         
+            var organizations =
                     from organization in m_facade.GetOrganizationsForOnePage(page.CurrentPageNumber, page.PageSize, page.CurrentInstanceId)
-                    where (true)
                     select new OrganizationViewModel() { Name = organization.Name, Id = organization.Id };
+            
+            var sortedOrganizations = SortingHelper.GetListSortedByName(organizations);
 
             return View(new ListOfOrganizationsViewModel(sortedOrganizations.ToList(), page));
         }
@@ -26,12 +26,15 @@ namespace OrganizationsWebApplication.Controllers
         public ActionResult OrganizationInfo(int id = 0)
         {
             Page page = Paginator.GetDepartmentsListPage(m_facade, id);
-            var name = m_facade.GetOrganizationById(id).Name;
-            var sortType = Request.Cookies["sort"] != null ? Request.Cookies["sort"].Value : "desc";
 
-            var sortedDepartments =
+            var name = m_facade.GetOrganizationById(id).Name;
+
+            var departments =
                from department in m_facade.GetDepartmentsForOnePage(page.CurrentPageNumber, page.PageSize, page.CurrentInstanceId)
                select new DepartmentViewModel() { Name = department.Name, Id = department.Id };
+
+            var sortedDepartments = SortingHelper.GetListSortedByName(departments);
+          
             return View(new OrganizationWithDepartmentsViewModel() { Id = id, Departments = sortedDepartments.ToList(), Name = name, Page = page });
         }
 
