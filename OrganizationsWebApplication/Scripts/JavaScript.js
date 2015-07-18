@@ -15,11 +15,6 @@ function sortSwitch() {
         location.reload();
         return false;
     }
-    else {
-        setCookie("sort", "asc");
-        location.reload();
-        return false;
-    }
 }
 /////////////////////////////////////////
 function setList() {

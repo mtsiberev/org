@@ -9,10 +9,13 @@ namespace OrganizationsWebApplication.MvcHelpers
     {
         public static IEnumerable<T> GetListSortedByName<T>(IEnumerable<T> list) where T : IModel
         {
-            var sortType = HttpContext.Current.Request.Cookies["sort"] != null ? HttpContext.Current.Request.Cookies["sort"].Value : "asc";
-            if (sortType != "desc") return list.OrderBy(x => x.Name);
-            var sortedList = list.OrderByDescending(x => x.Name);
-            return sortedList;
+            if (HttpContext.Current.Request.Cookies["sort"] == null)
+                HttpContext.Current.Response.Cookies["sort"].Value = "asc";
+
+            if (HttpContext.Current.Request.Cookies["sort"].Value == "desc")
+                return list.OrderByDescending(x => x.Name);
+
+            return list.OrderBy(x => x.Name);
         }
     }
 }
