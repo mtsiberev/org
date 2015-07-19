@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdministrationMenuController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="Models\DepartmentViewModel.cs" />
     <Compile Include="Models\OrganizationWithDepartmentsViewModel.cs" />
     <Compile Include="Models\Page.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="MvcHelpers\Paginator.cs" />
     <Compile Include="MvcHelpers\SortingHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -216,6 +218,8 @@
     <Content Include="Views\_MainCommandsBar.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\AdministrationMenu\Index.cshtml" />
+    <Content Include="Views\AdministrationMenu\ChangeRolesMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

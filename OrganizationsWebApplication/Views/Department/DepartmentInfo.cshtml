@@ -14,7 +14,9 @@
         {
             <div class="row">
                 <span class="block" style="color:black">
-                    <span>@employee.Name</span>
+                    <a>
+                        @employee.Name
+                    </a>
                 </span>
                 @if (Roles.IsUserInRole("admin"))
                 {
