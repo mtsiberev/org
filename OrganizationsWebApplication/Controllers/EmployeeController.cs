@@ -4,6 +4,7 @@ using OrganizationsWebApplication.Models;
 
 namespace OrganizationsWebApplication.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();

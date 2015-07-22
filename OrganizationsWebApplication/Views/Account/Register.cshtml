@@ -3,6 +3,8 @@
     Layout = null;
 }
 
+@model OrganizationsWebApplication.Models.Account
+
 <!DOCTYPE html>
 
 <html>
@@ -16,23 +18,34 @@
     <div class="header" style="background: #3F51B5;">
         <span style="background: #3F51B5;">
             <span style="color: #fff">
-
                 <h2>Register</h2>
-                <form method="post" action="/account/register">
-                    <table cellpadding="3">
+
+                @using (Html.BeginForm("Register", "Account"))
+                {
+                    <table>
                         <tr>
-                            <td>User Name :</td>
-                            <td><input type="text" name="username" /></td>
-                        </tr>
-                        <tr>
-                            <td>Password :</td>
-                            <td><input type="password" name="password" /></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><input type="submit" value="Register"></td>
+                            <td>
+                                <div class="accountContainer">
+                                    <div class="group">
+                                        @Html.TextBoxFor(m => m.UserName, new { @class = "inputMaterial", @type = "text", @required = "required" })
+                                       <span class="highlight"></span>
+                                        <span class="bar"></span>
+                                        <label>UserName</label>
+                                    </div>
+                                    
+                                    <div class="group">
+                                        @Html.TextBoxFor(m => m.Password, new { @class = "inputMaterial", @type = "text", @required = "required" })
+                                        <span class="highlight"></span>
+                                        <span class="bar"></span>
+                                        <label>Password</label>
+                                    </div>
+                                    <input type="submit" value="Ok">
+
+                                </div>
+                            </td>
                         </tr>
                     </table>
-                </form>
+                }
             </span>
         </span>
     </div>

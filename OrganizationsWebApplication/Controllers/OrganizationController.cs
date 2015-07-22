@@ -6,18 +6,20 @@ using OrganizationsWebApplication.MvcHelpers;
 
 namespace OrganizationsWebApplication.Controllers
 {
+    [Authorize]
     public class OrganizationController : Controller
     {
         private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
 
+
         public ActionResult OrganizationsList()
         {
             Page page = Paginator.GetOrganizationsListPage(m_facade);
-         
+
             var organizations =
                     from organization in m_facade.GetOrganizationsForOnePage(page.CurrentPageNumber, page.PageSize, page.CurrentInstanceId)
                     select new OrganizationViewModel() { Name = organization.Name, Id = organization.Id };
-            
+
             var sortedOrganizations = SortingHelper.GetListSortedByName(organizations);
 
             return View(new ListOfOrganizationsViewModel(sortedOrganizations.ToList(), page));
@@ -34,7 +36,7 @@ namespace OrganizationsWebApplication.Controllers
                select new DepartmentViewModel() { Name = department.Name, Id = department.Id };
 
             var sortedDepartments = SortingHelper.GetListSortedByName(departments);
-          
+
             return View(new OrganizationWithDepartmentsViewModel() { Id = id, Departments = sortedDepartments.ToList(), Name = name, Page = page });
         }
 

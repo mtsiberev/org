@@ -9,6 +9,7 @@ using OrganizationsWebApplication.MvcHelpers;
 
 namespace OrganizationsWebApplication.Controllers
 {
+    [Authorize]
     public class AdministrationMenuController : Controller
     {
         //

@@ -4,6 +4,9 @@
 
 }
 
+@model OrganizationsWebApplication.Models.Account
+
+
 <!DOCTYPE html>
 
 <html>
@@ -12,36 +15,44 @@
     <meta name="viewport" content="width=device-width" />
     <title>Login</title>
 </head>
-    <body>
-        
-        <div class="header" style="background: #3F51B5;">
-            <span style="background: #3F51B5;">
-                <span style="color: #fff">
-              
-                    
-                    <h2>Login</h2>
-                    <form method="post" action="/account/login">
-                        <table cellpadding="3">
-                            <tr>
-                                <td>User Name :</td>
-                                <td><input type="text" name="username" /></td>
-                            </tr>
-                            <tr>
-                                <td>Password :</td>
-                                <td><input type="password" name="password" /></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><input type="submit" value="Login"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><a href="/account/register">New user? Register here!</a></td>
-                            </tr>
-                        </table>
-                    </form>
-                    
-                </span>
+<body>
+
+    <div class="header" style="background: #3F51B5;">
+        <span style="background: #3F51B5;">
+            <span style="color: #fff">
+                <h2>Login</h2>
+
+                @using (Html.BeginForm("Login", "Account"))
+                {
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="accountContainer">
+                                    <div class="group">
+                                        @Html.TextBoxFor(m => m.UserName, new { @class = "inputMaterial", @type = "text", @required = "required" })
+                                        <span class="highlight"></span>
+                                        <span class="bar"></span>
+                                        <label>UserName</label>
+                                    </div>
+
+                                    <div class="group">
+                                        @Html.TextBoxFor(m => m.Password, new { @class = "inputMaterial", @type = "text", @required = "required" })
+                                        <span class="highlight"></span>
+                                        <span class="bar"></span>
+                                        <label>Password</label>
+                                    </div>
+                                    <input type="submit" value="OK">
+                                    <br>
+                                    <br>
+                                    <a href="/account/register">New user? Register here!</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                }
             </span>
-        </div>
-        
+        </span>
+    </div>
+
 </body>
 </html>

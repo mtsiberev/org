@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Web.Mvc;
+using OrganizationsWebApplication.Models;
 using WebMatrix.WebData;
 
 namespace OrganizationsWebApplication.Controllers
 {
     public class AccountController : Controller
     {
-
         public ActionResult Administration()
         {
             Response.Redirect("~/home/index");
@@ -24,14 +24,14 @@ namespace OrganizationsWebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(FormCollection form)
+        public ActionResult Login(Account account)
         {
-            if (form["username"].Length == 0 || form["password"].Length == 0)
+            if (account.UserName.Length == 0 || account.Password.Length == 0)
             {
                 Response.Redirect("~/account/login");
             }
 
-            bool success = WebSecurity.Login(form["username"], form["password"], false);
+            bool success = WebSecurity.Login(account.UserName, account.Password, false);
             if (success)
             {
                 string returnUrl = Request.QueryString["ReturnUrl"];
@@ -64,19 +64,19 @@ namespace OrganizationsWebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(FormCollection form)
+        public ActionResult Register(Account account)
         {
-            if (form["username"].Length == 0 || form["password"].Length == 0)
+            if (account.UserName.Length == 0 || account.Password.Length == 0)
             {
                 Response.Redirect("~/account/register");
             }
             try
             {
-                WebSecurity.CreateUserAndAccount(form["username"], form["password"]);
-                if (form["username"] == "admin")
+                WebSecurity.CreateUserAndAccount(account.UserName, account.Password);
+                if (account.UserName == "admin")
                 {
                     var role = System.Web.Security.Roles.Provider;
-                    role.AddUsersToRoles(new[] {form["username"]}, new[] {"admin"});
+                    role.AddUsersToRoles(new[] { account.UserName }, new[] { "admin" });
                 }
             }
             catch (Exception)

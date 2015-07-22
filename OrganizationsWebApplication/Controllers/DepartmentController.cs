@@ -7,6 +7,7 @@ using OrganizationsWebApplication.MvcHelpers;
 
 namespace OrganizationsWebApplication.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
         private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
