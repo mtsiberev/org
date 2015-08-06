@@ -1,40 +1,40 @@
 ﻿@{
-    ViewBag.Title = "Employee";
+    ViewBag.Title = "AddOrganizationMenu";
+    Layout = null;
 }
 
-@model OrganizationsWebApplication.Models.EmployeeViewModel
+@model OrganizationsWebApplication.Models.OrganizationViewModel
 
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
-</head>
+    <head>
+        <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
+    </head>
 <body>
     <table>
         <tr>
             <td class="block" style="background: #3F51B5; width: 400px">
                 <span style="color: #fff">
-                    Please update employee @Model.Name name:
+                    Please input organization name:
                 </span>
             </td>
         </tr>
     </table>
-    
-    @using (Html.BeginForm("UpdateEmployee", "Employee"))
+
+    @using (Html.BeginForm("AddOrganization", "OrganizationsList"))
     {
         <table>
             <tr>
                 <td>
                     <div class="container">
                         <div class="group">
-                            @Html.HiddenFor(m => m.Id)
-                            @Html.HiddenFor(m => m.ParentId)
+                            @Html.HiddenFor(m => m.PageNumberInOrganizationsList)
                             @Html.TextBoxFor(m => m.Name, new { @class = "inputMaterial", @type = "text", @required = "required" })
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Name</label>
                             <span style="bottom: 35px; left: 65%; position:relative; ">
-                                <input type="image" src="../../Content/ic_done_24px.svg" alt="Update" name="submit" />
+                                <input type="image" src="../../Content/ic_done_24px.svg" alt="create" name="submit" />
                             </span>
                         </div>
                     </div>

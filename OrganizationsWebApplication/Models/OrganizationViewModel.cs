@@ -5,5 +5,7 @@ namespace OrganizationsWebApplication.Models
     {
         public string Name { get; set; }
         public int Id { get; set; }
+
+        public int PageNumberInOrganizationsList { get; set; }
     }
 }

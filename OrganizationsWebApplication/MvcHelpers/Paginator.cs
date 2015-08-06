@@ -7,7 +7,9 @@ namespace OrganizationsWebApplication.MvcHelpers
 {
     public class Paginator
     {
-        private const int pageSize = 6;
+        /*
+        private const int c_pageSize = 6;
+
         public static void ClearSession(string pageType)
         {
             HttpContext.Current.Session.Remove(pageType);
@@ -23,40 +25,108 @@ namespace OrganizationsWebApplication.MvcHelpers
             return startPageValue;
         }
 
-        public static Page GetPageObject(string pageType, int entitiesCount, int currentId, int parentId)
+        public static Page GetPageObject(string pageType, int entitiesCount)
         {
-            var maxPageCount = entitiesCount / pageSize;
-            if ( (entitiesCount % pageSize) != 0) maxPageCount++;
+            var maxPageCount = entitiesCount / c_pageSize;
+            if ((entitiesCount % c_pageSize) != 0) maxPageCount++;
             var currentPage = int.Parse(GetCurrentPage(pageType));
             if (currentPage > maxPageCount) currentPage--;
             if (currentPage == 0) currentPage = 1;
 
-            return new Page(pageSize, currentPage, maxPageCount, pageType, currentId, parentId);
+            return new Page(c_pageSize, currentPage, maxPageCount);
         }
 
+
+
+        public static Page GetFirstOrganizationsListPage(Facade facade)
+        {
+            int entitiesCount = facade.GetOrganizationsCount();
+            var maxPageCount = entitiesCount / c_pageSize;
+            if ((entitiesCount % c_pageSize) != 0) maxPageCount++;
+
+            return new Page(c_pageSize, 1, maxPageCount, "org_list");
+        }
+        
+
+        public static Page GetFirstOrganizationInfoPage(Facade facade, int organizationId)
+        {
+            int entitiesCount = facade.GetDepartmentsCount(organizationId);
+            var maxPageCount = entitiesCount / c_pageSize;
+            if ((entitiesCount % c_pageSize) != 0) maxPageCount++;
+
+            return new Page(c_pageSize, 1, maxPageCount, "org_info");
+        }
+        
+
+        public static Page GetFirstDepartmentInfoPage(Facade facade, int departmentInfo)
+        {
+            int entitiesCount = facade.GetEmployeesCount(departmentInfo);
+            var maxPageCount = entitiesCount / c_pageSize;
+            if ((entitiesCount % c_pageSize) != 0) maxPageCount++;
+
+            return new Page(c_pageSize, 1, maxPageCount, "dep_info");
+        }
+
+      
+        public static Page GetNextPage(Page page, Facade facade, string type, int parentId)
+        {
+            int nextPageNumber = page.CurrentPageNumber + 1;
+            return GetPage(facade, type, parentId, nextPageNumber);
+        }
+
+
+        public static Page GetPage(Facade facade, string type, int parentId, int currentPage)
+        {
+            int entitiesCount = 0;
+            if (type == "org_list")
+            {
+                entitiesCount = facade.GetOrganizationsCount();
+            }
+            if (type == "org_info")
+            {
+                entitiesCount = facade.GetDepartmentsCount(parentId);
+            }
+            if (type == "dep_info")
+            {
+                entitiesCount = facade.GetEmployeesCount(parentId);
+            }
+            var maxPageCount = entitiesCount / c_pageSize;
+            if ((entitiesCount % c_pageSize) != 0) maxPageCount++;
+
+            return new Page(c_pageSize, currentPage, maxPageCount, type);
+        }
+
+
+    */
+
+
+        /*
         public static Page GetOrganizationsListPage(Facade facade)
         {
-            const string pageType = "organizationsPage";
             int organizationsCount = facade.GetOrganizationsCount();
-       
-            return GetPageObject(pageType, organizationsCount, -1, -1);
+            var maxPageCount = organizationsCount / c_pageSize;
+            if ((organizationsCount % c_pageSize) != 0) maxPageCount++;
+
+            return new Page(c_pageSize, 1, maxPageCount);
         }
 
-        public static Page GetDepartmentsListPage(Facade facade, int id)
+        public static Page GetDepartmentsListPage(Facade facade, int organizationId)
         {
-            const string pagetype = "departmentsPage";
-            int departmentsCount = facade.GetDepartmentsCount(id);
+            int departmentsCount = facade.GetDepartmentsCount(organizationId);
+            var maxPageCount = departmentsCount / c_pageSize;
+            if ((departmentsCount % c_pageSize) != 0) maxPageCount++;
 
-            return GetPageObject(pagetype, departmentsCount, id, -1);
+            return new Page(c_pageSize, 1, maxPageCount);
         }
 
-        public static Page GetEmployeesListPage(Facade facade, int id)
+        public static Page GetEmployeesListPage(Facade facade, int departmentId)
         {
-            const string pagetype = "employeesPage";
-            int parentId = facade.GetDepartmentById(id).ParentOrganization.Id;
-            int employeesCount = facade.GetEmployeesCount(id);
+            int employeesCount = facade.GetEmployeesCount(departmentId);
+            var maxPageCount = employeesCount / c_pageSize;
+            if ((employeesCount % c_pageSize) != 0) maxPageCount++;
 
-            return GetPageObject(pagetype, employeesCount, id, parentId);
+            return new Page(c_pageSize, 1, maxPageCount);
         }
+        */
     }
 }

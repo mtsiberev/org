@@ -15,7 +15,7 @@ namespace OrganizationsWebApplication.Controllers
             {
                 Response.Redirect("~/account/login");
             }
-            return RedirectToAction("OrganizationsList", "Organization");
+            return RedirectToAction("OrganizationsList", "OrganizationsList");
         }
     }
 }

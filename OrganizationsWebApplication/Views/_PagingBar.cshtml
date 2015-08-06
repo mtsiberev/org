@@ -1,21 +1,80 @@
-﻿@model OrganizationsWebApplication.Models.Page
+﻿@model OrganizationsWebApplication.Models.MainModel
 
-    <span class="operationBlock" style="background: #000; width: 600px; height: 50px; margin-top: -50px;display: block;">
+<span class="operationBlock" style="background: #000; width: 600px; height: 50px; margin-top: -50px;display: block;">
 
-        @if (@Model.MaxPageNumber > 0)
+
+
+    @if (Model.PageType == "org_list")
+    {
+        using (Html.BeginForm("GoPrevPage", "OrganizationsList", new { pageNumberInOrganizationsList = @Model.PageNumberInOrganizationsList }))
         {
-            using (Html.BeginForm("Prev", "Navigation", @Model))
-            {
-                <input type="image" src="../../Content/ic-double-left.svg" name="submit" style="cursor: pointer;" />
-            }
-            <form>
-                <span style="font-family: RobotoDraft, Roboto, sans-serif; font-size: 20px; color: #ffffff;">
-                    @Model.CurrentPageNumber / @Model.MaxPageNumber
-                </span>
-            </form>
-            using (Html.BeginForm("Next", "Navigation", @Model))
-            {
-                <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />
-            }
+            <input type="image" src="../../Content/ic-double-left.svg" name="submit" style="cursor: pointer;" />
         }
-    </span>
+        <form>
+            <span style="font-family: RobotoDraft, Roboto, sans-serif; font-size: 20px; color: #ffffff;">
+                @Model.PageNumberInOrganizationsList / @Model.MaxPageQty
+            </span>
+        </form>
+        using (Html.BeginForm("GoNextPage", "OrganizationsList", new { pageNumberInOrganizationsList = @Model.PageNumberInOrganizationsList }))
+        {
+            <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />
+        }
+    }
+
+
+    @if (Model.PageType == "org_info")
+    {
+        using (Html.BeginForm("GoPrevPage", "OrganizationInfo", new { organizationId = @Model.Id, pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo }))
+        {
+            <input type="image" src="../../Content/ic-double-left.svg" name="submit" style="cursor: pointer;" />
+        }
+        <form>
+            <span style="font-family: RobotoDraft, Roboto, sans-serif; font-size: 20px; color: #ffffff;">
+                @Model.PageNumberInOrganizationInfo / @Model.MaxPageQty
+            </span>
+        </form>
+        using (Html.BeginForm("GoNextPage", "OrganizationInfo", new { organizationId = @Model.Id, pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo }))
+        {
+            <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />
+        }
+    }
+    
+    
+    
+    @if (Model.PageType == "dep_info")
+    {
+        using (Html.BeginForm("GoPrevPage", "DepartmentInfo", new
+        {
+            departmentId = @Model.Id, 
+            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
+            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+            pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo
+        }))
+        {
+            <input type="image" src="../../Content/ic-double-left.svg" name="submit" style="cursor: pointer;" />
+        }
+        <form>
+            <span style="font-family: RobotoDraft, Roboto, sans-serif; font-size: 20px; color: #ffffff;">
+                @Model.PageNumberInDepartmentInfo / @Model.MaxPageQty
+            </span>
+        </form>
+        using (Html.BeginForm("GoNextPage", "DepartmentInfo", new
+        {
+            departmentId = @Model.Id, 
+            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
+            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+            pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo
+        }))
+        {
+            <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />
+        }
+    }
+
+    
+
+    
+    
+    
+
+
+</span>

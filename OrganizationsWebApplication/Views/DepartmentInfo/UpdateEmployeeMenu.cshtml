@@ -1,39 +1,42 @@
 ﻿@{
-    ViewBag.Title = "AddOrganizationMenu";
-    Layout = null;
+    ViewBag.Title = "Employee";
 }
 
-@model OrganizationsWebApplication.Models.OrganizationViewModel
+@model OrganizationsWebApplication.Models.EmployeeViewModel
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
-    </head>
+<head>
+    <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
+</head>
 <body>
     <table>
         <tr>
             <td class="block" style="background: #3F51B5; width: 400px">
                 <span style="color: #fff">
-                    Please input organization name:
+                    Please update employee @Model.Name name:
                 </span>
             </td>
         </tr>
     </table>
-
-    @using (Html.BeginForm("AddOrganization", "Organization"))
+    
+    @using (Html.BeginForm("UpdateEmployee", "DepartmentInfo"))
     {
         <table>
             <tr>
                 <td>
                     <div class="container">
                         <div class="group">
+                            @Html.HiddenFor(m => m.Id)
+                            @Html.HiddenFor(m => m.PageNumberInOrganizationsList)
+                            @Html.HiddenFor(m => m.PageNumberInOrganizationInfo)
+                            @Html.HiddenFor(m => m.PageNumberInDepartmentInfo)
                             @Html.TextBoxFor(m => m.Name, new { @class = "inputMaterial", @type = "text", @required = "required" })
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Name</label>
                             <span style="bottom: 35px; left: 65%; position:relative; ">
-                                <input type="image" src="../../Content/ic_done_24px.svg" alt="create" name="submit" />
+                                <input type="image" src="../../Content/ic_done_24px.svg" alt="Update" name="submit" />
                             </span>
                         </div>
                     </div>

@@ -132,11 +132,10 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministrationMenuController.cs" />
-    <Compile Include="Controllers\DepartmentController.cs" />
-    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\OrganizationInfoController.cs" />
+    <Compile Include="Controllers\DepartmentInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\NavigationController.cs" />
-    <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\OrganizationsListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -144,11 +143,11 @@
     <Compile Include="Models\DepartmentWithEmployeesViewModel.cs" />
     <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\IModel.cs" />
-    <Compile Include="Models\ListOfOrganizationsViewModel.cs" />
+    <Compile Include="Models\OrganizationsList.cs" />
+    <Compile Include="Models\MainModel.cs" />
     <Compile Include="Models\OrganizationViewModel.cs" />
     <Compile Include="Models\DepartmentViewModel.cs" />
     <Compile Include="Models\OrganizationWithDepartmentsViewModel.cs" />
-    <Compile Include="Models\Page.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="MvcHelpers\Paginator.cs" />
     <Compile Include="MvcHelpers\SortingHelper.cs" />
@@ -204,16 +203,16 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Organization\AddOrganizationMenu.cshtml" />
-    <Content Include="Views\Department\AddDepartmentMenu.cshtml" />
-    <Content Include="Views\Employee\AddEmployeeMenu.cshtml" />
-    <Content Include="Views\Organization\UpdateOrganizationMenu.cshtml" />
-    <Content Include="Views\Department\UpdateDepartmentMenu.cshtml" />
-    <Content Include="Views\Employee\UpdateEmployeeMenu.cshtml" />
+    <Content Include="Views\OrganizationsList\AddOrganizationMenu.cshtml" />
+    <Content Include="Views\OrganizationInfo\AddDepartmentMenu.cshtml" />
+    <Content Include="Views\DepartmentInfo\AddEmployeeMenu.cshtml" />
+    <Content Include="Views\OrganizationsList\UpdateOrganizationMenu.cshtml" />
+    <Content Include="Views\OrganizationInfo\UpdateDepartmentMenu.cshtml" />
+    <Content Include="Views\DepartmentInfo\UpdateEmployeeMenu.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Organization\OrganizationsList.cshtml" />
+    <Content Include="Views\OrganizationsList\OrganizationsList.cshtml" />
     <Content Include="Views\_PagingBar.cshtml" />
     <Content Include="Views\_AccountBar.cshtml" />
     <Content Include="Views\_MainCommandsBar.cshtml" />
@@ -232,10 +231,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Organization\OrganizationInfo.cshtml" />
+    <Content Include="Views\OrganizationInfo\OrganizationInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Department\DepartmentInfo.cshtml" />
+    <Content Include="Views\DepartmentInfo\DepartmentInfo.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

@@ -1,9 +1,9 @@
 ﻿@{
-    ViewBag.Title = "AddDepartmentMenu";
+    ViewBag.Title = "AddEmployeeMenu";
     Layout = null;
 }
 
-@model OrganizationsWebApplication.Models.DepartmentViewModel
+@model OrganizationsWebApplication.Models.EmployeeViewModel
 
 <!DOCTYPE html>
 <html>
@@ -15,13 +15,13 @@
         <tr>
             <td class="block" style="background: #3F51B5; width: 400px">
                 <span style="color: #fff">
-                    Please input department name:
+                    Please input employee name:
                 </span>
             </td>
         </tr>
     </table>
-   
-    @using (Html.BeginForm("AddDepartment", "Department"))
+
+    @using (Html.BeginForm("AddEmployee", "DepartmentInfo"))
     {
         <table>
             <tr>
@@ -29,6 +29,9 @@
                     <div class="container">
                         <div class="group">
                             @Html.HiddenFor(m => m.ParentId)
+                            @Html.HiddenFor(m => m.PageNumberInOrganizationsList)
+                            @Html.HiddenFor(m => m.PageNumberInOrganizationInfo)
+                            @Html.HiddenFor(m => m.PageNumberInDepartmentInfo)
                             @Html.TextBoxFor(m => m.Name, new { @class = "inputMaterial", @type = "text", @required = "required" })
                             <span class="highlight"></span>
                             <span class="bar"></span>
@@ -42,5 +45,6 @@
             </tr>
         </table>
     }
+
 </body>
 </html>

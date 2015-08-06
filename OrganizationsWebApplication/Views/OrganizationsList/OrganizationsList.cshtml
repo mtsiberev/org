@@ -1,0 +1,45 @@
+﻿@model OrganizationsWebApplication.Models.OrganizationsList
+
+@{
+    ViewBag.Title = "Organizations list";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper">
+
+    @Html.Partial("~/Views/_MainCommandsBar.cshtml", @Model)
+
+    <div class="content">
+        @foreach (var organization in Model.Content)
+        {
+            <div class="row">
+                <span class="block">
+                    @Html.ActionLink(organization.Name, "OrganizationInfo", "OrganizationInfo",
+            new
+            {
+                organizationId = organization.Id,
+                pageNumberInOrganizationsList = @Model.PageNumberInOrganizationsList,
+                pageNumberInOrganizationInfo = 1
+            }, null)
+                </span>
+
+                @if (Roles.IsUserInRole("admin"))
+                {
+                    <span class="operationBlock">
+                        @using (Html.BeginForm("UpdateOrganizationMenu", "OrganizationsList", new { id = organization.Id, pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList }))
+                        {
+                            <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
+                        }
+                        @using (Html.BeginForm("DeleteOrganization", "OrganizationsList", new { id = organization.Id, pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList }))
+                        {
+                            <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
+                        }
+                    </span>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@Html.Partial("~/Views/_PagingBar.cshtml", @Model)
+

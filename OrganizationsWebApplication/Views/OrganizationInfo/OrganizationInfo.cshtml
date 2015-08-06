@@ -1,0 +1,61 @@
+﻿@model OrganizationsWebApplication.Models.OrganizationWithDepartmentsViewModel
+@{
+    ViewBag.Title = "Organization: " + @Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper">
+
+    @Html.Partial("~/Views/_MainCommandsBar.cshtml", Model)
+
+
+    <div class="content">
+        @foreach (var department in Model.Content)
+        {
+            <div class="row">
+                <span class="block">
+                    @Html.ActionLink(department.Name, "DepartmentInfo", "DepartmentInfo",
+               new
+               {
+                   parentId = Model.Id,
+                   departmentId = department.Id,
+                   pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+                   pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+                   pageNumberInDepartmentInfo = 1
+               }, null
+                        )
+                </span>
+                @if (Roles.IsUserInRole("admin"))
+                {
+                    <span class="operationBlock">
+                        @using (Html.BeginForm("UpdateDepartmentMenu", "OrganizationInfo",
+                            new
+                            {
+                                id = department.Id, 
+                                pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
+                                pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo
+                            }))
+                        {
+                            <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
+                        }
+
+                        @using (Html.BeginForm("DeleteDepartment", "OrganizationInfo",
+                            new
+                            {
+                                id = department.Id,
+                                pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+                                pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo
+                            }))
+                        {
+                            <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
+                        }
+                    </span>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+
+@Html.Partial("~/Views/_PagingBar.cshtml", Model)
+

@@ -8,24 +8,25 @@
     <script src="../../Scripts/JavaScript.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js" type="text/javascript">
     </script>
-    
+
     <title>_Layout</title>
 </head>
-    <body>
+<body>
 
-        @Html.Partial("~/Views/_AccountBar.cshtml")
+    @Html.Partial("~/Views/_AccountBar.cshtml")
 
-        <div class="header" style="background: #3F51B5;">
-            <span style="color: #fff">
-                @ViewBag.Title
-            </span>
-        </div>
+    <div class="header" style="background: #3F51B5;">
+        <span style="color: #fff">
+            @ViewBag.Title
+        </span>
+    </div>
 
-        @RenderBody()
+    @RenderBody()
 
-        <script>setView();
-        </script>
-        
-        <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
-    </body>
+    <script>
+        setView();
+    </script>
+
+    <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
+</body>
 </html>

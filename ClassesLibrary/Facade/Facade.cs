@@ -107,9 +107,9 @@ namespace Organizations
             return m_employeesRepository.GetCount(id);
         }
         
-        public List<Organization> GetOrganizationsForOnePage(int pageNum, int pageSize, int currentId)
+        public List<Organization> GetOrganizationsForOnePage(int pageNum, int pageSize)
         {
-            return m_organizationsRepository.GetEntitiesForOnePage(pageNum, pageSize, currentId);
+            return m_organizationsRepository.GetEntitiesForOnePage(pageNum, pageSize, 0);
         }
 
         public List<Department> GetDepartmentsForOnePage(int pageNum, int pageSize, int currentId)
