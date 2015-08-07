@@ -6,7 +6,7 @@
 
     @if (Model.PageType == "org_list")
     {
-        using (Html.BeginForm("GoPrevPage", "OrganizationsList", new { pageNumberInOrganizationsList = @Model.PageNumberInOrganizationsList }))
+        using (Html.BeginForm("GoPrevPage", "OrganizationsList", new { pageNumberInOrganizationsList = @Model.PageNumberInOrganizationsList, viewType = Model.ViewType }))
         {
             <input type="image" src="../../Content/ic-double-left.svg" name="submit" style="cursor: pointer;" />
         }
@@ -15,7 +15,7 @@
                 @Model.PageNumberInOrganizationsList / @Model.MaxPageQty
             </span>
         </form>
-        using (Html.BeginForm("GoNextPage", "OrganizationsList", new { pageNumberInOrganizationsList = @Model.PageNumberInOrganizationsList }))
+        using (Html.BeginForm("GoNextPage", "OrganizationsList", new { pageNumberInOrganizationsList = @Model.PageNumberInOrganizationsList, viewType = Model.ViewType }))
         {
             <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />
         }
@@ -24,7 +24,13 @@
 
     @if (Model.PageType == "org_info")
     {
-        using (Html.BeginForm("GoPrevPage", "OrganizationInfo", new { organizationId = @Model.Id, pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo }))
+        using (Html.BeginForm("GoPrevPage", "OrganizationInfo", new
+        {
+            organizationId = @Model.Id, 
+            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
+            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+            viewType = Model.ViewType
+        }))
         {
             <input type="image" src="../../Content/ic-double-left.svg" name="submit" style="cursor: pointer;" />
         }
@@ -33,7 +39,13 @@
                 @Model.PageNumberInOrganizationInfo / @Model.MaxPageQty
             </span>
         </form>
-        using (Html.BeginForm("GoNextPage", "OrganizationInfo", new { organizationId = @Model.Id, pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo }))
+        using (Html.BeginForm("GoNextPage", "OrganizationInfo", new
+        {
+            organizationId = @Model.Id, 
+            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
+            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+            viewType = Model.ViewType
+        }))
         {
             <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />
         }
@@ -48,7 +60,8 @@
             departmentId = @Model.Id, 
             pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
             pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-            pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo
+            pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
+             viewType = Model.ViewType
         }))
         {
             <input type="image" src="../../Content/ic-double-left.svg" name="submit" style="cursor: pointer;" />
@@ -63,7 +76,8 @@
             departmentId = @Model.Id, 
             pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
             pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-            pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo
+            pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
+            viewType = Model.ViewType
         }))
         {
             <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />

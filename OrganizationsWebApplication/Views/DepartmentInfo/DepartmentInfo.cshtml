@@ -28,7 +28,8 @@
                                 name = employee.Name,
                                 pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
                                 pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-                                pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo
+                                pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
+                                viewType = Model.ViewType
                             }))
                         {
                             <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
@@ -40,7 +41,8 @@
                                 id = employee.Id,
                                 pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
                                 pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-                                pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo
+                                pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
+                                viewType = Model.ViewType
                             }))
                         {
                             <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
@@ -53,5 +55,24 @@
 </div>
 
 
-    @Html.Partial("~/Views/_PagingBar.cshtml", Model)
+
+@if (Model.ViewType == "list")
+{
+    <script>
+        setListView()
+    </script>
+}
+
+
+@if (Model.ViewType == "grid")
+{
+    <script>
+        setGridView()
+    </script>
+}
+
+
+
+
+@Html.Partial("~/Views/_PagingBar.cshtml", Model)
 

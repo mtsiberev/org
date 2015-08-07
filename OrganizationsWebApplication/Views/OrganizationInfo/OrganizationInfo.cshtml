@@ -15,14 +15,15 @@
             <div class="row">
                 <span class="block">
                     @Html.ActionLink(department.Name, "DepartmentInfo", "DepartmentInfo",
-               new
-               {
-                   parentId = Model.Id,
-                   departmentId = department.Id,
-                   pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-                   pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-                   pageNumberInDepartmentInfo = 1
-               }, null
+                        new
+                        {
+                            parentId = Model.Id,
+                            departmentId = department.Id,
+                            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+                            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+                            pageNumberInDepartmentInfo = 1,
+                            viewType = Model.ViewType
+                        }, null
                         )
                 </span>
                 @if (Roles.IsUserInRole("admin"))
@@ -33,7 +34,8 @@
                             {
                                 id = department.Id, 
                                 pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
-                                pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo
+                                pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+                                viewType = Model.ViewType
                             }))
                         {
                             <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
@@ -44,7 +46,8 @@
                             {
                                 id = department.Id,
                                 pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-                                pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo
+                                pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+                                viewType = Model.ViewType
                             }))
                         {
                             <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
@@ -55,6 +58,29 @@
         }
     </div>
 </div>
+
+
+
+
+
+@if (Model.ViewType == "list")
+{
+    <script>
+        setListView()
+    </script>
+}
+
+
+@if (Model.ViewType == "grid")
+{
+    <script>
+        setGridView()
+    </script>
+}
+
+
+
+
 
 
 @Html.Partial("~/Views/_PagingBar.cshtml", Model)

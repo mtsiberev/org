@@ -12,9 +12,10 @@ namespace OrganizationsWebApplication.Controllers
         private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
 
         public ActionResult OrganizationInfo(
-            int organizationId = 0,
-            int pageNumberInOrganizationsList = 0,
-            int pageNumberInOrganizationInfo = 0)
+            int organizationId,
+            int pageNumberInOrganizationsList,
+            int pageNumberInOrganizationInfo, 
+            string viewType)
         {
             var model = new OrganizationWithDepartmentsViewModel(
                 m_facade,
@@ -22,14 +23,45 @@ namespace OrganizationsWebApplication.Controllers
                 m_facade.GetOrganizationById(organizationId).Name,
                 pageNumberInOrganizationsList,
                 pageNumberInOrganizationInfo);
-            //var sortedDepartments = SortingHelper.GetListSortedByName(departments);
+           model.ViewType = viewType;
             return View(model);
         }
+        
 
+        public ActionResult ChangeViewType(
+            int organizationId,
+            int pageNumberInOrganizationsList,
+            int pageNumberInOrganizationInfo,
+            string viewType)
+        {
+            string newViewType = "list";
+            if (viewType == "list")
+            {
+                newViewType = "grid";
+            }
+            else if (viewType == "grid")
+            {
+                newViewType = "list";
+            }
+
+            var model = new OrganizationWithDepartmentsViewModel(
+         m_facade,
+         organizationId,
+         m_facade.GetOrganizationById(organizationId).Name,
+         pageNumberInOrganizationsList,
+         pageNumberInOrganizationInfo);
+
+            model.ViewType = newViewType;
+
+            return View("OrganizationInfo", model);
+        }
+
+        
         public ActionResult GoNextPage(
-            int organizationId = 0,
-            int pageNumberInOrganizationsList = 0,
-            int pageNumberInOrganizationInfo = 0)
+            int organizationId,
+            int pageNumberInOrganizationsList,
+            int pageNumberInOrganizationInfo,
+            string viewType)
         {
             var nextPage = pageNumberInOrganizationInfo + 1;
 
@@ -40,13 +72,16 @@ namespace OrganizationsWebApplication.Controllers
               pageNumberInOrganizationsList,
               nextPage);
 
+            model.ViewType = viewType;
+
             return View("OrganizationInfo", model);
         }
 
         public ActionResult GoPrevPage(
-            int organizationId = 0,
-            int pageNumberInOrganizationsList = 0,
-            int pageNumberInOrganizationInfo = 0)
+            int organizationId,
+            int pageNumberInOrganizationsList,
+            int pageNumberInOrganizationInfo,
+            string viewType)
         {
             var prevPage = pageNumberInOrganizationInfo - 1;
 
@@ -57,53 +92,54 @@ namespace OrganizationsWebApplication.Controllers
               pageNumberInOrganizationsList,
               prevPage);
 
+            model.ViewType = viewType;
+
             return View("OrganizationInfo", model);
         }
 
-
-        public ActionResult UpdateDepartmentMenu(int id, int pageNumberInOrganizationsList, int pageNumberInOrganizationInfo)
+        public ActionResult UpdateDepartmentMenu(int id, int pageNumberInOrganizationsList, int pageNumberInOrganizationInfo, string viewType)
         {
             var department = m_facade.GetDepartmentById(id);
             var departmentModel = new DepartmentViewModel()
             {
                 Id = department.Id,
                 ParentId = department.ParentOrganization.Id,
-                Name = department.Name,
-                PageNumberInOrganizationsList = pageNumberInOrganizationsList,
-                PageNumberInOrganizationInfo = pageNumberInOrganizationInfo
+                Name = department.Name
             };
+
             return View(departmentModel);
         }
 
-        public ActionResult UpdateDepartment(DepartmentViewModel department)
+        public ActionResult UpdateDepartment(DepartmentViewModel department, int pageNumberInOrganizationsList, int pageNumberInOrganizationInfo, string viewType)
         {
             var departmentBm = m_facade.GetDepartmentById(department.Id);
             departmentBm.Name = department.Name;
             m_facade.UpdateDepartment(departmentBm);
 
             var model = new OrganizationWithDepartmentsViewModel(
-              m_facade,
-              department.ParentId,
-              m_facade.GetOrganizationById(department.ParentId).Name,
-              department.PageNumberInOrganizationsList,
-              department.PageNumberInOrganizationInfo);
+                m_facade,
+                department.ParentId,
+                m_facade.GetOrganizationById(department.ParentId).Name,
+                pageNumberInOrganizationsList,
+                pageNumberInOrganizationInfo
+                );
+            model.ViewType = viewType;
 
             return View("OrganizationInfo", model);
         }
 
 
-        public ActionResult AddDepartmentMenu(int organizationId, int pageNumberInOrganizationsList, int pageNumberInOrganizationInfo)
+        public ActionResult AddDepartmentMenu(int organizationId, int pageNumberInOrganizationsList, int pageNumberInOrganizationInfo, string viewType)
         {
             var departmentModel = new DepartmentViewModel()
             {
-                ParentId = organizationId,
-                PageNumberInOrganizationsList = pageNumberInOrganizationsList,
-                PageNumberInOrganizationInfo = pageNumberInOrganizationInfo
+                ParentId = organizationId
             };
+
             return View(departmentModel);
         }
-        
-        public ActionResult AddDepartment(DepartmentViewModel department)
+
+        public ActionResult AddDepartment(DepartmentViewModel department, int pageNumberInOrganizationsList, int pageNumberInOrganizationInfo, string viewType)
         {
             var organization = m_facade.GetOrganizationById(department.ParentId);
             m_facade.AddDepartment(new Department(0, organization) { Name = department.Name });
@@ -112,13 +148,15 @@ namespace OrganizationsWebApplication.Controllers
                 m_facade,
                 department.ParentId,
                 m_facade.GetOrganizationById(department.ParentId).Name,
-                department.PageNumberInOrganizationsList,
-                department.PageNumberInOrganizationInfo);
+                pageNumberInOrganizationsList,
+                pageNumberInOrganizationInfo);
+
+            model.ViewType = viewType;
 
             return View("OrganizationInfo", model);
         }
 
-        public ActionResult DeleteDepartment(int id, int pageNumberInOrganizationsList, int pageNumberInOrganizationInfo)
+        public ActionResult DeleteDepartment(int id, int pageNumberInOrganizationsList, int pageNumberInOrganizationInfo, string viewType)
         {
             var parentId = m_facade.GetDepartmentById(id).ParentOrganization.Id;
             m_facade.DeleteDepartment(id);
@@ -129,6 +167,8 @@ namespace OrganizationsWebApplication.Controllers
                 m_facade.GetOrganizationById(parentId).Name,
                 pageNumberInOrganizationsList,
                 pageNumberInOrganizationInfo);
+
+            model.ViewType = viewType;
 
             return View("OrganizationInfo", model);
         }

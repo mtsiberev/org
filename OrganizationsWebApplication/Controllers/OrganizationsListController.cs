@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using System.Web.Routing;
 using Organizations;
 using OrganizationsWebApplication.Models;
 
@@ -18,68 +17,92 @@ namespace OrganizationsWebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult OrganizationsList(int pageNumberInOrganizationsList)
+        public ActionResult OrganizationsList(int pageNumberInOrganizationsList, string viewType)
         {
             var model = new OrganizationsList(m_facade, pageNumberInOrganizationsList);
+            model.ViewType = viewType;
+
             return View(model);
         }
 
-        public ActionResult GoNextPage(int pageNumberInOrganizationsList)
+        public ActionResult GoNextPage(int pageNumberInOrganizationsList, string viewType)
         {
             var nextPage = pageNumberInOrganizationsList + 1;
             var model = new OrganizationsList(m_facade, nextPage);
+            model.ViewType = viewType;
+
             return View("OrganizationsList", model);
         }
 
-        public ActionResult GoPrevPage(int pageNumberInOrganizationsList)
+        public ActionResult GoPrevPage(int pageNumberInOrganizationsList, string viewType)
         {
             var prevPage = pageNumberInOrganizationsList - 1;
             var model = new OrganizationsList(m_facade, prevPage);
+            model.ViewType = viewType;
+
             return View("OrganizationsList", model);
         }
 
-        public ActionResult AddOrganizationMenu(int pageNumberInOrganizationsList)
+        public ActionResult ChangeViewType(int pageNumberInOrganizationsList, string viewType)
         {
-            var model = new OrganizationViewModel()
+            string newViewType = "list";
+            if (viewType == "list")
             {
-                PageNumberInOrganizationsList = pageNumberInOrganizationsList
-            };
+                newViewType = "grid";
+            }
+            else if (viewType == "grid")
+            {
+                newViewType = "list";
+            }
+
+            var model = new OrganizationsList(m_facade, pageNumberInOrganizationsList);
+            model.ViewType = newViewType;
+
+            return View("OrganizationsList", model);
+        }
+
+        public ActionResult AddOrganizationMenu(int pageNumberInOrganizationsList, string viewType)
+        {
+            var model = new OrganizationViewModel();
             return View(model);
         }
 
-        public ActionResult AddOrganization(OrganizationViewModel organization)
+        public ActionResult AddOrganization(OrganizationViewModel organization, int pageNumberInOrganizationsList, string viewType)
         {
             m_facade.AddOrganization(new Organization(0) { Name = organization.Name });
+            var model = new OrganizationsList(m_facade, pageNumberInOrganizationsList);
+            model.ViewType = viewType;
 
-            var model = new OrganizationsList(m_facade, organization.PageNumberInOrganizationsList);
             return View("OrganizationsList", model);
         }
-        
-        public ActionResult UpdateOrganizationMenu(int id, int pageNumberInOrganizationsList)
+
+        public ActionResult UpdateOrganizationMenu(int id, int pageNumberInOrganizationsList, string viewType)
         {
             var name = m_facade.GetOrganizationById(id).Name;
-            var organizationWithDepartmentsModel = new OrganizationViewModel()
+            var organization = new OrganizationViewModel()
             {
                 Id = id,
-                Name = name,
-                PageNumberInOrganizationsList = pageNumberInOrganizationsList
+                Name = name
             };
-
-            return View(organizationWithDepartmentsModel);
+            
+            return View(organization);
         }
 
-        public ActionResult UpdateOrganization(OrganizationViewModel organization)
+        public ActionResult UpdateOrganization(OrganizationViewModel organization, int pageNumberInOrganizationsList, string viewType)
         {
             m_facade.UpdateOrganization(new Organization(organization.Id) { Name = organization.Name });
-            var model = new OrganizationsList(m_facade, organization.PageNumberInOrganizationsList);
+            var model = new OrganizationsList(m_facade, pageNumberInOrganizationsList);
+            model.ViewType = viewType;
 
             return View("OrganizationsList", model);
         }
-       
-        public ActionResult DeleteOrganization(int id, int pageNumberInOrganizationsList)
+
+        public ActionResult DeleteOrganization(int id, int pageNumberInOrganizationsList, string viewType)
         {
             m_facade.DeleteOrganization(id);
             var model = new OrganizationsList(m_facade, pageNumberInOrganizationsList);
+            model.ViewType = viewType;
+
             return View("OrganizationsList", model);
         }
     }

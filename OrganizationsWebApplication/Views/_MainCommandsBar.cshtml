@@ -1,13 +1,65 @@
 ﻿@model OrganizationsWebApplication.Models.MainModel
 
 <span class="operationBlock" style="background: #3F51B5; width: 600px; height: 50px">
-    
+
+
+    @if (Model.PageType == "org_list")
+    {
+
+        using (Html.BeginForm("ChangeViewType", "OrganizationsList", new
+        {
+            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+            viewType = Model.ViewType
+        }, FormMethod.Post))
+        {
+            if (Model.ViewType == "list")
+            {
+                <input type="image" src="../../Content/view-module.svg" alt="add" name="submit" />
+            }
+
+            if (Model.ViewType == "grid")
+            {
+                <input type="image" src="../../Content/view-list.svg" alt="add" name="submit" />
+            }
+        }
+    }
+
+
+
     @if (@Model.PageType == "org_info")
     {
-        using (Html.BeginForm("OrganizationsList", "OrganizationsList", new { pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList }, FormMethod.Post))
+        using (Html.BeginForm("OrganizationsList", "OrganizationsList", new
+        {
+            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+            viewType = Model.ViewType
+        }, FormMethod.Post))
         {
             <input type="image" src="../../Content/ic_home_24px_inverse.svg" alt="add" name="submit" />
         }
+
+
+
+        using (Html.BeginForm("ChangeViewType", "OrganizationInfo", new
+        {
+            organizationId = @Model.Id,
+            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+            viewType = Model.ViewType
+        }, FormMethod.Post))
+        {
+            if (Model.ViewType == "list")
+            {
+                <input type="image" src="../../Content/view-module.svg" alt="add" name="submit" />
+            }
+
+            if (Model.ViewType == "grid")
+            {
+                <input type="image" src="../../Content/view-list.svg" alt="add" name="submit" />
+            }
+        }
+
+
+
     }
 
     @if (@Model.PageType == "dep_info")
@@ -16,19 +68,52 @@
         {
             organizationId = @Model.ParentId,
             pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo
+            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+            viewType = Model.ViewType
         }, FormMethod.Post))
         {
             <input type="image" src="../../Content/ic_home_24px_inverse.svg" alt="add" name="submit" />
         }
+
+
+
+        using (Html.BeginForm("ChangeViewType", "DepartmentInfo", new
+ {
+     departmentId = @Model.Id,
+     pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+     pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+     pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
+     viewType = Model.ViewType
+ }, FormMethod.Post))
+        {
+            if (Model.ViewType == "list")
+            {
+                <input type="image" src="../../Content/view-module.svg" alt="add" name="submit" />
+            }
+
+            if (Model.ViewType == "grid")
+            {
+                <input type="image" src="../../Content/view-list.svg" alt="add" name="submit" />
+            }
+        }
+
+
+
+
     }
+
+
 
     @if (Roles.IsUserInRole("admin"))
     {
 
         if (@Model.PageType == "org_list")
         {
-            using (Html.BeginForm("AddOrganizationMenu", "OrganizationsList", new { pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList}, FormMethod.Post))
+            using (Html.BeginForm("AddOrganizationMenu", "OrganizationsList", new
+            {
+                pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+                viewType = Model.ViewType
+            }, FormMethod.Post))
             {
                 <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
             }
@@ -38,9 +123,10 @@
         {
             using (Html.BeginForm("AddDepartmentMenu", "OrganizationInfo", new
             {
-                organizationId = @Model.Id, 
-                pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
-                pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo
+                organizationId = @Model.Id,
+                pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+                pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+                viewType = Model.ViewType
             }, FormMethod.Post))
             {
                 <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
@@ -54,7 +140,8 @@
                 departmentId = Model.Id,
                 pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
                 pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-                pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo
+                pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
+                viewType = Model.ViewType
             }, FormMethod.Post))
             {
                 <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
@@ -62,6 +149,13 @@
         }
 
     }
+
+
+
+
+
+
+
 
 
 
@@ -88,27 +182,6 @@
         </form>
     }
 
-    @if (Request.Cookies["view"] != null)
-    {
-        var value = Request.Cookies["view"].Value;
-        if (value == "list")
-        {
-            <form>
-                <img src="../../Content/view-module.svg" onclick=" setGrid() " style="cursor: pointer;" />
-            </form>
-        }
-        else if (value == "grid")
-        {
-            <form>
-                <img src="../../Content/view-list.svg" onclick=" setList() " style="cursor: pointer;" />
-            </form>
-        }
-    }
-    else
-    {
-        <form>
-            <img src="../../Content/view-module.svg" onclick=" setGrid() " style="cursor: pointer;" />
-        </form>
-    }
+
 
 </span>

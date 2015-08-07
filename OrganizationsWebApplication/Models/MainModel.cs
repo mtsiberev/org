@@ -12,16 +12,19 @@ namespace OrganizationsWebApplication.Models
         public int PageNumberInOrganizationInfo { get; protected set; }
         public int PageNumberInDepartmentInfo { get; protected set; }
 
-
-        public const int PageSize = 6;
+        protected const int PageSize = 6;
         public string PageType { get; protected set; }
-
         public int MaxPageQty { get; protected set; }
-        public abstract void RefreshMaxPage(Facade facade);
-        public abstract void RefreshContent(Facade facade);
+        public string ModelType { get; protected set; }
+        
+        protected MainModel()
+        {
+            SortType = "asc";//replace to derived constructor
+            ViewType = "list";//replace to derived constructor
+        }
 
         public string SortType;
         public string ViewType;
-        public string ModelType;
+
     }
 }

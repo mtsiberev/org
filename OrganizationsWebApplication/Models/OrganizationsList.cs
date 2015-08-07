@@ -29,7 +29,7 @@ namespace OrganizationsWebApplication.Models
             PageType = "org_list";
         }
 
-        public override sealed void RefreshMaxPage(Facade facade)
+        private void RefreshMaxPage(Facade facade)
         {
             var entitiesCount = facade.GetOrganizationsCount();
             MaxPageQty = entitiesCount / PageSize;
@@ -38,7 +38,7 @@ namespace OrganizationsWebApplication.Models
             if (MaxPageQty == 0) MaxPageQty++;
         }
 
-        public override sealed void RefreshContent(Facade facade)
+        private void RefreshContent(Facade facade)
         {
             var organizations =
                  from organization in facade.GetOrganizationsForOnePage(PageNumberInOrganizationsList, PageSize)

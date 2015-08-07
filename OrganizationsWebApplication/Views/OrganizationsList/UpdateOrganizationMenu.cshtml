@@ -27,9 +27,11 @@
                 <td>
                     <div class="container">
                         <div class="group">
-                            @Html.HiddenFor(m => m.PageNumberInOrganizationsList)
                             @Html.HiddenFor(m => m.Id)
                             @Html.TextBoxFor(m => m.Name, new { @class = "inputMaterial", @type = "text", @required = "required" })
+                            @Html.Hidden("pageNumberInOrganizationsList")
+                            @Html.Hidden("viewType")
+                            
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Name</label>

@@ -14,7 +14,8 @@ namespace OrganizationsWebApplication.Controllers
             int departmentId,
             int pageNumberInOrganizationsList,
             int pageNumberInOrganizationInfo,
-            int pageNumberInDepartmentInfo)
+            int pageNumberInDepartmentInfo,
+            string viewType)
         {
             var model = new DepartmentWithEmployeesViewModel(
                 m_facade,
@@ -23,78 +24,116 @@ namespace OrganizationsWebApplication.Controllers
                 m_facade.GetDepartmentById(departmentId).Name,
                 pageNumberInOrganizationsList,
                 pageNumberInOrganizationInfo,
-                pageNumberInDepartmentInfo
-                );
+                pageNumberInDepartmentInfo);
             //var sortedEmployees = SortingHelper.GetListSortedByName(employees);
+            model.ViewType = viewType;
             return View(model);
         }
+        
+        public ActionResult ChangeViewType(
+            int departmentId,
+            int pageNumberInOrganizationsList,
+            int pageNumberInOrganizationInfo,
+            int pageNumberInDepartmentInfo,
+            string viewType)
+        {
+            string newViewType = "list";
+            if (viewType == "list")
+            {
+                newViewType = "grid";
+            }
+            else if (viewType == "grid")
+            {
+                newViewType = "list";
+            }
+            var department = m_facade.GetDepartmentById(departmentId);
+
+            var model = new DepartmentWithEmployeesViewModel(
+                m_facade,
+                department.ParentOrganization.Id,
+                department.Id,
+                department.Name,
+                pageNumberInOrganizationsList,
+                pageNumberInOrganizationInfo,
+                pageNumberInDepartmentInfo);
+
+            model.ViewType = newViewType;
+
+            return View("DepartmentInfo", model);
+        }
+        
 
         
         public ActionResult GoNextPage(
             int departmentId,
             int pageNumberInOrganizationsList,
             int pageNumberInOrganizationInfo,
-            int pageNumberInDepartmentInfo)
+            int pageNumberInDepartmentInfo,
+            string viewType)
         {
             var nextPage = pageNumberInDepartmentInfo + 1;
 
             var department = m_facade.GetDepartmentById(departmentId);
 
             var model = new DepartmentWithEmployeesViewModel(
-           m_facade,
-             department.ParentOrganization.Id,
-             department.Id,
-             department.Name,
-             pageNumberInOrganizationsList,
-             pageNumberInOrganizationInfo,
-             nextPage
-         );
+                m_facade,
+                department.ParentOrganization.Id,
+                department.Id,
+                department.Name,
+                pageNumberInOrganizationsList,
+                pageNumberInOrganizationInfo,
+                nextPage);
+
+            model.ViewType = viewType;
             return View("DepartmentInfo", model);
         }
 
-        
+
         public ActionResult GoPrevPage(
-      int departmentId,
-      int pageNumberInOrganizationsList,
-      int pageNumberInOrganizationInfo,
-      int pageNumberInDepartmentInfo)
+            int departmentId,
+            int pageNumberInOrganizationsList,
+            int pageNumberInOrganizationInfo,
+            int pageNumberInDepartmentInfo,
+            string viewType)
         {
             var prevPage = pageNumberInDepartmentInfo - 1;
 
             var department = m_facade.GetDepartmentById(departmentId);
 
             var model = new DepartmentWithEmployeesViewModel(
-           m_facade,
-             department.ParentOrganization.Id,
-             department.Id,
-             department.Name,
-             pageNumberInOrganizationsList,
-             pageNumberInOrganizationInfo,
-             prevPage
-         );
+                m_facade,
+                department.ParentOrganization.Id,
+                department.Id,
+                department.Name,
+                pageNumberInOrganizationsList,
+                pageNumberInOrganizationInfo,
+                prevPage);
+            model.ViewType = viewType;
             return View("DepartmentInfo", model);
         }
 
-        
+
         public ActionResult UpdateEmployeeMenu(
             int id,
             string name,
             int pageNumberInOrganizationsList,
             int pageNumberInOrganizationInfo,
-            int pageNumberInDepartmentInfo)
+            int pageNumberInDepartmentInfo,
+            string viewType)
         {
             var employeeModel = new EmployeeViewModel()
             {
                 Id = id,
-                Name = name,
-                PageNumberInOrganizationsList = pageNumberInOrganizationsList,
-                PageNumberInOrganizationInfo = pageNumberInOrganizationInfo,
-                PageNumberInDepartmentInfo = pageNumberInDepartmentInfo
+                Name = name
             };
             return View(employeeModel);
         }
 
-        public ActionResult UpdateEmployee(EmployeeViewModel employee)
+        public ActionResult UpdateEmployee(EmployeeViewModel employee,
+            int pageNumberInOrganizationsList,
+            int pageNumberInOrganizationInfo,
+            int pageNumberInDepartmentInfo,
+            string viewType)
         {
             var employeeBm = m_facade.GetEmployeeById(employee.Id);
             employeeBm.Name = employee.Name;
@@ -102,14 +141,15 @@ namespace OrganizationsWebApplication.Controllers
 
             var model = new DepartmentWithEmployeesViewModel(
                 m_facade,
-                  employeeBm.ParentDepartment.ParentOrganization.Id,
-                  employeeBm.ParentDepartment.Id,
-                  employeeBm.ParentDepartment.Name,
-                  employee.PageNumberInOrganizationsList,
-                  employee.PageNumberInOrganizationInfo,
-                  employee.PageNumberInDepartmentInfo
+                employeeBm.ParentDepartment.ParentOrganization.Id,
+                employeeBm.ParentDepartment.Id,
+                employeeBm.ParentDepartment.Name,
+                pageNumberInOrganizationsList,
+                pageNumberInOrganizationInfo,
+                pageNumberInDepartmentInfo
               );
 
+            model.ViewType = viewType;
             return View("DepartmentInfo", model);
         }
 
@@ -117,33 +157,32 @@ namespace OrganizationsWebApplication.Controllers
             int departmentId,
             int pageNumberInOrganizationsList,
             int pageNumberInOrganizationInfo,
-            int pageNumberInDepartmentInfo)
+            int pageNumberInDepartmentInfo,
+            string viewType)
         {
             var employeeModel = new EmployeeViewModel()
             {
-                ParentId = departmentId,
-                PageNumberInOrganizationsList = pageNumberInOrganizationsList,
-                PageNumberInOrganizationInfo = pageNumberInOrganizationInfo,
-                PageNumberInDepartmentInfo = pageNumberInDepartmentInfo
+                ParentId = departmentId
             };
             return View(employeeModel);
         }
 
-        public ActionResult AddEmployee(EmployeeViewModel employee)
+        public ActionResult AddEmployee(EmployeeViewModel employee, int pageNumberInOrganizationsList, int pageNumberInOrganizationInfo, int pageNumberInDepartmentInfo, string viewType)
         {
             var departmentBm = m_facade.GetDepartmentById(employee.ParentId);
             m_facade.AddEmployee(new Employee(0, departmentBm) { Name = employee.Name });
 
             var model = new DepartmentWithEmployeesViewModel(
-         m_facade,
-         departmentBm.ParentOrganization.Id,
-         departmentBm.Id,
-         departmentBm.Name,
-         employee.PageNumberInOrganizationsList,
-         employee.PageNumberInOrganizationInfo,
-         employee.PageNumberInDepartmentInfo
-         );
+                m_facade,
+                departmentBm.ParentOrganization.Id,
+                departmentBm.Id,
+                departmentBm.Name,
+                pageNumberInOrganizationsList,
+                pageNumberInOrganizationInfo,
+                pageNumberInDepartmentInfo
+                );
 
+            model.ViewType = viewType;
             return View("DepartmentInfo", model);
         }
 
@@ -151,7 +190,8 @@ namespace OrganizationsWebApplication.Controllers
             int id,
             int pageNumberInOrganizationsList,
             int pageNumberInOrganizationInfo,
-            int pageNumberInDepartmentInfo)
+            int pageNumberInDepartmentInfo,
+            string viewType)
         {
             var department = m_facade.GetEmployeeById(id).ParentDepartment;
             m_facade.DeleteEmployee(id);
@@ -165,6 +205,7 @@ namespace OrganizationsWebApplication.Controllers
                 pageNumberInOrganizationInfo,
                 pageNumberInDepartmentInfo);
 
+            model.ViewType = viewType;
             return View("DepartmentInfo", model);
         }
     }

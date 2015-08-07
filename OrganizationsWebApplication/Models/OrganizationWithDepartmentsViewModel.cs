@@ -32,7 +32,7 @@ namespace OrganizationsWebApplication.Models
 
         public List<DepartmentViewModel> Content { get; private set; }
 
-        public override sealed void RefreshMaxPage(Facade facade)
+        private void RefreshMaxPage(Facade facade)
         {
             var entitiesCount = facade.GetDepartmentsCount(Id);
             MaxPageQty = entitiesCount / PageSize;
@@ -41,11 +41,12 @@ namespace OrganizationsWebApplication.Models
             if (MaxPageQty == 0) MaxPageQty++;
         }
 
-        public override sealed void RefreshContent(Facade facade)
+        private void RefreshContent(Facade facade)
         {
             var departments =
               from department in facade.GetDepartmentsForOnePage(PageNumberInOrganizationInfo, PageSize, Id)
               select new DepartmentViewModel() { Name = department.Name, Id = department.Id };
+            
             Content = departments.ToList();
         }
     }

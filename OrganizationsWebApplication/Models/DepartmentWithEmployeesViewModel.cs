@@ -36,7 +36,7 @@ namespace OrganizationsWebApplication.Models
             PageType = "dep_info";
         }
 
-        public override sealed void RefreshMaxPage(Facade facade)
+        private void RefreshMaxPage(Facade facade)
         {
             int entitiesCount = facade.GetEmployeesCount(Id);
             MaxPageQty = entitiesCount / PageSize;
@@ -45,7 +45,7 @@ namespace OrganizationsWebApplication.Models
             if (MaxPageQty == 0) MaxPageQty++;
         }
 
-        public override sealed void RefreshContent(Facade facade)
+        private void RefreshContent(Facade facade)
         {
             var employees =
                 from employee in facade.GetEmployeesForOnePage(PageNumberInDepartmentInfo, PageSize, Id)

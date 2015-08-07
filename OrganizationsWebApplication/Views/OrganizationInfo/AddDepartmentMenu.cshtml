@@ -29,8 +29,9 @@
                     <div class="container">
                         <div class="group">
                             @Html.HiddenFor(m => m.ParentId)
-                            @Html.HiddenFor(m => m.PageNumberInOrganizationInfo)
-                            @Html.HiddenFor(m => m.PageNumberInOrganizationsList)
+                            @Html.Hidden("pageNumberInOrganizationsList")
+                            @Html.Hidden("PageNumberInOrganizationInfo")
+                            @Html.Hidden("viewType")
                             @Html.TextBoxFor(m => m.Name, new { @class = "inputMaterial", @type = "text", @required = "required" })
                             <span class="highlight"></span>
                             <span class="bar"></span>
