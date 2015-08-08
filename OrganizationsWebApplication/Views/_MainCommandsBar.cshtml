@@ -1,15 +1,28 @@
 ﻿@model OrganizationsWebApplication.Models.MainModel
 
+
+<span style="font-size: 15px; color: black;">
+    Debug Info:
+    <br>
+    page type: @Model.PageType
+    <br>
+    view type: @Model.ViewType
+    <br>
+    sort type: @Model.SortType
+    <br>
+</span>
+
+
 <span class="operationBlock" style="background: #3F51B5; width: 600px; height: 50px">
 
 
     @if (Model.PageType == "org_list")
     {
-
         using (Html.BeginForm("ChangeViewType", "OrganizationsList", new
         {
             pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-            viewType = Model.ViewType
+            viewType = Model.ViewType,
+            sortType = Model.SortType
         }, FormMethod.Post))
         {
             if (Model.ViewType == "list")
@@ -20,6 +33,25 @@
             if (Model.ViewType == "grid")
             {
                 <input type="image" src="../../Content/view-list.svg" alt="add" name="submit" />
+            }
+        }
+
+
+        using (Html.BeginForm("ChangeSortType", "OrganizationsList", new
+        {
+            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+            viewType = Model.ViewType,
+            sortType = Model.SortType
+        }, FormMethod.Post))
+        {
+            if (Model.SortType == "desc")
+            {
+                <input type="image" src="../../Content/sort-ascending.svg" alt="sort" name="submit" />
+            }
+
+            if (Model.SortType == "asc")
+            {
+                <input type="image" src="../../Content/sort-descending.svg" alt="sort" name="submit" />
             }
         }
     }
@@ -31,12 +63,12 @@
         using (Html.BeginForm("OrganizationsList", "OrganizationsList", new
         {
             pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-            viewType = Model.ViewType
+            viewType = Model.ViewType,
+            sortType = Model.SortType
         }, FormMethod.Post))
         {
             <input type="image" src="../../Content/ic_home_24px_inverse.svg" alt="add" name="submit" />
         }
-
 
 
         using (Html.BeginForm("ChangeViewType", "OrganizationInfo", new
@@ -44,7 +76,8 @@
             organizationId = @Model.Id,
             pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
             pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-            viewType = Model.ViewType
+            viewType = Model.ViewType,
+            sortType = Model.SortType
         }, FormMethod.Post))
         {
             if (Model.ViewType == "list")
@@ -59,8 +92,28 @@
         }
 
 
+        using (Html.BeginForm("ChangeSortType", "OrganizationInfo", new
+        {
+            organizationId = @Model.Id,
+            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+            viewType = Model.ViewType,
+            sortType = Model.SortType
+        }, FormMethod.Post))
+        {
+            if (Model.SortType == "desc")
+            {
+                <input type="image" src="../../Content/sort-ascending.svg" alt="sort" name="submit" />
+            }
+
+            if (Model.SortType == "asc")
+            {
+                <input type="image" src="../../Content/sort-descending.svg" alt="sort" name="submit" />
+            }
+        }
 
     }
+
 
     @if (@Model.PageType == "dep_info")
     {
@@ -69,22 +122,23 @@
             organizationId = @Model.ParentId,
             pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
             pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-            viewType = Model.ViewType
+            viewType = Model.ViewType,
+            sortType = Model.SortType
         }, FormMethod.Post))
         {
             <input type="image" src="../../Content/ic_home_24px_inverse.svg" alt="add" name="submit" />
         }
 
 
-
         using (Html.BeginForm("ChangeViewType", "DepartmentInfo", new
- {
-     departmentId = @Model.Id,
-     pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-     pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-     pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
-     viewType = Model.ViewType
- }, FormMethod.Post))
+        {
+            departmentId = @Model.Id,
+            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+            pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
+            viewType = Model.ViewType,
+            sortType = Model.SortType
+        }, FormMethod.Post))
         {
             if (Model.ViewType == "list")
             {
@@ -100,6 +154,27 @@
 
 
 
+        using (Html.BeginForm("ChangeSortType", "DepartmentInfo", new
+        {
+            departmentId = @Model.Id,
+            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+            pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
+            viewType = Model.ViewType,
+            sortType = Model.SortType
+        }, FormMethod.Post))
+        {
+            if (Model.SortType == "desc")
+            {
+                <input type="image" src="../../Content/sort-ascending.svg" alt="sort" name="submit" />
+            }
+
+            if (Model.SortType == "asc")
+            {
+                <input type="image" src="../../Content/sort-descending.svg" alt="sort" name="submit" />
+            }
+        }
+        
     }
 
 
@@ -112,7 +187,8 @@
             using (Html.BeginForm("AddOrganizationMenu", "OrganizationsList", new
             {
                 pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-                viewType = Model.ViewType
+                viewType = Model.ViewType,
+                sortType = Model.SortType
             }, FormMethod.Post))
             {
                 <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
@@ -126,7 +202,8 @@
                 organizationId = @Model.Id,
                 pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
                 pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-                viewType = Model.ViewType
+                viewType = Model.ViewType,
+                sortType = Model.SortType
             }, FormMethod.Post))
             {
                 <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
@@ -141,45 +218,14 @@
                 pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
                 pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
                 pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
-                viewType = Model.ViewType
+                viewType = Model.ViewType,
+                sortType = Model.SortType
             }, FormMethod.Post))
             {
                 <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
             }
         }
 
-    }
-
-
-
-
-
-
-
-
-
-
-    @if (Request.Cookies["sort"] != null)
-    {
-        var value = Request.Cookies["sort"].Value;
-        if (value == "asc")
-        {
-            <form>
-                <img src="../../Content/sort-descending.svg" onclick=" sortSwitch() " style="cursor: pointer;" />
-            </form>
-        }
-        else if (value == "desc")
-        {
-            <form>
-                <img src="../../Content/sort-ascending.svg" onclick=" sortSwitch() " style="cursor: pointer;" />
-            </form>
-        }
-    }
-    else
-    {
-        <form>
-            <img src="../../Content/sort-ascending.svg" onclick=" sortSwitch() " style="cursor: pointer;" />
-        </form>
     }
 
 

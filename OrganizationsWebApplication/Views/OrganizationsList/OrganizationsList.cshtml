@@ -7,8 +7,6 @@
 
 <div class="wrapper">
     
-    
-
     @Html.Partial("~/Views/_MainCommandsBar.cshtml", @Model)
 
     <div class="content">
@@ -22,7 +20,8 @@
                             organizationId = organization.Id,
                             pageNumberInOrganizationsList = @Model.PageNumberInOrganizationsList,
                             pageNumberInOrganizationInfo = 1,
-                            viewType = Model.ViewType
+                            viewType = Model.ViewType,
+                            sortType = Model.SortType
                         }, null)
                 </span>
 
@@ -33,7 +32,8 @@
                         {
                             id = organization.Id, 
                             pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-                            viewType = Model.ViewType
+                            viewType = Model.ViewType,
+                            sortType = Model.SortType
                         }))
                         {
                             <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
@@ -42,7 +42,8 @@
                         {
                             id = organization.Id, 
                             pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-                            viewType = Model.ViewType
+                            viewType = Model.ViewType,
+                            sortType = Model.SortType
                         }))
                         {
                             <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
@@ -62,15 +63,12 @@
     </script>
 }
 
-
 @if (Model.ViewType == "grid")
 {
     <script>
         setGridView()
     </script>
 }
-
-
 
 
 @Html.Partial("~/Views/_PagingBar.cshtml", @Model)

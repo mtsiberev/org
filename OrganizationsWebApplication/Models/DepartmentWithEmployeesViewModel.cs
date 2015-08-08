@@ -9,7 +9,7 @@ namespace OrganizationsWebApplication.Models
     {
         public List<EmployeeViewModel> Content { get; private set; }
 
-        public DepartmentWithEmployeesViewModel(Facade facade, int parentId, int departmentId, string name, int pageNumberInOrganizationsList, int pageNumberInOrganizationInfo, int pageNumberInDepartmentInfo)
+        public DepartmentWithEmployeesViewModel(Facade facade, int parentId, int departmentId, string name, int pageNumberInOrganizationsList, int pageNumberInOrganizationInfo, int pageNumberInDepartmentInfo, string viewType, string sortType)
         {
             Id = departmentId;
             ParentId = parentId;
@@ -31,9 +31,12 @@ namespace OrganizationsWebApplication.Models
             {
                 PageNumberInDepartmentInfo = pageNumberInDepartmentInfo;
             }
-
-            RefreshContent(facade);
+            
             PageType = "dep_info";
+            ViewType = viewType;
+            SortType = sortType;
+            
+            RefreshContent(facade);
         }
 
         private void RefreshMaxPage(Facade facade)
@@ -48,7 +51,7 @@ namespace OrganizationsWebApplication.Models
         private void RefreshContent(Facade facade)
         {
             var employees =
-                from employee in facade.GetEmployeesForOnePage(PageNumberInDepartmentInfo, PageSize, Id)
+                from employee in facade.GetEmployeesForOnePage(PageNumberInDepartmentInfo, PageSize, Id, SortType)
                 select new EmployeeViewModel() { Name = String.Join(" ", employee.Name, employee.LastName), Id = employee.Id };
             Content = employees.ToList();
         }

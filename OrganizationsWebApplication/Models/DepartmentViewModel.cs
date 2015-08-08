@@ -1,7 +1,7 @@
 ﻿
 namespace OrganizationsWebApplication.Models
 {
-    public class DepartmentViewModel : IModel
+    public class DepartmentViewModel 
     {
         public int Id { get; set; }
         public int ParentId { get; set; }

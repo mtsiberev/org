@@ -7,8 +7,8 @@ namespace OrganizationsWebApplication.Models
     public class OrganizationsList : MainModel
     {
         public List<OrganizationViewModel> Content { get; set; }
-        
-        public OrganizationsList(Facade facade, int pageNumberInOrganizationsList)
+
+        public OrganizationsList(Facade facade, int pageNumberInOrganizationsList, string viewType, string sortType)
         {
             RefreshMaxPage(facade);
 
@@ -25,8 +25,11 @@ namespace OrganizationsWebApplication.Models
                 PageNumberInOrganizationsList = pageNumberInOrganizationsList;
             }
 
-            RefreshContent(facade);
             PageType = "org_list";
+            ViewType = viewType;
+            SortType = sortType;
+
+            RefreshContent(facade);
         }
 
         private void RefreshMaxPage(Facade facade)
@@ -41,7 +44,7 @@ namespace OrganizationsWebApplication.Models
         private void RefreshContent(Facade facade)
         {
             var organizations =
-                 from organization in facade.GetOrganizationsForOnePage(PageNumberInOrganizationsList, PageSize)
+                 from organization in facade.GetOrganizationsForOnePage(PageNumberInOrganizationsList, PageSize, SortType)
                  select new OrganizationViewModel() { Name = organization.Name, Id = organization.Id };
             Content = organizations.ToList();
         }

@@ -1,9 +1,9 @@
 ﻿
 namespace OrganizationsWebApplication.Models
 {
-    public class OrganizationViewModel : IModel
+    public class OrganizationViewModel 
     {
-        public string Name { get; set; }
         public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

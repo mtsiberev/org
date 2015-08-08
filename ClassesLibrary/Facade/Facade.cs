@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using StructureMap;
 
 namespace Organizations
 {
@@ -25,7 +21,17 @@ namespace Organizations
             m_departmentsRepository = departments;
             m_employeesRepository = employees;
         }
+        
+        private IEnumerable<T> GetListSortedByName<T>(IEnumerable<T> list, string sortType) where T : IEntity
+        {
+            if (sortType == "desc")
+            {
+                return list.OrderByDescending(x => x.Name);
+            }
 
+            return list.OrderBy(x => x.Name);
+        }
+        
         public void AddOrganization(Organization entity)
         {
             m_organizationsRepository.Insert(entity);
@@ -107,20 +113,28 @@ namespace Organizations
             return m_employeesRepository.GetCount(id);
         }
         
-        public List<Organization> GetOrganizationsForOnePage(int pageNum, int pageSize)
+        
+
+        public List<Organization> GetOrganizationsForOnePage(int pageNum, int pageSize, string sortType)
         {
-            return m_organizationsRepository.GetEntitiesForOnePage(pageNum, pageSize, 0);
+            var resultList = m_organizationsRepository.GetEntitiesForOnePage(pageNum, pageSize, 0);
+            return GetListSortedByName(resultList, sortType).ToList();
         }
 
-        public List<Department> GetDepartmentsForOnePage(int pageNum, int pageSize, int currentId)
+        public List<Department> GetDepartmentsForOnePage(int pageNum, int pageSize, int currentId, string sortType)
         {
-            return m_departmentsRepository.GetEntitiesForOnePage(pageNum, pageSize, currentId);
+            var resultList = m_departmentsRepository.GetEntitiesForOnePage(pageNum, pageSize, currentId);
+            return GetListSortedByName(resultList, sortType).ToList();
         }
 
-        public List<Employee> GetEmployeesForOnePage(int pageNum, int pageSize, int currentId)
+        public List<Employee> GetEmployeesForOnePage(int pageNum, int pageSize, int currentId, string sortType)
         {
-            return m_employeesRepository.GetEntitiesForOnePage(pageNum, pageSize, currentId);
+            var resultList = m_employeesRepository.GetEntitiesForOnePage(pageNum, pageSize, currentId);
+            return GetListSortedByName(resultList, sortType).ToList();
         }
+
+        
+
 
         public List<Department> GetAllDepartments()
         {

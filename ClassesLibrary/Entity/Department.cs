@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Organizations
 {
     public class Department : IEntity
@@ -31,13 +26,12 @@ namespace Organizations
                 return m_parentOrganization;
             }
         }
-
-        public string Name { get; set; }
-
+        
         public new int GetEntityCode()
         {
             return 1;
         }
 
+        public string Name { get; set; }
     }
 }

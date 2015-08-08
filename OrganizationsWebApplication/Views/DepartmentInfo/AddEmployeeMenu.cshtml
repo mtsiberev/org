@@ -28,14 +28,14 @@
                 <td>
                     <div class="container">
                         <div class="group">
+                            @Html.TextBoxFor(m => m.Name, new { @class = "inputMaterial", @type = "text", @required = "required" })
                             @Html.HiddenFor(m => m.ParentId)                            
                             @Html.Hidden("pageNumberInOrganizationsList")
                             @Html.Hidden("PageNumberInOrganizationInfo")
                             @Html.Hidden("PageNumberInDepartmentInfo")
                             @Html.Hidden("viewType")
-
-                            @Html.TextBoxFor(m => m.Name, new { @class = "inputMaterial", @type = "text", @required = "required" })
-                            <span class="highlight"></span>
+                            @Html.Hidden("sortType")
+                           <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Name</label>
                             <span style="bottom: 35px; left: 65%; position:relative; ">

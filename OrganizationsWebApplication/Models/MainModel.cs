@@ -15,16 +15,9 @@ namespace OrganizationsWebApplication.Models
         protected const int PageSize = 6;
         public string PageType { get; protected set; }
         public int MaxPageQty { get; protected set; }
+
         public string ModelType { get; protected set; }
-        
-        protected MainModel()
-        {
-            SortType = "asc";//replace to derived constructor
-            ViewType = "list";//replace to derived constructor
-        }
-
-        public string SortType;
-        public string ViewType;
-
+        public string ViewType { get; protected set; }
+        public string SortType{ get; protected set; }
     }
 }

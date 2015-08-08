@@ -6,7 +6,7 @@ namespace OrganizationsWebApplication.Models
 {
     public class OrganizationWithDepartmentsViewModel : MainModel
     {
-        public OrganizationWithDepartmentsViewModel(Facade facade, int organizationId, string name, int pageNumberInOrganizationsList, int pageNumberInOrganizationInfo)
+        public OrganizationWithDepartmentsViewModel(Facade facade, int organizationId, string name, int pageNumberInOrganizationsList, int pageNumberInOrganizationInfo, string viewType, string sortType)
         {
             Id = organizationId;
             Name = name;
@@ -26,8 +26,11 @@ namespace OrganizationsWebApplication.Models
                 PageNumberInOrganizationInfo = pageNumberInOrganizationInfo;
             }
             
-            RefreshContent(facade);
             PageType = "org_info";
+            ViewType = viewType;
+            SortType = sortType;
+            
+            RefreshContent(facade);
         }
 
         public List<DepartmentViewModel> Content { get; private set; }
@@ -44,9 +47,9 @@ namespace OrganizationsWebApplication.Models
         private void RefreshContent(Facade facade)
         {
             var departments =
-              from department in facade.GetDepartmentsForOnePage(PageNumberInOrganizationInfo, PageSize, Id)
+              from department in facade.GetDepartmentsForOnePage(PageNumberInOrganizationInfo, PageSize, Id, SortType)
               select new DepartmentViewModel() { Name = department.Name, Id = department.Id };
-            
+
             Content = departments.ToList();
         }
     }

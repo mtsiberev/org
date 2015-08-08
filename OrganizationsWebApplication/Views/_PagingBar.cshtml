@@ -6,7 +6,12 @@
 
     @if (Model.PageType == "org_list")
     {
-        using (Html.BeginForm("GoPrevPage", "OrganizationsList", new { pageNumberInOrganizationsList = @Model.PageNumberInOrganizationsList, viewType = Model.ViewType }))
+        using (Html.BeginForm("GoPrevPage", "OrganizationsList", new
+        {
+            pageNumberInOrganizationsList = @Model.PageNumberInOrganizationsList, 
+            viewType = Model.ViewType,
+            sortType = Model.SortType
+        }))
         {
             <input type="image" src="../../Content/ic-double-left.svg" name="submit" style="cursor: pointer;" />
         }
@@ -15,7 +20,12 @@
                 @Model.PageNumberInOrganizationsList / @Model.MaxPageQty
             </span>
         </form>
-        using (Html.BeginForm("GoNextPage", "OrganizationsList", new { pageNumberInOrganizationsList = @Model.PageNumberInOrganizationsList, viewType = Model.ViewType }))
+        using (Html.BeginForm("GoNextPage", "OrganizationsList", new
+        {
+            pageNumberInOrganizationsList = @Model.PageNumberInOrganizationsList, 
+            viewType = Model.ViewType,
+            sortType = Model.SortType
+        }))
         {
             <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />
         }
@@ -29,7 +39,8 @@
             organizationId = @Model.Id, 
             pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
             pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-            viewType = Model.ViewType
+            viewType = Model.ViewType,
+            sortType = Model.SortType
         }))
         {
             <input type="image" src="../../Content/ic-double-left.svg" name="submit" style="cursor: pointer;" />
@@ -44,7 +55,8 @@
             organizationId = @Model.Id, 
             pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
             pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-            viewType = Model.ViewType
+            viewType = Model.ViewType,
+            sortType = Model.SortType
         }))
         {
             <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />
@@ -61,7 +73,8 @@
             pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
             pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
             pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
-             viewType = Model.ViewType
+            viewType = Model.ViewType,
+            sortType = Model.SortType
         }))
         {
             <input type="image" src="../../Content/ic-double-left.svg" name="submit" style="cursor: pointer;" />
@@ -77,18 +90,12 @@
             pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
             pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
             pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
-            viewType = Model.ViewType
+            viewType = Model.ViewType,
+            sortType = Model.SortType
         }))
         {
             <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />
         }
     }
-
     
-
-    
-    
-    
-
-
 </span>
