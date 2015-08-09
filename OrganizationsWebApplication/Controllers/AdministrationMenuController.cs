@@ -7,13 +7,10 @@ namespace OrganizationsWebApplication.Controllers
     [Authorize]
     public class AdministrationMenuController : Controller
     {
-        //
-        // GET: /AdministrationMenu/
         private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
 
         public ActionResult AddNewUserMenu()
         {
-
             return View();
         }
 

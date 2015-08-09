@@ -12,7 +12,7 @@ namespace OrganizationsWebApplication.Controllers
             Response.Redirect("~/home/index");
             return View();
         }
-        
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -26,11 +26,6 @@ namespace OrganizationsWebApplication.Controllers
         [HttpPost]
         public ActionResult Login(Account account)
         {
-            if (account.UserName.Length == 0 || account.Password.Length == 0)
-            {
-                Response.Redirect("~/account/login");
-            }
-
             bool success = WebSecurity.Login(account.UserName, account.Password, false);
             if (success)
             {
@@ -44,7 +39,7 @@ namespace OrganizationsWebApplication.Controllers
                     Response.Redirect(returnUrl);
                 }
             }
-            return View();
+           return View();
         }
 
         [HttpGet]
@@ -66,10 +61,6 @@ namespace OrganizationsWebApplication.Controllers
         [HttpPost]
         public ActionResult Register(Account account)
         {
-            if (account.UserName.Length == 0 || account.Password.Length == 0)
-            {
-                Response.Redirect("~/account/register");
-            }
             try
             {
                 WebSecurity.CreateUserAndAccount(account.UserName, account.Password);
