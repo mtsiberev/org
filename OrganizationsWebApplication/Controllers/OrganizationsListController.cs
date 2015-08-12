@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Organizations;
+using Organizations.Helpers;
 using OrganizationsWebApplication.Models;
 
 namespace OrganizationsWebApplication.Controllers
@@ -20,7 +22,6 @@ namespace OrganizationsWebApplication.Controllers
         public ActionResult OrganizationsList(int pageNumberInOrganizationsList, string viewType, string sortType)
         {
             var model = new OrganizationsList(m_facade, pageNumberInOrganizationsList, viewType, sortType);
-            
             return View(model);
         }
 
@@ -28,7 +29,7 @@ namespace OrganizationsWebApplication.Controllers
         {
             var nextPage = pageNumberInOrganizationsList + 1;
             var model = new OrganizationsList(m_facade, nextPage, viewType, sortType);
-           
+
             return View("OrganizationsList", model);
         }
 
@@ -36,7 +37,7 @@ namespace OrganizationsWebApplication.Controllers
         {
             var prevPage = pageNumberInOrganizationsList - 1;
             var model = new OrganizationsList(m_facade, prevPage, viewType, sortType);
-           
+
             return View("OrganizationsList", model);
         }
 
@@ -52,10 +53,10 @@ namespace OrganizationsWebApplication.Controllers
                 newViewType = "list";
             }
             var model = new OrganizationsList(m_facade, pageNumberInOrganizationsList, newViewType, sortType);
-           
+
             return View("OrganizationsList", model);
         }
-        
+
         public ActionResult ChangeSortType(int pageNumberInOrganizationsList, string viewType, string sortType)
         {
             string newSortType = "asc";
@@ -71,7 +72,7 @@ namespace OrganizationsWebApplication.Controllers
 
             return View("OrganizationsList", model);
         }
-        
+
         public ActionResult AddOrganizationMenu(int pageNumberInOrganizationsList, string viewType, string sortType)
         {
             var model = new OrganizationViewModel();
@@ -81,6 +82,7 @@ namespace OrganizationsWebApplication.Controllers
         public ActionResult AddOrganization(OrganizationViewModel organization, int pageNumberInOrganizationsList, string viewType, string sortType)
         {
             m_facade.AddOrganization(new Organization(0) { Name = organization.Name });
+            OwnershipHelper.WriteOwner();
             var model = new OrganizationsList(m_facade, pageNumberInOrganizationsList, viewType, sortType);
             
             return View("OrganizationsList", model);
@@ -94,7 +96,7 @@ namespace OrganizationsWebApplication.Controllers
                 Id = id,
                 Name = name
             };
-            
+
             return View(organization);
         }
 
@@ -102,7 +104,7 @@ namespace OrganizationsWebApplication.Controllers
         {
             m_facade.UpdateOrganization(new Organization(organization.Id) { Name = organization.Name });
             var model = new OrganizationsList(m_facade, pageNumberInOrganizationsList, viewType, sortType);
-           
+
             return View("OrganizationsList", model);
         }
 
@@ -110,7 +112,7 @@ namespace OrganizationsWebApplication.Controllers
         {
             m_facade.DeleteOrganization(id);
             var model = new OrganizationsList(m_facade, pageNumberInOrganizationsList, viewType, sortType);
-          
+
             return View("OrganizationsList", model);
         }
     }

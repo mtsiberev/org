@@ -94,6 +94,7 @@
     <Compile Include="Entity\IEntity.cs" />
     <Compile Include="Entity\Organization.cs" />
     <Compile Include="Facade\Facade.cs" />
+    <Compile Include="Helpers\OwnershipHelper.cs" />
     <Compile Include="Interfaces\IPaging.cs" />
     <Compile Include="Mappers\MapperBM.cs" />
     <Compile Include="Mappers\MapperDB.cs" />

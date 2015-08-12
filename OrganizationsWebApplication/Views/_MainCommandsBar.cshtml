@@ -151,8 +151,7 @@
             }
         }
 
-
-
+        
 
         using (Html.BeginForm("ChangeSortType", "DepartmentInfo", new
         {
@@ -174,60 +173,54 @@
                 <input type="image" src="../../Content/sort-descending.svg" alt="sort" name="submit" />
             }
         }
-        
+
     }
 
 
 
-    @if (Roles.IsUserInRole("admin"))
+    @if (Model.PageType == "org_list")
     {
-
-        if (@Model.PageType == "org_list")
+        using (Html.BeginForm("AddOrganizationMenu", "OrganizationsList", new
         {
-            using (Html.BeginForm("AddOrganizationMenu", "OrganizationsList", new
-            {
-                pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-                viewType = Model.ViewType,
-                sortType = Model.SortType
-            }, FormMethod.Post))
-            {
-                <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
-            }
-        }
-
-        if (@Model.PageType == "org_info")
+            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+            viewType = Model.ViewType,
+            sortType = Model.SortType
+        }, FormMethod.Post))
         {
-            using (Html.BeginForm("AddDepartmentMenu", "OrganizationInfo", new
-            {
-                organizationId = @Model.Id,
-                pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-                pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-                viewType = Model.ViewType,
-                sortType = Model.SortType
-            }, FormMethod.Post))
-            {
-                <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
-            }
+            <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
         }
-
-        if (@Model.PageType == "dep_info")
-        {
-            using (Html.BeginForm("AddEmployeeMenu", "DepartmentInfo", new
-            {
-                departmentId = Model.Id,
-                pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-                pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-                pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
-                viewType = Model.ViewType,
-                sortType = Model.SortType
-            }, FormMethod.Post))
-            {
-                <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
-            }
-        }
-
     }
 
+    @if (@Model.PageType == "org_info")
+    {
+        using (Html.BeginForm("AddDepartmentMenu", "OrganizationInfo", new
+        {
+            organizationId = @Model.Id,
+            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+            viewType = Model.ViewType,
+            sortType = Model.SortType
+        }, FormMethod.Post))
+        {
+            <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
+        }
+    }
+
+    @if (@Model.PageType == "dep_info")
+    {
+        using (Html.BeginForm("AddEmployeeMenu", "DepartmentInfo", new
+        {
+            departmentId = Model.Id,
+            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+            pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
+            viewType = Model.ViewType,
+            sortType = Model.SortType
+        }, FormMethod.Post))
+        {
+            <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
+        }
+    }
 
 
 </span>

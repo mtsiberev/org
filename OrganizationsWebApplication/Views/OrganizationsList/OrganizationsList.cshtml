@@ -1,4 +1,5 @@
-﻿@model OrganizationsWebApplication.Models.OrganizationsList
+﻿@using Organizations.Helpers
+@model OrganizationsWebApplication.Models.OrganizationsList
 
 @{
     ViewBag.Title = "Organizations list";
@@ -6,7 +7,7 @@
 }
 
 <div class="wrapper">
-    
+
     @Html.Partial("~/Views/_MainCommandsBar.cshtml", @Model)
 
     <div class="content">
@@ -25,12 +26,12 @@
                         }, null)
                 </span>
 
-                @if (Roles.IsUserInRole("admin"))
+                @if (OwnershipHelper.IsCurrentUserOwner(organization.Id, Model.OwnersList) || (Roles.IsUserInRole("admin"))  )
                 {
                     <span class="operationBlock">
                         @using (Html.BeginForm("UpdateOrganizationMenu", "OrganizationsList", new
                         {
-                            id = organization.Id, 
+                            id = organization.Id,
                             pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
                             viewType = Model.ViewType,
                             sortType = Model.SortType
@@ -40,7 +41,7 @@
                         }
                         @using (Html.BeginForm("DeleteOrganization", "OrganizationsList", new
                         {
-                            id = organization.Id, 
+                            id = organization.Id,
                             pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
                             viewType = Model.ViewType,
                             sortType = Model.SortType

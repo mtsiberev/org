@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Organizations;
+using Organizations.Helpers;
 
 namespace OrganizationsWebApplication.Models
 {
     public class OrganizationsList : MainModel
     {
-        public List<OrganizationViewModel> Content { get; set; }
+        public List<OrganizationViewModel> Content { get; private set; }
+        public List<KeyValuePair<int, int>> OwnersList { get; private set; }
 
         public OrganizationsList(Facade facade, int pageNumberInOrganizationsList, string viewType, string sortType)
         {
@@ -30,6 +32,7 @@ namespace OrganizationsWebApplication.Models
             SortType = sortType;
 
             RefreshContent(facade);
+            OwnersList = OwnershipHelper.GetOwnersListForCurrentUser();
         }
 
         private void RefreshMaxPage(Facade facade)

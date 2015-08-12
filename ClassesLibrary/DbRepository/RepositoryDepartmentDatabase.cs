@@ -51,7 +51,7 @@ namespace Organizations.DbRepository
             }
             return resultList;
         }
-        
+
         public int GetCount(int organizationId)
         {
             int result = 0;
@@ -97,7 +97,7 @@ namespace Organizations.DbRepository
             var repositoryOrganizationDb = RegisterByContainer.Container.GetInstance<IRepository<Organization>>();
 
             var resultList = new List<Department>();
-            
+
             var queryString = String.Format(
                 "SELECT * FROM {0} " +
                 "WHERE OrganizationId = {1} " +
@@ -105,7 +105,7 @@ namespace Organizations.DbRepository
                 "OFFSET ({2} - 1) * {3} ROWS " +
                 "FETCH NEXT {3} ROWS ONLY;",
                 c_departmentsDatabaseName, parentId, pageNum, pageSize);
-            
+
             using (var reader = AdoHelper.GetDataTableReader(queryString))
             {
                 if (reader.HasRows)

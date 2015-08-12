@@ -1,4 +1,6 @@
 ﻿
+using Organizations;
+
 namespace OrganizationsWebApplication.Models
 {
     public class OrganizationViewModel 

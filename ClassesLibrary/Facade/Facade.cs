@@ -113,8 +113,6 @@ namespace Organizations
             return m_employeesRepository.GetCount(id);
         }
         
-        
-
         public List<Organization> GetOrganizationsForOnePage(int pageNum, int pageSize, string sortType)
         {
             var resultList = m_organizationsRepository.GetEntitiesForOnePage(pageNum, pageSize, 0);
