@@ -1,4 +1,4 @@
-﻿using Organizations;
+﻿using System.Collections.Generic;
 
 namespace OrganizationsWebApplication.Models
 {
@@ -19,5 +19,7 @@ namespace OrganizationsWebApplication.Models
         public string ModelType { get; protected set; }
         public string ViewType { get; protected set; }
         public string SortType{ get; protected set; }
+
+        public List<KeyValuePair<int, int>> OwnersList { get; protected set; }
     }
 }

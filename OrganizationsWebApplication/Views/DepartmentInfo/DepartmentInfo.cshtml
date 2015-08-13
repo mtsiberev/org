@@ -1,4 +1,5 @@
-﻿@model OrganizationsWebApplication.Models.DepartmentWithEmployeesViewModel
+﻿@using Organizations.Helpers
+@model OrganizationsWebApplication.Models.DepartmentWithEmployeesViewModel
 
 @{
     ViewBag.Title = "Department: " + @Model.Name;
@@ -18,8 +19,8 @@
                         @employee.Name
                     </a>
                 </span>
-                @if (Roles.IsUserInRole("admin"))
-                {
+            @if (OwnershipHelper.IsCurrentUserOwner(Model.ParentId, Model.OwnersList) || (Roles.IsUserInRole("admin")))
+            {
                     <span class="operationBlock">
                         @using (Html.BeginForm("UpdateEmployeeMenu", "DepartmentInfo",
                             new

@@ -8,8 +8,7 @@ namespace OrganizationsWebApplication.Models
     public class OrganizationsList : MainModel
     {
         public List<OrganizationViewModel> Content { get; private set; }
-        public List<KeyValuePair<int, int>> OwnersList { get; private set; }
-
+      
         public OrganizationsList(Facade facade, int pageNumberInOrganizationsList, string viewType, string sortType)
         {
             RefreshMaxPage(facade);

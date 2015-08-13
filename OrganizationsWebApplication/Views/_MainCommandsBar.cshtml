@@ -1,4 +1,5 @@
-﻿@model OrganizationsWebApplication.Models.MainModel
+﻿@using Organizations.Helpers
+@model OrganizationsWebApplication.Models.MainModel
 
 
 <span style="font-size: 15px; color: black;">
@@ -151,7 +152,7 @@
             }
         }
 
-        
+
 
         using (Html.BeginForm("ChangeSortType", "DepartmentInfo", new
         {
@@ -191,34 +192,42 @@
         }
     }
 
-    @if (@Model.PageType == "org_info")
+    @if (OwnershipHelper.IsCurrentUserOwner(Model.Id, Model.OwnersList) || (Roles.IsUserInRole("admin")))
     {
-        using (Html.BeginForm("AddDepartmentMenu", "OrganizationInfo", new
+        if (@Model.PageType == "org_info")
         {
-            organizationId = @Model.Id,
-            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-            viewType = Model.ViewType,
-            sortType = Model.SortType
-        }, FormMethod.Post))
-        {
-            <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
+            using (Html.BeginForm("AddDepartmentMenu", "OrganizationInfo", new
+            {
+                organizationId = @Model.Id,
+                pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+                pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+                viewType = Model.ViewType,
+                sortType = Model.SortType
+            }, FormMethod.Post))
+            {
+                <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
+            }
         }
     }
+    
 
-    @if (@Model.PageType == "dep_info")
+
+    @if (OwnershipHelper.IsCurrentUserOwner(Model.ParentId, Model.OwnersList) || (Roles.IsUserInRole("admin")))
     {
-        using (Html.BeginForm("AddEmployeeMenu", "DepartmentInfo", new
+        if (@Model.PageType == "dep_info")
         {
-            departmentId = Model.Id,
-            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-            pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
-            viewType = Model.ViewType,
-            sortType = Model.SortType
-        }, FormMethod.Post))
-        {
-            <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
+            using (Html.BeginForm("AddEmployeeMenu", "DepartmentInfo", new
+            {
+                departmentId = Model.Id,
+                pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
+                pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
+                pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
+                viewType = Model.ViewType,
+                sortType = Model.SortType
+            }, FormMethod.Post))
+            {
+                <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
+            }
         }
     }
 

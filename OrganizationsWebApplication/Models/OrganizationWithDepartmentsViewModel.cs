@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Organizations;
+using Organizations.Helpers;
 
 namespace OrganizationsWebApplication.Models
 {
     public class OrganizationWithDepartmentsViewModel : MainModel
     {
+        public List<DepartmentViewModel> Content { get; private set; }
+      
         public OrganizationWithDepartmentsViewModel(Facade facade, int organizationId, string name, int pageNumberInOrganizationsList, int pageNumberInOrganizationInfo, string viewType, string sortType)
         {
             Id = organizationId;
@@ -31,10 +34,10 @@ namespace OrganizationsWebApplication.Models
             SortType = sortType;
             
             RefreshContent(facade);
+            OwnersList = OwnershipHelper.GetOwnersListForCurrentUser();
         }
 
-        public List<DepartmentViewModel> Content { get; private set; }
-
+      
         private void RefreshMaxPage(Facade facade)
         {
             var entitiesCount = facade.GetDepartmentsCount(Id);

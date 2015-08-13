@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using Organizations;
+using Organizations.Helpers;
 
 namespace OrganizationsWebApplication.Models
 {
     public class DepartmentWithEmployeesViewModel : MainModel
     {
         public List<EmployeeViewModel> Content { get; private set; }
-
+        
         public DepartmentWithEmployeesViewModel(Facade facade, int parentId, int departmentId, string name, int pageNumberInOrganizationsList, int pageNumberInOrganizationInfo, int pageNumberInDepartmentInfo, string viewType, string sortType)
         {
             Id = departmentId;
@@ -37,6 +38,7 @@ namespace OrganizationsWebApplication.Models
             SortType = sortType;
             
             RefreshContent(facade);
+            OwnersList = OwnershipHelper.GetOwnersListForCurrentUser();
         }
 
         private void RefreshMaxPage(Facade facade)
