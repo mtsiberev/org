@@ -1,7 +1,8 @@
 ﻿@using Organizations.Helpers
+@using OrganizationsWebApplication.LocalResource
 @model OrganizationsWebApplication.Models.OrganizationWithDepartmentsViewModel
 @{
-    ViewBag.Title = "Organization: " + @Model.Name;
+    ViewBag.Title = @Resource.OrganizationInfo + ": " + @Model.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 

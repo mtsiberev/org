@@ -1,9 +1,10 @@
 ﻿@{
-    ViewBag.Title = "Login";
+    ViewBag.Title = @Resource.Login;
     Layout = null;
 
 }
 
+@using OrganizationsWebApplication.LocalResource
 @model OrganizationsWebApplication.Models.Account
 
 
@@ -13,14 +14,23 @@
 <head runat="server">
     <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
     <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
+    <title>@Resource.Login</title>
+
 </head>
 <body>
-    
+
     <div class="header" style="background: #3F51B5;">
         <span style="background: #3F51B5;">
             <span style="color: #fff">
-                <h2>Login</h2>
+                <h2>@Resource.Login</h2>
+
+
+                @Html.ActionLink("en", "ChangeCulture", "ChangeCulture",
+    new { lang = "en", returnUrl = this.Request.RawUrl }, null)
+                @Html.ActionLink("ru", "ChangeCulture", "ChangeCulture",
+    new { lang = "ru", returnUrl = this.Request.RawUrl }, null)
+
+                
                 @using (Html.BeginForm("Login", "Account"))
                 {
                     <table>
@@ -52,6 +62,7 @@
             </span>
         </span>
     </div>
+
 
 </body>
 </html>

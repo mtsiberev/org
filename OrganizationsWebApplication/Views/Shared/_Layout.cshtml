@@ -12,12 +12,21 @@
     <title>_Layout</title>
 </head>
 <body>
+    
 
     @Html.Partial("~/Views/_AccountBar.cshtml")
 
     <div class="header" style="background: #3F51B5;">
         <span style="color: #fff">
             @ViewBag.Title
+            
+            
+            @Html.ActionLink("en", "ChangeCulture", "ChangeCulture",
+    new { lang = "en", returnUrl = this.Request.RawUrl }, null)
+            @Html.ActionLink("ru", "ChangeCulture", "ChangeCulture",
+    new { lang = "ru", returnUrl = this.Request.RawUrl }, null)
+
+            
         </span>
     </div>
 

@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Organizations;
+using Organizations.Entity;
 using OrganizationsWebApplication.Models;
 
 namespace OrganizationsWebApplication.Controllers
@@ -17,14 +18,14 @@ namespace OrganizationsWebApplication.Controllers
         [HttpGet]
         public ActionResult ChangeRolesMenu()
         {
-            var user = new User("Petrov", "admin");
+            var user = new User(1,"Petrov", "admin");
             return View(user);
         }
         
         [HttpPost]
-        public ActionResult ChangeRolesMenu(User us)
+        public ActionResult ChangeRolesMenu(User user)
         {
-            return View(us);
+            return View(user);
         }
 
 

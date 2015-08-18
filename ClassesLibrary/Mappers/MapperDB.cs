@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Organizations.DbEntity;
+using Organizations.Entity;
 
 namespace Organizations.Mappers
 {
