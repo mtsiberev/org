@@ -9,8 +9,7 @@ namespace OrganizationsWebApplication.Controllers
     {
         public ActionResult Administration()
         {
-            Response.Redirect("~/home/index");
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -32,7 +31,7 @@ namespace OrganizationsWebApplication.Controllers
                 string returnUrl = Request.QueryString["ReturnUrl"];
                 if (returnUrl == null)
                 {
-                    Response.Redirect("~/home/index");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -72,18 +71,15 @@ namespace OrganizationsWebApplication.Controllers
             }
             catch (Exception)
             {
-                Response.Redirect("~/account/register");
+                return RedirectToAction("Register", "Account");
             }
-
-            Response.Redirect("~/home/index");
-            return View();
-        }
+            return RedirectToAction("Index", "Home");
+       }
 
         public ActionResult Logout()
         {
             WebSecurity.Logout();
-            Response.Redirect("~/account/login");
-            return View();
+            return RedirectToAction("Login", "Account");
         }
     }
 }

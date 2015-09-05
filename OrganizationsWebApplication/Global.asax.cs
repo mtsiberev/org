@@ -30,21 +30,12 @@ namespace OrganizationsWebApplication
         protected void Application_AcquireRequestState(object sender, EventArgs e)
         {
             {
-                if (HttpContext.Current.Session != null)
+                var context = new HttpContextWrapper(HttpContext.Current);
+                var routeData = RouteTable.Routes.GetRouteData(context);
+                if (routeData != null)
                 {
-                    CultureInfo cultureInfo = (CultureInfo)this.Session["Culture"];
-
-                    if (cultureInfo == null)
-                    {
-                        string langName = "en";
-
-                        if (HttpContext.Current.Request.UserLanguages != null && HttpContext.Current.Request.UserLanguages.Length != 0)
-                        {
-                            langName = HttpContext.Current.Request.UserLanguages[0].Substring(0, 2);
-                        }
-                        cultureInfo = new CultureInfo(langName);
-                        this.Session["Culture"] = cultureInfo;
-                    }
+                    var language = routeData.Values["language"].ToString();
+                    var cultureInfo = new CultureInfo(language);
                     Thread.CurrentThread.CurrentUICulture = cultureInfo;
                     Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
                 }

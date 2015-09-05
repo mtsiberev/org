@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Organizations.EntitiesLists;
 
 namespace Organizations
 {
@@ -20,6 +21,21 @@ namespace Organizations
             m_organizationsRepository = organizations;
             m_departmentsRepository = departments;
             m_employeesRepository = employees;
+        }
+        
+        public OrganizationsList GetOrganizationsList(int currentPage, string sortType)
+        {
+            return new OrganizationsList(currentPage, sortType);
+        }
+        
+        public OrganizationWithDepartments GetOrganizationWithDepartments(int organizationId, int currentPage, string sortType)
+        {
+            return new OrganizationWithDepartments( organizationId, currentPage, sortType);
+        }
+
+        public DepartmentWithEmployees GetDepartmentWithEmployees(int departmentId, int currentPage, string sortType)
+        {
+            return new DepartmentWithEmployees(departmentId, currentPage, sortType);
         }
         
         private IEnumerable<T> GetListSortedByName<T>(IEnumerable<T> list, string sortType) where T : IEntity

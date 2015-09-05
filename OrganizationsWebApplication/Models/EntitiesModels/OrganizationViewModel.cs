@@ -1,7 +1,5 @@
 ﻿
-using Organizations;
-
-namespace OrganizationsWebApplication.Models
+namespace OrganizationsWebApplication.Models.EntitiesModels
 {
     public class OrganizationViewModel 
     {

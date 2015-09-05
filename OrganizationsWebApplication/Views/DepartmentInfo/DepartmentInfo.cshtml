@@ -1,6 +1,6 @@
 ﻿@using Organizations.Helpers
 @using OrganizationsWebApplication.LocalResource
-@model OrganizationsWebApplication.Models.DepartmentWithEmployeesViewModel
+@model OrganizationsWebApplication.Models.PagesModels.DepartmentInfoViewModel
 
 @{
     ViewBag.Title = @Resource.DepartmentInfo + ": " + @Model.Name;
@@ -8,9 +8,9 @@
 }
 
 <div class="wrapper">
-    
-        @Html.Partial("~/Views/_MainCommandsBar.cshtml", @Model)
-    
+
+    @Html.Partial("~/Views/_MainCommandsBar.cshtml", @Model)
+
     <div class="content">
         @foreach (var employee in Model.Content)
         {
@@ -20,18 +20,15 @@
                         @employee.Name
                     </a>
                 </span>
-            @if (OwnershipHelper.IsCurrentUserOwner(Model.ParentId, Model.OwnersList) || (Roles.IsUserInRole("admin")))
-            {
+                @if (Roles.IsUserInRole("admin"))
+                {
                     <span class="operationBlock">
                         @using (Html.BeginForm("UpdateEmployeeMenu", "DepartmentInfo",
                             new
                             {
                                 id = employee.Id,
                                 name = employee.Name,
-                                pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-                                pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-                                pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
-                                viewType = Model.ViewType,
+                                pageNumberInDepartmentInfo = Model.CurrentPageNumber,
                                 sortType = Model.SortType
                             }))
                         {
@@ -42,10 +39,7 @@
                             new
                             {
                                 id = employee.Id,
-                                pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-                                pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-                                pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
-                                viewType = Model.ViewType,
+                                pageNumberInDepartmentInfo = Model.CurrentPageNumber,
                                 sortType = Model.SortType
                             }))
                         {
@@ -74,9 +68,3 @@
         setGridView()
     </script>
 }
-
-
-
-
-@Html.Partial("~/Views/_PagingBar.cshtml", Model)
-

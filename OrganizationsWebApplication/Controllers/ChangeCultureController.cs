@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace OrganizationsWebApplication.Controllers
 {
@@ -16,13 +18,19 @@ namespace OrganizationsWebApplication.Controllers
         {
             return View();
         }
-
         
-        public ActionResult ChangeCulture(string lang, string returnUrl)
+        public ActionResult ChangeCulture(string language, string url)
         {
-            Session["Culture"] = new CultureInfo(lang);
-            return Redirect(returnUrl);
+            return RedirectToAction("Index", "Home");
         }
+
+
+        public ActionResult ChangeCultureRoute(string language, RouteData data)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
+
 
     }
 }

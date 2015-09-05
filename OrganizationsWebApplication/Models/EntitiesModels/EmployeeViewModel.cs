@@ -1,9 +1,7 @@
 ﻿
-using Organizations;
-
-namespace OrganizationsWebApplication.Models
+namespace OrganizationsWebApplication.Models.EntitiesModels
 {
-    public class DepartmentViewModel
+    public class EmployeeViewModel
     {
         public int Id { get; set; }
         public int ParentId { get; set; }

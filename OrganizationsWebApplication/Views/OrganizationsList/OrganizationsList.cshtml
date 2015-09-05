@@ -1,6 +1,5 @@
-﻿@using Organizations.Helpers
-@using OrganizationsWebApplication.LocalResource
-@model OrganizationsWebApplication.Models.OrganizationsList
+﻿@using OrganizationsWebApplication.LocalResource
+@model OrganizationsWebApplication.Models.PagesModels.OrganizationsListViewModel
 
 @{
     ViewBag.Title = @Resource.OrganizationsList;
@@ -20,21 +19,18 @@
                         new
                         {
                             organizationId = organization.Id,
-                            pageNumberInOrganizationsList = @Model.PageNumberInOrganizationsList,
                             pageNumberInOrganizationInfo = 1,
-                            viewType = Model.ViewType,
                             sortType = Model.SortType
                         }, null)
                 </span>
 
-                @if (OwnershipHelper.IsCurrentUserOwner(organization.Id, Model.OwnersList) || (Roles.IsUserInRole("admin"))  )
+                @if ((Roles.IsUserInRole("admin")))
                 {
                     <span class="operationBlock">
                         @using (Html.BeginForm("UpdateOrganizationMenu", "OrganizationsList", new
                         {
                             id = organization.Id,
-                            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-                            viewType = Model.ViewType,
+                            pageNumberInOrganizationsList = 1,
                             sortType = Model.SortType
                         }))
                         {
@@ -43,8 +39,7 @@
                         @using (Html.BeginForm("DeleteOrganization", "OrganizationsList", new
                         {
                             id = organization.Id,
-                            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList,
-                            viewType = Model.ViewType,
+                            pageNumberInOrganizationsList = 1,
                             sortType = Model.SortType
                         }))
                         {
@@ -71,7 +66,4 @@
         setGridView()
     </script>
 }
-
-
-@Html.Partial("~/Views/_PagingBar.cshtml", @Model)
 

@@ -79,6 +79,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntitiesLists\DepartmentWithEmployees.cs" />
+    <Compile Include="EntitiesLists\MainList.cs" />
+    <Compile Include="EntitiesLists\OrganizationsList.cs" />
+    <Compile Include="EntitiesLists\OrganizationWithDepartments.cs" />
+    <Compile Include="EntitiesLists\UsersList.cs" />
     <Compile Include="Entity\User.cs" />
     <Compile Include="Helpers\AdoHelper.cs" />
     <Compile Include="Container\RegisterByContainer.cs" />

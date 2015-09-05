@@ -1,4 +1,4 @@
-﻿@model OrganizationsWebApplication.Models.MainModel
+﻿@model OrganizationsWebApplication.Models.PagesModels.BaseViewModel
 
 <span class="operationBlock" style="background: #000; width: 600px; height: 50px; margin-top: -50px;display: block;">
 
@@ -8,8 +8,7 @@
     {
         using (Html.BeginForm("GoPrevPage", "OrganizationsList", new
         {
-            pageNumberInOrganizationsList = @Model.PageNumberInOrganizationsList, 
-            viewType = Model.ViewType,
+            pageNumberInOrganizationsList = @Model.CurrentPageNumber,
             sortType = Model.SortType
         }))
         {
@@ -17,13 +16,12 @@
         }
         <form>
             <span style="font-family: RobotoDraft, Roboto, sans-serif; font-size: 20px; color: #ffffff;">
-                @Model.PageNumberInOrganizationsList / @Model.MaxPageQty
+                @Model.CurrentPageNumber / @Model.MaxPageNumber
             </span>
         </form>
         using (Html.BeginForm("GoNextPage", "OrganizationsList", new
         {
-            pageNumberInOrganizationsList = @Model.PageNumberInOrganizationsList, 
-            viewType = Model.ViewType,
+            pageNumberInOrganizationsList = @Model.CurrentPageNumber,
             sortType = Model.SortType
         }))
         {
@@ -36,10 +34,8 @@
     {
         using (Html.BeginForm("GoPrevPage", "OrganizationInfo", new
         {
-            organizationId = @Model.Id, 
-            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
-            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-            viewType = Model.ViewType,
+            organizationId = @Model.Id,
+            pageNumberInOrganizationInfo = Model.CurrentPageNumber,
             sortType = Model.SortType
         }))
         {
@@ -47,33 +43,28 @@
         }
         <form>
             <span style="font-family: RobotoDraft, Roboto, sans-serif; font-size: 20px; color: #ffffff;">
-                @Model.PageNumberInOrganizationInfo / @Model.MaxPageQty
+                @Model.CurrentPageNumber / @Model.MaxPageNumber
             </span>
         </form>
         using (Html.BeginForm("GoNextPage", "OrganizationInfo", new
         {
-            organizationId = @Model.Id, 
-            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
-            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-            viewType = Model.ViewType,
+            organizationId = @Model.Id,
+            pageNumberInOrganizationInfo = Model.CurrentPageNumber,
             sortType = Model.SortType
         }))
         {
             <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />
         }
     }
-    
-    
-    
+
+
+
     @if (Model.PageType == "dep_info")
     {
         using (Html.BeginForm("GoPrevPage", "DepartmentInfo", new
         {
-            departmentId = @Model.Id, 
-            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
-            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-            pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
-            viewType = Model.ViewType,
+            departmentId = @Model.Id,
+            pageNumberInDepartmentInfo = Model.CurrentPageNumber,
             sortType = Model.SortType
         }))
         {
@@ -81,21 +72,18 @@
         }
         <form>
             <span style="font-family: RobotoDraft, Roboto, sans-serif; font-size: 20px; color: #ffffff;">
-                @Model.PageNumberInDepartmentInfo / @Model.MaxPageQty
+                @Model.CurrentPageNumber / @Model.MaxPageNumber
             </span>
         </form>
         using (Html.BeginForm("GoNextPage", "DepartmentInfo", new
         {
-            departmentId = @Model.Id, 
-            pageNumberInOrganizationsList = Model.PageNumberInOrganizationsList, 
-            pageNumberInOrganizationInfo = Model.PageNumberInOrganizationInfo,
-            pageNumberInDepartmentInfo = Model.PageNumberInDepartmentInfo,
-            viewType = Model.ViewType,
+            departmentId = @Model.Id,
+            pageNumberInDepartmentInfo = Model.CurrentPageNumber,
             sortType = Model.SortType
         }))
         {
             <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />
         }
     }
-    
+
 </span>

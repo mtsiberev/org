@@ -150,15 +150,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.ru.resx</DependentUpon>
     </Compile>
+    <Compile Include="Mappers\EntitiesListToView.cs" />
     <Compile Include="Models\Account.cs" />
-    <Compile Include="Models\DepartmentWithEmployeesViewModel.cs" />
-    <Compile Include="Models\EmployeeViewModel.cs" />
-    <Compile Include="Models\OrganizationsList.cs" />
-    <Compile Include="Models\MainModel.cs" />
-    <Compile Include="Models\OrganizationViewModel.cs" />
-    <Compile Include="Models\DepartmentViewModel.cs" />
-    <Compile Include="Models\OrganizationWithDepartmentsViewModel.cs" />
-    <Compile Include="Models\UsersList.cs" />
+    <Compile Include="Models\EntitiesModels\EmployeeViewModel.cs" />
+    <Compile Include="Models\PagesModels\BaseViewModel.cs" />
+    <Compile Include="Models\PagesModels\DepartmentInfoViewModel.cs" />
+    <Compile Include="Models\PagesModels\OrganizationInfoViewModel.cs" />
+    <Compile Include="Models\PagesModels\OrganizationsListViewModel.cs" />
+    <Compile Include="Models\EntitiesModels\OrganizationViewModel.cs" />
+    <Compile Include="Models\EntitiesModels\DepartmentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

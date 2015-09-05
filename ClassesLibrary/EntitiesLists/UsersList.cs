@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using Organizations.Entity;
 using Organizations.Helpers;
-using Organizations.Mappers;
 
-namespace OrganizationsWebApplication.Models
+namespace Organizations.EntitiesLists
 {
     public class UsersList
     {
