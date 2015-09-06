@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Organizations;
 using OrganizationsWebApplication.Mappers;
 using OrganizationsWebApplication.Models.EntitiesModels;
@@ -14,7 +15,13 @@ namespace OrganizationsWebApplication.Controllers
         {
             var departmentInfo = m_facade.GetDepartmentWithEmployees(departmentId, pageNumberInDepartmentInfo, sortType);
             var model = EntitiesListToView.GetDepartmentInfoViewModel(departmentInfo);
-            
+
+            var usersList = m_facade.GetAllEmployees().ToList();
+            var freeUsers =
+                from user in usersList
+                select new EmployeeViewModel() {Id = user.Id, ParentId = user.ParentDepartment.Id};
+            ViewBag.FreeUsers = freeUsers;
+
             return View(model);
         }
         

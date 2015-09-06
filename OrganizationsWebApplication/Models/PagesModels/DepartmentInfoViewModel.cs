@@ -5,7 +5,7 @@ namespace OrganizationsWebApplication.Models.PagesModels
 {
     public class DepartmentInfoViewModel : BaseViewModel
     {
-        public DepartmentInfoViewModel(int organizationId, int id, int currentPageNumber, int maxPageNumber, List<EmployeeViewModel> content)
+        public DepartmentInfoViewModel(int organizationId, int id, int currentPageNumber, int maxPageNumber, List<EmployeeViewModel> content, string sortType)
         {
             ParentId = organizationId;
             Id = id;
@@ -13,6 +13,7 @@ namespace OrganizationsWebApplication.Models.PagesModels
             CurrentPageNumber = currentPageNumber;
             MaxPageNumber = maxPageNumber;
             PageType = "dep_info";
+            SortType = sortType;
         }
 
         public string Name;

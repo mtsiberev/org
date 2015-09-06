@@ -31,7 +31,7 @@ namespace OrganizationsWebApplication.Mappers
          from employee in department.Content
          select new EmployeeViewModel() { Id = employee.Id, ParentId = department.Id, Name = employee.Name };
 
-            return new DepartmentInfoViewModel(department.ParentId, department.Id, department.CurrentPage, department.MaxPageNumber, employeeList.ToList());
+            return new DepartmentInfoViewModel(department.ParentId, department.Id, department.CurrentPage, department.MaxPageNumber, employeeList.ToList(), department.SortType);
         }
     }
 }

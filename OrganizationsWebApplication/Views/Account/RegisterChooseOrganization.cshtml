@@ -1,9 +1,9 @@
 ﻿@{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Choose Organization";
     Layout = null;
 }
 
-@model OrganizationsWebApplication.Models.Account
+@model OrganizationsWebApplication.Models.PagesModels.RegisterViewModel
 
 <!DOCTYPE html>
 
@@ -11,41 +11,39 @@
 <head runat="server">
     <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
     <meta name="viewport" content="width=device-width" />
-    <title>Register</title>
+    <title>Choose Organization</title>
 </head>
 <body>
 
     <div class="header" style="background: #3F51B5;">
         <span style="background: #3F51B5;">
             <span style="color: #fff">
-                <h2>Register</h2>
+                <h2>Choose Organization</h2>
 
-                @using (Html.BeginForm("RegisterChooseOrganization", "Account"))
+                @using (Html.BeginForm("RegisterChooseDepartment", "Account"))
                 {
                     <table>
                         <tr>
                             <td>
                                 <div class="accountContainer">
                                     <div class="group">
-                                        @Html.TextBoxFor(m => m.UserName, new { @class = "inputMaterial", @type = "text", @required = "required" })
-                                        <span class="highlight"></span>
-                                        <span class="bar"></span>
-                                        <label>UserName</label>
+                                        @Html.HiddenFor(m => m.Account.UserName)
                                     </div>
-
                                     <div class="group">
-                                        @Html.TextBoxFor(m => m.Password, new { @class = "inputMaterial", @type = "text", @required = "required" })
-                                        <span class="highlight"></span>
-                                        <span class="bar"></span>
-                                        <label>Password</label>
+                                        @Html.HiddenFor(m => m.Account.Password)
                                     </div>
+                                    
+                                    <div class="group">
+                                        @Html.DropDownListFor(model => model.Account.OrganizationId,
+                                        new SelectList(Model.OrganizationsList, "Id", "Name"), "Choose")
+                                    </div>
+                                    
                                     <input type="submit" value="Next Step">
                                 </div>
                             </td>
                         </tr>
                     </table>
                 }
-                
             </span>
         </span>
     </div>

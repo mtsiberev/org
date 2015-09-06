@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using Organizations.DbEntity;
-using Organizations.Entity;
 
 namespace Organizations.Mappers
 {
@@ -9,7 +8,14 @@ namespace Organizations.Mappers
         public static EmployeeDb GetEmployeeDb(DataTableReader reader)
         {
             var id = (int)reader.GetValue(0);
-            var parentId = (int)reader.GetValue(1);
+            var parentId = 0;
+
+            var type = reader.GetValue(1).GetType();
+            if (type.Name != "DBNull")
+            {
+                parentId = (int) reader.GetValue(1);
+            }
+            
             var name = reader.GetValue(2).ToString();
             return new EmployeeDb(id, parentId) { Name = name };
         }

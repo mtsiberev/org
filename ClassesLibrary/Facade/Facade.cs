@@ -148,8 +148,6 @@ namespace Organizations
         }
 
         
-
-
         public List<Department> GetAllDepartments()
         {
             return m_departmentsRepository.GetAll().ToList();
@@ -206,6 +204,13 @@ namespace Organizations
             return GetAllEmployees().ToList().
                 FindAll(e => e.ParentDepartment.Id == departmentId);
         }
+
+        public List<Department> GetDepartmentsInOrganization(int organizationId)
+        {
+            return GetAllDepartments().ToList().
+                FindAll(e => e.ParentOrganization.Id == organizationId);
+        }
+
 
         public List<Employee> OrderEmployeesByStreet(int departmentId)
         {

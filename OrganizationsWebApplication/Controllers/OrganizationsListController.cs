@@ -24,7 +24,7 @@ namespace OrganizationsWebApplication.Controllers
         [HttpPost]
         public ActionResult OrganizationsList(int pageNumberInOrganizationsList, string sortType)
         {
-            var organizationList = m_facade.GetOrganizationsList(pageNumberInOrganizationsList, "asc");
+            var organizationList = m_facade.GetOrganizationsList(pageNumberInOrganizationsList, sortType);
             var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
 
             return View(model);
@@ -34,7 +34,7 @@ namespace OrganizationsWebApplication.Controllers
         {
             var nextPage = pageNumberInOrganizationsList + 1;
 
-            var organizationList = m_facade.GetOrganizationsList(nextPage, "asc");
+            var organizationList = m_facade.GetOrganizationsList(nextPage, sortType);
             var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
 
             return View("OrganizationsList", model);
@@ -44,7 +44,7 @@ namespace OrganizationsWebApplication.Controllers
         {
             var prevPage = pageNumberInOrganizationsList - 1;
 
-            var organizationList = m_facade.GetOrganizationsList(prevPage, "asc");
+            var organizationList = m_facade.GetOrganizationsList(prevPage, sortType);
             var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
 
             return View("OrganizationsList", model);

@@ -32,9 +32,13 @@ namespace OrganizationsWebApplication
             {
                 var context = new HttpContextWrapper(HttpContext.Current);
                 var routeData = RouteTable.Routes.GetRouteData(context);
+                var language = "en";
                 if (routeData != null)
                 {
-                    var language = routeData.Values["language"].ToString();
+                    if (routeData.Values["language"] != null)
+                    {  
+                        language = routeData.Values["language"].ToString();
+                    }
                     var cultureInfo = new CultureInfo(language);
                     Thread.CurrentThread.CurrentUICulture = cultureInfo;
                     Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);

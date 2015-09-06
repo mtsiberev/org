@@ -8,7 +8,7 @@ namespace Organizations.DbRepository
 {
     public class RepositoryEmployeeDatabase : IRepository<Employee>
     {
-        private const string c_employeesDatabaseName = "Employees";
+        private const string c_employeesDatabaseName = "Users";
 
         public void Delete(int id)
         {
