@@ -1,5 +1,5 @@
-﻿@using Organizations.Helpers
-@using OrganizationsWebApplication.LocalResource
+﻿@using OrganizationsWebApplication.LocalResource
+@using OrganizationsWebApplication.Models.PagesModels
 @model OrganizationsWebApplication.Models.PagesModels.DepartmentInfoViewModel
 
 @{
@@ -50,19 +50,23 @@
             </div>
         }
     </div>
+
+    @using (Html.BeginForm("AddEmployeeFromList", "DepartmentInfo"))
+    {
+        @Html.HiddenFor(m => m.ParentId)
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Content)
+        @Html.HiddenFor(m => m.CurrentPageNumber)
+        @Html.HiddenFor(m => m.MaxPageNumber)
+        @Html.HiddenFor(m => m.PageType)
+        @Html.HiddenFor(m => m.SortType)
+        
+        <div class="group">
+            @Html.DropDownListFor(model => model.EmployeeViewModel.Id,
+            new SelectList(Model.FreeUsersViewModel.Content, "Id", "Name"), "Choose")
+        </div>
+        <input type="submit" value="Add user">
+    }
+
 </div>
 
-
-@if (Model.ViewType == "list")
-{
-    <script>
-        setListView()
-    </script>
-}
-
-@if (Model.ViewType == "grid")
-{
-    <script>
-        setGridView()
-    </script>
-}

@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Organizations;
 using OrganizationsWebApplication.Mappers;
 using OrganizationsWebApplication.Models.EntitiesModels;
+using OrganizationsWebApplication.Models.PagesModels;
 
 namespace OrganizationsWebApplication.Controllers
 {
@@ -14,17 +15,21 @@ namespace OrganizationsWebApplication.Controllers
         public ActionResult DepartmentInfo(int departmentId, int pageNumberInDepartmentInfo, string sortType)
         {
             var departmentInfo = m_facade.GetDepartmentWithEmployees(departmentId, pageNumberInDepartmentInfo, sortType);
-            var model = EntitiesListToView.GetDepartmentInfoViewModel(departmentInfo);
+            var departmentInfoViewModel = EntitiesListToView.GetDepartmentInfoViewModel(departmentInfo);
 
             var usersList = m_facade.GetAllEmployees().ToList();
-            var freeUsers =
+            var freeUsersList =
                 from user in usersList
-                select new EmployeeViewModel() {Id = user.Id, ParentId = user.ParentDepartment.Id};
-            ViewBag.FreeUsers = freeUsers;
+                where user.ParentDepartment == null
+                select new EmployeeViewModel() { Id = user.Id, ParentId = 0, Name = user.Name };
+            var freeUsersViewModel = new FreeUsersViewModel() { Content = freeUsersList.ToList() };
 
-            return View(model);
+            departmentInfoViewModel.EmployeeViewModel = new EmployeeViewModel() { ParentId = departmentId };
+            departmentInfoViewModel.FreeUsersViewModel = freeUsersViewModel;
+
+            return View(departmentInfoViewModel);
         }
-        
+
         public ActionResult ChangeSortType(int departmentId, int pageNumberInDepartmentInfo, string sortType)
         {
             string newSortType = "asc";
@@ -39,7 +44,7 @@ namespace OrganizationsWebApplication.Controllers
 
             var departmentInfo = m_facade.GetDepartmentWithEmployees(departmentId, pageNumberInDepartmentInfo, newSortType);
             var model = EntitiesListToView.GetDepartmentInfoViewModel(departmentInfo);
-            
+
             return View("DepartmentInfo", model);
         }
 
@@ -49,7 +54,7 @@ namespace OrganizationsWebApplication.Controllers
             var nextPage = pageNumberInDepartmentInfo + 1;
             var departmentInfo = m_facade.GetDepartmentWithEmployees(departmentId, nextPage, sortType);
             var model = EntitiesListToView.GetDepartmentInfoViewModel(departmentInfo);
-            
+
             return View("DepartmentInfo", model);
         }
 
@@ -58,13 +63,13 @@ namespace OrganizationsWebApplication.Controllers
             var prevPage = pageNumberInDepartmentInfo - 1;
             var departmentInfo = m_facade.GetDepartmentWithEmployees(departmentId, prevPage, sortType);
             var model = EntitiesListToView.GetDepartmentInfoViewModel(departmentInfo);
-            
+
             return View("DepartmentInfo", model);
         }
-        
+
         public ActionResult UpdateEmployeeMenu(int id, string name, int pageNumberInDepartmentInfo, string sortType)
         {
-            var employeeModel = new EmployeeViewModel(){ Id = id, Name = name };
+            var employeeModel = new EmployeeViewModel() { Id = id, Name = name };
             return View(employeeModel);
         }
 
@@ -76,13 +81,13 @@ namespace OrganizationsWebApplication.Controllers
 
             var departmentInfo = m_facade.GetDepartmentWithEmployees(employeeBm.ParentDepartment.Id, 1, sortType);
             var model = EntitiesListToView.GetDepartmentInfoViewModel(departmentInfo);
-            
+
             return View("DepartmentInfo", model);
         }
 
         public ActionResult AddEmployeeMenu(int departmentId, int pageNumberInDepartmentInfo, string sortType)
         {
-            var employeeModel = new EmployeeViewModel(){ ParentId = departmentId };
+            var employeeModel = new EmployeeViewModel() { ParentId = departmentId };
             return View(employeeModel);
         }
 
@@ -93,9 +98,25 @@ namespace OrganizationsWebApplication.Controllers
 
             var departmentInfo = m_facade.GetDepartmentWithEmployees(departmentBm.Id, 1, sortType);
             var model = EntitiesListToView.GetDepartmentInfoViewModel(departmentInfo);
-            
+
             return View("DepartmentInfo", model);
         }
+
+        //////////////////////////////////
+        public ActionResult AddEmployeeFromList(DepartmentInfoViewModel departmentInfoViewModel)
+        {
+            var employeeBm = m_facade.GetEmployeeById(departmentInfoViewModel.EmployeeViewModel.Id);
+            var department = m_facade.GetDepartmentById(departmentInfoViewModel.Id);
+            employeeBm.ParentDepartment = department;
+
+            m_facade.UpdateEmployee(employeeBm);
+
+            var departmentInfo = m_facade.GetDepartmentWithEmployees(departmentInfoViewModel.Id, departmentInfoViewModel.CurrentPageNumber, departmentInfoViewModel.SortType);
+            var model = EntitiesListToView.GetDepartmentInfoViewModel(departmentInfo);
+
+            return View("DepartmentInfo", model);
+        }
+        //////////////////////////////////
 
         public ActionResult DeleteEmployee(int id, int pageNumberInDepartmentInfo, string viewType, string sortType)
         {
@@ -104,7 +125,7 @@ namespace OrganizationsWebApplication.Controllers
 
             var departmentInfo = m_facade.GetDepartmentWithEmployees(department.Id, 1, sortType);
             var model = EntitiesListToView.GetDepartmentInfoViewModel(departmentInfo);
-            
+
             return View("DepartmentInfo", model);
         }
     }

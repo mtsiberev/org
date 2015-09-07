@@ -19,9 +19,10 @@ namespace Organizations.DbRepository
 
         public void Update(Employee entity)
         {
-            var queryString = String.Format("UPDATE {0} SET Name = '{1}' WHERE Id = {2}",
+            var queryString = String.Format("UPDATE {0} SET Name = '{1}', ParentId = {2} WHERE Id = {3}",
                 c_employeesDatabaseName,
                 entity.Name,
+                entity.ParentDepartment.Id,
                 entity.Id);
             AdoHelper.ExecCommand(queryString);
         }

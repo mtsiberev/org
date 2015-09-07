@@ -98,12 +98,22 @@ namespace OrganizationsWebApplication.Controllers
         {
             try
             {
-                WebSecurity.CreateUserAndAccount(registerViewModel.Account.UserName, 
-                    registerViewModel.Account.Password,
-                    propertyValues: new
-                    {
-                        DepartmentId = registerViewModel.Account.DepartmentId
-                    });
+                if (registerViewModel.Account.DepartmentId == 0)
+                {
+                    WebSecurity.CreateUserAndAccount(registerViewModel.Account.UserName,
+                        registerViewModel.Account.Password);
+                }
+
+                else
+                {
+                    WebSecurity.CreateUserAndAccount(registerViewModel.Account.UserName,
+                        registerViewModel.Account.Password,
+                        propertyValues: new
+                        {
+                            DepartmentId = registerViewModel.Account.DepartmentId
+                        });
+                }
+
                 if (registerViewModel.Account.UserName == "admin")
                 {
                     var role = System.Web.Security.Roles.Provider;
@@ -115,8 +125,8 @@ namespace OrganizationsWebApplication.Controllers
                 return RedirectToAction("Register", "Account");
             }
             return RedirectToAction("Login", "Account");
-     }
-        
+        }
+
         public ActionResult Logout()
         {
             WebSecurity.Logout();

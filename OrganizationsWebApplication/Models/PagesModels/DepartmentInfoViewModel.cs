@@ -5,6 +5,11 @@ namespace OrganizationsWebApplication.Models.PagesModels
 {
     public class DepartmentInfoViewModel : BaseViewModel
     {
+
+        public DepartmentInfoViewModel()
+        {
+        }
+
         public DepartmentInfoViewModel(int organizationId, int id, int currentPageNumber, int maxPageNumber, List<EmployeeViewModel> content, string sortType)
         {
             ParentId = organizationId;
@@ -18,5 +23,8 @@ namespace OrganizationsWebApplication.Models.PagesModels
 
         public string Name;
         public List<EmployeeViewModel> Content { get; private set; }
+        
+        public FreeUsersViewModel FreeUsersViewModel { get; set; }
+        public EmployeeViewModel EmployeeViewModel { get; set; }
     }
 }

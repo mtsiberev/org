@@ -155,6 +155,7 @@
     <Compile Include="Models\EntitiesModels\EmployeeViewModel.cs" />
     <Compile Include="Models\PagesModels\BaseViewModel.cs" />
     <Compile Include="Models\PagesModels\DepartmentInfoViewModel.cs" />
+    <Compile Include="Models\PagesModels\FreeUsersViewModel.cs" />
     <Compile Include="Models\PagesModels\OrganizationInfoViewModel.cs" />
     <Compile Include="Models\PagesModels\OrganizationsListViewModel.cs" />
     <Compile Include="Models\EntitiesModels\OrganizationViewModel.cs" />

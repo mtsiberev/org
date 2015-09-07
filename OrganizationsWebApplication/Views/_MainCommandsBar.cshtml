@@ -62,10 +62,8 @@
                 <input type="image" src="../../Content/sort-descending.svg" alt="sort" name="submit" />
             }
         }
-
     }
-
-
+    
     @if (@Model.PageType == "dep_info")
     {
         using (Html.BeginForm("OrganizationInfo", "OrganizationInfo", new
@@ -75,11 +73,9 @@
             sortType = Model.SortType
         }, FormMethod.Post))
         {
-            <input type="image" src="../../Content/ic_home_24px_inverse.svg" alt="add" name="submit" />
+            <input type="image" src="../../Content/ic_home_24px_inverse.svg" alt="home" name="submit" />
         }
-
-
-
+        
 
         using (Html.BeginForm("ChangeSortType", "DepartmentInfo", new
         {
@@ -98,7 +94,6 @@
                 <input type="image" src="../../Content/sort-descending.svg" alt="sort" name="submit" />
             }
         }
-
     }
 
     
@@ -123,23 +118,6 @@
             {
                 organizationId = @Model.Id,
                 pageNumberInOrganizationInfo = Model.CurrentPageNumber,
-               sortType = Model.SortType
-            }, FormMethod.Post))
-            {
-                <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
-            }
-        }
-    }
-
-
-    @if (Roles.IsUserInRole("admin"))
-    {
-        if (@Model.PageType == "dep_info")
-        {
-            using (Html.BeginForm("AddEmployeeMenu", "DepartmentInfo", new
-            {
-                departmentId = Model.Id,
-                pageNumberInDepartmentInfo = Model.CurrentPageNumber,
                sortType = Model.SortType
             }, FormMethod.Post))
             {
