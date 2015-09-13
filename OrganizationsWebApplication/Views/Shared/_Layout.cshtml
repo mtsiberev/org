@@ -20,34 +20,23 @@
         <span style="color: #fff">
             @ViewBag.Title
 
+            <br>
+            <br>
+            @{
+                string rawUrl = Request.RawUrl;
 
-            @{ RouteData data = this.ViewContext.RouteData;}
+                string newUrlRu = rawUrl.Replace("/en/", "/ru/");
+                <a href="@newUrlRu" title="Culture">RU</a>
 
-            @{ data.Values["culture"] = "ru"; }
-            @{ string str = data.Route.ToString();}
-            @{ data.Values["culture"] = "en"; }
-
-            
-
-            @using (Html.BeginForm("ChangeCultureRoute", "ChangeCulture",
-                new { culture = "en", data = this.ViewContext.RouteData }
-                ))
-            {
-                <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
+                string newUrlEn = rawUrl.Replace("/ru/", "/en/");
+                <a href="@newUrlEn" title="Culture">EN</a>
             }
-
-            @Html.ActionLink("en", "ChangeCulture", "ChangeCulture",
-                      new { culture = "en", url = this.Request.RawUrl }, null)
-            @Html.ActionLink("ru", "ChangeCulture", "ChangeCulture",
-                      new { culture = "ru", url = this.Request.RawUrl }, null)
-            
         </span>
     </div>
 
     @RenderBody()
 
     @Html.Partial("~/Views/_PagingBar.cshtml", @Model)
-
 
     <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
 </body>

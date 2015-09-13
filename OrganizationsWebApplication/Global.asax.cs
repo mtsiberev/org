@@ -42,7 +42,7 @@ namespace OrganizationsWebApplication
                     var cultureInfo = new CultureInfo(culture);
                     Thread.CurrentThread.CurrentUICulture = cultureInfo;
                     Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
-                }
+                }        
             }
         }
         
