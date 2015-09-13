@@ -19,7 +19,7 @@ namespace Organizations.DbRepository
 
         public void Update(Employee entity)
         {
-            var queryString = String.Format("UPDATE {0} SET Name = '{1}', ParentId = {2} WHERE Id = {3}",
+            var queryString = String.Format("UPDATE {0} SET Name = '{1}', DepartmentId = {2} WHERE Id = {3}",
                 c_employeesDatabaseName,
                 entity.Name,
                 entity.ParentDepartment.Id,

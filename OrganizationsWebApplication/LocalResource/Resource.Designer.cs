@@ -61,6 +61,42 @@ namespace OrganizationsWebApplication.LocalResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AddUser.
+        /// </summary>
+        public static string AddUser {
+            get {
+                return ResourceManager.GetString("AddUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Administration.
+        /// </summary>
+        public static string Administration {
+            get {
+                return ResourceManager.GetString("Administration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changing Roles Menu.
+        /// </summary>
+        public static string ChangeRolesMenu {
+            get {
+                return ResourceManager.GetString("ChangeRolesMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change to admin.
+        /// </summary>
+        public static string ChangeToAdmin {
+            get {
+                return ResourceManager.GetString("ChangeToAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Department Information.
         /// </summary>
         public static string DepartmentInfo {
@@ -75,6 +111,15 @@ namespace OrganizationsWebApplication.LocalResource {
         public static string Login {
             get {
                 return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        public static string Logout {
+            get {
+                return ResourceManager.GetString("Logout", resourceCulture);
             }
         }
         
@@ -102,6 +147,15 @@ namespace OrganizationsWebApplication.LocalResource {
         public static string OrganizationsList {
             get {
                 return ResourceManager.GetString("OrganizationsList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration.
+        /// </summary>
+        public static string Registration {
+            get {
+                return ResourceManager.GetString("Registration", resourceCulture);
             }
         }
     }

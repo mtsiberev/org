@@ -153,6 +153,7 @@
     <Compile Include="Mappers\EntitiesListToView.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\EntitiesModels\EmployeeViewModel.cs" />
+    <Compile Include="Models\PagesModels\AdministrationViewModel.cs" />
     <Compile Include="Models\PagesModels\BaseViewModel.cs" />
     <Compile Include="Models\PagesModels\DepartmentInfoViewModel.cs" />
     <Compile Include="Models\PagesModels\FreeUsersViewModel.cs" />

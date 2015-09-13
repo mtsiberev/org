@@ -23,13 +23,13 @@
         <span style="background: #3F51B5;">
             <span style="color: #fff">
                 <h2>@Resource.Login</h2>
-
-
+                
+                
                 @Html.ActionLink("en", "ChangeCulture", "ChangeCulture",
-    new { lang = "en", returnUrl = this.Request.RawUrl }, null)
+                      new { culture = "en", url = this.Request.RawUrl }, null)
                 @Html.ActionLink("ru", "ChangeCulture", "ChangeCulture",
-    new { lang = "ru", returnUrl = this.Request.RawUrl }, null)
-
+                      new { culture = "ru", url = this.Request.RawUrl }, null)
+                
                 
                 @using (Html.BeginForm("Login", "Account"))
                 {
@@ -53,7 +53,7 @@
                                     <input type="submit" value="OK">
                                     <br>
                                     <br>
-                                    @Html.ActionLink("Register", "Register", "Account")
+                                    @Html.ActionLink(Resource.Registration, "Register", "Account")
                                 </div>
                             </td>
                         </tr>

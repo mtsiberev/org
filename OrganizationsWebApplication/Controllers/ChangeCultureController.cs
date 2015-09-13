@@ -12,13 +12,13 @@ namespace OrganizationsWebApplication.Controllers
         {
             return View();
         }
-        
-        public ActionResult ChangeCulture(string language, string url)
+
+        public ActionResult ChangeCulture(string culture, string url)
         {
             return RedirectToAction("Index", "Home");
         }
-        
-        public ActionResult ChangeCultureRoute(string language, RouteData data)
+
+        public ActionResult ChangeCultureRoute(string culture, RouteData data)
         {
             return RedirectToAction("Index", "Home");
         }

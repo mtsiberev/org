@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Routing;
 using Organizations;
-using OrganizationsWebApplication.Mappers;
 using OrganizationsWebApplication.Models;
 using OrganizationsWebApplication.Models.EntitiesModels;
 using OrganizationsWebApplication.Models.PagesModels;
@@ -75,7 +73,6 @@ namespace OrganizationsWebApplication.Controllers
                 select new OrganizationViewModel() { Id = organization.Id, Name = organization.Name };
 
             var registerViewModel = new RegisterViewModel() { Account = account, OrganizationsList = organizationsViewModelsList.ToList() };
-
             return View(registerViewModel);
 
         }
@@ -89,7 +86,6 @@ namespace OrganizationsWebApplication.Controllers
                 select new DepartmentViewModel() { Id = department.Id, Name = department.Name };
 
             registerViewModel.DepartmentsList = departmentsViewModelsList.ToList();
-
             return View(registerViewModel);
         }
 
@@ -117,14 +113,17 @@ namespace OrganizationsWebApplication.Controllers
                 if (registerViewModel.Account.UserName == "admin")
                 {
                     var role = System.Web.Security.Roles.Provider;
-                    role.AddUsersToRoles(new[] { registerViewModel.Account.UserName }, new[] { "admin" });
+                    role.AddUsersToRoles(
+                        new[] { registerViewModel.Account.UserName }, 
+                        new[] { "admin" });
                 }
             }
             catch (Exception)
             {
                 return RedirectToAction("Register", "Account");
             }
-            return RedirectToAction("Login", "Account");
+            
+            return this.Login(registerViewModel.Account);
         }
 
         public ActionResult Logout()

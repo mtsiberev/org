@@ -1,17 +1,18 @@
-﻿<div class="userMenu">
+﻿@using OrganizationsWebApplication.LocalResource
+<div class="userMenu">
     <nav>
         <ul>
             <li>
                 <a class="dropdown" href="#">@WebSecurity.CurrentUserName</a>
                 <ul>
                     <li>
-                        @Html.ActionLink("Logout", "Logout", "Account")
+                        @Html.ActionLink(Resource.Logout, "Logout", "Account")
                     </li>
 
                     @if (Roles.IsUserInRole("admin"))
                     {
                         <li>
-                            @Html.ActionLink("Administration", "ChangeRolesMenu", "AdministrationMenu")
+                            @Html.ActionLink(Resource.Administration, "ChangeRolesMenu", "AdministrationMenu")
                         </li>
                     }
                 </ul>

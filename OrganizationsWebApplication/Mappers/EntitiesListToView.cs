@@ -1,4 +1,5 @@
-﻿using Organizations.EntitiesLists;
+﻿using Organizations;
+using Organizations.EntitiesLists;
 using OrganizationsWebApplication.Models.EntitiesModels;
 using System.Linq;
 using OrganizationsWebApplication.Models.PagesModels;
@@ -7,6 +8,8 @@ namespace OrganizationsWebApplication.Mappers
 {
     public static class EntitiesListToView
     {
+        private static Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
+        
         public static OrganizationsListViewModel GetOrganizationsListViewModel(OrganizationsList organizationsList)
         {
             var organizatonsList =
@@ -30,8 +33,10 @@ namespace OrganizationsWebApplication.Mappers
             var employeeList =
          from employee in department.Content
          select new EmployeeViewModel() { Id = employee.Id, ParentId = department.Id, Name = employee.Name };
-
-            return new DepartmentInfoViewModel(department.ParentId, department.Id, department.CurrentPage, department.MaxPageNumber, employeeList.ToList(), department.SortType);
+            
+            var departmentViewModel = new DepartmentInfoViewModel(department.ParentId, department.Id, department.CurrentPage, department.MaxPageNumber, employeeList.ToList(), department.SortType);
+            departmentViewModel.Name = m_facade.GetDepartmentById(departmentViewModel.Id).Name;
+            return departmentViewModel;
         }
     }
 }

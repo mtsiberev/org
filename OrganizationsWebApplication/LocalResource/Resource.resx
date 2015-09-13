@@ -117,11 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddUser" xml:space="preserve">
+    <value>AddUser</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Administration</value>
+  </data>
+  <data name="ChangeRolesMenu" xml:space="preserve">
+    <value>Changing Roles Menu</value>
+  </data>
+  <data name="ChangeToAdmin" xml:space="preserve">
+    <value>Change to admin</value>
+  </data>
   <data name="DepartmentInfo" xml:space="preserve">
     <value>Department Information</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
@@ -131,5 +146,8 @@
   </data>
   <data name="OrganizationsList" xml:space="preserve">
     <value>Organizations List</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Registration</value>
   </data>
 </root>

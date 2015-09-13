@@ -117,11 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddUser" xml:space="preserve">
+    <value>Добавить пользователя</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Администрирование</value>
+  </data>
+  <data name="ChangeRolesMenu" xml:space="preserve">
+    <value>Изменение ролей пользователей</value>
+  </data>
+  <data name="ChangeToAdmin" xml:space="preserve">
+    <value>Сделать админом</value>
+  </data>
   <data name="DepartmentInfo" xml:space="preserve">
     <value>Информация о департаменте</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Логин</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Выход</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Имя</value>
@@ -131,5 +146,8 @@
   </data>
   <data name="OrganizationsList" xml:space="preserve">
     <value>Список организаций</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Регистрация</value>
   </data>
 </root>

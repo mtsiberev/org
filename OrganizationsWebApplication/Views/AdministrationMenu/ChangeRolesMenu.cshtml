@@ -1,40 +1,18 @@
-﻿@model OrganizationsWebApplication.Models.User
+﻿@model OrganizationsWebApplication.Models.PagesModels.AdministrationViewModel
+@using OrganizationsWebApplication.LocalResource
 @{
-    ViewBag.Title = "ChangeRolesMenu";
+    ViewBag.Title = Resource.ChangeRolesMenu;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="wrapper">
+    <div class="content">
+        
+            @using (Html.BeginForm("ChangeRolesMenu", "AdministrationMenu"))
+            {
+                @Html.DropDownListFor(model => model.EmployeeViewModel.Id,
+            new SelectList(Model.Content, "Id", "Name"), "Choose")
 
-<div style="width: 50%;
-                                      padding: 25px;
-                                      background-color: #eee;
-                                      margin: 25px;
-                                      font-family: RobotoDraft, Roboto, sans-serif;">
-
-    <h2>Change Roles Menu</h2>
-
-
-    @using (Html.BeginForm("ChangeRolesMenu", "AdministrationMenu"))
-    {
-        <table style="font-family: RobotoDraft, Roboto, sans-serif; border: 1px solid #303F9F; border-collapse: separate;
-                                                                                                              width: 50%;
-                                                                                                              border-spacing: 7px 11px;
-                                                                                                              background-color: #fff;">
-            <tr style="border: 4px solid #888; background-color: #3F51B5; color: white;">
-                <td style="text-align:center;">Username</td>
-                <td style="text-align:center;">Admin</td>
-                <td style="text-align:center;">User</td>
-            </tr>
-            <tr>
-                <td>@Model.Name</td>
-                <td>
-                    @Html.RadioButtonFor(x => x.Role, "Admin", new { @checked = false }) Admin
-                </td>
-                <td>
-                    @Html.RadioButtonFor(m => m.Role, "User", new { @checked = true }) User
-                </td>
-            </tr>
-        </table>
-        <br>
-        <br>
-        <input type="submit" value="Save">
-    }
+                <input type="submit" value="@Resource.ChangeToAdmin">
+            }
+    </div>
 </div>

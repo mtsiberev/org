@@ -22,8 +22,8 @@ namespace OrganizationsWebApplication.Models.PagesModels
         }
 
         public string Name;
-        public List<EmployeeViewModel> Content { get; private set; }
-        
+
+        public List<EmployeeViewModel> Content { get; set; }
         public FreeUsersViewModel FreeUsersViewModel { get; set; }
         public EmployeeViewModel EmployeeViewModel { get; set; }
     }

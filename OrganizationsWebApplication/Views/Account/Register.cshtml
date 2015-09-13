@@ -1,5 +1,7 @@
-﻿@{
-    ViewBag.Title = "Register";
+﻿@using OrganizationsWebApplication.LocalResource
+
+@{
+    ViewBag.Title = Resource.Registration;
     Layout = null;
 }
 
@@ -11,14 +13,14 @@
 <head runat="server">
     <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
     <meta name="viewport" content="width=device-width" />
-    <title>Register</title>
+    <title>@Resource.Registration</title>
 </head>
 <body>
 
     <div class="header" style="background: #3F51B5;">
         <span style="background: #3F51B5;">
             <span style="color: #fff">
-                <h2>Register</h2>
+                <h2>@Resource.Registration</h2>
 
                 @using (Html.BeginForm("RegisterChooseOrganization", "Account"))
                 {

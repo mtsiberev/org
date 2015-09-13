@@ -1,5 +1,5 @@
 ﻿@using OrganizationsWebApplication.LocalResource
-@using OrganizationsWebApplication.Models.PagesModels
+
 @model OrganizationsWebApplication.Models.PagesModels.DepartmentInfoViewModel
 
 @{
@@ -51,22 +51,20 @@
         }
     </div>
 
-    @using (Html.BeginForm("AddEmployeeFromList", "DepartmentInfo"))
+
+    @if (Roles.IsUserInRole("admin"))
     {
-        @Html.HiddenFor(m => m.ParentId)
-        @Html.HiddenFor(m => m.Id)
-        @Html.HiddenFor(m => m.Content)
-        @Html.HiddenFor(m => m.CurrentPageNumber)
-        @Html.HiddenFor(m => m.MaxPageNumber)
-        @Html.HiddenFor(m => m.PageType)
-        @Html.HiddenFor(m => m.SortType)
-        
-        <div class="group">
+        using (Html.BeginForm("AddEmployeeFromList", "DepartmentInfo", new { pageNumberInDepartmentInfo = Model.CurrentPageNumber, sortType = Model.SortType }))
+        {
+            Model.EmployeeViewModel.ParentId = Model.Id;
+
             @Html.DropDownListFor(model => model.EmployeeViewModel.Id,
             new SelectList(Model.FreeUsersViewModel.Content, "Id", "Name"), "Choose")
-        </div>
-        <input type="submit" value="Add user">
+
+            @Html.HiddenFor(m => m.EmployeeViewModel.ParentId)
+
+            <input type="submit" value="@Resource.AddUser">
+        }
     }
 
 </div>
-

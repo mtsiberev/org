@@ -26,26 +26,26 @@ namespace OrganizationsWebApplication
             WebSecurity.InitializeDatabaseConnection("ConnectionString", "Users", "Id", "Name", autoCreateTables: true);
         }
 
-
+        
         protected void Application_AcquireRequestState(object sender, EventArgs e)
         {
             {
                 var context = new HttpContextWrapper(HttpContext.Current);
                 var routeData = RouteTable.Routes.GetRouteData(context);
-                var language = "en";
+                var culture = "en";
                 if (routeData != null)
                 {
-                    if (routeData.Values["language"] != null)
-                    {  
-                        language = routeData.Values["language"].ToString();
+                    if (routeData.Values["culture"] != null)
+                    {
+                        culture = routeData.Values["culture"].ToString();
                     }
-                    var cultureInfo = new CultureInfo(language);
+                    var cultureInfo = new CultureInfo(culture);
                     Thread.CurrentThread.CurrentUICulture = cultureInfo;
                     Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
                 }
             }
-
         }
+        
 
     }
 }

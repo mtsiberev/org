@@ -1,7 +1,5 @@
 ﻿using System.Web.Mvc;
 using Organizations;
-using Organizations.EntitiesLists;
-using Organizations.Helpers;
 using OrganizationsWebApplication.Mappers;
 using OrganizationsWebApplication.Models.EntitiesModels;
 
@@ -29,11 +27,11 @@ namespace OrganizationsWebApplication.Controllers
 
             return View(model);
         }
-      
+        
         public ActionResult GoNextPage(int pageNumberInOrganizationsList, string sortType)
         {
             var nextPage = pageNumberInOrganizationsList + 1;
-
+        
             var organizationList = m_facade.GetOrganizationsList(nextPage, sortType);
             var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
 
