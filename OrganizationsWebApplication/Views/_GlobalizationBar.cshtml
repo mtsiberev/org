@@ -1,0 +1,11 @@
+﻿@model OrganizationsWebApplication.Models.PagesModels.BaseViewModel
+
+@{
+    string rawUrl = Request.RawUrl;
+
+    string newUrlRu = rawUrl.Replace("/en/", "/ru/");
+    <a href="@newUrlRu" title="Culture">RU</a>
+
+    string newUrlEn = rawUrl.Replace("/ru/", "/en/");
+    <a href="@newUrlEn" title="Culture">EN</a>
+}

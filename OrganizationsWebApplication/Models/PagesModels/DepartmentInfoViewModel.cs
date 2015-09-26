@@ -12,13 +12,13 @@ namespace OrganizationsWebApplication.Models.PagesModels
 
         public DepartmentInfoViewModel(int organizationId, int id, int currentPageNumber, int maxPageNumber, List<EmployeeViewModel> content, string sortType)
         {
-            ParentId = organizationId;
-            Id = id;
+            ViewStateProperty.ParentId = organizationId;
+            ViewStateProperty.Id = id;
             Content = content;
-            CurrentPageNumber = currentPageNumber;
-            MaxPageNumber = maxPageNumber;
-            PageType = "dep_info";
-            SortType = sortType;
+            ViewStateProperty.CurrentPageNumber = currentPageNumber;
+            ViewStateProperty.MaxPageNumber = maxPageNumber;
+            ViewStateProperty.PageType = "dep_info";
+            ViewStateProperty.SortType = sortType;
         }
 
         public string Name;

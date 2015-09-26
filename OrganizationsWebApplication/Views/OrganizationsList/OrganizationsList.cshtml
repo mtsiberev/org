@@ -8,8 +8,6 @@
 
 <div class="wrapper">
 
-    @Html.Partial("~/Views/_MainCommandsBar.cshtml", @Model)
-
     <div class="content">
         @foreach (var organization in Model.Content)
         {
@@ -18,9 +16,9 @@
                     @Html.ActionLink(organization.Name, "OrganizationInfo", "OrganizationInfo",
                         new
                         {
-                            organizationId = organization.Id,
-                            pageNumberInOrganizationInfo = 1,
-                            sortType = Model.SortType
+                            id = organization.Id,
+                            CurrentPageNumber = 1,
+                            Model.ViewStateProperty.SortType
                         }, null)
                 </span>
 
@@ -30,8 +28,8 @@
                         @using (Html.BeginForm("UpdateOrganizationMenu", "OrganizationsList", new
                         {
                             id = organization.Id,
-                            pageNumberInOrganizationsList = 1,
-                            sortType = Model.SortType
+                            Model.ViewStateProperty.CurrentPageNumber,
+                            Model.ViewStateProperty.SortType
                         }))
                         {
                             <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
@@ -39,8 +37,8 @@
                         @using (Html.BeginForm("DeleteOrganization", "OrganizationsList", new
                         {
                             id = organization.Id,
-                            pageNumberInOrganizationsList = 1,
-                            sortType = Model.SortType
+                            Model.ViewStateProperty.CurrentPageNumber,
+                            Model.ViewStateProperty.SortType
                         }))
                         {
                             <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
@@ -53,14 +51,14 @@
 </div>
 
 
-@if (Model.ViewType == "list")
+@if (Model.ViewStateProperty.ViewType == "list")
 {
     <script>
         setListView()
     </script>
 }
 
-@if (Model.ViewType == "grid")
+@if (Model.ViewStateProperty.ViewType == "grid")
 {
     <script>
         setGridView()

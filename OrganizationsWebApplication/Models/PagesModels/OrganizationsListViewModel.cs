@@ -7,11 +7,12 @@ namespace OrganizationsWebApplication.Models.PagesModels
     {
         public OrganizationsListViewModel(int currentPageNumber, int maxPageNumber, List<OrganizationViewModel> content, string sortType)
         {
+            ViewStateProperty = new ViewState();
             Content = content;
-            CurrentPageNumber = currentPageNumber;
-            SortType = sortType;
-            MaxPageNumber = maxPageNumber;
-            PageType = "org_list";
+            ViewStateProperty.CurrentPageNumber = currentPageNumber;
+            ViewStateProperty.SortType = sortType;
+            ViewStateProperty.MaxPageNumber = maxPageNumber;
+            ViewStateProperty.PageType = "org_list";
         }
 
         public List<OrganizationViewModel> Content { get; private set; }

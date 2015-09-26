@@ -1,87 +1,34 @@
-﻿@model OrganizationsWebApplication.Models.PagesModels.BaseViewModel
+﻿@using OrganizationsWebApplication.Helpers
+@model OrganizationsWebApplication.Models.PagesModels.BaseViewModel
+
+@{
+    var helper = new MainCommandsViewHelper(Model);
+}
 
 <span class="operationBlock" style="background: #000; width: 600px; height: 50px; margin-top: -50px;display: block;">
-    
 
-    @if (Model.PageType == "org_list")
+    @using (Html.BeginForm(helper.GoPrevPageAction, helper.ControllerName, new
+        {
+            id = @Model.ViewStateProperty.Id,
+            Model.ViewStateProperty.CurrentPageNumber,
+            Model.ViewStateProperty.SortType
+        }))
     {
-        using (Html.BeginForm("GoPrevPage", "OrganizationsList", new
-        {
-            pageNumberInOrganizationsList = @Model.CurrentPageNumber,
-            sortType = Model.SortType
-        }))
-        {
-            <input type="image" src="../../Content/ic-double-left.svg" name="submit" style="cursor: pointer;" />
-        }
-        <form>
-            <span style="font-family: RobotoDraft, Roboto, sans-serif; font-size: 20px; color: #ffffff;">
-                @Model.CurrentPageNumber / @Model.MaxPageNumber
-            </span>
-        </form>
-        using (Html.BeginForm("GoNextPage", "OrganizationsList", new
-        {
-            pageNumberInOrganizationsList = @Model.CurrentPageNumber,
-            sortType = Model.SortType
-        }))
-        {
-            <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />
-        }
+        <input type="image" src="../../Content/ic-double-left.svg" name="submit" style="cursor: pointer;" />
     }
-
-
-    @if (Model.PageType == "org_info")
+    <form>
+        <span style="font-family: RobotoDraft, Roboto, sans-serif; font-size: 20px; color: #ffffff;">
+            @Model.ViewStateProperty.CurrentPageNumber / @Model.ViewStateProperty.MaxPageNumber
+        </span>
+    </form>
+    @using (Html.BeginForm(helper.GoNextPageAction, helper.ControllerName, new
+            {
+                id = @Model.ViewStateProperty.Id,
+                Model.ViewStateProperty.CurrentPageNumber,
+                Model.ViewStateProperty.SortType
+            }))
     {
-        using (Html.BeginForm("GoPrevPage", "OrganizationInfo", new
-        {
-            organizationId = @Model.Id,
-            pageNumberInOrganizationInfo = Model.CurrentPageNumber,
-            sortType = Model.SortType
-        }))
-        {
-            <input type="image" src="../../Content/ic-double-left.svg" name="submit" style="cursor: pointer;" />
-        }
-        <form>
-            <span style="font-family: RobotoDraft, Roboto, sans-serif; font-size: 20px; color: #ffffff;">
-                @Model.CurrentPageNumber / @Model.MaxPageNumber
-            </span>
-        </form>
-        using (Html.BeginForm("GoNextPage", "OrganizationInfo", new
-        {
-            organizationId = @Model.Id,
-            pageNumberInOrganizationInfo = Model.CurrentPageNumber,
-            sortType = Model.SortType
-        }))
-        {
-            <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />
-        }
-    }
-    
-
-    @if (Model.PageType == "dep_info")
-    {
-        using (Html.BeginForm("GoPrevPage", "DepartmentInfo", new
-        {
-            departmentId = @Model.Id,
-            pageNumberInDepartmentInfo = Model.CurrentPageNumber,
-            sortType = Model.SortType
-        }))
-        {
-            <input type="image" src="../../Content/ic-double-left.svg" name="submit" style="cursor: pointer;" />
-        }
-        <form>
-            <span style="font-family: RobotoDraft, Roboto, sans-serif; font-size: 20px; color: #ffffff;">
-                @Model.CurrentPageNumber / @Model.MaxPageNumber
-            </span>
-        </form>
-        using (Html.BeginForm("GoNextPage", "DepartmentInfo", new
-        {
-            departmentId = @Model.Id,
-            pageNumberInDepartmentInfo = Model.CurrentPageNumber,
-            sortType = Model.SortType
-        }))
-        {
-            <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />
-        }
+        <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />
     }
 
 </span>

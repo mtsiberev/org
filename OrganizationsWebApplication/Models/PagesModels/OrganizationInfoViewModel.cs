@@ -7,13 +7,13 @@ namespace OrganizationsWebApplication.Models.PagesModels
     {
         public OrganizationInfoViewModel(int organizationId, int currentPageNumber, int maxPageNumber, List<DepartmentViewModel> content, string name, string sortType)
         {
-            Id = organizationId;
+            ViewStateProperty.Id = organizationId;
             Content = content;
-            CurrentPageNumber = currentPageNumber;
+            ViewStateProperty.CurrentPageNumber = currentPageNumber;
             Name = name;
-            SortType = sortType;
-            MaxPageNumber = maxPageNumber;
-            PageType = "org_info";
+            ViewStateProperty.SortType = sortType;
+            ViewStateProperty.MaxPageNumber = maxPageNumber;
+            ViewStateProperty.PageType = "org_info";
         }
         
         public string Name;

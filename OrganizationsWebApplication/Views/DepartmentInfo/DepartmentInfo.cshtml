@@ -9,8 +9,6 @@
 
 <div class="wrapper">
 
-    @Html.Partial("~/Views/_MainCommandsBar.cshtml", @Model)
-
     <div class="content">
         @foreach (var employee in Model.Content)
         {
@@ -23,24 +21,13 @@
                 @if (Roles.IsUserInRole("admin"))
                 {
                     <span class="operationBlock">
-                        @using (Html.BeginForm("UpdateEmployeeMenu", "DepartmentInfo",
-                            new
-                            {
-                                id = employee.Id,
-                                name = employee.Name,
-                                pageNumberInDepartmentInfo = Model.CurrentPageNumber,
-                                sortType = Model.SortType
-                            }))
-                        {
-                            <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
-                        }
-
+                   
                         @using (Html.BeginForm("DeleteEmployee", "DepartmentInfo",
                             new
                             {
                                 id = employee.Id,
-                                pageNumberInDepartmentInfo = Model.CurrentPageNumber,
-                                sortType = Model.SortType
+                                Model.ViewStateProperty.CurrentPageNumber,
+                                Model.ViewStateProperty.SortType
                             }))
                         {
                             <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
@@ -54,9 +41,14 @@
 
     @if (Roles.IsUserInRole("admin"))
     {
-        using (Html.BeginForm("AddEmployeeFromList", "DepartmentInfo", new { pageNumberInDepartmentInfo = Model.CurrentPageNumber, sortType = Model.SortType }))
+        using (Html.BeginForm("AddEmployeeFromList", "DepartmentInfo", 
+            new
+            {
+                pageNumberInDepartmentInfo = Model.ViewStateProperty.CurrentPageNumber,
+                sortType = Model.ViewStateProperty.SortType
+            }))
         {
-            Model.EmployeeViewModel.ParentId = Model.Id;
+            Model.EmployeeViewModel.ParentId = Model.ViewStateProperty.Id;
 
             @Html.DropDownListFor(model => model.EmployeeViewModel.Id,
             new SelectList(Model.FreeUsersViewModel.Content, "Id", "Name"), "Choose")
