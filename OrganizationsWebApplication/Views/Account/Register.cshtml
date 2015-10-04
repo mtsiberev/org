@@ -17,37 +17,67 @@
 </head>
 <body>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#organization").change(function () {
+                $("#department").empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetDepartments")',
+                    dataType: 'json',
+                    data: { id: $("#organization").val() },
+                    success: function (states) {
+                        $.each(states, function (i, state) {
+                            $("#department").append('<option value="' + state.Value + '">' + state.Text + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve states.' + ex);
+                    }
+                });
+                return false;
+            })
+        });
+    </script>
+
+
     <div class="header" style="background: #3F51B5;">
         <span style="background: #3F51B5;">
             <span style="color: #fff">
                 <h2>@Resource.Registration</h2>
 
-                @using (Html.BeginForm("RegisterChooseOrganization", "Account"))
+                @using (Html.BeginForm("RegisterFinishing", "Account", FormMethod.Post))
                 {
-                    <table>
-                        <tr>
-                            <td>
-                                <div class="accountContainer">
-                                    <div class="group">
-                                        @Html.TextBoxFor(m => m.UserName, new { @class = "inputMaterial", @type = "text", @required = "required" })
-                                        <span class="highlight"></span>
-                                        <span class="bar"></span>
-                                        <label>UserName</label>
-                                    </div>
+                    <div class="accountContainer">
+                        <div class="group">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "inputMaterial", @type = "text", @required = "required" })
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>UserName</label>
+                        </div>
+                        <div class="group">
+                            @Html.TextBoxFor(m => m.Password, new { @class = "inputMaterial", @type = "text", @required = "required" })
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Password</label>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="group">
+                        @if (ViewData.ContainsKey("organization"))
+                        {
+                            @Html.DropDownList("organization", ViewData["organization"] as List<SelectListItem>)
+                        }
+                    </div>
 
-                                    <div class="group">
-                                        @Html.TextBoxFor(m => m.Password, new { @class = "inputMaterial", @type = "text", @required = "required" })
-                                        <span class="highlight"></span>
-                                        <span class="bar"></span>
-                                        <label>Password</label>
-                                    </div>
-                                    <input type="submit" value="Next Step">
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                    <div class="group">
+                        @Html.DropDownList("department", new SelectList(string.Empty, "Value", "Text"), "Select a Department")
+                    </div>
+                    <br />
+                    <input id="Submit" type="submit" value="submit" />
                 }
-                
+
             </span>
         </span>
     </div>

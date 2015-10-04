@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Organizations;
 using OrganizationsWebApplication.Models;
-using OrganizationsWebApplication.Models.EntitiesModels;
-using OrganizationsWebApplication.Models.PagesModels;
 using WebMatrix.WebData;
 
 namespace OrganizationsWebApplication.Controllers
@@ -61,60 +60,70 @@ namespace OrganizationsWebApplication.Controllers
                 role.CreateRole("admin");
             }
 
+            var organizationsList = m_facade.GetAllOrganizations().ToList();
+
+            var orgList = new List<SelectListItem>();
+            orgList.Add(new SelectListItem { Text = "Select a Organization", Value = "0" });
+
+            foreach (var organization in organizationsList)
+            {
+                orgList.Add(new SelectListItem { Text = organization.Name, Value = organization.Id.ToString() });
+            }
+
+            ViewData["organization"] = orgList;
             return View();
         }
 
-        [HttpPost]
-        public ActionResult RegisterChooseOrganization(Account account)
+
+        public JsonResult GetDepartments(string id)
         {
-            var organizationsList = m_facade.GetAllOrganizations().ToList();
-            var organizationsViewModelsList =
-                from organization in organizationsList
-                select new OrganizationViewModel() { Id = organization.Id, Name = organization.Name };
+            var departmentsList = m_facade.GetDepartmentsInOrganization(Int32.Parse(id));
 
-            var registerViewModel = new RegisterViewModel() { Account = account, OrganizationsList = organizationsViewModelsList.ToList() };
-            return View(registerViewModel);
+            var states = new List<SelectListItem>();
+            states.Add(new SelectListItem { Text = "Select", Value = "0" });
 
+            foreach (var department in departmentsList)
+            {
+                states.Add(new SelectListItem { Text = department.Name, Value = department.Id.ToString() });
+            }
+
+            return Json(new SelectList(states, "Value", "Text"));
         }
 
         [HttpPost]
-        public ActionResult RegisterChooseDepartment(RegisterViewModel registerViewModel)
+        public ActionResult RegisterFinishing(Account account, string organization, string department)
         {
-            var departmentsList = m_facade.GetDepartmentsInOrganization(registerViewModel.Account.OrganizationId);
-            var departmentsViewModelsList =
-                from department in departmentsList
-                select new DepartmentViewModel() { Id = department.Id, Name = department.Name };
+            int organizationId;
+            int departmentId;
+            if (Int32.TryParse(organization, out organizationId) && Int32.TryParse(department, out departmentId))
+            {
+                account.OrganizationId = organizationId;
+                account.DepartmentId = departmentId;
+            }
 
-            registerViewModel.DepartmentsList = departmentsViewModelsList.ToList();
-            return View(registerViewModel);
-        }
-
-        [HttpPost]
-        public ActionResult RegisterFinishing(RegisterViewModel registerViewModel)
-        {
             try
             {
-                if (registerViewModel.Account.DepartmentId == 0)
+                if (account.DepartmentId == 0)
                 {
-                    WebSecurity.CreateUserAndAccount(registerViewModel.Account.UserName,
-                        registerViewModel.Account.Password);
+                    WebSecurity.CreateUserAndAccount(account.UserName,
+                        account.Password);
                 }
 
                 else
                 {
-                    WebSecurity.CreateUserAndAccount(registerViewModel.Account.UserName,
-                        registerViewModel.Account.Password,
+                    WebSecurity.CreateUserAndAccount(account.UserName,
+                        account.Password,
                         propertyValues: new
                         {
-                            DepartmentId = registerViewModel.Account.DepartmentId
+                            DepartmentId = account.DepartmentId
                         });
                 }
 
-                if (registerViewModel.Account.UserName == "admin")
+                if (account.UserName == "admin")
                 {
                     var role = System.Web.Security.Roles.Provider;
                     role.AddUsersToRoles(
-                        new[] { registerViewModel.Account.UserName }, 
+                        new[] { account.UserName },
                         new[] { "admin" });
                 }
             }
@@ -122,8 +131,8 @@ namespace OrganizationsWebApplication.Controllers
             {
                 return RedirectToAction("Register", "Account");
             }
-            
-            return this.Login(registerViewModel.Account);
+
+            return this.Login(account);
         }
 
         public ActionResult Logout()
