@@ -1,7 +1,7 @@
 ﻿
 namespace OrganizationsWebApplication.Models
 {
-    public class ViewState
+    public class ViewCondition
     {
         public int Id { get; set; }
         public string SortType { get; set; }

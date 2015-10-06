@@ -21,70 +21,70 @@ namespace OrganizationsWebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult OrganizationsList(ViewState viewState)
+        public ActionResult OrganizationsList(ViewCondition viewCondition)
         {
-            var organizationList = m_facade.GetOrganizationsList(viewState.CurrentPageNumber, viewState.SortType);
+            var organizationList = m_facade.GetOrganizationsList(viewCondition.CurrentPageNumber, viewCondition.SortType);
             var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
 
             return View(model);
         }
 
-        public ActionResult GoNextPage(ViewState viewState)
+        public ActionResult GoNextPage(ViewCondition viewCondition)
         {
-            var nextPage = viewState.CurrentPageNumber + 1;
+            var nextPage = viewCondition.CurrentPageNumber + 1;
 
-            var organizationList = m_facade.GetOrganizationsList(nextPage, viewState.SortType);
+            var organizationList = m_facade.GetOrganizationsList(nextPage, viewCondition.SortType);
             var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
 
             return View("OrganizationsList", model);
         }
 
-        public ActionResult GoPrevPage(ViewState viewState)
+        public ActionResult GoPrevPage(ViewCondition viewCondition)
         {
-            var prevPage = viewState.CurrentPageNumber - 1;
+            var prevPage = viewCondition.CurrentPageNumber - 1;
 
-            var organizationList = m_facade.GetOrganizationsList(prevPage, viewState.SortType);
+            var organizationList = m_facade.GetOrganizationsList(prevPage, viewCondition.SortType);
             var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
 
             return View("OrganizationsList", model);
         }
 
       
-        public ActionResult ChangeSortType(ViewState viewState)
+        public ActionResult ChangeSortType(ViewCondition viewCondition)
         {
             string newSortType = "asc";
-            if (viewState.SortType == "desc")
+            if (viewCondition.SortType == "desc")
             {
                 newSortType = "asc";
             }
-            else if (viewState.SortType == "asc")
+            else if (viewCondition.SortType == "asc")
             {
                 newSortType = "desc";
             }
 
-            var organizationList = m_facade.GetOrganizationsList(viewState.CurrentPageNumber, newSortType);
+            var organizationList = m_facade.GetOrganizationsList(viewCondition.CurrentPageNumber, newSortType);
             var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
 
             return View("OrganizationsList", model);
         }
 
-        public ActionResult AddOrganizationMenu(ViewState viewState)
+        public ActionResult AddOrganizationMenu(ViewCondition viewCondition)
         {
             var model = new OrganizationViewModel();
             return View(model);
         }
 
-        public ActionResult AddOrganization(OrganizationViewModel organization, ViewState viewState)
+        public ActionResult AddOrganization(OrganizationViewModel organization, ViewCondition viewCondition)
         {
             m_facade.AddOrganization(new Organization(0) { Name = organization.Name });
 
-            var organizationList = m_facade.GetOrganizationsList(viewState.CurrentPageNumber, viewState.SortType);
+            var organizationList = m_facade.GetOrganizationsList(viewCondition.CurrentPageNumber, viewCondition.SortType);
             var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
 
             return View("OrganizationsList", model);
         }
 
-        public ActionResult UpdateOrganizationMenu(int id, ViewState viewState)
+        public ActionResult UpdateOrganizationMenu(int id, ViewCondition viewCondition)
         {
             var name = m_facade.GetOrganizationById(id).Name;
             var organization = new OrganizationViewModel()
@@ -96,21 +96,21 @@ namespace OrganizationsWebApplication.Controllers
             return View(organization);
         }
 
-        public ActionResult UpdateOrganization(OrganizationViewModel organization, ViewState viewState)
+        public ActionResult UpdateOrganization(OrganizationViewModel organization, ViewCondition viewCondition)
         {
             m_facade.UpdateOrganization(new Organization(organization.Id) { Name = organization.Name });
 
-            var organizationList = m_facade.GetOrganizationsList(1, viewState.SortType);
+            var organizationList = m_facade.GetOrganizationsList(1, viewCondition.SortType);
             var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
 
             return View("OrganizationsList", model);
         }
 
-        public ActionResult DeleteOrganization(int id, ViewState viewState)
+        public ActionResult DeleteOrganization(int id, ViewCondition viewCondition)
         {
             m_facade.DeleteOrganization(id);
 
-            var organizationList = m_facade.GetOrganizationsList(1, viewState.SortType);
+            var organizationList = m_facade.GetOrganizationsList(1, viewCondition.SortType);
             var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
 
             return View("OrganizationsList", model);

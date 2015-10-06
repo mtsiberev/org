@@ -26,8 +26,8 @@
                             new
                             {
                                 id = employee.Id,
-                                Model.ViewStateProperty.CurrentPageNumber,
-                                Model.ViewStateProperty.SortType
+                                Model.viewConditionProperty.CurrentPageNumber,
+                                Model.viewConditionProperty.SortType
                             }))
                         {
                             <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
@@ -44,11 +44,11 @@
         using (Html.BeginForm("AddEmployeeFromList", "DepartmentInfo", 
             new
             {
-                pageNumberInDepartmentInfo = Model.ViewStateProperty.CurrentPageNumber,
-                sortType = Model.ViewStateProperty.SortType
+                pageNumberInDepartmentInfo = Model.viewConditionProperty.CurrentPageNumber,
+                sortType = Model.viewConditionProperty.SortType
             }))
         {
-            Model.EmployeeViewModel.ParentId = Model.ViewStateProperty.Id;
+            Model.EmployeeViewModel.ParentId = Model.viewConditionProperty.Id;
 
             @Html.DropDownListFor(model => model.EmployeeViewModel.Id,
             new SelectList(Model.FreeUsersViewModel.Content, "Id", "Name"), "Choose")

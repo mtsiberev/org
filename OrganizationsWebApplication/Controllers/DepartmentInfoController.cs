@@ -14,11 +14,11 @@ namespace OrganizationsWebApplication.Controllers
     {
         private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
 
-        public ActionResult DepartmentInfo(int id, ViewState viewState)
+        public ActionResult DepartmentInfo(int id, ViewCondition viewCondition)
         {
             var role = System.Web.Security.Roles.Provider;
 
-            var departmentInfo = m_facade.GetDepartmentWithEmployees(id, viewState.CurrentPageNumber, viewState.SortType);
+            var departmentInfo = m_facade.GetDepartmentWithEmployees(id, viewCondition.CurrentPageNumber, viewCondition.SortType);
             var departmentInfoViewModel = EntitiesListToView.GetDepartmentInfoViewModel(departmentInfo);
 
             var usersList = m_facade.GetAllEmployees().ToList();
@@ -35,57 +35,57 @@ namespace OrganizationsWebApplication.Controllers
             return View(departmentInfoViewModel);
         }
 
-        public ActionResult ChangeSortType(int id, ViewState viewState)
+        public ActionResult ChangeSortType(int id, ViewCondition viewCondition)
         {
             string newSortType = "asc";
-            if (viewState.SortType == "desc")
+            if (viewCondition.SortType == "desc")
             {
                 newSortType = "asc";
             }
-            else if (viewState.SortType == "asc")
+            else if (viewCondition.SortType == "asc")
             {
                 newSortType = "desc";
             }
             
             return RedirectToAction("DepartmentInfo", "DepartmentInfo",
-        new { id, viewState.CurrentPageNumber, SortType = newSortType });
+        new { id, viewCondition.CurrentPageNumber, SortType = newSortType });
             
         }
 
-        public ActionResult GoNextPage(int id, ViewState viewState)
+        public ActionResult GoNextPage(int id, ViewCondition viewCondition)
         {
-            var nextPage = viewState.CurrentPageNumber + 1;
+            var nextPage = viewCondition.CurrentPageNumber + 1;
            
             return RedirectToAction("DepartmentInfo", "DepartmentInfo",
-           new { id, CurrentPageNumber = nextPage, viewState.SortType });
+           new { id, CurrentPageNumber = nextPage, viewCondition.SortType });
         }
 
-        public ActionResult GoPrevPage(int id, ViewState viewState)
+        public ActionResult GoPrevPage(int id, ViewCondition viewCondition)
         {
-            var prevPage = viewState.CurrentPageNumber - 1;
+            var prevPage = viewCondition.CurrentPageNumber - 1;
            
             return RedirectToAction("DepartmentInfo", "DepartmentInfo",
-           new { id, CurrentPageNumber = prevPage, viewState.SortType });
+           new { id, CurrentPageNumber = prevPage, viewCondition.SortType });
         }
         
 
-        public ActionResult AddEmployeeMenu(int id, ViewState viewState)
+        public ActionResult AddEmployeeMenu(int id, ViewCondition viewCondition)
         {
             var employeeModel = new EmployeeViewModel() { ParentId = id };
             return View(employeeModel);
         }
 
-        public ActionResult AddEmployee(EmployeeViewModel employee, ViewState viewState)
+        public ActionResult AddEmployee(EmployeeViewModel employee, ViewCondition viewCondition)
         {
             var department = m_facade.GetDepartmentById(employee.ParentId);
             m_facade.AddEmployee(new Employee(0, department) { Name = employee.Name });
 
             return RedirectToAction("DepartmentInfo", "DepartmentInfo",
-               new { id = department.Id, CurrentPageNumber = 1, viewState.SortType });
+               new { id = department.Id, CurrentPageNumber = 1, viewCondition.SortType });
         }
 
         //////////////////////////////////
-        public ActionResult AddEmployeeFromList(EmployeeViewModel employeeViewModel, ViewState viewState)
+        public ActionResult AddEmployeeFromList(EmployeeViewModel employeeViewModel, ViewCondition viewCondition)
         {
             var employee = m_facade.GetEmployeeById(employeeViewModel.Id);
             var department = m_facade.GetDepartmentById(employeeViewModel.ParentId);
@@ -94,16 +94,16 @@ namespace OrganizationsWebApplication.Controllers
             m_facade.UpdateEmployee(employee);
 
             return RedirectToAction("DepartmentInfo", "DepartmentInfo",
-                new { id = department.Id, viewState.CurrentPageNumber, viewState.SortType });
+                new { id = department.Id, viewCondition.CurrentPageNumber, viewCondition.SortType });
         }
         //////////////////////////////////
-        public ActionResult DeleteEmployee(int id, ViewState viewState)
+        public ActionResult DeleteEmployee(int id, ViewCondition viewCondition)
         {
             var department = m_facade.GetEmployeeById(id).ParentDepartment;
             m_facade.DeleteEmployee(id);
 
             return RedirectToAction("DepartmentInfo", "DepartmentInfo",
-              new { id = department.Id, CurrentPageNumber = 1, viewState.SortType });
+              new { id = department.Id, CurrentPageNumber = 1, viewCondition.SortType });
         }
     }
 }

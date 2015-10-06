@@ -17,30 +17,14 @@
 </head>
 <body>
 
+    <script src="~/Scripts/registrationDdl.js"></script>
+
+
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#organization").change(function () {
-                $("#department").empty();
-                $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("GetDepartments")',
-                    dataType: 'json',
-                    data: { id: $("#organization").val() },
-                    success: function (states) {
-                        $.each(states, function (i, state) {
-                            $("#department").append('<option value="' + state.Value + '">' + state.Text + '</option>');
-                        });
-                    },
-                    error: function (ex) {
-                        alert('Failed to retrieve states.' + ex);
-                    }
-                });
-                return false;
-            })
-        });
+        var getDepartmentsAction = '@Url.Action("GetDepartments")';
     </script>
 
-
+    
     <div class="header" style="background: #3F51B5;">
         <span style="background: #3F51B5;">
             <span style="color: #fff">

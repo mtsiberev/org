@@ -18,7 +18,7 @@
                         {
                             id = organization.Id,
                             CurrentPageNumber = 1,
-                            Model.ViewStateProperty.SortType
+                            Model.viewConditionProperty.SortType
                         }, null)
                 </span>
 
@@ -28,8 +28,8 @@
                         @using (Html.BeginForm("UpdateOrganizationMenu", "OrganizationsList", new
                         {
                             id = organization.Id,
-                            Model.ViewStateProperty.CurrentPageNumber,
-                            Model.ViewStateProperty.SortType
+                            Model.viewConditionProperty.CurrentPageNumber,
+                            Model.viewConditionProperty.SortType
                         }))
                         {
                             <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
@@ -37,8 +37,8 @@
                         @using (Html.BeginForm("DeleteOrganization", "OrganizationsList", new
                         {
                             id = organization.Id,
-                            Model.ViewStateProperty.CurrentPageNumber,
-                            Model.ViewStateProperty.SortType
+                            Model.viewConditionProperty.CurrentPageNumber,
+                            Model.viewConditionProperty.SortType
                         }))
                         {
                             <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
@@ -51,14 +51,14 @@
 </div>
 
 
-@if (Model.ViewStateProperty.ViewType == "list")
+@if (Model.viewConditionProperty.ViewType == "list")
 {
     <script>
         setListView()
     </script>
 }
 
-@if (Model.ViewStateProperty.ViewType == "grid")
+@if (Model.viewConditionProperty.ViewType == "grid")
 {
     <script>
         setGridView()

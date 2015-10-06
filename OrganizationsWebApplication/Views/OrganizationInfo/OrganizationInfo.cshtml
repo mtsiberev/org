@@ -17,7 +17,7 @@
                         {
                             id = department.Id,
                             CurrentPageNumber = 1,
-                            Model.ViewStateProperty.SortType
+                            Model.viewConditionProperty.SortType
                         }, null
                         )
                 </span>
@@ -29,8 +29,8 @@
                             new
                             {
                                 id = department.Id,
-                                Model.ViewStateProperty.CurrentPageNumber,
-                                Model.ViewStateProperty.SortType
+                                Model.viewConditionProperty.CurrentPageNumber,
+                                Model.viewConditionProperty.SortType
                             }))
                         {
                             <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
@@ -40,8 +40,8 @@
                             new
                             {
                                 id = department.Id,
-                                Model.ViewStateProperty.CurrentPageNumber,
-                                Model.ViewStateProperty.SortType
+                                Model.viewConditionProperty.CurrentPageNumber,
+                                Model.viewConditionProperty.SortType
                             }))
                         {
                             <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
@@ -56,7 +56,7 @@
 
 
 
-@if (Model.ViewStateProperty.ViewType == "list")
+@if (Model.viewConditionProperty.ViewType == "list")
 {
     <script>
         setListView()
@@ -64,7 +64,7 @@
 }
 
 
-@if (Model.ViewStateProperty.ViewType == "grid")
+@if (Model.viewConditionProperty.ViewType == "grid")
 {
     <script>
         setGridView()
