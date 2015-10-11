@@ -26,6 +26,17 @@ body {
 }
 
 
+.hidden-ddl {
+    display: none;
+}
+
+
+
+.ddl {
+    display: block;
+}
+
+
 /*//dropdown menu//*/
 nav ul {
     background: #303F9F;

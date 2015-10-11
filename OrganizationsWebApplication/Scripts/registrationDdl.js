@@ -2,6 +2,7 @@
 $(document).ready(function () {
   
     $("#organization").change(function () {
+        $(".hidden-ddl").toggleClass("ddl", true);
         $("#department").empty();
         $.ajax({
             type: 'POST',

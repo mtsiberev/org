@@ -60,6 +60,11 @@ namespace OrganizationsWebApplication.Controllers
                 role.CreateRole("admin");
             }
 
+            if (!role.RoleExists("user"))
+            {
+                role.CreateRole("user");
+            }
+            
             var organizationsList = m_facade.GetAllOrganizations().ToList();
 
             var orgList = new List<SelectListItem>();
@@ -123,8 +128,15 @@ namespace OrganizationsWebApplication.Controllers
                 {
                     var role = System.Web.Security.Roles.Provider;
                     role.AddUsersToRoles(
+                        new[] {account.UserName},
+                        new[] {"admin"});
+                }
+                else
+                {
+                    var role = System.Web.Security.Roles.Provider;
+                    role.AddUsersToRoles(
                         new[] { account.UserName },
-                        new[] { "admin" });
+                        new[] { "user" });
                 }
             }
             catch (Exception)

@@ -243,8 +243,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\AdministrationMenu\Index.cshtml" />
     <Content Include="Views\AdministrationMenu\ChangeRolesMenu.cshtml" />
-    <Content Include="Views\Account\RegisterChooseOrganization.cshtml" />
-    <Content Include="Views\Account\RegisterChooseDepartment.cshtml" />
     <Content Include="Views\_GlobalizationBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
