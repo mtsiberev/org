@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Web.DynamicData;
 using System.Web.Mvc;
 using Organizations;
 using OrganizationsWebApplication.Mappers;
@@ -25,12 +24,10 @@ namespace OrganizationsWebApplication.Controllers
             var freeUsersList =
                 from user in usersList
                 where (user.ParentDepartment == null) && (!role.IsUserInRole(user.Name, "admin"))
-                
                 select new EmployeeViewModel() { Id = user.Id, ParentId = 0, Name = user.Name };
-            var freeUsersViewModel = new FreeUsersViewModel() { Content = freeUsersList.ToList() };
-
+        
             departmentInfoViewModel.EmployeeViewModel = new EmployeeViewModel() { ParentId = id };
-            departmentInfoViewModel.FreeUsersViewModel = freeUsersViewModel;
+            departmentInfoViewModel.FreeUsersViewModel = freeUsersList.ToList();
 
             return View(departmentInfoViewModel);
         }
@@ -84,8 +81,28 @@ namespace OrganizationsWebApplication.Controllers
                new { id = department.Id, CurrentPageNumber = 1, viewCondition.SortType });
         }
 
-        //////////////////////////////////
-        public ActionResult AddEmployeeFromList(EmployeeViewModel employeeViewModel, ViewCondition viewCondition)
+        
+        public ActionResult UpdateEmployeeMenu(int id, ViewCondition viewCondition)
+        {
+            var employeeBm = m_facade.GetEmployeeById(id);
+            var employeeModel = new EmployeeViewModel() { Id = id, Name = employeeBm.Name };
+            return View(employeeModel);
+        }
+
+        public ActionResult UpdateEmployee(EmployeeViewModel employee, ViewCondition viewCondition)
+        {
+            var employeeBm = m_facade.GetEmployeeById(employee.Id);
+            employeeBm.Name = employee.Name;
+            m_facade.UpdateEmployee(employeeBm);
+
+            var department = m_facade.GetDepartmentById(employeeBm.ParentDepartment.Id);
+
+            return RedirectToAction("DepartmentInfo", "DepartmentInfo",
+            new { id = department.Id, viewCondition.CurrentPageNumber, viewCondition.SortType });
+        }
+
+       
+       public ActionResult AddEmployeeFromList(EmployeeViewModel employeeViewModel, ViewCondition viewCondition)
         {
             var employee = m_facade.GetEmployeeById(employeeViewModel.Id);
             var department = m_facade.GetDepartmentById(employeeViewModel.ParentId);
@@ -96,11 +113,17 @@ namespace OrganizationsWebApplication.Controllers
             return RedirectToAction("DepartmentInfo", "DepartmentInfo",
                 new { id = department.Id, viewCondition.CurrentPageNumber, viewCondition.SortType });
         }
-        //////////////////////////////////
+     
+
+
         public ActionResult DeleteEmployee(int id, ViewCondition viewCondition)
         {
             var department = m_facade.GetEmployeeById(id).ParentDepartment;
-            m_facade.DeleteEmployee(id);
+            //m_facade.DeleteEmployee(id);
+            var employeeBm = m_facade.GetEmployeeById(id);
+            employeeBm.ParentDepartment.Id = 0;
+            m_facade.UpdateEmployee(employeeBm);
+            
 
             return RedirectToAction("DepartmentInfo", "DepartmentInfo",
               new { id = department.Id, CurrentPageNumber = 1, viewCondition.SortType });

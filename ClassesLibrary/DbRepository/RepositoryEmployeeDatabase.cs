@@ -19,10 +19,17 @@ namespace Organizations.DbRepository
 
         public void Update(Employee entity)
         {
+            string parentIdString = "NULL";
+            if (entity.ParentDepartment.Id != 0)
+            {
+                parentIdString = entity.ParentDepartment.Id.ToString();
+            }
+
             var queryString = String.Format("UPDATE {0} SET Name = '{1}', DepartmentId = {2} WHERE Id = {3}",
                 c_employeesDatabaseName,
                 entity.Name,
-                entity.ParentDepartment.Id,
+                //entity.ParentDepartment.Id,
+                parentIdString,
                 entity.Id);
             AdoHelper.ExecCommand(queryString);
         }
@@ -97,12 +104,18 @@ namespace Organizations.DbRepository
 
         public List<Employee> GetEntitiesForOnePage(int pageNum, int pageSize, int parentId)
         {
+            string condition = "";
+            if (parentId != 0)
+            {
+                condition = string.Format("WHERE DepartmentId = {0} ", parentId);
+            }
+
             var repositoryDepartmentDb = RegisterByContainer.Container.GetInstance<IRepository<Department>>();
             var resultList = new List<Employee>();
          
             var queryString = String.Format(
                 "SELECT * FROM {0} " +
-                "WHERE DepartmentId = {1} " +
+                condition +
                 "ORDER BY Name OFFSET ({2} - 1) * {3} ROWS " +
                 "FETCH NEXT {3} ROWS ONLY;",
                 c_employeesDatabaseName, parentId, pageNum, pageSize);
@@ -121,6 +134,5 @@ namespace Organizations.DbRepository
             }
             return resultList;
         }
-
     }
 }

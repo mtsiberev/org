@@ -38,6 +38,12 @@ namespace Organizations
             return new DepartmentWithEmployees(departmentId, currentPage, sortType);
         }
         
+        public UsersList GetAllEmployees(int currentPage, string sortType)
+        {
+            return new UsersList(currentPage, sortType);
+        }
+
+        
         private IEnumerable<T> GetListSortedByName<T>(IEnumerable<T> list, string sortType) where T : IEntity
         {
             if (sortType == "desc")
@@ -146,7 +152,7 @@ namespace Organizations
             var resultList = m_employeesRepository.GetEntitiesForOnePage(pageNum, pageSize, currentId);
             return GetListSortedByName(resultList, sortType).ToList();
         }
-
+        
         
         public List<Department> GetAllDepartments()
         {

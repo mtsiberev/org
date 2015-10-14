@@ -19,28 +19,37 @@
 
     <script src="~/Scripts/registrationDdl.js"></script>
 
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
+
+    
     <script type="text/javascript">
         var getDepartmentsAction = '@Url.Action("GetDepartments")';
     </script>
 
-    
+
     <div class="header" style="background: #3F51B5;">
         <span style="background: #3F51B5;">
             <span style="color: #fff">
                 <h2>@Resource.Registration</h2>
-
+                
+                
                 @using (Html.BeginForm("RegisterFinishing", "Account", FormMethod.Post))
                 {
                     <div class="accountContainer">
                         <div class="group">
                             @Html.TextBoxFor(m => m.UserName, new { @class = "inputMaterial", @type = "text", @required = "required" })
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>UserName</label>
                         </div>
                         <div class="group">
-                            @Html.TextBoxFor(m => m.Password, new { @class = "inputMaterial", @type = "text", @required = "required" })
+                            @Html.PasswordFor(m => m.Password, new { @class = "inputMaterial", @required = "required" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Password</label>
@@ -59,8 +68,9 @@
                         @Html.DropDownList("department", new SelectList(string.Empty, "Value", "Text"), "Select a Department")
                     </div>
                     <br />
-                    <input id="Submit" type="submit" value="submit" />
+                    <input type="submit" value="OK">
                 }
+                
 
             </span>
         </span>

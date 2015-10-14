@@ -68,8 +68,7 @@ namespace Organizations.DbRepository
             }
             return result;
         }
-
-
+        
         public Department GetById(int id)
         {
             var queryString = String.Format("SELECT TOP 1 * FROM {0} WHERE Id = {1};", c_departmentsDatabaseName, id);

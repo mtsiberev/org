@@ -19,6 +19,13 @@ namespace OrganizationsWebApplication.Helpers
         {
             var fullname = viewModel.GetType().Name;
             ControllerName = fullname.Replace("ViewModel", "");
+            
+            if (ControllerName == "Administration")
+            {
+                AddNewEntityAction = null;
+                GoHomeController = "OrganizationsList";
+                GoHomeAction = "OrganizationsList";
+            }
 
             if (ControllerName == "OrganizationsList")
             {
@@ -26,6 +33,7 @@ namespace OrganizationsWebApplication.Helpers
                 GoHomeController = null;
                 GoHomeAction = null;
             }
+
             if (ControllerName == "OrganizationInfo")
             {
                 AddNewEntityAction = "AddDepartmentMenu";

@@ -9,7 +9,7 @@ namespace OrganizationsWebApplication.Mappers
     public static class EntitiesListToView
     {
         private static Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
-        
+
         public static OrganizationsListViewModel GetOrganizationsListViewModel(OrganizationsList organizationsList)
         {
             var organizatonsList =
@@ -33,10 +33,21 @@ namespace OrganizationsWebApplication.Mappers
             var employeeList =
          from employee in department.Content
          select new EmployeeViewModel() { Id = employee.Id, ParentId = department.Id, Name = employee.Name };
-            
+
             var departmentViewModel = new DepartmentInfoViewModel(department.ParentId, department.Id, department.CurrentPage, department.MaxPageNumber, employeeList.ToList(), department.SortType);
             departmentViewModel.Name = m_facade.GetDepartmentById(departmentViewModel.viewConditionProperty.Id).Name;
             return departmentViewModel;
         }
+        
+        public static AdministrationViewModel GetUsersListViewModel(UsersList list)
+        {
+            var employeeList =
+                from employee in list.Content
+                select new EmployeeViewModel() { Id = employee.Id, ParentId = 0, Name = employee.Name };
+
+            return new AdministrationViewModel(list.CurrentPage, list.MaxPageNumber, employeeList.ToList(), list.SortType);
+        }
+        
+
     }
 }

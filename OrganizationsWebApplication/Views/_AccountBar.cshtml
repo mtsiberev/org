@@ -12,9 +12,10 @@
                     @if (Roles.IsUserInRole("admin"))
                     {
                         <li>
-                            @Html.ActionLink(Resource.Administration, "ChangeRolesMenu", "AdministrationMenu")
+                            @Html.ActionLink(Resource.Administration, "AdministrationInfo", "Administration")
                         </li>
                     }
+
                 </ul>
             </li>
         </ul>

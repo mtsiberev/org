@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@model OrganizationsWebApplication.Models.PagesModels.AdministrationViewModel
+
+
+<div class="wrapper">
+
+    <div class="content">
+        @foreach (var employee in Model.Content)
+        {
+            <div class="row">
+                <span class="block" style="color:black">
+                    <a>
+                        @employee.Name
+                    </a>
+                </span>
+                @if (Roles.IsUserInRole("admin"))
+                {
+                    <span class="operationBlock">
+
+                        @using (Html.BeginForm("DeleteEmployee", "Administration",
+                            new
+                            {
+                                id = employee.Id,
+                                Model.viewConditionProperty.CurrentPageNumber,
+                                Model.viewConditionProperty.SortType
+                            }))
+                        {
+                            <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
+                        }
+                    </span>
+                }
+            </div>
+        }
+    </div>
+</div>

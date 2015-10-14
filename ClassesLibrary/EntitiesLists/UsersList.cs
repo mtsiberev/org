@@ -1,36 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using Organizations.Entity;
-using Organizations.Helpers;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Organizations.EntitiesLists
 {
-    public class UsersList
+    public class UsersList : MainList
     {
-        public List<User> Content { get; private set; }
+        private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
+        public List<Employee> Content { get; private set; }
+        public int ParentId { get; protected set; }
 
-        public void GetContent()
+        public UsersList(int currentPage, string sortType)
         {
-            var resultList = new List<User>();
-
-            var queryString = String.Format(
-             "SELECT * FROM {0};", "Users");
-
-            using (var reader = AdoHelper.GetDataTableReader(queryString))
+            RefreshMaxPage();
+            if (currentPage <= 0)
             {
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                      //  var organizationDb = MapperDb.GetOrganizationDb(reader);
-                     //   resultList.Add(MapperBm.GetOrganization(organizationDb));
-                    }
-                }
+                CurrentPage = 1;
             }
-            //return resultList;
+            else if (currentPage >= MaxPageNumber)
+            {
+                CurrentPage = MaxPageNumber;
+            }
+            else
+            {
+                CurrentPage = currentPage;
+            }
+
+            SortType = sortType;
+            RefreshContent();
+        }
+
+        private void RefreshMaxPage()
+        {
+            var usersList = m_facade.GetAllEmployees().ToList();
+            var entitiesCount = usersList.ToList().Count;
+            MaxPageNumber = entitiesCount / PageSize;
+            if ((entitiesCount % PageSize) != 0) MaxPageNumber++;
+            if (MaxPageNumber == 0) MaxPageNumber++;
+        }
+
+        private void RefreshContent()
+        {
+            Content = m_facade.GetEmployeesForOnePage(CurrentPage, PageSize, 0, SortType);
         }
     }
-
-    
-
 }
+
+
+
+

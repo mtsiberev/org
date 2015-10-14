@@ -22,6 +22,19 @@
                 {
                     <span class="operationBlock">
                    
+                        
+                        @using (Html.BeginForm("UpdateEmployeeMenu", "DepartmentInfo",
+                            new
+                            {
+                                id = employee.Id,
+                                Model.viewConditionProperty.CurrentPageNumber,
+                                Model.viewConditionProperty.SortType
+                            }))
+                        {
+                            <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
+                        }
+                        
+                        
                         @using (Html.BeginForm("DeleteEmployee", "DepartmentInfo",
                             new
                             {
@@ -51,7 +64,7 @@
             Model.EmployeeViewModel.ParentId = Model.viewConditionProperty.Id;
 
             @Html.DropDownListFor(model => model.EmployeeViewModel.Id,
-            new SelectList(Model.FreeUsersViewModel.Content, "Id", "Name"), "Choose")
+            new SelectList(Model.FreeUsersViewModel, "Id", "Name"), "Choose")
 
             @Html.HiddenFor(m => m.EmployeeViewModel.ParentId)
 

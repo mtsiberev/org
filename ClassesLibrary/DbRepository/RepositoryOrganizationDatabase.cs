@@ -72,6 +72,7 @@ namespace Organizations.DbRepository
             return result;
         }
 
+
         public List<Organization> GetEntitiesForOnePage(int pageNum, int pageSize, int parentId)
         {
             var resultList = new List<Organization>();

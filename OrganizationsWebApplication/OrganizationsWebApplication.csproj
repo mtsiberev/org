@@ -131,7 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdministrationMenuController.cs" />
+    <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\OrganizationInfoController.cs" />
     <Compile Include="Controllers\DepartmentInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -156,7 +156,6 @@
     <Compile Include="Models\PagesModels\AdministrationViewModel.cs" />
     <Compile Include="Models\PagesModels\BaseViewModel.cs" />
     <Compile Include="Models\PagesModels\DepartmentInfoViewModel.cs" />
-    <Compile Include="Models\PagesModels\FreeUsersViewModel.cs" />
     <Compile Include="Models\PagesModels\OrganizationInfoViewModel.cs" />
     <Compile Include="Models\PagesModels\OrganizationsListViewModel.cs" />
     <Compile Include="Models\EntitiesModels\OrganizationViewModel.cs" />
@@ -214,6 +213,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Administration\AdministrationInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config">
@@ -241,8 +241,8 @@
     <Content Include="Views\_MainCommandsBar.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\AdministrationMenu\Index.cshtml" />
-    <Content Include="Views\AdministrationMenu\ChangeRolesMenu.cshtml" />
+    <Content Include="Views\Administration\Index.cshtml" />
+    <Content Include="Views\Administration\ChangeRolesMenu.cshtml" />
     <Content Include="Views\_GlobalizationBar.cshtml" />
   </ItemGroup>
   <ItemGroup>

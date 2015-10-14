@@ -4,20 +4,23 @@ namespace Organizations
     public class Department : IEntity
     {
         private readonly Organization m_parentOrganization;
-        private readonly int m_id;
+        //private readonly int m_id;
         public Department(int id, Organization parentOrganization)
         {
-            m_id = id;
+            //m_id = id;
+            Id = id;
             m_parentOrganization = parentOrganization;
         }
 
-        public int Id
+        public int Id { get; set; }
+        /*
         {
-            get
+          get
             {
                 return m_id;
-            }
+            }        
         }
+         */
 
         public Organization ParentOrganization
         {
@@ -26,7 +29,7 @@ namespace Organizations
                 return m_parentOrganization;
             }
         }
-        
+
         public new int GetEntityCode()
         {
             return 1;

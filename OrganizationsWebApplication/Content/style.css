@@ -37,6 +37,11 @@ body {
 }
 
 
+.text-danger {
+  color: #b94a48;
+}
+
+
 /*//dropdown menu//*/
 nav ul {
     background: #303F9F;
