@@ -29,11 +29,7 @@
                         <div class="group">
                             @Html.TextBoxFor(m => m.Name, new { @class = "inputMaterial", @type = "text", @required = "required" })
                             @Html.HiddenFor(m => m.Id)
-                            @Html.Hidden("pageNumberInOrganizationsList")
-                            @Html.Hidden("pageNumberInOrganizationInfo")
-                            @Html.Hidden("pageNumberInDepartmentInfo")
-                            @Html.Hidden("viewType")
-                            @Html.Hidden("sortType")
+                        
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Name</label>

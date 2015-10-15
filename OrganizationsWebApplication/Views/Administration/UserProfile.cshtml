@@ -1,0 +1,35 @@
+﻿@model OrganizationsWebApplication.Models.EntitiesModels.EmployeeViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div style="height: 80%">
+ 
+    <table>
+        <tr>
+            <td>
+                <img src="../../Content/user_pics/user1.png" alt="user_icon" width="256" height="256">
+            </td>
+
+            @using (Html.BeginForm("ChangeRoles", "Administration"))
+            {
+             
+                <td>
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.HiddenFor(m => m.ParentId)
+                    @Html.TextBoxFor(m => m.Name, new { @class = "inputMaterial", @readonly = "readonly" })
+                    
+                    @Html.RadioButtonFor(m => m.Role, "admin") Admin
+
+                    @Html.RadioButtonFor(m => m.Role, "user") User
+                
+                </td>
+                <td>
+                    <input type="submit" value="Save">
+                </td>
+            }
+        </tr>
+    </table>
+</div>

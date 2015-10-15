@@ -177,6 +177,7 @@
     <Content Include="App_Data\Data_log.ldf">
       <DependentUpon>Data.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\user_pics\user1.png" />
     <Content Include="Content\ic-double-left.svg" />
     <Content Include="Content\ic-double-right.svg" />
     <Content Include="Content\ic_add_box_24px.svg" />
@@ -214,6 +215,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Administration\AdministrationInfo.cshtml" />
+    <Content Include="Views\Administration\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config">
@@ -270,6 +272,7 @@
       <LastGenOutput>Resource.ru.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -2,9 +2,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 @model OrganizationsWebApplication.Models.PagesModels.AdministrationViewModel
-
 
 <div class="wrapper">
 
@@ -20,7 +18,18 @@
                 @if (Roles.IsUserInRole("admin"))
                 {
                     <span class="operationBlock">
-
+                        
+                        @using (Html.BeginForm("UserProfile", "Administration",
+                            new
+                            {
+                                id = employee.Id,
+                                Model.viewConditionProperty.CurrentPageNumber,
+                                Model.viewConditionProperty.SortType
+                            }))
+                        {
+                            <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
+                        }
+                        
                         @using (Html.BeginForm("DeleteEmployee", "Administration",
                             new
                             {

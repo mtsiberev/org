@@ -63,17 +63,33 @@ namespace OrganizationsWebApplication.Controllers
         }
         */
 
-        [HttpPost]
-        public ActionResult ChangeRolesMenu(EmployeeViewModel employeeViewModel)
+        public ActionResult UserProfile(int id, ViewCondition viewCondition)
         {
+            var employeeBm = m_facade.GetEmployeeById(id);
+            var employeeModel = new EmployeeViewModel() { Id = id, Name = employeeBm.Name };
+
+            var role = System.Web.Security.Roles.Provider;
+            var userRole = role.GetRolesForUser(employeeModel.Name).First();
+
+            employeeModel.Role = userRole;
+            return View(employeeModel);
+        }
+
+
+        [HttpPost]
+        public ActionResult ChangeRoles(EmployeeViewModel employeeViewModel )
+        {
+            string userRole = employeeViewModel.Role;
+
             employeeViewModel.Name = m_facade.GetEmployeeById(employeeViewModel.Id).Name;
+            
             try
             {
                 var role = System.Web.Security.Roles.Provider;
 
                 role.AddUsersToRoles(
                     new[] { employeeViewModel.Name },
-                    new[] { "admin" });
+                    new[] { userRole });
             }
             catch (Exception ex)
             {
@@ -82,11 +98,9 @@ namespace OrganizationsWebApplication.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            
             return RedirectToAction("Index", "Home");
-            //return this.ChangeRolesMenu();
         }
-
-
 
 
 
