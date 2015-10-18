@@ -5,18 +5,16 @@ using Organizations;
 using OrganizationsWebApplication.Mappers;
 using OrganizationsWebApplication.Models;
 using OrganizationsWebApplication.Models.EntitiesModels;
-using OrganizationsWebApplication.Models.PagesModels;
 using NLog;
 
 namespace OrganizationsWebApplication.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class AdministrationController : Controller
     {
         private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
         private static Logger logger = LogManager.GetCurrentClassLogger();
-
-
+        
         public ActionResult AdministrationInfo(ViewCondition viewCondition)
         {
             var role = System.Web.Security.Roles.Provider;
@@ -42,27 +40,7 @@ namespace OrganizationsWebApplication.Controllers
             return RedirectToAction("AdministrationInfo", "Administration",
            new { id, CurrentPageNumber = prevPage, viewCondition.SortType });
         }
-
-        /*
-        [HttpGet]
-        public ActionResult ChangeRolesMenu()
-        {
-            var users = new AdministrationViewModel();
-            var usersList = m_facade.GetAllEmployees().ToList();
-
-            var role = System.Web.Security.Roles.Provider;
-
-            var usersListViewModel =
-                from user in usersList
-                where (!role.IsUserInRole(user.Name, "admin"))
-
-                select new EmployeeViewModel() { Id = user.Id, Name = user.Name };
-            users.Content = usersListViewModel.ToList();
-
-            return View(users);
-        }
-        */
-
+        
         public ActionResult UserProfile(int id, ViewCondition viewCondition)
         {
             var employeeBm = m_facade.GetEmployeeById(id);
@@ -75,7 +53,6 @@ namespace OrganizationsWebApplication.Controllers
             return View(employeeModel);
         }
 
-
         [HttpPost]
         public ActionResult ChangeRoles(EmployeeViewModel employeeViewModel )
         {
@@ -87,23 +64,25 @@ namespace OrganizationsWebApplication.Controllers
             {
                 var role = System.Web.Security.Roles.Provider;
 
+                var currentRole = role.GetRolesForUser(employeeViewModel.Name);
+                role.RemoveUsersFromRoles(
+                    new[] { employeeViewModel.Name },
+                    currentRole);
+                
                 role.AddUsersToRoles(
                     new[] { employeeViewModel.Name },
-                    new[] { userRole });
+                    new[] { userRole }
+                    );
             }
             catch (Exception ex)
             {
                 logger.Error(ex.Message);
-
                 return RedirectToAction("Index", "Home");
             }
-
             
             return RedirectToAction("Index", "Home");
         }
-
-
-
+        
         public ActionResult DeleteEmployee(int id, ViewCondition viewCondition)
         {
             m_facade.DeleteEmployee(id);
@@ -111,9 +90,6 @@ namespace OrganizationsWebApplication.Controllers
             return RedirectToAction("AdministrationInfo", "Administration",
                 new { id, viewCondition.CurrentPageNumber, viewCondition.SortType });
         }
-
-
-
-
+        
     }
 }

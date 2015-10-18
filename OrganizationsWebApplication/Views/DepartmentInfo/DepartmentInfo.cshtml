@@ -27,8 +27,8 @@
                             new
                             {
                                 id = employee.Id,
-                                Model.viewConditionProperty.CurrentPageNumber,
-                                Model.viewConditionProperty.SortType
+                                Model.viewCondition.CurrentPageNumber,
+                                Model.viewCondition.SortType
                             }))
                         {
                             <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
@@ -39,8 +39,8 @@
                             new
                             {
                                 id = employee.Id,
-                                Model.viewConditionProperty.CurrentPageNumber,
-                                Model.viewConditionProperty.SortType
+                                Model.viewCondition.CurrentPageNumber,
+                                Model.viewCondition.SortType
                             }))
                         {
                             <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
@@ -57,11 +57,11 @@
         using (Html.BeginForm("AddEmployeeFromList", "DepartmentInfo", 
             new
             {
-                pageNumberInDepartmentInfo = Model.viewConditionProperty.CurrentPageNumber,
-                sortType = Model.viewConditionProperty.SortType
+                pageNumberInDepartmentInfo = Model.viewCondition.CurrentPageNumber,
+                sortType = Model.viewCondition.SortType
             }))
         {
-            Model.EmployeeViewModel.ParentId = Model.viewConditionProperty.Id;
+            Model.EmployeeViewModel.ParentId = Model.viewCondition.Id;
 
             @Html.DropDownListFor(model => model.EmployeeViewModel.Id,
             new SelectList(Model.FreeUsersViewModel, "Id", "Name"), "Choose")

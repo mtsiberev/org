@@ -8,10 +8,10 @@ namespace OrganizationsWebApplication.Models.PagesModels
         public AdministrationViewModel(int currentPageNumber, int maxPageNumber, List<EmployeeViewModel> content, string sortType)
         {
             Content = content;
-            viewConditionProperty.CurrentPageNumber = currentPageNumber;
-            viewConditionProperty.MaxPageNumber = maxPageNumber;
-            viewConditionProperty.PageType = "admin_info";
-            viewConditionProperty.SortType = sortType;
+            viewCondition.CurrentPageNumber = currentPageNumber;
+            viewCondition.MaxPageNumber = maxPageNumber;
+            viewCondition.PageType = "admin_info";
+            viewCondition.SortType = sortType;
         }
 
         public List<EmployeeViewModel> Content { get; set; }

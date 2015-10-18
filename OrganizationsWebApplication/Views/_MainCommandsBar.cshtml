@@ -12,9 +12,9 @@
     {
         using (Html.BeginForm(helper.GoHomeAction, helper.GoHomeController, new
     {
-        id = @Model.viewConditionProperty.ParentId,
-        Model.viewConditionProperty.CurrentPageNumber,
-        Model.viewConditionProperty.SortType
+        id = @Model.viewCondition.ParentId,
+        Model.viewCondition.CurrentPageNumber,
+        Model.viewCondition.SortType
     }, FormMethod.Post))
         {
             <input type="image" src="../../Content/ic_home_24px_inverse.svg" alt="home" name="submit" />
@@ -24,17 +24,17 @@
     
     @using (Html.BeginForm(helper.ChangeSortingAction, helper.ControllerName, new
     {
-        id = Model.viewConditionProperty.Id,
-        Model.viewConditionProperty.CurrentPageNumber,
-        Model.viewConditionProperty.SortType
+        id = Model.viewCondition.Id,
+        Model.viewCondition.CurrentPageNumber,
+        Model.viewCondition.SortType
     }, FormMethod.Post))
     {
-        if (Model.viewConditionProperty.SortType == "desc")
+        if (Model.viewCondition.SortType == "desc")
         {
             <input type="image" src="../../Content/sort-ascending.svg" alt="sort" name="submit" />
         }
 
-        if (Model.viewConditionProperty.SortType == "asc")
+        if (Model.viewCondition.SortType == "asc")
         {
             <input type="image" src="../../Content/sort-descending.svg" alt="sort" name="submit" />
         }
@@ -45,9 +45,9 @@
     {
         using (Html.BeginForm(helper.AddNewEntityAction, helper.ControllerName, new
     {
-        id = @Model.viewConditionProperty.Id,
-        Model.viewConditionProperty.CurrentPageNumber,
-        Model.viewConditionProperty.SortType
+        id = @Model.viewCondition.Id,
+        Model.viewCondition.CurrentPageNumber,
+        Model.viewCondition.SortType
     }, FormMethod.Post))
         {
             <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />

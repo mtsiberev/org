@@ -9,23 +9,23 @@
 
     @using (Html.BeginForm(helper.GoPrevPageAction, helper.ControllerName, new
         {
-            id = @Model.viewConditionProperty.Id,
-            Model.viewConditionProperty.CurrentPageNumber,
-            Model.viewConditionProperty.SortType
+            id = @Model.viewCondition.Id,
+            Model.viewCondition.CurrentPageNumber,
+            Model.viewCondition.SortType
         }))
     {
         <input type="image" src="../../Content/ic-double-left.svg" name="submit" style="cursor: pointer;" />
     }
     <form>
         <span style="font-family: RobotoDraft, Roboto, sans-serif; font-size: 20px; color: #ffffff;">
-            @Model.viewConditionProperty.CurrentPageNumber / @Model.viewConditionProperty.MaxPageNumber
+            @Model.viewCondition.CurrentPageNumber / @Model.viewCondition.MaxPageNumber
         </span>
     </form>
     @using (Html.BeginForm(helper.GoNextPageAction, helper.ControllerName, new
             {
-                id = @Model.viewConditionProperty.Id,
-                Model.viewConditionProperty.CurrentPageNumber,
-                Model.viewConditionProperty.SortType
+                id = @Model.viewCondition.Id,
+                Model.viewCondition.CurrentPageNumber,
+                Model.viewCondition.SortType
             }))
     {
         <input type="image" src="../../Content/ic-double-right.svg" name="submit" style="cursor: pointer;" />

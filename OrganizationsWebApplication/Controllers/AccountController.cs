@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Security;
+using NLog;
 using Organizations;
 using OrganizationsWebApplication.Models;
 using WebMatrix.WebData;
@@ -10,11 +12,43 @@ namespace OrganizationsWebApplication.Controllers
 {
     public class AccountController : Controller
     {
+        private Logger m_logger = LogManager.GetCurrentClassLogger();
         private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
 
         public ActionResult Administration()
         {
             return RedirectToAction("Index", "Home");
+        }
+        
+        [HttpPost]
+        public JsonResult IsUserNameExist(string userName)
+        {
+            var result = IsUserCreated(userName);
+            return Json(!result);
+        }
+        
+        [HttpPost]
+        public JsonResult IsUserNameNotExist(string userName)
+        {
+            var result = IsUserCreated(userName);
+            return Json(result);
+        }
+
+        private bool IsUserCreated(string userName)
+        {
+            var role = Roles.Provider;
+            bool result;
+
+            try
+            {
+                var user = role.GetRolesForUser(userName);
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+            return result;
         }
 
         [HttpGet]
@@ -33,16 +67,12 @@ namespace OrganizationsWebApplication.Controllers
             bool success = WebSecurity.Login(account.UserName, account.Password, false);
             if (success)
             {
-                string returnUrl = Request.QueryString["ReturnUrl"];
-                if (returnUrl == null)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    Response.Redirect(returnUrl);
-                }
+                return RedirectToAction("Index", "Home");
             }
+
+            const string loginErrorMsg = "Login error";
+            ViewData["error"] = loginErrorMsg;
+            m_logger.Error(loginErrorMsg);
             return View();
         }
 
@@ -54,7 +84,7 @@ namespace OrganizationsWebApplication.Controllers
                 WebSecurity.InitializeDatabaseConnection("UserDb", "Users", "Id", "UserName", autoCreateTables: true);
             }
 
-            var role = System.Web.Security.Roles.Provider;
+            var role = Roles.Provider;
             if (!role.RoleExists("admin"))
             {
                 role.CreateRole("admin");
@@ -64,7 +94,7 @@ namespace OrganizationsWebApplication.Controllers
             {
                 role.CreateRole("user");
             }
-            
+
             var organizationsList = m_facade.GetAllOrganizations().ToList();
 
             var orgList = new List<SelectListItem>();
@@ -96,46 +126,46 @@ namespace OrganizationsWebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult RegisterFinishing(Account account, string organization, string department)
+        public ActionResult RegisterFinishing(RegisterModel registerModel, string organization, string department)
         {
             int organizationId;
             int departmentId;
             if (Int32.TryParse(organization, out organizationId) && Int32.TryParse(department, out departmentId))
             {
-                account.OrganizationId = organizationId;
-                account.DepartmentId = departmentId;
+                registerModel.OrganizationId = organizationId;
+                registerModel.DepartmentId = departmentId;
             }
 
             try
             {
-                if (account.DepartmentId == 0)
+                if (registerModel.DepartmentId == 0)
                 {
-                    WebSecurity.CreateUserAndAccount(account.UserName,
-                        account.Password);
+                    WebSecurity.CreateUserAndAccount(registerModel.UserName,
+                        registerModel.Password);
                 }
 
                 else
                 {
-                    WebSecurity.CreateUserAndAccount(account.UserName,
-                        account.Password,
+                    WebSecurity.CreateUserAndAccount(registerModel.UserName,
+                        registerModel.Password,
                         propertyValues: new
                         {
-                            DepartmentId = account.DepartmentId
+                            DepartmentId = registerModel.DepartmentId
                         });
                 }
 
-                if (account.UserName == "admin")
+                if (registerModel.UserName == "admin")
                 {
                     var role = System.Web.Security.Roles.Provider;
                     role.AddUsersToRoles(
-                        new[] {account.UserName},
-                        new[] {"admin"});
+                        new[] { registerModel.UserName },
+                        new[] { "admin" });
                 }
                 else
                 {
                     var role = System.Web.Security.Roles.Provider;
                     role.AddUsersToRoles(
-                        new[] { account.UserName },
+                        new[] { registerModel.UserName },
                         new[] { "user" });
                 }
             }
@@ -144,6 +174,7 @@ namespace OrganizationsWebApplication.Controllers
                 return RedirectToAction("Register", "Account");
             }
 
+            var account = new Account() { UserName = registerModel.UserName, Password = registerModel.Password};
             return this.Login(account);
         }
 

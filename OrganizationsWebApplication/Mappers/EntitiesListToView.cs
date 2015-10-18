@@ -35,7 +35,7 @@ namespace OrganizationsWebApplication.Mappers
          select new EmployeeViewModel() { Id = employee.Id, ParentId = department.Id, Name = employee.Name };
 
             var departmentViewModel = new DepartmentInfoViewModel(department.ParentId, department.Id, department.CurrentPage, department.MaxPageNumber, employeeList.ToList(), department.SortType);
-            departmentViewModel.Name = m_facade.GetDepartmentById(departmentViewModel.viewConditionProperty.Id).Name;
+            departmentViewModel.Name = m_facade.GetDepartmentById(departmentViewModel.viewCondition.Id).Name;
             return departmentViewModel;
         }
         

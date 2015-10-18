@@ -1,35 +1,48 @@
 ﻿@model OrganizationsWebApplication.Models.EntitiesModels.EmployeeViewModel
 
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+<!DOCTYPE html>
 
+<html>
+<head>
+    <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="../../Scripts/JavaScript.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js" type="text/javascript">
+    </script>
 
-<div style="height: 80%">
- 
-    <table>
-        <tr>
-            <td>
-                <img src="../../Content/user_pics/user1.png" alt="user_icon" width="256" height="256">
-            </td>
+    <title>_Layout</title>
+</head>
+<body>
 
-            @using (Html.BeginForm("ChangeRoles", "Administration"))
-            {
-             
-                <td>
-                    @Html.HiddenFor(m => m.Id)
-                    @Html.HiddenFor(m => m.ParentId)
-                    @Html.TextBoxFor(m => m.Name, new { @class = "inputMaterial", @readonly = "readonly" })
-                    
-                    @Html.RadioButtonFor(m => m.Role, "admin") Admin
+    <div class="wrapper">
+        <div class="content">
 
-                    @Html.RadioButtonFor(m => m.Role, "user") User
-                
-                </td>
-                <td>
-                    <input type="submit" value="Save">
-                </td>
-            }
-        </tr>
-    </table>
-</div>
+            <table>
+                <tr>
+                    <td>
+                        <img src="../../Content/user_pics/user1.png" alt="user_icon" width="256" height="256">
+                    </td>
+                </tr>
+                @using (Html.BeginForm("ChangeRoles", "Administration"))
+                {
+                    <tr>
+                        <td>
+                            @Html.HiddenFor(m => m.Id)
+                            @Html.HiddenFor(m => m.ParentId)
+                            @Html.TextBoxFor(m => m.Name, new { @class = "inputMaterial", @readonly = "readonly" })
+
+                            @Html.RadioButtonFor(m => m.Role, "admin") Admin
+
+                            @Html.RadioButtonFor(m => m.Role, "user") User
+
+                        </td>
+                        <td>
+                            <input type="submit" value="Save">
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -147,7 +147,25 @@
   <data name="OrganizationsList" xml:space="preserve">
     <value>Organizations List</value>
   </data>
+  <data name="PasswordConfirmationError" xml:space="preserve">
+    <value>The password and confirmation password do not match</value>
+  </data>
+  <data name="PasswordConfirmLabel" xml:space="preserve">
+    <value>Password Confirm</value>
+  </data>
+  <data name="PasswordLabel" xml:space="preserve">
+    <value>Password</value>
+  </data>
   <data name="Registration" xml:space="preserve">
     <value>Registration</value>
+  </data>
+  <data name="UserExists" xml:space="preserve">
+    <value>UserName already exists</value>
+  </data>
+  <data name="UserNameLabel" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="UserNotExists" xml:space="preserve">
+    <value>User name not exists</value>
   </data>
 </root>

@@ -147,7 +147,25 @@
   <data name="OrganizationsList" xml:space="preserve">
     <value>Список организаций</value>
   </data>
+  <data name="PasswordConfirmationError" xml:space="preserve">
+    <value>Пароль и подтверждение пароля отличаются</value>
+  </data>
+  <data name="PasswordConfirmLabel" xml:space="preserve">
+    <value>Подтверждение пароля</value>
+  </data>
+  <data name="PasswordLabel" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
   <data name="Registration" xml:space="preserve">
     <value>Регистрация</value>
+  </data>
+  <data name="UserExists" xml:space="preserve">
+    <value>Юзер уже существует</value>
+  </data>
+  <data name="UserNameLabel" xml:space="preserve">
+    <value>Имя пользователя</value>
+  </data>
+  <data name="UserNotExists" xml:space="preserve">
+    <value>Такого юзера не существует</value>
   </data>
 </root>

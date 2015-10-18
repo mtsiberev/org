@@ -28,16 +28,9 @@
 
                 <br>
                 <br>
-                @{
-                    string rawUrl = Request.RawUrl;
-
-                    string newUrlRu = rawUrl.Replace("/en/", "/ru/");
-                    <a href="@newUrlRu" title="Culture">RU</a>
-
-                    string newUrlEn = rawUrl.Replace("/ru/", "/en/");
-                    <a href="@newUrlEn" title="Culture">EN</a>
-                }
-
+       
+                @Html.Partial("~/Views/_GlobalizationBar.cshtml")
+                
                 @using (Html.BeginForm("Login", "Account"))
                 {
                     <table>
@@ -45,11 +38,16 @@
                             <td>
                                 <div class="accountContainer">
                                     <div class="group">
+
+                                        <span class="text-danger">
+                                            @ViewData["error"]
+                                        </span>
+
                                         @Html.TextBoxFor(m => m.UserName, new { @class = "inputMaterial", @type = "text", @required = "required" })
                                         @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                                         <span class="highlight"></span>
                                         <span class="bar"></span>
-                                        <label>UserName</label>
+                                        <label>@Resource.UserNameLabel</label>
                                     </div>
 
                                     <div class="group">
@@ -57,7 +55,7 @@
                                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                                         <span class="highlight"></span>
                                         <span class="bar"></span>
-                                        <label>Password</label>
+                                        <label>@Resource.PasswordLabel</label>
                                     </div>
                                     <input type="submit" value="OK">
                                     <br>

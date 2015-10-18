@@ -11,16 +11,6 @@ namespace OrganizationsWebApplication.Controllers
     {
         private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
 
-        [HttpGet]
-        public ActionResult OrganizationsList()
-        {
-            var organizationList = m_facade.GetOrganizationsList(1, "asc");
-            var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
-
-            return View(model);
-        }
-
-        [HttpPost]
         public ActionResult OrganizationsList(ViewCondition viewCondition)
         {
             var organizationList = m_facade.GetOrganizationsList(viewCondition.CurrentPageNumber, viewCondition.SortType);
@@ -33,23 +23,18 @@ namespace OrganizationsWebApplication.Controllers
         {
             var nextPage = viewCondition.CurrentPageNumber + 1;
 
-            var organizationList = m_facade.GetOrganizationsList(nextPage, viewCondition.SortType);
-            var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
-
-            return View("OrganizationsList", model);
+            return RedirectToAction("OrganizationsList", "OrganizationsList",
+                new { CurrentPageNumber = nextPage, viewCondition.SortType });
         }
 
         public ActionResult GoPrevPage(ViewCondition viewCondition)
         {
             var prevPage = viewCondition.CurrentPageNumber - 1;
 
-            var organizationList = m_facade.GetOrganizationsList(prevPage, viewCondition.SortType);
-            var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
-
-            return View("OrganizationsList", model);
+            return RedirectToAction("OrganizationsList", "OrganizationsList",
+                new { CurrentPageNumber = prevPage, viewCondition.SortType });
         }
 
-      
         public ActionResult ChangeSortType(ViewCondition viewCondition)
         {
             string newSortType = "asc";
@@ -62,10 +47,8 @@ namespace OrganizationsWebApplication.Controllers
                 newSortType = "desc";
             }
 
-            var organizationList = m_facade.GetOrganizationsList(viewCondition.CurrentPageNumber, newSortType);
-            var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
-
-            return View("OrganizationsList", model);
+            return RedirectToAction("OrganizationsList", "OrganizationsList",
+                  new { viewCondition.CurrentPageNumber, SortType = newSortType });
         }
 
         public ActionResult AddOrganizationMenu(ViewCondition viewCondition)
@@ -78,10 +61,8 @@ namespace OrganizationsWebApplication.Controllers
         {
             m_facade.AddOrganization(new Organization(0) { Name = organization.Name });
 
-            var organizationList = m_facade.GetOrganizationsList(viewCondition.CurrentPageNumber, viewCondition.SortType);
-            var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
-
-            return View("OrganizationsList", model);
+            return RedirectToAction("OrganizationsList", "OrganizationsList",
+                new { viewCondition.CurrentPageNumber, viewCondition.SortType });
         }
 
         public ActionResult UpdateOrganizationMenu(int id, ViewCondition viewCondition)
@@ -100,20 +81,16 @@ namespace OrganizationsWebApplication.Controllers
         {
             m_facade.UpdateOrganization(new Organization(organization.Id) { Name = organization.Name });
 
-            var organizationList = m_facade.GetOrganizationsList(1, viewCondition.SortType);
-            var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
-
-            return View("OrganizationsList", model);
+            return RedirectToAction("OrganizationsList", "OrganizationsList",
+                new { viewCondition.CurrentPageNumber, viewCondition.SortType });
         }
 
         public ActionResult DeleteOrganization(int id, ViewCondition viewCondition)
         {
             m_facade.DeleteOrganization(id);
 
-            var organizationList = m_facade.GetOrganizationsList(1, viewCondition.SortType);
-            var model = EntitiesListToView.GetOrganizationsListViewModel(organizationList);
-
-            return View("OrganizationsList", model);
+            return RedirectToAction("OrganizationsList", "OrganizationsList",
+                new { viewCondition.CurrentPageNumber, viewCondition.SortType });
         }
     }
 }

@@ -3,11 +3,11 @@ namespace OrganizationsWebApplication.Models.PagesModels
 {
     public class BaseViewModel
     {
-        public ViewCondition viewConditionProperty;
+        public ViewCondition viewCondition;
 
         public BaseViewModel()
         {
-            viewConditionProperty = new ViewCondition();
+            viewCondition = new ViewCondition();
         }
     }
 }

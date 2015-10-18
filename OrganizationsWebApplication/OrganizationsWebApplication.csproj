@@ -160,7 +160,7 @@
     <Compile Include="Models\PagesModels\OrganizationsListViewModel.cs" />
     <Compile Include="Models\EntitiesModels\OrganizationViewModel.cs" />
     <Compile Include="Models\EntitiesModels\DepartmentViewModel.cs" />
-    <Compile Include="Models\PagesModels\RegisterViewModel.cs" />
+    <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\ViewCondition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -242,9 +242,6 @@
     <Content Include="Views\_AccountBar.cshtml" />
     <Content Include="Views\_MainCommandsBar.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Administration\Index.cshtml" />
-    <Content Include="Views\Administration\ChangeRolesMenu.cshtml" />
     <Content Include="Views\_GlobalizationBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -272,7 +269,9 @@
       <LastGenOutput>Resource.ru.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Home\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

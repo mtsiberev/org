@@ -25,15 +25,12 @@ body {
     background: #E8EAF6;
 }
 
-
-.hidden-ddl {
-    display: none;
-}
-
-
-
 .ddl {
     display: block;
+}
+
+.ddl.hidden {
+    display: none;
 }
 
 

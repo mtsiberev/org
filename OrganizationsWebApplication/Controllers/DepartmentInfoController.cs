@@ -124,7 +124,6 @@ namespace OrganizationsWebApplication.Controllers
             employeeBm.ParentDepartment.Id = 0;
             m_facade.UpdateEmployee(employeeBm);
             
-
             return RedirectToAction("DepartmentInfo", "DepartmentInfo",
               new { id = department.Id, CurrentPageNumber = 1, viewCondition.SortType });
         }

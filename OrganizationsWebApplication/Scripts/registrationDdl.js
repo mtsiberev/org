@@ -1,8 +1,12 @@
 ﻿
 $(document).ready(function () {
-  
+
     $("#organization").change(function () {
-        $(".hidden-ddl").toggleClass("ddl", true);
+        if ($("#organization option:selected").text() == "Select a Organization") {
+            $(".ddl").toggleClass("hidden", true);
+        } else {
+            $(".ddl").toggleClass("hidden", false);
+        }
         $("#department").empty();
         $.ajax({
             type: 'POST',

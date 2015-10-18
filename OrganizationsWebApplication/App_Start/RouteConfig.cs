@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace OrganizationsWebApplication
@@ -9,11 +8,12 @@ namespace OrganizationsWebApplication
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            
+
             routes.MapRoute(
                  name: "OrganizationsList",
-                 url: "{culture}/{controller}/{action}",
-                 defaults: new { culture = "en", controller = "Home", action = "Index" }
+                url: "{culture}/{controller}/{action}",
+                defaults: new { culture = "en", controller = "Home", action = "Index" }
+                  //defaults: new { culture = "en", controller = "Account", action = "Login" }
              );
         }
     }
