@@ -10,26 +10,11 @@ namespace Organizations.EntitiesLists
         public OrganizationWithDepartments(int organizationId, int currentPage, string sortType)
         {
             Id = organizationId;
-            RefreshMaxPage();
 
-            if (currentPage <= 0)
-            {
-                CurrentPage = 1;
-            }
-            else if (currentPage >= MaxPageNumber)
-            {
-                CurrentPage = MaxPageNumber;
-            }
-            else
-            {
-                CurrentPage = currentPage;
-            }
-
-            SortType = sortType;
-            RefreshContent();
+            Init(currentPage, sortType);
         }
-        
-        private void RefreshMaxPage()
+
+        protected override void RefreshMaxPage()
         {
             var entitiesCount = m_facade.GetDepartmentsCount(Id);
             MaxPageNumber = entitiesCount / PageSize;
@@ -37,7 +22,7 @@ namespace Organizations.EntitiesLists
             if (MaxPageNumber == 0) MaxPageNumber++;
         }
 
-        private void RefreshContent()
+        protected override void RefreshContent()
         {
             Content = m_facade.GetDepartmentsForOnePage(CurrentPage, PageSize, Id, SortType);
             Name = m_facade.GetOrganizationById(Id).Name;

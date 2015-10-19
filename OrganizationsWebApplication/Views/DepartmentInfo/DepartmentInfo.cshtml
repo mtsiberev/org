@@ -21,8 +21,8 @@
                 @if (Roles.IsUserInRole("admin"))
                 {
                     <span class="operationBlock">
-                   
-                        
+
+
                         @using (Html.BeginForm("UpdateEmployeeMenu", "DepartmentInfo",
                             new
                             {
@@ -33,8 +33,8 @@
                         {
                             <input type="image" src="../../Content/ic_mode_edit_24px.svg" alt="edit" name="submit" />
                         }
-                        
-                        
+
+
                         @using (Html.BeginForm("DeleteEmployee", "DepartmentInfo",
                             new
                             {
@@ -50,11 +50,10 @@
             </div>
         }
     </div>
-
-
-    @if (Roles.IsUserInRole("admin"))
+    
+    @if (Roles.IsUserInRole("admin") && Model.FreeUsersViewModel.Count != 0)
     {
-        using (Html.BeginForm("AddEmployeeFromList", "DepartmentInfo", 
+        using (Html.BeginForm("AddEmployeeFromList", "DepartmentInfo",
             new
             {
                 pageNumberInDepartmentInfo = Model.viewCondition.CurrentPageNumber,
@@ -64,12 +63,11 @@
             Model.EmployeeViewModel.ParentId = Model.viewCondition.Id;
 
             @Html.DropDownListFor(model => model.EmployeeViewModel.Id,
-            new SelectList(Model.FreeUsersViewModel, "Id", "Name"), "Choose")
+                new SelectList(Model.FreeUsersViewModel, "Id", "Name"), "Choose")
 
             @Html.HiddenFor(m => m.EmployeeViewModel.ParentId)
-
             <input type="submit" value="@Resource.AddUser">
         }
     }
-    
+
 </div>

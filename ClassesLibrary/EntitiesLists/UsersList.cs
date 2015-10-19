@@ -11,25 +11,10 @@ namespace Organizations.EntitiesLists
 
         public UsersList(int currentPage, string sortType)
         {
-            RefreshMaxPage();
-            if (currentPage <= 0)
-            {
-                CurrentPage = 1;
-            }
-            else if (currentPage >= MaxPageNumber)
-            {
-                CurrentPage = MaxPageNumber;
-            }
-            else
-            {
-                CurrentPage = currentPage;
-            }
-
-            SortType = sortType;
-            RefreshContent();
+            Init(currentPage, sortType);
         }
 
-        private void RefreshMaxPage()
+        protected override void RefreshMaxPage()
         {
             var usersList = m_facade.GetAllEmployees().ToList();
             var entitiesCount = usersList.ToList().Count;
@@ -38,7 +23,7 @@ namespace Organizations.EntitiesLists
             if (MaxPageNumber == 0) MaxPageNumber++;
         }
 
-        private void RefreshContent()
+        protected override void RefreshContent()
         {
             Content = m_facade.GetEmployeesForOnePage(CurrentPage, PageSize, 0, SortType);
         }

@@ -1,11 +1,34 @@
-﻿function setListView() {
+﻿function switchView() {
+    var x = getCookie("view");
 
-    $(".content").toggleClass("grid", false);
+    if (x == "list") {
+        deleteCookie("view");
+        setCookie("view", "grid");
+        location.reload();
+        return false;
+    }
+
+    if (x == "grid") {
+        deleteCookie("view");
+        setCookie("view", "list");
+        location.reload();
+        return false;
+    }
 }
+////////////////////////////////////////
+function setView() {
+    var x = getCookie("view");
+    if (x == "grid") {
+        $(".content").toggleClass("grid", true);
+    }
+    if (x == "list") {
+        $(".content").toggleClass("grid", false);
+    }
 
-function setGridView() {
-
-    $(".content").toggleClass("grid", true);
+    if (x == undefined) {
+        setCookie("view", "list");
+        location.reload();
+    }
 }
 ///////////////////////////////////////
 function setCookie(name, value, options) {

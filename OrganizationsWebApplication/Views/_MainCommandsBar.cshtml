@@ -1,13 +1,18 @@
 ﻿@using OrganizationsWebApplication.Helpers
-@using OrganizationsWebApplication.Models
 @model OrganizationsWebApplication.Models.PagesModels.BaseViewModel
 
 @{
     var helper = new MainCommandsViewHelper(Model);
 }
 
+
 <span class="operationBlock" style="background: #3F51B5; width: 600px; height: 50px">
     
+    <form>
+        <img src="../../Content/view-list.svg" onclick=" switchView() " style="cursor: pointer;" />
+    </form>
+    
+
     @if (helper.GoHomeController != null)
     {
         using (Html.BeginForm(helper.GoHomeAction, helper.GoHomeController, new
