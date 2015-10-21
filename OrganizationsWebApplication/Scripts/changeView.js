@@ -46,7 +46,6 @@ function setCookie(name, value, options) {
     }
 
     value = encodeURIComponent(value);
-
     var updatedCookie = name + "=" + value;
 
     for (var propName in options) {

@@ -1,5 +1,4 @@
-﻿using OrganizationsWebApplication.Models;
-using OrganizationsWebApplication.Models.PagesModels;
+﻿using OrganizationsWebApplication.Models.PagesModels;
 
 namespace OrganizationsWebApplication.Helpers
 {

@@ -11,6 +11,7 @@ namespace OrganizationsWebApplication.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+
             return RedirectToAction("OrganizationsList", "OrganizationsList");
         }
     }

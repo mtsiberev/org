@@ -1,5 +1,4 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
     $("#organization").change(function () {
         if ($("#organization option:selected").text() == "Select a Organization") {

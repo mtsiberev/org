@@ -13,7 +13,6 @@ namespace OrganizationsWebApplication.Models.PagesModels
             viewCondition.PageType = "admin_info";
             viewCondition.SortType = sortType;
         }
-
         public List<EmployeeViewModel> Content { get; set; }
     }
 }

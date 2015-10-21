@@ -73,7 +73,6 @@ namespace OrganizationsWebApplication.Controllers
                 Id = id,
                 Name = name
             };
-
             return View(organization);
         }
 

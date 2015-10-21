@@ -1,5 +1,4 @@
-﻿
-namespace OrganizationsWebApplication.Models.PagesModels
+﻿namespace OrganizationsWebApplication.Models.PagesModels
 {
     public class BaseViewModel
     {

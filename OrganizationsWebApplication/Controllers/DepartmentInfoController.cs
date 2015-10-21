@@ -4,7 +4,6 @@ using Organizations;
 using OrganizationsWebApplication.Mappers;
 using OrganizationsWebApplication.Models;
 using OrganizationsWebApplication.Models.EntitiesModels;
-using OrganizationsWebApplication.Models.PagesModels;
 
 namespace OrganizationsWebApplication.Controllers
 {
@@ -46,7 +45,6 @@ namespace OrganizationsWebApplication.Controllers
             
             return RedirectToAction("DepartmentInfo", "DepartmentInfo",
         new { id, viewCondition.CurrentPageNumber, SortType = newSortType });
-            
         }
 
         public ActionResult GoNextPage(int id, ViewCondition viewCondition)
@@ -80,7 +78,6 @@ namespace OrganizationsWebApplication.Controllers
             return RedirectToAction("DepartmentInfo", "DepartmentInfo",
                new { id = department.Id, CurrentPageNumber = 1, viewCondition.SortType });
         }
-
         
         public ActionResult UpdateEmployeeMenu(int id, ViewCondition viewCondition)
         {
@@ -100,7 +97,6 @@ namespace OrganizationsWebApplication.Controllers
             return RedirectToAction("DepartmentInfo", "DepartmentInfo",
             new { id = department.Id, viewCondition.CurrentPageNumber, viewCondition.SortType });
         }
-
        
        public ActionResult AddEmployeeFromList(EmployeeViewModel employeeViewModel, ViewCondition viewCondition)
         {
@@ -114,12 +110,9 @@ namespace OrganizationsWebApplication.Controllers
                 new { id = department.Id, viewCondition.CurrentPageNumber, viewCondition.SortType });
         }
      
-
-
         public ActionResult DeleteEmployee(int id, ViewCondition viewCondition)
         {
             var department = m_facade.GetEmployeeById(id).ParentDepartment;
-            //m_facade.DeleteEmployee(id);
             var employeeBm = m_facade.GetEmployeeById(id);
             employeeBm.ParentDepartment.Id = 0;
             m_facade.UpdateEmployee(employeeBm);

@@ -47,7 +47,5 @@ namespace OrganizationsWebApplication.Mappers
 
             return new AdministrationViewModel(list.CurrentPage, list.MaxPageNumber, employeeList.ToList(), list.SortType);
         }
-        
-
     }
 }

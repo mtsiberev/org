@@ -109,7 +109,6 @@ namespace OrganizationsWebApplication.Controllers
             return View();
         }
 
-
         public JsonResult GetDepartments(string id)
         {
             var departmentsList = m_facade.GetDepartmentsInOrganization(Int32.Parse(id));

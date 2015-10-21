@@ -41,7 +41,6 @@ namespace OrganizationsWebApplication.Controllers
         
             return RedirectToAction("OrganizationInfo", "OrganizationInfo",
                 new { id, CurrentPageNumber = nextPage, viewCondition.SortType });
-
         }
 
         public ActionResult GoPrevPage(int id, ViewCondition viewCondition)

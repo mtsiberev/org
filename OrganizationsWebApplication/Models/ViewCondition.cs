@@ -1,5 +1,4 @@
-﻿
-namespace OrganizationsWebApplication.Models
+﻿namespace OrganizationsWebApplication.Models
 {
     public class ViewCondition
     {

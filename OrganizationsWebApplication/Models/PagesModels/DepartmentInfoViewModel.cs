@@ -5,10 +5,7 @@ namespace OrganizationsWebApplication.Models.PagesModels
 {
     public class DepartmentInfoViewModel : BaseViewModel
     {
-
-        public DepartmentInfoViewModel()
-        {
-        }
+        public DepartmentInfoViewModel(){}
 
         public DepartmentInfoViewModel(int organizationId, int id, int currentPageNumber, int maxPageNumber, List<EmployeeViewModel> content, string sortType)
         {

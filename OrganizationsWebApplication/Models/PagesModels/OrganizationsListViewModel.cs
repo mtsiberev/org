@@ -14,7 +14,6 @@ namespace OrganizationsWebApplication.Models.PagesModels
             viewCondition.MaxPageNumber = maxPageNumber;
             viewCondition.PageType = "org_list";
         }
-
         public List<OrganizationViewModel> Content { get; private set; }
     }
 }

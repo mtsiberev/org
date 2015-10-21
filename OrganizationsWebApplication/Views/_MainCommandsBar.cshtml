@@ -5,14 +5,12 @@
     var helper = new MainCommandsViewHelper(Model);
 }
 
-
 <span class="operationBlock" style="background: #3F51B5; width: 600px; height: 50px">
     
     <form>
         <img src="../../Content/view-list.svg" onclick=" switchView() " style="cursor: pointer;" />
     </form>
     
-
     @if (helper.GoHomeController != null)
     {
         using (Html.BeginForm(helper.GoHomeAction, helper.GoHomeController, new
@@ -25,7 +23,6 @@
             <input type="image" src="../../Content/ic_home_24px_inverse.svg" alt="home" name="submit" />
         }
     }
-    
     
     @using (Html.BeginForm(helper.ChangeSortingAction, helper.ControllerName, new
     {
@@ -45,8 +42,7 @@
         }
     }
  
-
-    @if (Roles.IsUserInRole("admin"))
+    @if (Roles.IsUserInRole("admin") && (Model.viewCondition.PageType != "dep_info"))
     {
         using (Html.BeginForm(helper.AddNewEntityAction, helper.ControllerName, new
     {
@@ -56,7 +52,6 @@
     }, FormMethod.Post))
         {
             <input style="background: #3F51B5" type="image" src="../../Content/ic_add_box_24px_inverse.svg" alt="add" name="submit" />
-
         }
     }
   

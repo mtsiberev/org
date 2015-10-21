@@ -1,5 +1,4 @@
-﻿
-using OrganizationsWebApplication.Models.PagesModels;
+﻿using OrganizationsWebApplication.Models.PagesModels;
 
 namespace OrganizationsWebApplication.Models.EntitiesModels
 {
@@ -8,10 +7,6 @@ namespace OrganizationsWebApplication.Models.EntitiesModels
         public int Id { get; set; }
         public int ParentId { get; set; }
         public string Name { get; set; }
-
-
-
-
         public string Role { get; set; }
     }
 }
