@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Organizations;
+using OrganizationsWebApplication.Helpers;
 using OrganizationsWebApplication.Mappers;
 using OrganizationsWebApplication.Models;
 using OrganizationsWebApplication.Models.EntitiesModels;
@@ -126,5 +128,31 @@ namespace OrganizationsWebApplication.Controllers
             return RedirectToAction("AdministrationInfo", "Administration",
                 new { id, viewCondition.CurrentPageNumber, viewCondition.SortType });
         }
+
+        
+        [HttpPost]
+        public ActionResult Save(HttpPostedFileBase file, int id)
+        {
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+                    var fileName = ImageHelper.GetFilePathForSaving(file, id);
+                    file.SaveAs(fileName);
+                    ViewBag.Message = "File uploaded successfully";
+                    logger.Info("Saving file: '{0}' by user '{1}'", fileName, WebSecurity.CurrentUserName);
+    
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex.Message);
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file";
+                logger.Info("You have not specified a file");
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }

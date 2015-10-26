@@ -139,6 +139,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\MainCommandsViewHelper.cs" />
     <Compile Include="LocalResource\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -270,6 +271,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Upload\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <PropertyGroup>
