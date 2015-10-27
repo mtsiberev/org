@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using Organizations;
 using OrganizationsWebApplication.Helpers;
@@ -17,7 +19,17 @@ namespace OrganizationsWebApplication.Controllers
     {
         private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        
 
+        public FileResult GetImageFileByUserId(int id)
+        {
+            var fileObject = ImageHelper.GetImageFileObject(id);
+            logger.Info("Getting file: '{0}' by user '{1}'", fileObject.FileName, WebSecurity.CurrentUserName);
+
+            return new FilePathResult(fileObject.FilePath, fileObject.ContentType);
+        }
+
+        
         public ActionResult AdministrationInfo(ViewCondition viewCondition)
         {
             var allUsers = m_facade.GetAllEmployees(viewCondition.CurrentPageNumber, viewCondition.SortType);
@@ -134,25 +146,24 @@ namespace OrganizationsWebApplication.Controllers
         public ActionResult Save(HttpPostedFileBase file, int id)
         {
             if (file != null && file.ContentLength > 0)
-                try
-                {
-                    var fileName = ImageHelper.GetFilePathForSaving(file, id);
-                    file.SaveAs(fileName);
-                    ViewBag.Message = "File uploaded successfully";
-                    logger.Info("Saving file: '{0}' by user '{1}'", fileName, WebSecurity.CurrentUserName);
-    
-                }
-                catch (Exception ex)
-                {
-                    logger.Error(ex.Message);
-                }
-            else
             {
-                ViewBag.Message = "You have not specified a file";
-                logger.Info("You have not specified a file");
+                ImageHelper.SaveUserImageById(file, id);
             }
+
             return RedirectToAction("Index", "Home");
         }
 
+        
+        [HttpPost]
+        public ActionResult DeleteImage(int id)
+        {
+            if (id != 0)
+            {
+                ImageHelper.DeleteUserImageById(id);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+        
     }
 }

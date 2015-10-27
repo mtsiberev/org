@@ -26,41 +26,40 @@
             }
         </span>
         <br>
-
+       
+        <img src='@Url.Action("GetImageFileByUserId", "Administration", new { id = @Model.Id })' width="300" height="300" />
+        
+        @using (Html.BeginForm("DeleteImage", "Administration", new { id = @Model.Id }, FormMethod.Post ))
+        {
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" name="Submit" value="Delete" />
+                    </td>
+                </tr>
+            </table>
+        }
+        
+        <br>
+        
         @using (Html.BeginForm("Save", "Administration", new { id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <table>
                 <tr>
-                    <td>File:</td>
                     <td>
                         <input type="file" name="file" />
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="submit" name="Submit" value="Submit" />
+                        <input type="submit" name="Submit" value="OK" />
                     </td>
                 </tr>
             </table>
         }
         
-        <div>
-            <div>
-
-                @{
-                    string filePath = ImageHelper.GetImagePath(Model.Id);
-                    if (filePath != null)
-                    {
-                        <img src="@Url.Content(filePath)" alt="../../Content/user_pics/user1.png" width="256" height="256">
-                    }
-                    else
-                    {
-                        <img src="../../Content/user_pics/user1.png" alt="user_icon" width="256" height="256">
-                    }
-                }
-            </div>
-        </div>
-
+        <br>
+        
         @using (Html.BeginForm("ChangeRoles", "Administration"))
         {
             <div>

@@ -178,7 +178,7 @@
     <Content Include="App_Data\Data_log.ldf">
       <DependentUpon>Data.mdf</DependentUpon>
     </Content>
-    <Content Include="Content\user_pics\user1.png" />
+    <Content Include="App_Data\Upload\default.png" />
     <Content Include="Content\ic-double-left.svg" />
     <Content Include="Content\ic-double-right.svg" />
     <Content Include="Content\ic_add_box_24px.svg" />
@@ -271,7 +271,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Upload\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <PropertyGroup>
