@@ -19,14 +19,14 @@ namespace OrganizationsWebApplication.Controllers
         {
             return RedirectToAction("Index", "Home");
         }
-        
+
         [HttpPost]
         public JsonResult IsUserNameExist(string userName)
         {
             var result = IsUserCreated(userName);
             return Json(!result);
         }
-        
+
         [HttpPost]
         public JsonResult IsUserNameNotExist(string userName)
         {
@@ -152,7 +152,7 @@ namespace OrganizationsWebApplication.Controllers
                             DepartmentId = registerModel.DepartmentId
                         });
                 }
-
+                /*
                 if (registerModel.UserName == "admin")
                 {
                     var role = System.Web.Security.Roles.Provider;
@@ -161,6 +161,7 @@ namespace OrganizationsWebApplication.Controllers
                         new[] { "admin" });
                 }
                 else
+                    */
                 {
                     var role = System.Web.Security.Roles.Provider;
                     role.AddUsersToRoles(
@@ -173,7 +174,7 @@ namespace OrganizationsWebApplication.Controllers
                 return RedirectToAction("Register", "Account");
             }
 
-            var account = new Account() { UserName = registerModel.UserName, Password = registerModel.Password};
+            var account = new Account() { UserName = registerModel.UserName, Password = registerModel.Password };
             return this.Login(account);
         }
 

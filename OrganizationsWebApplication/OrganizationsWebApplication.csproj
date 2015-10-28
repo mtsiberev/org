@@ -178,6 +178,7 @@
     <Content Include="App_Data\Data_log.ldf">
       <DependentUpon>Data.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\dbo.Users.data.sql" />
     <Content Include="App_Data\Upload\default.png" />
     <Content Include="Content\ic-double-left.svg" />
     <Content Include="Content\ic-double-right.svg" />
@@ -206,6 +207,12 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MyBundle.js">
+      <DependentUpon>MyBundle.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Scripts\MyBundle.min.js">
+      <DependentUpon>MyBundle.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\registrationDdl.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -217,6 +224,10 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Administration\AdministrationInfo.cshtml" />
     <Content Include="Views\Administration\UserProfile.cshtml" />
+    <Content Include="Scripts\MyBundle.js.bundle" />
+    <Content Include="Scripts\MyBundle.min.js.map">
+      <DependentUpon>MyBundle.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config">
