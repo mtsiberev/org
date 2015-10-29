@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.Hosting;
 using System.Web.Mvc;
 using Organizations;
 using OrganizationsWebApplication.Helpers;
@@ -20,15 +18,13 @@ namespace OrganizationsWebApplication.Controllers
         private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
         private static Logger logger = LogManager.GetCurrentClassLogger();
         
-
         public FileResult GetImageFileByUserId(int id)
         {
-            var fileObject = ImageHelper.GetImageFileObject(id);
-            logger.Info("Getting file: '{0}' by user '{1}'", fileObject.FileName, WebSecurity.CurrentUserName);
+            var fileDescription = ImageHelper.GetImageFileDescription(id);
+            logger.Info("Getting file: '{0}' by user '{1}'", fileDescription.FileName, WebSecurity.CurrentUserName);
 
-            return new FilePathResult(fileObject.FilePath, fileObject.ContentType);
+            return new FilePathResult(fileDescription.FilePath, fileDescription.ContentType);
         }
-
         
         public ActionResult AdministrationInfo(ViewCondition viewCondition)
         {
@@ -129,6 +125,8 @@ namespace OrganizationsWebApplication.Controllers
         public ActionResult DeleteEmployee(int id, ViewCondition viewCondition)
         {
             var userName = m_facade.GetEmployeeById(id).Name;
+
+            ImageHelper.DeleteUserImageById(id);
             m_facade.DeleteEmployee(id);
 
             if (userName == WebSecurity.CurrentUserName)

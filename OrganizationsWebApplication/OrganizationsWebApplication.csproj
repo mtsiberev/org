@@ -178,6 +178,7 @@
     <Content Include="App_Data\Data_log.ldf">
       <DependentUpon>Data.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\dbo.Users.dataBug.sql" />
     <Content Include="App_Data\dbo.Users.data.sql" />
     <Content Include="App_Data\Upload\default.png" />
     <Content Include="Content\ic-double-left.svg" />
