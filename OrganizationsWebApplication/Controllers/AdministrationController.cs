@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Organizations;
 using OrganizationsWebApplication.Helpers;
 using OrganizationsWebApplication.Mappers;
@@ -141,14 +142,14 @@ namespace OrganizationsWebApplication.Controllers
 
         
         [HttpPost]
-        public ActionResult Save(HttpPostedFileBase file, int id)
+        public ActionResult SaveImage(HttpPostedFileBase file, int id)
         {
             if (file != null && file.ContentLength > 0)
             {
                 ImageHelper.SaveUserImageById(file, id);
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("UserProfile", "Administration", new { id } );
         }
 
         
@@ -159,8 +160,8 @@ namespace OrganizationsWebApplication.Controllers
             {
                 ImageHelper.DeleteUserImageById(id);
             }
-
-            return RedirectToAction("Index", "Home");
+      
+            return RedirectToAction("UserProfile", "Administration", new { id });
         }
         
     }

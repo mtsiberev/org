@@ -13,7 +13,6 @@ namespace OrganizationsWebApplication
                  name: "OrganizationsList",
                 url: "{culture}/{controller}/{action}",
                 defaults: new { culture = "en", controller = "Home", action = "Index" }
-                  //defaults: new { culture = "en", controller = "Account", action = "Login" }
              );
         }
     }

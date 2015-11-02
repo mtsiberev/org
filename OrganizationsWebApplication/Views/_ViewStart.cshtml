@@ -1,8 +1,4 @@
-﻿@*
-<script src="~/Scripts/jquery-1.8.0.js"></script>
-<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-*@
+﻿@using System.Web.Optimization
 
-<script src="~/Scripts/MyBundle.min.js"></script>
+@Scripts.Render("~/bundles/js")
+@Styles.Render("~/content/style")

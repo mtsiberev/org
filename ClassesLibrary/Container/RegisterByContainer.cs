@@ -33,6 +33,7 @@ namespace Organizations
                                 .Is(new RepositoryEmployeeDatabase());
                             
                             x.For<Reports>().Singleton().Use<Reports>();
+
                         });
                 }
                 return s_container;
