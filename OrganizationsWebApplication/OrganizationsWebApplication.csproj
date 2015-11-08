@@ -191,6 +191,7 @@
     </Content>
     <Content Include="App_Data\dbo.Users.data.sql" />
     <Content Include="App_Data\Upload\default.png" />
+    <Content Include="Content\account.png" />
     <Content Include="Content\ic-double-left.svg" />
     <Content Include="Content\ic-double-right.svg" />
     <Content Include="Content\ic_add_box_24px.svg" />
@@ -201,6 +202,9 @@
     <Content Include="Content\ic_home_24px_inverse.svg" />
     <Content Include="Content\ic_keyboard_backspace_24px.svg" />
     <Content Include="Content\ic_mode_edit_24px.svg" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\changeView.js" />
     <Content Include="Content\sort-ascending.svg" />
     <Content Include="Content\sort-descending.svg" />
@@ -208,7 +212,9 @@
     <Content Include="Content\view-list.svg" />
     <Content Include="Content\view-module.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\angular.min.js.map" />
     <None Include="Scripts\jquery-1.8.0.intellisense.js" />
+    <Content Include="Scripts\Factories\UserService.js" />
     <Content Include="Scripts\jquery-1.8.0.js" />
     <Content Include="Scripts\jquery-1.8.0.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -219,6 +225,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\registrationDdl.js" />
+    <Content Include="Scripts\UserApp.js" />
+    <Content Include="Scripts\Controllers\UserController.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -229,6 +237,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Administration\AdministrationInfo.cshtml" />
     <Content Include="Views\Administration\UserProfile.cshtml" />
+    <Content Include="Views\Administration\UserProfileAngular.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config">

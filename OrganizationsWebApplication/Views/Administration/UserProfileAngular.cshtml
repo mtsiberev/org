@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<body>
+    
+    <script type="text/javascript">
+        var getUserActionVar = '@Url.Action("GetUser")';
+        var userIdVar = @ViewData["id"];
+    </script>
+    
+    <div ng-app="UserApp" ng-controller="UserController" class="wrapper">
+        <span class="inputMaterial" style="color: black">
+
+            <img src='@Url.Action("GetImageFileByUserId", "Administration", new { id = @ViewData["id"] })' width="300" height="300" />
+
+            UserName: {{ user.Name }}
+            <p>
+                UserId: {{ user.Id }}
+            <p>
+                Department: {{user.ParentDepartment.Name}}
+            <p>
+                Organization: {{user.ParentDepartment.ParentOrganization.Name}}
+        </span>
+    </div>
+
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/Controllers/UserController.js"></script>
+    <script src="~/Scripts/Factories/UserService.js"></script>
+    <script src="~/Scripts/UserApp.js"></script>
+    
+</body>
+</html>

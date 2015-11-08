@@ -1,5 +1,5 @@
 ﻿@using OrganizationsWebApplication.LocalResource
-
+@using System.Web.Mvc.Html
 @model OrganizationsWebApplication.Models.PagesModels.DepartmentInfoViewModel
 
 @{
@@ -44,6 +44,19 @@
                         {
                             <input type="image" src="../../Content/ic_delete_24px.svg" alt="delete" name="submit" />
                         }
+                        
+                        
+                        @using (Html.BeginForm("UserProfileAngular", "Administration",
+                            new
+                            {
+                                id = employee.Id,
+                                Model.viewCondition.CurrentPageNumber,
+                                Model.viewCondition.SortType
+                            }))
+                        {
+                            <input type="image" src="../../Content/account.png" alt="profile" name="submit" />
+                        }
+                        
                     </span>
                 }
             </div>

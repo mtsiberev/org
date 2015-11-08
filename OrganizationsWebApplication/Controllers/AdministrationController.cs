@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using Organizations;
 using OrganizationsWebApplication.Helpers;
 using OrganizationsWebApplication.Mappers;
@@ -67,6 +66,21 @@ namespace OrganizationsWebApplication.Controllers
                 new { id, viewCondition.CurrentPageNumber, SortType = newSortType });
         }
 
+        
+        public JsonResult GetUser(int id)
+        {
+            var user = m_facade.GetEmployeeById(id);
+            return Json(user, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult UserProfileAngular(int id, ViewCondition viewCondition)
+        {
+            ViewData["id"] = id.ToString();
+            return View();
+        }
+
+        
         public ActionResult UserProfile(int id, ViewCondition viewCondition)
         {
             var employeeBm = m_facade.GetEmployeeById(id);
