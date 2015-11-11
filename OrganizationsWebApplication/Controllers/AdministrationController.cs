@@ -20,10 +20,17 @@ namespace OrganizationsWebApplication.Controllers
         
         public FileResult GetImageFileByUserId(int id)
         {
-            var fileDescription = ImageHelper.GetImageFileDescription(id);
-            logger.Info("Getting file: '{0}' by user '{1}'", fileDescription.FileName, WebSecurity.CurrentUserName);
+            var fileObject = new ImageObject(id);
+            try
+            {
+                return  fileObject.GetImage();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+            }
 
-            return new FilePathResult(fileDescription.FilePath, fileDescription.ContentType);
+            return null;
         }
         
         public ActionResult AdministrationInfo(ViewCondition viewCondition)
@@ -140,9 +147,18 @@ namespace OrganizationsWebApplication.Controllers
         public ActionResult DeleteEmployee(int id, ViewCondition viewCondition)
         {
             var userName = m_facade.GetEmployeeById(id).Name;
-
-            ImageHelper.DeleteUserImageById(id);
+            
             m_facade.DeleteEmployee(id);
+            var fileObject = new ImageObject(id);
+
+            try
+            {
+                fileObject.DeleteImage();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+            }
 
             if (userName == WebSecurity.CurrentUserName)
             {
@@ -153,30 +169,41 @@ namespace OrganizationsWebApplication.Controllers
             return RedirectToAction("AdministrationInfo", "Administration",
                 new { id, viewCondition.CurrentPageNumber, viewCondition.SortType });
         }
-
         
         [HttpPost]
         public ActionResult SaveImage(HttpPostedFileBase file, int id)
         {
             if (file != null && file.ContentLength > 0)
             {
-                ImageHelper.SaveUserImageById(file, id);
+                var fileObject = new ImageObject(id);
+                try
+                {
+                    fileObject.SaveImage(file);
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex.Message);
+                }
             }
-
             return RedirectToAction("UserProfile", "Administration", new { id } );
         }
-
         
         [HttpPost]
         public ActionResult DeleteImage(int id)
         {
             if (id != 0)
             {
-                ImageHelper.DeleteUserImageById(id);
+                var fileObject = new ImageObject(id);
+                try
+                {
+                    fileObject.DeleteImage();
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex.Message);
+                }
             }
-      
             return RedirectToAction("UserProfile", "Administration", new { id });
         }
-        
     }
 }
