@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Organizations.Container;
 
 namespace Organizations.EntitiesLists
 {
     public class OrganizationWithDepartments : MainList
     {
-        private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
+        private Facade m_facade = ContainerWrapper.Container.GetInstance<Facade>();
         public List<Department> Content { get; private set; }
 
         public OrganizationWithDepartments(int organizationId, int currentPage, string sortType)

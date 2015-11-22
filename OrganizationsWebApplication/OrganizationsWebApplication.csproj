@@ -150,8 +150,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\ImageObject.cs" />
     <Compile Include="Helpers\MainCommandsViewHelper.cs" />
+    <Compile Include="IoC\MvcContainer.cs" />
     <Compile Include="LocalResource\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

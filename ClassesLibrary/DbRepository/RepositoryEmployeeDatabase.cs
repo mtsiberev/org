@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Organizations.Container;
 using Organizations.DbEntity;
 using Organizations.Helpers;
 using Organizations.Mappers;
@@ -49,7 +50,7 @@ namespace Organizations.DbRepository
             {
                 if (reader.HasRows)
                 {
-                    var repositoryDepartmentDb = RegisterByContainer.Container.GetInstance<IRepository<Department>>();
+                    var repositoryDepartmentDb = ContainerWrapper.Container.GetInstance<IRepository<Department>>();
 
                     while (reader.Read())
                     {
@@ -84,7 +85,7 @@ namespace Organizations.DbRepository
         public Employee GetById(int id)
         {
             var queryString = String.Format("SELECT TOP 1 * FROM {0} WHERE Id = {1};", c_employeesDatabaseName, id);
-            var repositoryDepartmentDb = RegisterByContainer.Container.GetInstance<IRepository<Department>>();
+            var repositoryDepartmentDb = ContainerWrapper.Container.GetInstance<IRepository<Department>>();
             using (var reader = AdoHelper.GetDataTableReader(queryString))
             {
                 if (reader.Read())
@@ -110,7 +111,7 @@ namespace Organizations.DbRepository
                 condition = string.Format("WHERE DepartmentId = {0} ", parentId);
             }
 
-            var repositoryDepartmentDb = RegisterByContainer.Container.GetInstance<IRepository<Department>>();
+            var repositoryDepartmentDb = ContainerWrapper.Container.GetInstance<IRepository<Department>>();
             var resultList = new List<Employee>();
          
             var queryString = String.Format(

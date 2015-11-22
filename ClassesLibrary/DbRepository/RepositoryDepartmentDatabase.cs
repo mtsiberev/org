@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Organizations.Container;
 using Organizations.Helpers;
 using Organizations.Mappers;
 
@@ -40,7 +41,7 @@ namespace Organizations.DbRepository
             {
                 if (reader.HasRows)
                 {
-                    var repositoryOrganizationDb = RegisterByContainer.Container.GetInstance<IRepository<Organization>>();
+                    var repositoryOrganizationDb = ContainerWrapper.Container.GetInstance<IRepository<Organization>>();
                     while (reader.Read())
                     {
                         var departmentDb = MapperDb.GetDepartmentDb(reader);
@@ -72,7 +73,7 @@ namespace Organizations.DbRepository
         public Department GetById(int id)
         {
             var queryString = String.Format("SELECT TOP 1 * FROM {0} WHERE Id = {1};", c_departmentsDatabaseName, id);
-            var repositoryOrganizationDb = RegisterByContainer.Container.GetInstance<IRepository<Organization>>();
+            var repositoryOrganizationDb = ContainerWrapper.Container.GetInstance<IRepository<Organization>>();
 
             using (var reader = AdoHelper.GetDataTableReader(queryString))
             {
@@ -93,7 +94,7 @@ namespace Organizations.DbRepository
 
         public List<Department> GetEntitiesForOnePage(int pageNum, int pageSize, int parentId)
         {
-            var repositoryOrganizationDb = RegisterByContainer.Container.GetInstance<IRepository<Organization>>();
+            var repositoryOrganizationDb = ContainerWrapper.Container.GetInstance<IRepository<Organization>>();
 
             var resultList = new List<Department>();
 

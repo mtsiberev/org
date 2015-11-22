@@ -1,4 +1,5 @@
 ﻿using Organizations;
+using Organizations.Container;
 using Organizations.EntitiesLists;
 using OrganizationsWebApplication.Models.EntitiesModels;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace OrganizationsWebApplication.Mappers
 {
     public static class EntitiesListToView
     {
-        private static Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
+        private static Facade m_facade = ContainerWrapper.Container.GetInstance<Facade>();
 
         public static OrganizationsListViewModel GetOrganizationsListViewModel(OrganizationsList organizationsList)
         {

@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Organizations.Container;
 
 namespace Organizations.EntitiesLists
 {
     public class UsersList : MainList
     {
-        private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
+        private Facade m_facade = ContainerWrapper.Container.GetInstance<Facade>();
         public List<Employee> Content { get; private set; }
         public int ParentId { get; protected set; }
 

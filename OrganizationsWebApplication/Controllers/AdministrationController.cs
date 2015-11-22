@@ -3,7 +3,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Organizations;
+using Organizations.Container;
 using OrganizationsWebApplication.Helpers;
+using OrganizationsWebApplication.IoC;
 using OrganizationsWebApplication.Mappers;
 using OrganizationsWebApplication.Models;
 using OrganizationsWebApplication.Models.EntitiesModels;
@@ -15,15 +17,17 @@ namespace OrganizationsWebApplication.Controllers
     [Authorize(Roles = "admin")]
     public class AdministrationController : Controller
     {
-        private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
+        private Facade m_facade = ContainerWrapper.Container.GetInstance<Facade>();
+
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        
+
         public FileResult GetImageFileByUserId(int id)
         {
-            var fileObject = new ImageObject(id);
+            var fileObject = MvcContainer.Container.With("id").EqualTo(id).GetInstance<ImageObject>();
+
             try
             {
-                return  fileObject.GetImage();
+                return fileObject.GetImage();
             }
             catch (Exception ex)
             {
@@ -32,7 +36,7 @@ namespace OrganizationsWebApplication.Controllers
 
             return null;
         }
-        
+
         public ActionResult AdministrationInfo(ViewCondition viewCondition)
         {
             var allUsers = m_facade.GetAllEmployees(viewCondition.CurrentPageNumber, viewCondition.SortType);
@@ -73,7 +77,7 @@ namespace OrganizationsWebApplication.Controllers
                 new { id, viewCondition.CurrentPageNumber, SortType = newSortType });
         }
 
-        
+
         public JsonResult GetUser(int id)
         {
             var user = m_facade.GetEmployeeById(id);
@@ -87,7 +91,7 @@ namespace OrganizationsWebApplication.Controllers
             return View();
         }
 
-        
+
         public ActionResult UserProfile(int id, ViewCondition viewCondition)
         {
             var employeeBm = m_facade.GetEmployeeById(id);
@@ -147,9 +151,9 @@ namespace OrganizationsWebApplication.Controllers
         public ActionResult DeleteEmployee(int id, ViewCondition viewCondition)
         {
             var userName = m_facade.GetEmployeeById(id).Name;
-            
+
             m_facade.DeleteEmployee(id);
-            var fileObject = new ImageObject(id);
+            var fileObject = MvcContainer.Container.With("id").EqualTo(id).GetInstance<ImageObject>();
 
             try
             {
@@ -169,13 +173,14 @@ namespace OrganizationsWebApplication.Controllers
             return RedirectToAction("AdministrationInfo", "Administration",
                 new { id, viewCondition.CurrentPageNumber, viewCondition.SortType });
         }
-        
+
         [HttpPost]
         public ActionResult SaveImage(HttpPostedFileBase file, int id)
         {
             if (file != null && file.ContentLength > 0)
             {
-                var fileObject = new ImageObject(id);
+                var fileObject = MvcContainer.Container.With("id").EqualTo(id).GetInstance<ImageObject>();
+
                 try
                 {
                     fileObject.SaveImage(file);
@@ -185,15 +190,16 @@ namespace OrganizationsWebApplication.Controllers
                     logger.Error(ex.Message);
                 }
             }
-            return RedirectToAction("UserProfile", "Administration", new { id } );
+            return RedirectToAction("UserProfile", "Administration", new { id });
         }
-        
+
         [HttpPost]
         public ActionResult DeleteImage(int id)
         {
             if (id != 0)
             {
-                var fileObject = new ImageObject(id);
+                var fileObject = MvcContainer.Container.With("id").EqualTo(id).GetInstance<ImageObject>();
+
                 try
                 {
                     fileObject.DeleteImage();

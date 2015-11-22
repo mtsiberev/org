@@ -2,13 +2,13 @@
 using Organizations.DbRepository;
 using StructureMap;
 
-namespace Organizations
+namespace Organizations.Container
 {
-    public sealed class RegisterByContainer
+    public sealed class ContainerWrapper
     {
         private static object syncRoot = new Object();
         private static volatile IContainer s_container;
-        private RegisterByContainer() { }
+        private ContainerWrapper() { }
 
         public static IContainer Container
         {
@@ -18,7 +18,7 @@ namespace Organizations
                 lock (syncRoot)
                 {
                     if (s_container == null)
-                        s_container = new Container(x =>
+                        s_container = new StructureMap.Container(x =>
                         {
                             x.For<IRepository<Organization>>().Singleton().Use<RepositoryOrganizationDatabase>();
                             x.For<IRepository<Department>>().Singleton().Use<RepositoryDepartmentDatabase>();

@@ -86,7 +86,7 @@
     <Compile Include="EntitiesLists\UsersList.cs" />
     <Compile Include="Entity\User.cs" />
     <Compile Include="Helpers\AdoHelper.cs" />
-    <Compile Include="Container\RegisterByContainer.cs" />
+    <Compile Include="Container\Container.cs" />
     <Compile Include="DbEntity\DepartmentDb.cs" />
     <Compile Include="DbEntity\EmployeeDb.cs" />
     <Compile Include="DbEntity\IEntityDb.cs" />

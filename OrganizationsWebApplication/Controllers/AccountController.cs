@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using NLog;
 using Organizations;
+using Organizations.Container;
 using OrganizationsWebApplication.Models;
 using WebMatrix.WebData;
 
@@ -13,7 +14,7 @@ namespace OrganizationsWebApplication.Controllers
     public class AccountController : Controller
     {
         private Logger m_logger = LogManager.GetCurrentClassLogger();
-        private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
+        private Facade m_facade = ContainerWrapper.Container.GetInstance<Facade>();
 
         public ActionResult Administration()
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using Organizations.Container;
 
 namespace Organizations
 {
@@ -12,7 +13,7 @@ namespace Organizations
             var absoluteDataDirectory = Path.GetFullPath(dataDirectory);
             AppDomain.CurrentDomain.SetData("DataDirectory", absoluteDataDirectory);
 
-            var facade = RegisterByContainer.Container.GetInstance<Facade>();
+            var facade = ContainerWrapper.Container.GetInstance<Facade>();
             var report = new Reports(facade);
             //report.ShowAllOrganizations();
             //report.ShowAllEmployeesInOrganization(325);

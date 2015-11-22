@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Organizations;
+using Organizations.Container;
 using OrganizationsWebApplication.Mappers;
 using OrganizationsWebApplication.Models;
 using OrganizationsWebApplication.Models.EntitiesModels;
@@ -9,7 +10,7 @@ namespace OrganizationsWebApplication.Controllers
     [Authorize]
     public class OrganizationInfoController : Controller
     {
-        private Facade m_facade = RegisterByContainer.Container.GetInstance<Facade>();
+        private Facade m_facade = ContainerWrapper.Container.GetInstance<Facade>();
 
         public ActionResult OrganizationInfo(int id, ViewCondition viewCondition)
         {

@@ -9,20 +9,6 @@ using WebMatrix.WebData;
 
 namespace OrganizationsWebApplication.Helpers
 {
-    public class ImageFileDescription
-    {
-        public string FileName { get; private set; }
-        public string FilePath { get; private set; }
-        public string ContentType { get; private set; }
-
-        public ImageFileDescription(string fileName, string filePath, string contentType)
-        {
-            FileName = fileName;
-            FilePath = filePath;
-            ContentType = contentType;
-        }
-    }
-
     public class ImageObject
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
@@ -84,16 +70,16 @@ namespace OrganizationsWebApplication.Helpers
                 var fileName = file.Name;
                 var filePath = string.Concat(c_folderName, fileName);
                 string contentType = string.Concat("application/", file.Extension);
-                var description = new ImageFileDescription(fileName, filePath, contentType);
-
-                return new FilePathResult(description.FilePath, description.ContentType);
+               
+                return new FilePathResult(filePath, contentType);
             }
             catch (Exception ex)
             {
                 logger.Error(ex.Message);
             }
-            var defaultDescription = new ImageFileDescription(c_defaultImgName, string.Concat(c_folderName, c_defaultImgName), c_defaultContentType);
-            return new FilePathResult(defaultDescription.FilePath, defaultDescription.ContentType);
+            var filepath = string.Concat(c_folderName, c_defaultImgName);
+
+            return new FilePathResult(filepath, c_defaultContentType);
         }
         
         private FileInfo GetImageFileById()
