@@ -1,5 +1,4 @@
-﻿@using OrganizationsWebApplication.Helpers
-@model OrganizationsWebApplication.Models.EntitiesModels.EmployeeViewModel
+﻿@model OrganizationsWebApplication.Models.EntitiesModels.EmployeeViewModel
 
 <!DOCTYPE html>
 
@@ -12,6 +11,12 @@
     <title>_Layout</title>
 </head>
 <body>
+
+    <script type="text/javascript">
+        var isImageExists = '@Url.Action("IsImageForUserExists")';
+        var userId = @Model.Id;
+    </script>
+    
     <div class="wrapper">
 
         <span class="operationBlock" style="background: #3F51B5; width: 600px; height: 50px">
@@ -26,40 +31,44 @@
             }
         </span>
         <br>
-       
+
         <img src='@Url.Action("GetImageFileByUserId", "Administration", new { id = @Model.Id })' width="300" height="300" />
         
-        @using (Html.BeginForm("DeleteImage", "Administration", new { id = @Model.Id }, FormMethod.Post ))
-        {
-            <table>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" name="Submit" value="Delete" />
-                    </td>
-                </tr>
-            </table>
-        }
-        
+        <div class="deleteImageActionBlock">
+            @using (Html.BeginForm("DeleteImage", "Administration", new { id = @Model.Id }, FormMethod.Post))
+            {
+                <table>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" name="Submit" value="Delete Image" />
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+
         <br>
         
-        @using (Html.BeginForm("SaveImage", "Administration", new { id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <table>
-                <tr>
-                    <td>
-                        <input type="file" name="file" />
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" name="Submit" value="OK" />
-                    </td>
-                </tr>
-            </table>
-        }
-        
+        <div class="uploadImageActionBlock">
+            @using (Html.BeginForm("SaveImage", "Administration", new { id = @Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <table>
+                    <tr>
+                        <td>
+                            <input type="file" name="file" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" name="Submit" value="OK" />
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+
         <br>
-        
+
         @using (Html.BeginForm("ChangeRoles", "Administration"))
         {
             <div>

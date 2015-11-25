@@ -16,8 +16,8 @@
     <title>@Resource.Registration</title>
 </head>
 <body>
-    
-<script type="text/javascript">
+
+    <script type="text/javascript">
         var getDepartmentsAction = '@Url.Action("GetDepartments")';
     </script>
 
@@ -25,9 +25,9 @@
         <span style="background: #3F51B5;">
             <span style="color: #fff">
                 <h2>@Resource.Registration</h2>
-                
+
                 @Html.Partial("~/Views/_GlobalizationBar.cshtml")
-                
+
 
                 @using (Html.BeginForm("RegisterFinishing", "Account", FormMethod.Post))
                 {
@@ -46,7 +46,7 @@
                             <span class="bar"></span>
                             <label>@Resource.PasswordLabel</label>
                         </div>
-                       
+
                         <div class="group">
                             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "inputMaterial", @required = "required" })
                             @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })

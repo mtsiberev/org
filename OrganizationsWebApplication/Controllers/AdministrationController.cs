@@ -20,7 +20,22 @@ namespace OrganizationsWebApplication.Controllers
         private Facade m_facade = ContainerWrapper.Container.GetInstance<Facade>();
 
         private static Logger logger = LogManager.GetCurrentClassLogger();
-
+        
+        public JsonResult IsImageForUserExists(int id)
+        {
+            bool result = false;
+            var fileObject = MvcContainer.Container.With("id").EqualTo(id).GetInstance<ImageObject>();
+            try
+            {
+                result = fileObject.IsImageForUserExists();
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+            return Json(result);
+        }
+        
         public FileResult GetImageFileByUserId(int id)
         {
             var fileObject = MvcContainer.Container.With("id").EqualTo(id).GetInstance<ImageObject>();
@@ -76,14 +91,20 @@ namespace OrganizationsWebApplication.Controllers
             return RedirectToAction("AdministrationInfo", "Administration",
                 new { id, viewCondition.CurrentPageNumber, SortType = newSortType });
         }
-
-
+        
         public JsonResult GetUser(int id)
         {
-            var user = m_facade.GetEmployeeById(id);
+            var userBm = m_facade.GetEmployeeById(id);
+            var user = new
+            {
+                userBm.Name, 
+                userBm.Id, 
+                DepartmentName = userBm.ParentDepartment.Name, 
+                OrganizationName = userBm.ParentDepartment.ParentOrganization.Name
+            };
+
             return Json(user, JsonRequestBehavior.AllowGet);
         }
-
 
         public ActionResult UserProfileAngular(int id, ViewCondition viewCondition)
         {

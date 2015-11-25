@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+    //alert('RegistrationDdl');
+
     $("#organization").change(function () {
         if ($("#organization option:selected").text() == "Select a Organization") {
             $(".ddl").toggleClass("hidden", true);

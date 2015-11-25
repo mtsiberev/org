@@ -16,6 +16,24 @@ body {
 }
 
 
+.deleteImageActionBlock {
+    display: block; 
+}
+
+.deleteImageActionBlock.hidden {
+    display: none; 
+}
+
+
+.uploadImageActionBlock {
+    display: block; 
+}
+
+.uploadImageActionBlock.hidden {
+    display: none; 
+}
+
+
 .accountContainer {
     width: 400px;
     padding-top: 50px;
@@ -228,8 +246,7 @@ a {
     .content.grid > .row:hover .block a {
         border-bottom: 10px solid #6CF;
     }
-
-
+    
 
 .content .block, .content .operationBlock {
     display: table-cell;
@@ -239,7 +256,7 @@ a {
 .content .operationBlock {
     text-align: right;
     padding-right: 10px;
-    width: 70px;
+    width: 90px;
 }
 
 .content.grid .operationBlock {

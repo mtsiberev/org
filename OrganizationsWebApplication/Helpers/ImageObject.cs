@@ -98,5 +98,21 @@ namespace OrganizationsWebApplication.Helpers
                 throw;
             }
         }
+        
+        public bool IsImageForUserExists()
+        {
+            bool result;
+            try
+            {
+                GetImageFileById();
+                result = true;
+            }
+            catch (Exception ex) 
+            {
+                logger.Warn(ex.Message);
+                result = false;
+            }
+            return result;
+        }
     }
 }

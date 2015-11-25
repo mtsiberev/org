@@ -13,6 +13,7 @@ namespace OrganizationsWebApplication
             scriptBundle.Include("~/Scripts/jquery.validate*");
             scriptBundle.Include("~/Scripts/changeView.js");
             scriptBundle.Include("~/Scripts/registrationDdl.js");
+            scriptBundle.Include("~/Scripts/DeleteButton.js");
         
             var styleBundle = new StyleBundle("~/content/style");
             styleBundle.Include("~/Content/style.css");
