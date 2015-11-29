@@ -22,6 +22,8 @@ namespace OrganizationsWebApplication.IoC
                         {
                             x.For<ImageObject>().Use<ImageObject>()
                                 .Ctor<int>("id");
+
+                            x.For<WcfService.Service>().Use<WcfService.Service>();
                         });
                 }
                 return s_container;

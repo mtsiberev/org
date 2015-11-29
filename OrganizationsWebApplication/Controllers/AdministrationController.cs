@@ -21,6 +21,13 @@ namespace OrganizationsWebApplication.Controllers
 
         private static Logger logger = LogManager.GetCurrentClassLogger();
         
+        public ActionResult FileBrowser()
+        {
+            var fileService = MvcContainer.Container.GetInstance<WcfService.Service>();
+            ViewData["file"] =  fileService.GetRemoteFile("empty");
+            return View();
+        }
+        
         public JsonResult IsImageForUserExists(int id)
         {
             bool result = false;

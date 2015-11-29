@@ -168,4 +168,7 @@
   <data name="UserNotExists" xml:space="preserve">
     <value>Такого юзера не существует</value>
   </data>
+  <data name="FileBrowser" xml:space="preserve">
+    <value>Обзор файла</value>
+  </data>
 </root>

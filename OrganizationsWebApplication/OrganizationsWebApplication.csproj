@@ -64,6 +64,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -181,6 +182,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service References\ServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -229,6 +235,16 @@
     <Content Include="Scripts\registrationDdl.js" />
     <Content Include="Scripts\UserApp.js" />
     <Content Include="Scripts\Controllers\UserController.js" />
+    <Content Include="Service References\ServiceReference\OrganizationsWebApplication.ServiceReference.CompositeType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ServiceReference\Service.disco" />
+    <None Include="Service References\ServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReference\configuration.svcinfo" />
+    <None Include="Service References\ServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -240,6 +256,17 @@
     <Content Include="Views\Administration\AdministrationInfo.cshtml" />
     <Content Include="Views\Administration\UserProfile.cshtml" />
     <Content Include="Views\Administration\UserProfileAngular.cshtml" />
+    <None Include="Service References\ServiceReference\Service.wsdl" />
+    <None Include="Service References\ServiceReference\Service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReference\Service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReference\Service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\Administration\FileBrowser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config">
@@ -276,6 +303,10 @@
       <Project>{02cbf1dd-b005-4f5f-8a8b-ac73e8eb91db}</Project>
       <Name>ClassLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WcfService\WcfService.csproj">
+      <Project>{44dbd772-9e57-4f26-8f1b-f8c2405e8bf3}</Project>
+      <Name>WcfService</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\OrganizationInfo\OrganizationInfo.cshtml" />
@@ -287,6 +318,7 @@
     <EmbeddedResource Include="LocalResource\Resource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="LocalResource\Resource.ru.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -295,6 +327,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Home\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServiceReference\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
