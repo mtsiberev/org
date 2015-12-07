@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.ServiceModel;
 using System.Xml;
 using System.Xml.Linq;
 using Newtonsoft.Json;
@@ -14,7 +16,7 @@ namespace OrganizationsWebApplication.Controllers
     {
         private Facade m_facade = ContainerWrapper.Container.GetInstance<Facade>();
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        
+
         public ActionResult MainMenu()
         {
             return View();
@@ -23,18 +25,25 @@ namespace OrganizationsWebApplication.Controllers
         public JsonResult Import()
         {
             var fileService = MvcContainer.Container.GetInstance<WcfService.Service>();
-
-            var xDocument = fileService.LoadXmlFile("file");
-            var xmlDocument = new XmlDocument();
-            using (var reader = xDocument.CreateReader())
+            string result = null;
+            try
             {
-                xmlDocument.Load(reader);
+                var xDocument = fileService.LoadXmlFile("file");
+                var xmlDocument = new XmlDocument();
+                using (var reader = xDocument.CreateReader())
+                {
+                    xmlDocument.Load(reader);
+                }
+                result = JsonConvert.SerializeXmlNode(xmlDocument);
             }
-            string result = JsonConvert.SerializeXmlNode(xmlDocument);
-            
+            catch (FaultException ex)
+            {
+                logger.Error(ex.Message);
+                result = ex.Message;
+            }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public void Export()
         {
             var doc = new XDocument();
@@ -73,7 +82,15 @@ namespace OrganizationsWebApplication.Controllers
             }
             var fileService = MvcContainer.Container.GetInstance<WcfService.Service>();
 
-            fileService.SaveXmlFile(doc, "file.xml");
+            try
+            {
+                fileService.SaveXmlFile(doc, "file.xml");
+            }
+            catch (FaultException ex)
+            {
+                logger.Error(ex.Message);
+            }
+
         }
     }
 }

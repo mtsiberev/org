@@ -5,6 +5,8 @@ using System.Xml;
 using System.Xml.Linq;
 using Newtonsoft.Json;
 
+using System.ServiceModel;
+
 namespace WcfService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
@@ -19,8 +21,15 @@ namespace WcfService
         {
             var filePathName = Path.Combine(HostingEnvironment.MapPath(c_dataFolder), c_fileName);
 
-            var xDoc = XDocument.Load(filePathName);
-            return xDoc;
+            try
+            {
+                var xDoc = XDocument.Load(filePathName);
+                return xDoc;
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException(ex.Message);
+            }
         }
 
         public void SaveXmlFile(XDocument document, string fileName)
@@ -32,7 +41,7 @@ namespace WcfService
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new FaultException(ex.Message);
             }
         }
 
