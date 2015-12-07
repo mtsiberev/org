@@ -144,6 +144,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
+    <Compile Include="Controllers\ImportExportController.cs" />
     <Compile Include="Controllers\OrganizationInfoController.cs" />
     <Compile Include="Controllers\DepartmentInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -209,32 +210,40 @@
     <Content Include="Content\ic_home_24px_inverse.svg" />
     <Content Include="Content\ic_keyboard_backspace_24px.svg" />
     <Content Include="Content\ic_mode_edit_24px.svg" />
-    <Content Include="Scripts\angular-mocks.js" />
-    <Content Include="Scripts\angular.js" />
-    <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\changeView.js" />
+    <Content Include="Scripts\Controllers\ExportController.js" />
+    <Content Include="Scripts\Libraries\angular-mocks.js" />
+    <Content Include="Scripts\Libraries\angular-route.js" />
+    <Content Include="Scripts\Libraries\angular-route.min.js" />
+    <Content Include="Scripts\Libraries\angular.js" />
+    <Content Include="Scripts\Libraries\angular.min.js" />
+    <Content Include="Scripts\Controllers\ImportController.js" />
+    <Content Include="Scripts\ImportExportApp.js" />
+    <Content Include="Scripts\UIscripts\changeView.js" />
     <Content Include="Content\sort-ascending.svg" />
     <Content Include="Content\sort-descending.svg" />
     <Content Include="Content\style.css" />
     <Content Include="Content\view-list.svg" />
     <Content Include="Content\view-module.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\angular.min.js.map" />
-    <None Include="Scripts\jquery-1.8.0.intellisense.js" />
-    <Content Include="Scripts\DeleteButton.js" />
+    <Content Include="Scripts\Libraries\angular.min.js.map" />
+    <Content Include="Scripts\Libraries\angular-route.min.js.map" />
+    <None Include="Scripts\Libraries\jquery-1.8.0.intellisense.js" />
+    <Content Include="Scripts\UIscripts\deleteButton.js" />
     <Content Include="Scripts\Factories\UserService.js" />
-    <Content Include="Scripts\jquery-1.8.0.js" />
-    <Content Include="Scripts\jquery-1.8.0.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\registrationDdl.js" />
+    <Content Include="Scripts\Libraries\jquery-1.8.0.js" />
+    <Content Include="Scripts\Libraries\jquery-1.8.0.min.js" />
+    <None Include="Scripts\Libraries\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\Libraries\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\Libraries\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\Libraries\jquery.validate.js" />
+    <Content Include="Scripts\Libraries\jquery.validate.min.js" />
+    <Content Include="Scripts\Libraries\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\Libraries\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\UIscripts\registrationDdl.js" />
     <Content Include="Scripts\UserApp.js" />
     <Content Include="Scripts\Controllers\UserController.js" />
+    <Content Include="Scripts\Views\export.html" />
+    <Content Include="Scripts\Views\import.html" />
     <Content Include="Service References\ServiceReference\OrganizationsWebApplication.ServiceReference.CompositeType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -267,6 +276,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Administration\FileBrowser.cshtml" />
+    <Content Include="Views\ImportExport\MainMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config">

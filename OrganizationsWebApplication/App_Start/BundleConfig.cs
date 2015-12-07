@@ -6,20 +6,25 @@ namespace OrganizationsWebApplication
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            var scriptBundle = new ScriptBundle("~/bundles/js");
+            var scriptBundle = new ScriptBundle("~/commonBundle");
 
-            scriptBundle.Include("~/Scripts/jquery-{version}.js");
-            scriptBundle.Include("~/Scripts/jquery.unobtrusive*");
-            scriptBundle.Include("~/Scripts/jquery.validate*");
-            scriptBundle.Include("~/Scripts/changeView.js");
-            scriptBundle.Include("~/Scripts/registrationDdl.js");
-            scriptBundle.Include("~/Scripts/DeleteButton.js");
-        
+            scriptBundle.Include("~/Scripts/Libraries/jquery-{version}.js");
+            scriptBundle.Include("~/Scripts/Libraries/jquery.unobtrusive*");
+            scriptBundle.Include("~/Scripts/Libraries/jquery.validate*");
+            scriptBundle.Include("~/Scripts/UIscripts/changeView.js");
+
             var styleBundle = new StyleBundle("~/content/style");
             styleBundle.Include("~/Content/style.css");
 
             bundles.Add(scriptBundle);
             bundles.Add(styleBundle);
+            //////////////////////////////
+            var angularBundle = new ScriptBundle("~/angularBundle");
+
+            scriptBundle.Include("~/Scripts/Libraries/angular.js");
+            scriptBundle.Include("~/Scripts/Libraries/angular-route.js");
+       
+            bundles.Add(angularBundle);
         }
     }
 }

@@ -11,6 +11,8 @@
         var userIdVar = @ViewData["id"];
     </script>
     
+    @Scripts.Render("~/angularBundle")
+
     <div ng-app="UserApp" ng-controller="UserController" class="wrapper">
         <span class="inputMaterial" style="color: black">
 
@@ -25,8 +27,7 @@
                 Organization: {{user.OrganizationName}}
         </span>
     </div>
-
-    <script src="~/Scripts/angular.js"></script>
+    
     <script src="~/Scripts/Controllers/UserController.js"></script>
     <script src="~/Scripts/Factories/UserService.js"></script>
     <script src="~/Scripts/UserApp.js"></script>

@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Xml.Linq;
 
 namespace WcfService
 {
@@ -14,15 +15,14 @@ namespace WcfService
     [ServiceContract]
     public interface IService
     {
+        [OperationContract]
+        void SaveXmlFile(XDocument document, string fileName);
 
         [OperationContract]
-        string GetData(int value);
+        XDocument LoadXmlFile(string fileName);
 
         [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);
-        
-        [OperationContract]
-        FileInfo GetRemoteFile(string fileName);
     }
 
 

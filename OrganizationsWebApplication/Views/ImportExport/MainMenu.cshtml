@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html ng-app="ImportExportApp">
+<head>
+
+</head>
+<body>
+    <h1>{{ models.helloAngular }}</h1>
+    <div class="block">
+        <ul>
+            <p>
+            <p>
+            <p>
+            <li><a href="#/import">Import</a></li>
+            <p>
+            <p>
+            <p>
+            <li><a href="#/export">Export</a></li>
+        </ul>
+    </div>
+    <div ng-view></div>
+
+    @Scripts.Render("~/angularBundle")
+
+    <script src="~/Scripts/Controllers/ImportController.js">
+    </script>
+    <script src="~/Scripts/Controllers/ExportController.js"></script>
+    <script src="~/Scripts/ImportExportApp.js"></script>
+
+</body>
+</html>

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
+using System.Web.Hosting;
+using System.Xml;
+using System.Xml.Linq;
+using Newtonsoft.Json;
 
 namespace WcfService
 {
@@ -13,10 +11,31 @@ namespace WcfService
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service : IService
     {
-        public string GetData(int value)
+        private const string c_dataFolder = "~/App_Data/";
+        private const string c_fileName = "xmlFile.xml";
+        
+
+        public XDocument LoadXmlFile(string fileName)
         {
-            return string.Format("You entered: {0}", value);
+            var filePathName = Path.Combine(HostingEnvironment.MapPath(c_dataFolder), c_fileName);
+
+            var xDoc = XDocument.Load(filePathName);
+            return xDoc;
         }
+
+        public void SaveXmlFile(XDocument document, string fileName)
+        {
+            try
+            {
+                var filePathName = Path.Combine(HostingEnvironment.MapPath(c_dataFolder), c_fileName);
+                document.Save(filePathName);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
         public CompositeType GetDataUsingDataContract(CompositeType composite)
         {
@@ -30,18 +49,6 @@ namespace WcfService
             }
             return composite;
         }
-
-        public FileInfo GetRemoteFile(string fileName)
-        {
-            try
-            {
-                var fileInfo = new FileInfo(fileName);
-                return fileInfo;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
     }
 }
+

@@ -8,12 +8,12 @@ namespace OrganizationsWebApplication
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            
             routes.MapRoute(
-                 name: "OrganizationsList",
+                name: "OrganizationsList",
                 url: "{culture}/{controller}/{action}",
                 defaults: new { culture = "en", controller = "Home", action = "Index" }
-             );
+                );
         }
     }
 }
