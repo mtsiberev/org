@@ -5,8 +5,8 @@
     function getResult() {
         getJson()
             .success(function (json) {
-                $scope.import = json;
-                console.log($scope.import);
+                $scope.data = JSON.parse(json);
+                console.log($scope.data);
             })
             .error(function (error) {
                 $scope.status = 'Unable to load data: ' + error.message;

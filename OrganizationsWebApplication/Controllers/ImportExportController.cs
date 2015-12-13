@@ -34,7 +34,8 @@ namespace OrganizationsWebApplication.Controllers
                 {
                     xmlDocument.Load(reader);
                 }
-                result = JsonConvert.SerializeXmlNode(xmlDocument);
+                var converted = JsonConvert.SerializeXmlNode(xmlDocument);
+                result = converted.Replace("@", "");
             }
             catch (FaultException ex)
             {
@@ -47,8 +48,8 @@ namespace OrganizationsWebApplication.Controllers
         public void Export()
         {
             var doc = new XDocument();
-            var organizations = new XElement("organizations");
-            doc.Add(organizations);
+            var root = new XElement("root");
+            doc.Add(root);
 
             var organizationsList = m_facade.GetAllOrganizations();
 
@@ -78,7 +79,7 @@ namespace OrganizationsWebApplication.Controllers
                     }
                     organization.Add(department);
                 }
-                organizations.Add(organization);
+                root.Add(organization);
             }
             var fileService = MvcContainer.Container.GetInstance<WcfService.Service>();
 
