@@ -24,11 +24,15 @@ namespace OrganizationsWebApplication.Controllers
 
         public JsonResult Import()
         {
-            var fileService = MvcContainer.Container.GetInstance<WcfService.Service>();
+            //var fileService = MvcContainer.Container.GetInstance<WcfService.Service>();
+            var fileService = new TcpXmlService.XmlServiceClient("NetTcpBinding_IXmlService");
+
             string result = null;
             try
             {
-                var xDocument = fileService.LoadXmlFile("file");
+                var stringDocument = fileService.LoadXmlFile("file");
+                var xDocument = XDocument.Parse(stringDocument); 
+
                 var xmlDocument = new XmlDocument();
                 using (var reader = xDocument.CreateReader())
                 {
@@ -44,6 +48,8 @@ namespace OrganizationsWebApplication.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+
 
         public void Export()
         {
@@ -81,11 +87,14 @@ namespace OrganizationsWebApplication.Controllers
                 }
                 root.Add(organization);
             }
-            var fileService = MvcContainer.Container.GetInstance<WcfService.Service>();
+            
+            //var fileService = MvcContainer.Container.GetInstance<WcfService.Service>();
+            var fileService = new TcpXmlService.XmlServiceClient("NetTcpBinding_IXmlService");
 
             try
             {
-                fileService.SaveXmlFile(doc, "file.xml");
+                //fileService.SaveXmlFile(doc, "file.xml");
+                fileService.SaveXmlFile(doc.ToString(), "file.xml");
             }
             catch (FaultException ex)
             {

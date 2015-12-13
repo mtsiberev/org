@@ -183,7 +183,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Service References\ServiceReference\Reference.cs">
+    <Compile Include="Service References\TcpXmlService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -244,13 +244,9 @@
     <Content Include="Scripts\Controllers\UserController.js" />
     <Content Include="Scripts\Views\export.html" />
     <Content Include="Scripts\Views\import.html" />
-    <Content Include="Service References\ServiceReference\OrganizationsWebApplication.ServiceReference.CompositeType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <None Include="Service References\ServiceReference\Service.disco" />
-    <None Include="Service References\ServiceReference\configuration91.svcinfo" />
-    <None Include="Service References\ServiceReference\configuration.svcinfo" />
-    <None Include="Service References\ServiceReference\Reference.svcmap">
+    <None Include="Service References\TcpXmlService\configuration91.svcinfo" />
+    <None Include="Service References\TcpXmlService\configuration.svcinfo" />
+    <None Include="Service References\TcpXmlService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -265,18 +261,15 @@
     <Content Include="Views\Administration\AdministrationInfo.cshtml" />
     <Content Include="Views\Administration\UserProfile.cshtml" />
     <Content Include="Views\Administration\UserProfileAngular.cshtml" />
-    <None Include="Service References\ServiceReference\Service.wsdl" />
-    <None Include="Service References\ServiceReference\Service.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceReference\Service1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceReference\Service2.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Views\Administration\FileBrowser.cshtml" />
     <Content Include="Views\ImportExport\MainMenu.cshtml" />
+    <None Include="Service References\TcpXmlService\service.wsdl" />
+    <None Include="Service References\TcpXmlService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TcpXmlService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config">
@@ -313,10 +306,6 @@
       <Project>{02cbf1dd-b005-4f5f-8a8b-ac73e8eb91db}</Project>
       <Name>ClassLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WcfService\WcfService.csproj">
-      <Project>{44dbd772-9e57-4f26-8f1b-f8c2405e8bf3}</Project>
-      <Name>WcfService</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\OrganizationInfo\OrganizationInfo.cshtml" />
@@ -342,7 +331,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\ServiceReference\" />
+    <WCFMetadataStorage Include="Service References\TcpXmlService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
