@@ -33,7 +33,7 @@ namespace XmlServiceHost
                 Console.WriteLine("\n");
                 Console.WriteLine("Xml service is running at following address");
                 Console.WriteLine("\n");
-                Console.WriteLine("http://localhost:80/XmlService");
+                Console.WriteLine("http://localhost:801/XmlService");
                 Console.WriteLine("\n");
                 Console.WriteLine("net.tcp://localhost:808/XmlService");
             }

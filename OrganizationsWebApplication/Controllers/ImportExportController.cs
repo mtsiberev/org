@@ -8,7 +8,6 @@ using NLog;
 using System.Web.Mvc;
 using Organizations;
 using Organizations.Container;
-using OrganizationsWebApplication.IoC;
 
 namespace OrganizationsWebApplication.Controllers
 {
@@ -48,8 +47,7 @@ namespace OrganizationsWebApplication.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
-
+        
 
         public void Export()
         {
