@@ -211,6 +211,8 @@
     <Content Include="Content\ic_keyboard_backspace_24px.svg" />
     <Content Include="Content\ic_mode_edit_24px.svg" />
     <Content Include="Scripts\Controllers\ExportController.js" />
+    <Content Include="Scripts\Controllers\MainMenuController.js" />
+    <Content Include="Scripts\Factories\FilenameService.js" />
     <Content Include="Scripts\Libraries\angular-mocks.js" />
     <Content Include="Scripts\Libraries\angular-route.js" />
     <Content Include="Scripts\Libraries\angular-route.min.js" />

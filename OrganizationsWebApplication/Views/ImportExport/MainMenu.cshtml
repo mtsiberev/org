@@ -4,25 +4,28 @@
 
 </head>
 <body>
-    <h1>{{ models.helloAngular }}</h1>
-    <div class="block">
-        <ul>
+
+    <div ng-controller="MainMenuController" style="border: 1px solid black; display: table-cell; width: 33%; word-wrap: break-word">
+        <div class="block">
+            <button ng-click="selectMenuOption('import')">
+                IMPORT
+            </button>
             <p>
             <p>
-            <p>
-            <li><a href="#/import">Import</a></li>
-            <p>
-            <p>
-            <p>
-            <li><a href="#/export">Export</a></li>
-        </ul>
+                <button ng-click="selectMenuOption('export')">
+                    EXPORT
+                </button>
+        </div>
     </div>
-    <div ng-view></div>
+
+    <div style="border: 1px solid black; display: table-cell; width: 33%; word-wrap: break-word">
+        <div ng-view></div>
+    </div>
 
     @Scripts.Render("~/angularBundle")
-
-    <script src="~/Scripts/Controllers/ImportController.js">
-    </script>
+    <script src="~/Scripts/Factories/FilenameService.js"></script>
+    <script src="~/Scripts/Controllers/MainMenuController.js"></script>
+    <script src="~/Scripts/Controllers/ImportController.js"></script>
     <script src="~/Scripts/Controllers/ExportController.js"></script>
     <script src="~/Scripts/ImportExportApp.js"></script>
 

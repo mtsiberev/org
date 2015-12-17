@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Organizations;
 using Organizations.Container;
 
+
 namespace OrganizationsWebApplication.Controllers
 {
     public class ImportExportController : Controller
@@ -30,7 +31,7 @@ namespace OrganizationsWebApplication.Controllers
             try
             {
                 var stringDocument = fileService.LoadXmlFile("file");
-                var xDocument = XDocument.Parse(stringDocument); 
+                var xDocument = XDocument.Parse(stringDocument);
 
                 var xmlDocument = new XmlDocument();
                 using (var reader = xDocument.CreateReader())
@@ -47,9 +48,10 @@ namespace OrganizationsWebApplication.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
 
-        public void Export()
+
+
+        public string Export()
         {
             var doc = new XDocument();
             var root = new XElement("root");
@@ -85,18 +87,21 @@ namespace OrganizationsWebApplication.Controllers
                 }
                 root.Add(organization);
             }
-            
+
             //var fileService = MvcContainer.Container.GetInstance<WcfService.Service>();
             var fileService = new TcpXmlService.XmlServiceClient("NetTcpBinding_IXmlService");
 
             try
             {
                 //fileService.SaveXmlFile(doc, "file.xml");
-                fileService.SaveXmlFile(doc.ToString(), "file.xml");
+                var filename = DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss");
+                fileService.SaveXmlFile(doc.ToString(), filename);
+                return filename;
             }
             catch (FaultException ex)
             {
                 logger.Error(ex.Message);
+                return null;
             }
 
         }

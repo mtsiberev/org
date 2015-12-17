@@ -1,12 +1,13 @@
-﻿var ImportController = function ($scope, $http) {
-    
-    getResult();
+﻿var ImportController = function ($scope, $http, Filenames) {
+
+    $scope.getResult =
 
     function getResult() {
         getJson()
             .success(function (json) {
                 $scope.data = JSON.parse(json);
                 console.log($scope.data);
+
             })
             .error(function (error) {
                 $scope.status = 'Unable to load data: ' + error.message;
@@ -22,4 +23,4 @@
     };
 };
 
-ImportController.$inject = ['$scope', '$http'];
+ImportController.$inject = ['$scope', '$http', 'Filenames'];

@@ -1,7 +1,9 @@
 ﻿var ImportExportApp = angular.module('ImportExportApp', ["ngRoute"]);
 
+ImportExportApp.controller('MainMenuController', MainMenuController);
 ImportExportApp.controller('ImportController', ImportController);
 ImportExportApp.controller('ExportController', ExportController);
+ImportExportApp.factory('Filenames', Filenames);
 
 var configFunction = function ($routeProvider) {
     $routeProvider
@@ -16,7 +18,7 @@ var configFunction = function ($routeProvider) {
         templateUrl: '/Scripts/Views/export.html',
         controller: 'ExportController'
     });
-   
+
 };
 
 configFunction.$inject = ['$routeProvider', '$httpProvider'];

@@ -1,15 +1,20 @@
-﻿      
+﻿
+
+<button ng-click="getResult()">
+    IMPORT
+</button>
+
+
+
 <div class="block">
-    
     From Json:
     <div ng-repeat="org in data.root.organization" style=" font-weight:bolder; color: black">
         {{org.Name}}:
         <div ng-repeat="dep in org.department" style="margin-left: 50px; font-weight:normal; color: black">
-            <p>
-                {{dep.Name}}:
-                <div ng-repeat="emp in dep.employee" style="margin-left: 50px; font-weight:lighter; color: grey">
-                    {{emp.Name}}
-                </div>
+            {{dep.Name}}:
+            <div ng-repeat="emp in dep.employee" style="margin-left: 50px; font-weight:lighter; color: grey">
+                {{emp.Name}}
+            </div>
         </div>
     </div>
 

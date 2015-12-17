@@ -1,15 +1,31 @@
-﻿var ExportController = function ($scope, $http) {
+﻿var ExportController = function ($scope, $http, Filenames) {
 
-    func();
+    $scope.getResult =
 
-    function func() {
+    function getResult() {
+        getFilename()
+            .success(function (filename) {
+                console.log(filename);
+                $scope.resultFile = filename;
+                Filenames.add(filename);
+
+                $scope.files = Filenames;
+            })
+            .error(function (error) {
+                $scope.status = 'Unable to save file: ' + error.message;
+                console.log($scope.status);
+            });
+    }
+
+    function getFilename() {
         return $http({
             url: "Export",
             method: "GET"
         });
     };
-    
-    $scope.export = 'export completed';
 };
 
-ExportController.$inject = ['$scope', '$http'];
+ExportController.$inject = ['$scope', '$http', 'Filenames'];
+
+
+
