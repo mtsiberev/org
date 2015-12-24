@@ -15,7 +15,7 @@ namespace XmlServiceLibrary
         public string LoadXmlFile(string fileName)
         {
             var currentDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            var filePathName = Path.Combine(currentDirectory, c_fileName);
+            var filePathName = Path.Combine(currentDirectory, fileName);
             
             try
             {
@@ -34,7 +34,7 @@ namespace XmlServiceLibrary
             try
             {
                 var currentDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                var filePathName = Path.Combine(currentDirectory, c_fileName);
+                var filePathName = Path.Combine(currentDirectory, fileName);
        
                 var doc = XDocument.Parse(document); 
                 doc.Save(filePathName);

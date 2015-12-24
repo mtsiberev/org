@@ -21,8 +21,15 @@ namespace OrganizationsWebApplication.Controllers
         {
             return View();
         }
-
-        public JsonResult Import()
+        
+        public string GetFile(string fileName)
+        {
+            var fileService = new TcpXmlService.XmlServiceClient("NetTcpBinding_IXmlService");
+            var file = fileService.LoadXmlFile(fileName);
+            return file;
+        }
+        
+        public JsonResult Import(string fileName)
         {
             //var fileService = MvcContainer.Container.GetInstance<WcfService.Service>();
             var fileService = new TcpXmlService.XmlServiceClient("NetTcpBinding_IXmlService");
@@ -30,7 +37,7 @@ namespace OrganizationsWebApplication.Controllers
             string result = null;
             try
             {
-                var stringDocument = fileService.LoadXmlFile("file");
+                var stringDocument = fileService.LoadXmlFile(fileName);
                 var xDocument = XDocument.Parse(stringDocument);
 
                 var xmlDocument = new XmlDocument();
@@ -48,8 +55,7 @@ namespace OrganizationsWebApplication.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
-
+        
 
         public string Export()
         {
@@ -94,9 +100,9 @@ namespace OrganizationsWebApplication.Controllers
             try
             {
                 //fileService.SaveXmlFile(doc, "file.xml");
-                var filename = DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss");
-                fileService.SaveXmlFile(doc.ToString(), filename);
-                return filename;
+                var fileName = DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss");
+                fileService.SaveXmlFile(doc.ToString(), fileName);
+                return fileName;
             }
             catch (FaultException ex)
             {

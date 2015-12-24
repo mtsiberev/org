@@ -1,18 +1,36 @@
 ﻿<button ng-click="getResult()">
-    EXPORT
+    Export
 </button>
 
-File was created:
+
+<div class="block">
+    File was created:
+</div>
+
 <div class="block">
     <h3>{{ resultFile }}</h3>
 </div>
 
 <p>
 <p>
-    Recent
+
+    <div class="block">
+        Recent:
+    </div>
+
     <div class="block">
         <div ng-repeat="file in files.list">
             {{ file.name }}
+
+            <button ng-click="downloadFile(file.name)">
+                Download
+            </button>
+        </div>
+    </div>
 <p>
-    </div>
-    </div>
+<p>
+
+
+
+    <link rel="stylesheet" href="../../Content/style.css" type="text/css" />
+

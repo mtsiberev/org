@@ -1,21 +1,33 @@
 ﻿
-
-<button ng-click="getResult()">
-    IMPORT
-</button>
-
-
+<div class="block">
+    Recent:
+</div>
 
 <div class="block">
-    From Json:
-    <div ng-repeat="org in data.root.organization" style=" font-weight:bolder; color: black">
-        {{org.Name}}:
-        <div ng-repeat="dep in org.department" style="margin-left: 50px; font-weight:normal; color: black">
-            {{dep.Name}}:
-            <div ng-repeat="emp in dep.employee" style="margin-left: 50px; font-weight:lighter; color: grey">
-                {{emp.Name}}
+    <div ng-repeat="file in files.list">
+        {{ file.name }}
+
+        <button ng-click="getResult(file.name)">
+            Import
+        </button>
+    </div>
+</div>
+<p>
+<p>
+
+
+    <div class="block">
+        From File:
+        <div ng-repeat="org in data.root.organization" style=" font-weight:bolder; color: black">
+            {{org.Name}}:
+            <div ng-repeat="dep in org.department" style="margin-left: 50px; font-weight:normal; color: black">
+                {{dep.Name}}:
+                <div ng-repeat="emp in dep.employee" style="margin-left: 50px; font-weight:lighter; color: grey">
+                    {{emp.Name}}
+                </div>
             </div>
         </div>
     </div>
 
-</div>
+
+    <link rel="stylesheet" href="../../Content/style.css" type="text/css" />

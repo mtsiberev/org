@@ -1,13 +1,16 @@
 ﻿var ImportController = function ($scope, $http, Filenames) {
-
+    
+    $scope.files = Filenames;
+    
     $scope.getResult =
-
-    function getResult() {
-        getJson()
+    function getResult(filename) {
+        getJson(filename)
             .success(function (json) {
                 $scope.data = JSON.parse(json);
                 console.log($scope.data);
-
+                Filenames.delete(filename);
+                $scope.files = Filenames;
+           
             })
             .error(function (error) {
                 $scope.status = 'Unable to load data: ' + error.message;
@@ -15,10 +18,11 @@
             });
     }
 
-    function getJson() {
+    function getJson(filename) {
         return $http({
             url: "Import",
-            method: "GET"
+            method: "GET",
+            params: { fileName: filename }
         });
     };
 };
